@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deskify 비공개 테스트 · Closed test</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="style.css?v=5">
+<style>
+  .steps { counter-reset: s; list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 14px; }
+  .steps li { counter-increment: s; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px 20px 18px 64px; position: relative; }
+  .steps li::before { content: counter(s); position: absolute; left: 20px; top: 18px; width: 30px; height: 30px; border-radius: 50%; background: var(--green); color: #fff; font-weight: 700; display: grid; place-items: center; }
+  .steps h3 { margin: 0 0 4px; font-size: 1.05rem; }
+  .steps p { margin: 0; color: var(--muted); }
+  .cta-box { margin: 26px 0; }
+  .note { background: var(--green-soft); border-radius: 14px; padding: 14px 18px; color: var(--fg); }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="icon.png" alt="" width="30" height="30">Deskify</a>
+    <nav><a href="./">홈 · Home</a><a href="#en">English</a></nav>
+  </div>
+</header>
+<main class="doc">
+<span class="pill">비공개 테스트</span>
+<h1 style="margin-top:14px">Deskify 테스트에 참여해 주셔서 고맙습니다</h1>
+<p class="muted">Google Play에 정식으로 올리기 전에, 14일 동안 실제로 써 보는 단계입니다. 한 사람 한 사람의 참여가 출시 조건(테스터 12명 · 14일)을 채우는 데 꼭 필요합니다.</p>
+
+<ol class="steps">
+  <li><h3>구글 계정 이메일 보내기</h3><p>Play 스토어에 쓰는 구글 계정(@gmail.com 등)을 아래 주소로 보내 주세요. 테스터 목록에 넣어 드립니다.<br><a href="mailto:support.deskify@gmail.com?subject=Deskify%20테스트%20참여">support.deskify@gmail.com</a></p></li>
+  <li><h3>테스트 참여하기</h3><p>목록에 넣었다는 답장을 받으면, 폰에서 아래 버튼을 눌러 "테스터 되기"를 누릅니다.</p>
+    <div class="cta-box"><a class="btn primary" href="https://play.google.com/apps/testing/kr.co.sdh.deskify">테스트 참여 페이지 열기</a></div></li>
+  <li><h3>Play 스토어에서 설치</h3><p>참여 페이지의 "Google Play에서 다운로드"를 누르거나 Play 스토어에서 Deskify를 찾아 설치합니다. 반영까지 몇 분 걸릴 수 있습니다.</p></li>
+  <li><h3>14일 동안 지워지지 않게</h3><p>앱을 지우지 말고, 이틀에 한 번쯤 열어 주세요. 집 PC나 회사 PC가 있으면 원격 접속을 한 번 해 보시면 가장 좋습니다(없어도 괜찮습니다).</p></li>
+  <li><h3>불편한 점 알려 주기</h3><p>앱의 설정 → 문의하기, 또는 위 메일로 무엇이든 보내 주세요. 짧은 한 줄도 큰 도움이 됩니다.</p></li>
+</ol>
+
+<p class="note" style="margin-top:22px">출시 전 기능이 담겨 있으니, 화면이나 내용은 외부에 공유하지 말아 주세요. 앱에서 구글 계정으로 체험을 시작하면 7일 동안 모든 Pro 기능을 쓸 수 있습니다.</p>
+
+<hr>
+
+<h1 id="en">Join the Deskify closed test</h1>
+<p class="muted">Before Deskify goes public on Google Play, it needs 12 people using it for 14 days. Thank you for being one of them.</p>
+<ol class="steps">
+  <li><h3>Send your Google account</h3><p>Email the Google account you use on the Play Store to <a href="mailto:support.deskify@gmail.com?subject=Deskify%20test">support.deskify@gmail.com</a> and we will add you.</p></li>
+  <li><h3>Join the test</h3><p>Once you hear back, open this on your phone and tap “Become a tester”.</p>
+    <div class="cta-box"><a class="btn primary" href="https://play.google.com/apps/testing/kr.co.sdh.deskify">Open the test page</a></div></li>
+  <li><h3>Install from Google Play</h3><p>Tap “Download it on Google Play” or find Deskify in the Play Store. It can take a few minutes to show up.</p></li>
+  <li><h3>Keep it for 14 days</h3><p>Please don’t uninstall it, and open it every couple of days. A remote connection to a PC is ideal but not required.</p></li>
+  <li><h3>Tell us anything</h3><p>Settings → Contact in the app, or the email above. One line helps.</p></li>
+</ol>
+<p class="note" style="margin-top:22px">This build has unreleased features; please don’t share screens or details. Start the free trial in the app with your Google account to use every Pro feature for 7 days.</p>
+</main>
+</body>
+</html>
