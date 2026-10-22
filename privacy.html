@@ -17,38 +17,39 @@
 </header>
 <main class="doc">
 <h1>Deskify 개인정보처리방침</h1>
-<p class="muted">시행일: 2026년 10월 19일</p>
+<p class="muted">시행일: 2026년 10월 22일</p>
 
 <p>Deskify(이하 "앱")는 원격 데스크톱(RDP)·SSH 앱입니다. 앱은 꼭 필요한 경우가 아니면 정보를 어디로도 보내지 않습니다. 무엇을, 왜 보내는지 아래에 모두 적었습니다.</p>
 
 <h2>1. 기기에만 저장되는 정보</h2>
-<p>저장한 컴퓨터의 주소·사용자 이름·비밀번호·SSH 키, 포트 포워딩, 매크로, 단축키, 클립보드 기록, 접속 통계는 이 기기에만 저장되며 서버로 보내지 않습니다. 비밀번호와 키는 기기 안에서 암호화됩니다. 직접 만든 백업 파일은 정한 비밀번호로 암호화되고, 저장할 곳도 직접 고릅니다.</p>
+<p>저장한 컴퓨터의 주소·사용자 이름·비밀번호·SSH 키, 포트 포워딩, 매크로, 단축키, 클립보드 기록, 접속 시간·네트워크 사용 통계는 이 기기에만 저장되며 서버로 보내지 않습니다. (클라우드 동기화를 켠 경우에만 4항에 적은 항목을 암호화해 클라우드에도 보관합니다.) 비밀번호와 키는 기기 안에서 암호화됩니다. 직접 만든 백업 파일은 정한 비밀번호로 암호화되고, 저장할 곳도 직접 고릅니다.</p>
 
 <h2>2. 원격 컴퓨터와의 연결</h2>
 <p>화면, 키 입력, 클립보드, 파일, 소리는 접속한 컴퓨터와만 직접 주고받습니다. 중간에 다른 서버를 거치지 않습니다.</p>
 
-<h2>3. 보조 기기</h2>
+<h2>3. 보조 기기와 기기 간 연결</h2>
 <p>같은 Wi-Fi의 기기끼리 암호화해서 직접 연결합니다. 인터넷을 거치지 않으며, 비밀번호는 보조 기기로 넘어가지 않습니다.</p>
+<p>집 밖에서 PC와 폰을 연결할 때는 두 기기가 연결을 맺기 위한 신호(연결 요청과 네트워크 주소 후보)를 클라우드에 잠시(2분) 둔 뒤 지웁니다. 화면·파일·클립보드 내용은 두 기기 사이에서만 직접 암호화해 오갑니다. 기기를 찾기 위해 기기 이름, 푸시 알림 토큰, 같은 네트워크인지 판별할 네트워크 식별자(Wi-Fi 서브넷 앞부분)를 계정에 저장합니다.</p>
 
 <h2>4. 구글 계정 (무료 체험·클라우드 동기화)</h2>
 <p>7일 무료 체험을 시작하면 구글 계정으로 로그인합니다. 같은 계정으로 체험이 다시 시작되지 않도록, 계정 식별 번호와 체험 시작 시각을 클라우드에 저장합니다. 로그인 처리를 위해 구글 계정의 이메일 주소와 계정 식별 번호는 Google Firebase 인증에 보관됩니다. 계정과 데이터 삭제는 <a href="delete-account.html">계정 삭제 안내</a>를 보세요.</p>
-<p>클라우드 동기화를 켜면 저장한 컴퓨터 정보, 포트 포워딩, 단축키, 매크로를 계정 전용으로 암호화해서 클라우드에 안전하게 보관하고, 같은 계정으로 로그인한 기기끼리만 맞춥니다. 동기화하는 기기 목록을 보여 주기 위해 기기 이름과 모델명도 함께 저장합니다. 동기화를 꺼도 클라우드의 내용은 남으며, 지우고 싶으시면 아래로 연락해 주세요.</p>
+<p>클라우드 동기화를 켜면 저장한 컴퓨터 정보(주소·사용자 이름·비밀번호·SSH 키), 포트 포워딩, 단축키, 매크로, 태그, 스트림덱 버튼(그림 제외), AI 도우미 키를 클라우드에 보관하고, 같은 계정으로 로그인한 기기끼리만 맞춥니다. 이 내용은 계정마다 만든 키로 암호화해 저장하며, 그 키도 계정의 클라우드 저장소에 보관합니다. 따라서 Google의 서버 보안과 저희 접근 통제에 의존하며, 개발자가 기술적으로 복호화할 수 있는 구조입니다. 개발자는 사용자의 요청(문제 해결)이 없는 한 열어 보지 않습니다. 동기화하는 기기 목록을 보여 주기 위해 기기 이름과 모델명도 함께 저장합니다. 기기 사이에 보내는 클립보드 글과 파일은 클라우드를 거치지 않습니다. 동기화를 꺼도 클라우드의 내용은 남으며, 지우고 싶으시면 11항을 보세요.</p>
 
 <h2>5. 결제</h2>
-<p>구독과 평생 이용권은 Google Play 결제로 처리됩니다. 앱은 카드 정보 같은 결제 정보를 보지 않고, 구매했는지만 확인합니다.</p>
+<p>구독과 평생 이용권은 Google Play 결제로 처리됩니다. 앱은 카드 정보 같은 결제 정보를 보지 않고, 구매했는지만 확인합니다. 구매가 정품인지 확인하기 위해 Google Play가 발급한 구매 토큰을 계정에 저장하고 서버가 Google Play에 확인합니다.</p>
 
 <h2>6. 광고 (무료 사용)</h2>
-<p>무료로 쓰는 동안 광고가 표시됩니다. 광고를 위해 광고 ID 같은 기기 정보가 쓰일 수 있으며, 동의가 필요한 지역에서는 먼저 묻습니다.</p>
+<p>무료로 쓰는 동안 광고가 표시됩니다. 광고를 위해 광고 ID 같은 기기 정보가 쓰일 수 있으며, 동의가 필요한 지역에서는 먼저 묻습니다. 광고 ID는 Google 광고 서비스(AdMob)와 공유됩니다. Pro에서는 광고와 광고 ID 사용이 없습니다.</p>
 
 <h2>7. 오류 보고</h2>
-<p>앱이 갑자기 종료되면 오류가 난 위치, 기기 모델, Android·앱 버전을 클라우드로 보내 오류를 고치는 데만 씁니다. 접속 주소·비밀번호·화면 내용은 보내지 않으며, 90일 뒤 삭제됩니다.</p>
+<p>앱이 갑자기 종료되면 오류가 난 위치, 기기 모델, Android·앱 버전, 설치 식별자(Firebase installation ID)를 클라우드로 보내 오류를 고치는 데만 씁니다. 접속 주소·비밀번호·화면 내용은 보내지 않으며, 90일 뒤 삭제됩니다. 이 보고는 Google Play에서 설치한 정식 버전에서만 켜져 있습니다.</p>
 <p>문제가 있을 때 직접 진단 보고서를 보내시면, 기기 정보와 앱 동작 기록이 담깁니다. 비밀번호와 서버 주소는 들어가지 않고, 보고서는 암호화되어 개발자만 열 수 있습니다.</p>
 
 <h2>8. 정품 확인</h2>
 <p>클라우드 동기화와 무료 체험을 지키기 위해, 앱이 Google Play에서 받은 변조되지 않은 정품인지 확인합니다. 이때 기기와 앱의 상태 정보만 쓰며 개인 정보는 쓰지 않습니다.</p>
 
 <h2>8-1. AI 도우미 (실험실, 켠 경우만)</h2>
-<p>설정 → 실험실에서 켜고 본인의 Claude 또는 Gemini API 키를 넣은 경우에만 동작합니다. 부탁하거나 질문할 때마다 입력한 내용과 SSH 터미널의 마지막 몇 줄, 또는 “화면 보고 물어보기”에서 사진 보내기를 켠 경우 원격 PC 화면 사진이 이 폰에서 키를 발급한 회사(Anthropic 또는 Google)로 바로 전송되며, 개발자에게는 오지 않습니다. 키는 기기 안에 암호화해서 저장합니다. 처리 방식은 <a href="https://www.anthropic.com/legal/privacy">Anthropic</a> 또는 <a href="https://policies.google.com/privacy">Google</a>의 개인정보처리방침을 따릅니다.</p>
+<p>설정 → 실험실에서 켜고 본인의 Claude, OpenAI 또는 Gemini API 키를 넣은 경우에만 동작합니다. 부탁하거나 질문할 때마다 입력한 내용과 SSH 터미널의 마지막 몇 줄, 또는 “화면 보고 물어보기”에서 사진 보내기를 켠 경우 원격 PC 화면 사진이 이 폰에서 키를 발급한 회사(Anthropic, OpenAI 또는 Google)로 바로 전송되며, 개발자에게는 오지 않습니다. 키는 기기 안에 암호화해서 저장하며, 클라우드 동기화를 켠 경우 4항과 같이 암호화해 함께 동기화합니다. 처리 방식은 <a href="https://www.anthropic.com/legal/privacy">Anthropic</a>, <a href="https://openai.com/policies/privacy-policy">OpenAI</a> 또는 <a href="https://policies.google.com/privacy">Google</a>의 개인정보처리방침을 따릅니다.</p>
 
 <h2>9. 맡기는 곳</h2>
 <p>로그인, 클라우드 보관, 오류 보고, 정품 확인, 결제, 광고에는 Google LLC의 서비스를 이용합니다. 위에 적은 목적 외에는 쓰지 않습니다.</p>
@@ -57,7 +58,7 @@
 <p>인터넷·네트워크 상태(접속), 근처 기기·로컬 네트워크(같은 네트워크의 컴퓨터와 보조 기기), 알림(연결 유지·작업 완료·PC 켜짐 알림), 마이크(직접 켠 경우 원격 컴퓨터로 소리 보내기), 정확한 알람(예약한 시각에 PC 켜기), 부팅 완료(예약 다시 걸기), 키보드 캡처(Win 키·Alt+Tab 같은 단축키를 원격 컴퓨터로 보내기), 포그라운드 서비스(백그라운드에서 연결 유지), 광고 ID(무료 사용 시 광고).</p>
 
 <h2>11. 삭제</h2>
-<p>앱을 지우면 기기에 저장된 정보는 모두 지워집니다. 클라우드에 보관된 동기화 정보나 체험 기록을 지우고 싶으시면 아래로 연락해 주세요.</p>
+<p>앱을 지우면 기기에 저장된 정보는 모두 지워집니다. 앱의 <b>내 계정 → 계정 삭제</b>로 클라우드의 모든 데이터와 계정을 바로 지울 수 있습니다. 자세한 내용은 <a href="delete-account.html">계정 삭제 안내</a>를 보세요. 메일로 요청하셔도 됩니다(아래 주소).</p>
 
 <h2>12. 문의</h2>
 <p><a href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a></p>
@@ -65,38 +66,39 @@
 <hr>
 
 <h1 id="en">Deskify Privacy Policy</h1>
-<p class="muted">Effective: October 19, 2026</p>
+<p class="muted">Effective: October 22, 2026</p>
 
 <p>Deskify (“the app”) is a Remote Desktop (RDP) and SSH app. It sends information nowhere unless it has to; everything it sends, and why, is listed below.</p>
 
 <h2>1. Stored only on your device</h2>
-<p>Saved computers (addresses, user names, passwords, SSH keys), port forwarding, macros, shortcuts, clipboard history and connection statistics stay on this device and are never sent to a server. Passwords and keys are encrypted on the device. Backup files you create are encrypted with a password you choose and saved where you choose.</p>
+<p>Saved computers (addresses, user names, passwords, SSH keys), port forwarding, macros, shortcuts, clipboard history, connection times and network usage statistics stay on this device and are never sent to a server. (Only with cloud sync on are the items listed in section 4 also kept, encrypted, in the cloud.) Passwords and keys are encrypted on the device. Backup files you create are encrypted with a password you choose and saved where you choose.</p>
 
 <h2>2. Remote computers</h2>
 <p>Screen, keystrokes, clipboard, files and sound go only between you and the computer you connect to, with no server in between.</p>
 
-<h2>3. Companion devices</h2>
+<h2>3. Companion devices and connections between your devices</h2>
 <p>Devices on the same Wi-Fi connect to each other directly and encrypted, without the internet. Passwords never go to a companion.</p>
+<p>When you connect your PC and phone away from home, the signals the two devices need to reach each other (the connection request and network address candidates) are kept in the cloud briefly (2 minutes) and then deleted. Screen, file and clipboard contents travel only between the two devices, encrypted directly between them. To find your devices, the device name, the push-notification token and a network identifier used to tell whether both are on the same network (the first part of the Wi-Fi subnet) are stored with your account.</p>
 
 <h2>4. Google account (free trial and cloud sync)</h2>
 <p>Starting the 7-day free trial signs you in with a Google account. The account’s identifier and the trial start time are kept in the cloud, so the trial can’t be started again with the same account. For signing in, the Google account’s email address and identifier are kept by Google Firebase Authentication. To delete your account and data, see <a href="delete-account.html#en">Delete your account</a>.</p>
-<p>With cloud sync on, saved computers, port forwarding, shortcuts and macros are encrypted for your account alone and kept safely in the cloud, matched only between devices signed in to that account. Device names and models are kept too, to show the list of syncing devices. Turning sync off leaves the cloud copy in place; contact us below to delete it.</p>
+<p>With cloud sync on, saved computers (addresses, user names, passwords, SSH keys), port forwarding, shortcuts, macros, tags, Stream Deck buttons (without their images) and the AI helper key are kept in the cloud, matched only between devices signed in to that account. This content is stored encrypted with a key created for your account, and that key is also kept in your account’s cloud storage. It therefore relies on Google’s server security and on our access controls, and the developer could technically decrypt it. The developer does not open it unless you ask (for troubleshooting). Device names and models are kept too, to show the list of syncing devices. Clipboard text and files sent between your devices do not go through the cloud. Turning sync off leaves the cloud copy in place; see section 11 to delete it.</p>
 
 <h2>5. Payments</h2>
-<p>Subscriptions and the lifetime purchase are handled by Google Play billing. The app never sees card details; it only checks what was bought.</p>
+<p>Subscriptions and the lifetime purchase are handled by Google Play billing. The app never sees card details; it only checks what was bought. To verify that a purchase is genuine, the purchase token issued by Google Play is stored with your account and our server checks it with Google Play.</p>
 
 <h2>6. Ads (free use)</h2>
-<p>Ads are shown while you use the app for free. Device information such as the advertising ID may be used for them, and consent is asked first where required.</p>
+<p>Ads are shown while you use the app for free. Device information such as the advertising ID may be used for them, and consent is asked first where required. The advertising ID is shared with Google’s ad service (AdMob). Pro has no ads and does not use the advertising ID.</p>
 
 <h2>7. Error reports</h2>
-<p>If the app closes unexpectedly, where it failed, the device model and the Android and app versions are sent to the cloud and used only to fix the bug. Addresses, passwords and screen contents are never sent, and reports are deleted after 90 days.</p>
+<p>If the app closes unexpectedly, where it failed, the device model, the Android and app versions and an installation identifier (Firebase installation ID) are sent to the cloud and used only to fix the bug. Addresses, passwords and screen contents are never sent, and reports are deleted after 90 days. This reporting is on only in the release build installed from Google Play.</p>
 <p>A diagnostic report you choose to send contains device information and a record of what the app did, without passwords or server addresses. It is encrypted so only the developer can open it.</p>
 
 <h2>8. Genuine-app check</h2>
 <p>To protect cloud sync and the free trial, the app confirms it is the unmodified app installed from Google Play. Only the state of the device and the app is used for this, no personal information.</p>
 
 <h2>8-1. AI helper (Labs, only when turned on)</h2>
-<p>It works only if you turn it on in Settings → Labs and add your own Claude or Gemini API key. Each time you ask, what you wrote and the last lines of the SSH terminal, or a picture of the remote PC's screen when you send one with “Ask about the screen”, go straight from this phone to the company that issued the key (Anthropic or Google), never to us. The key is stored encrypted on the device. See the <a href="https://www.anthropic.com/legal/privacy">Anthropic</a> or <a href="https://policies.google.com/privacy">Google</a> privacy policy.</p>
+<p>It works only if you turn it on in Settings → Labs and add your own Claude, OpenAI or Gemini API key. Each time you ask, what you wrote and the last lines of the SSH terminal, or a picture of the remote PC's screen when you send one with “Ask about the screen”, go straight from this phone to the company that issued the key (Anthropic, OpenAI or Google), never to us. The key is stored encrypted on the device and, with cloud sync on, synced encrypted as described in section 4. See the <a href="https://www.anthropic.com/legal/privacy">Anthropic</a>, <a href="https://openai.com/policies/privacy-policy">OpenAI</a> or <a href="https://policies.google.com/privacy">Google</a> privacy policy.</p>
 
 <h2>9. Service providers</h2>
 <p>Sign-in, cloud storage, error reports, the genuine-app check, payments and ads use services from Google LLC, only for the purposes above.</p>
@@ -105,7 +107,7 @@
 <p>Internet and network state (connecting), nearby devices / local network (computers and companions on the same network), notifications (keeping connections, finished tasks, PC-on alerts), microphone (sending sound to the remote computer, when you turn it on), exact alarms (waking a PC at a scheduled time), boot completed (restoring schedules), keyboard capture (sending shortcuts such as Win and Alt+Tab to the remote computer), foreground service (keeping connections in the background), advertising ID (ads during free use).</p>
 
 <h2>11. Deletion</h2>
-<p>Uninstalling the app removes everything stored on the device. To delete synced data or the trial record kept in the cloud, contact us below.</p>
+<p>Uninstalling the app removes everything stored on the device. <b>My account → Delete account</b> in the app deletes all your cloud data and the account right away. See <a href="delete-account.html#en">Delete your account</a> for details. You can also ask by email (address below).</p>
 
 <h2>12. Contact</h2>
 <p><a href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a></p>
