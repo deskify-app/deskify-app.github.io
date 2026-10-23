@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deskify · 도움말 / Help</title>
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="style.css?v=5">
+<style>
+  details { border: 1px solid rgba(128,128,128,.25); border-radius: 12px; padding: 12px 16px; margin: 10px 0; }
+  details summary { cursor: pointer; font-weight: 600; }
+  details[open] summary { margin-bottom: 8px; }
+  details ol, details ul { margin: 6px 0 0 18px; padding: 0; }
+  .contact { margin-top: 28px; padding: 16px; border-radius: 12px; background: rgba(110,139,255,.10); }
+</style>
+<script>
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem("lang"); } catch (e) {}
+    var lang = saved || ((navigator.language || "").toLowerCase().indexOf("ko") === 0 ? "ko" : "en");
+    if (location.hash === "#en") lang = "en";
+    document.documentElement.setAttribute("data-lang", lang);
+    document.documentElement.lang = lang;
+  })();
+</script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="icon.png" alt="" width="30" height="30">Deskify</a>
+    <nav>
+      <a href="privacy.html"><span lang-ko>개인정보</span><span lang-en>Privacy</span></a>
+      <a href="terms.html"><span lang-ko>약관</span><span lang-en>Terms</span></a>
+      <button class="lang" id="lang" type="button">English</button>
+    </nav>
+  </div>
+</header>
+<main class="wrap doc">
+  <h1 lang-ko>도움말 · 자주 묻는 질문</h1><h1 lang-en>Help · FAQ</h1>
+
+  <details lang-ko><summary>Windows PC에 연결이 안 돼요</summary>
+    <ol>
+      <li>PC에서 <b>설정 → 시스템 → 원격 데스크톱</b>을 켭니다. (Windows <b>Pro·Enterprise</b>에만 있습니다. Home은 아래 질문을 보세요.)</li>
+      <li>폰과 PC가 <b>같은 Wi-Fi</b>인지 확인합니다. 집 밖이라면 "집 밖에서 접속하려면"을 보세요.</li>
+      <li>아이디는 PC에 로그인하는 계정입니다. Microsoft 계정이면 이메일 주소와 그 비밀번호(PIN 아님)를 넣습니다.</li>
+      <li>PC가 절전 중이면 깨운 뒤 다시 시도합니다(보관함 ⋮ → 켜기, Wake-on-LAN 설정 시).</li>
+    </ol>
+  </details>
+  <details lang-en><summary>I can't connect to my Windows PC</summary>
+    <ol>
+      <li>On the PC, turn on <b>Settings → System → Remote Desktop</b> (Windows <b>Pro/Enterprise</b> only; for Home see below).</li>
+      <li>Make sure the phone and the PC are on the <b>same Wi-Fi</b>. Away from home, see "Connecting from outside".</li>
+      <li>The user name is the account you sign in to the PC with. For a Microsoft account, use the e-mail address and its password (not the PIN).</li>
+      <li>If the PC is asleep, wake it and try again (vault ⋮ → Wake, when Wake-on-LAN is set up).</li>
+    </ol>
+  </details>
+
+  <details lang-ko><summary>집 밖에서 접속하려면</summary>
+    <p>집 PC에 <b>Deskify PC판</b>을 설치하고 같은 구글 계정으로 로그인해 두면, 밖에서도 그 PC를 거쳐 연결됩니다(공유기 설정 필요 없음). 직접 연결하려면 공유기에서 포트 포워딩과 DDNS를 설정할 수도 있습니다.</p>
+  </details>
+  <details lang-en><summary>Connecting from outside</summary>
+    <p>Install <b>Deskify for Windows</b> on the home PC and sign in with the same Google account: away from home the phone connects through it (no router setup). You can also set up port forwarding and DDNS on your router for a direct connection.</p>
+  </details>
+
+  <details lang-ko><summary>Windows Home이라 원격 데스크톱이 없어요</summary>
+    <p>Windows Home은 원격 데스크톱으로 접속받을 수 없습니다. <b>VNC</b>를 쓰세요: PC에 TightVNC나 UltraVNC 같은 VNC 서버를 설치하고 비밀번호를 정한 뒤, Deskify에서 컴퓨터 추가 → <b>VNC</b>로 추가합니다.</p>
+  </details>
+  <details lang-en><summary>My PC runs Windows Home (no Remote Desktop)</summary>
+    <p>Windows Home can't accept Remote Desktop connections. Use <b>VNC</b>: install a VNC server such as TightVNC or UltraVNC on the PC, set a password, then add the computer in Deskify as <b>VNC</b>.</p>
+  </details>
+
+  <details lang-ko><summary>Mac에 연결하려면</summary>
+    <p>Mac에서 <b>시스템 설정 → 일반 → 공유 → 화면 공유</b>를 켭니다. Deskify에서 컴퓨터 추가 → <b>VNC</b>, 운영체제 Mac을 고르고 Mac의 사용자 이름과 비밀번호를 넣습니다.</p>
+  </details>
+  <details lang-en><summary>Connecting to a Mac</summary>
+    <p>On the Mac, turn on <b>System Settings → General → Sharing → Screen Sharing</b>. In Deskify add a computer as <b>VNC</b>, pick Mac, and enter the Mac's user name and password.</p>
+  </details>
+
+  <details lang-ko><summary>리눅스·라즈베리파이·NAS</summary>
+    <p>터미널은 <b>SSH</b>(포트 22)로, 화면은 <b>VNC</b>로 연결합니다. RealVNC Server는 <b>옵션 → 보안</b>에서 인증을 "VNC 비밀번호", 암호화를 "선호 해제"로 바꿔야 연결됩니다.</p>
+    <p>SSH를 비밀번호 없이 쓰려면 컴퓨터 편집 화면에서 <b>키 만들기 → 서버에 등록</b>을 누르세요. 다음부터 키로 바로 접속합니다.</p>
+  </details>
+  <details lang-en><summary>Linux, Raspberry Pi, NAS</summary>
+    <p>Use <b>SSH</b> (port 22) for a terminal and <b>VNC</b> for the screen. RealVNC Server needs <b>Options → Security</b>: Authentication "VNC password", Encryption "Prefer off".</p>
+    <p>For SSH without a password, press <b>Make a key → Add to server</b> in the computer's editor; from then on the key logs in.</p>
+  </details>
+
+  <details lang-ko><summary>한글 입력은 어떻게 하나요</summary>
+    <p>원격 PC의 한/영 전환을 그대로 씁니다. 실물 키보드는 한/영 키, 화면 키보드는 자판 위 키 막대의 한/영 키를 누르세요. 글자는 원격 PC의 입력기가 조합합니다.</p>
+  </details>
+  <details lang-en><summary>Typing Korean (or another IME)</summary>
+    <p>Use the remote PC's own input switching: the Han/Eng key on a keyboard, or the key bar above the on-screen keyboard. The remote PC's IME composes the characters.</p>
+  </details>
+
+  <details lang-ko><summary>파일 주고받기</summary>
+    <ul>
+      <li><b>보내기</b>: 폰 ↔ Deskify PC판 사이에 파일을 바로 보냅니다(집 밖에서도).</li>
+      <li><b>원격 데스크톱 안에서</b>: 폰 저장소가 원격 PC에 드라이브로 보입니다(Pro).</li>
+      <li><b>SSH 서버</b>: 세션 화면의 <b>파일</b>(SFTP)로 올리고 받습니다.</li>
+    </ul>
+  </details>
+  <details lang-en><summary>Moving files</summary>
+    <ul>
+      <li><b>Send</b>: straight between the phone and Deskify for Windows (also from outside).</li>
+      <li><b>Inside Remote Desktop</b>: the phone's storage shows up as a drive on the remote PC (Pro).</li>
+      <li><b>SSH servers</b>: the session's <b>Files</b> (SFTP).</li>
+    </ul>
+  </details>
+
+  <details lang-ko><summary>무료와 Pro는 무엇이 다른가요</summary>
+    <p>무료: 저장 컴퓨터 3대, 동시 세션 1개, 하루 보내기 3번, OTP 2개, 광고. Pro: 모두 무제한, 기기 간 동기화, 광고 없음, 폰·태블릿·PC가 한 계정으로 함께 풀립니다. 가입하면 7일 동안 Pro를 무료로 써 볼 수 있습니다.</p>
+  </details>
+  <details lang-en><summary>Free vs Pro</summary>
+    <p>Free: 3 saved computers, 1 session at a time, 3 sends a day, 2 OTP codes, ads. Pro: no limits, sync between devices, no ads; phone, tablet and PC unlock with one account. New accounts get Pro free for 7 days.</p>
+  </details>
+
+  <details lang-ko><summary>구독 해지·환불</summary>
+    <p>Google Play에서 결제했다면 <b>Play 스토어 → 결제 및 정기 결제</b>에서 해지합니다. 웹에서 결제했다면 Paddle 영수증 이메일의 링크에서 해지·환불을 요청합니다(<a href="refund.html">환불 정책</a>). 해지해도 저장한 컴퓨터·키·OTP는 지워지지 않고, Pro 기능만 잠깁니다.</p>
+  </details>
+  <details lang-en><summary>Cancelling and refunds</summary>
+    <p>Bought on Google Play: cancel in <b>Play Store → Payments & subscriptions</b>. Bought on the web: use the link in Paddle's receipt e-mail (<a href="refund.html">refund policy</a>). Cancelling deletes nothing: your computers, keys and OTP codes stay; only the Pro features lock.</p>
+  </details>
+
+  <details lang-ko><summary>비밀번호는 안전한가요</summary>
+    <p>저장한 비밀번호와 키는 기기 안에 암호화해 보관합니다. 동기화를 켜면 보관함은 암호화된 상태로만 서버에 올라갑니다. 앱 잠금(지문·얼굴)과 컴퓨터별 "연결할 때 인증"도 켤 수 있습니다.</p>
+  </details>
+  <details lang-en><summary>Are my passwords safe?</summary>
+    <p>Saved passwords and keys are encrypted on the device. With sync on, the vault goes to the server only encrypted. You can also turn on the app lock (fingerprint/face) and "authenticate to connect" per computer.</p>
+  </details>
+
+  <div class="contact">
+    <p lang-ko><b>해결이 안 되면</b> 앱의 <b>설정 → 문제 해결 → 문의하기</b>로 보내 주세요. 진단 보고서가 함께 첨부되어 빨리 확인할 수 있습니다. 메일: <a href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a></p>
+    <p lang-en><b>Still stuck?</b> Use <b>Settings → Troubleshooting → Contact us</b> in the app: a diagnostic report goes with it so we can look quickly. E-mail: <a href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a></p>
+  </div>
+</main>
+<script>
+  document.getElementById("lang").addEventListener("click", function () {
+    var next = document.documentElement.getAttribute("data-lang") === "en" ? "ko" : "en";
+    document.documentElement.setAttribute("data-lang", next);
+    document.documentElement.lang = next;
+    try { localStorage.setItem("lang", next); } catch (e) {}
+    label();
+  });
+  function label() { document.getElementById("lang").textContent = document.documentElement.getAttribute("data-lang") === "en" ? "한국어" : "English"; }
+  label();
+</script>
+</body>
+</html>
