@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deskify Pro · 구매 / Buy</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="style.css?v=5">
+<style>
+  .buy { max-width: 720px; margin: 0 auto; }
+  .acct { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1px solid var(--line, #2a3242); border-radius: 14px; margin: 18px 0; }
+  .acct img { width: 36px; height: 36px; border-radius: 50%; }
+  .acct .who { flex: 1; min-width: 0; }
+  .acct .who b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .acct .who small { opacity: .7; }
+  .plans2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 18px 0; }
+  .plan2 { border: 1px solid var(--line, #2a3242); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 8px; }
+  .plan2 h3 { margin: 0; font-size: 1.05rem; }
+  .plan2 .price { font-size: 1.5rem; font-weight: 700; }
+  .plan2 .price small { font-size: .85rem; font-weight: 400; opacity: .7; }
+  .plan2 ul { margin: 0; padding-left: 18px; opacity: .85; font-size: .92rem; }
+  .plan2 button, .acct button { margin-top: auto; padding: 11px 14px; border-radius: 12px; border: 0; background: #3b6fe0; color: #fff; font-weight: 600; cursor: pointer; font-size: .95rem; }
+  .plan2 button[disabled] { opacity: .45; cursor: default; }
+  .plan2 .have { font-size: .9rem; color: #2eb872; font-weight: 600; }
+  .note { opacity: .75; font-size: .9rem; }
+  .hidden { display: none !important; }
+  .err { color: #e5484d; }
+  .ok { color: #2eb872; font-weight: 600; }
+</style>
+<script>
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem("lang"); } catch (e) {}
+    var lang = saved || ((navigator.language || "").toLowerCase().indexOf("ko") === 0 ? "ko" : "en");
+    if (location.hash === "#en") lang = "en";
+    document.documentElement.setAttribute("data-lang", lang);
+    document.documentElement.lang = lang;
+  })();
+  // Filled by scripts/paddle_setup.py after the prices exist (sandbox first, then live).
+  var PADDLE = {
+    env: "sandbox",
+    token: "",
+    prices: { pro_monthly: "", pro_yearly: "", sync_monthly: "", sync_yearly: "", lifetime: "" }
+  };
+  var FIREBASE = { apiKey: "AIzaSyDo0c609Q7a_pLybp9SgHcLoa6-3zAZ8xs", authDomain: "deskify-8bd6f.firebaseapp.com", projectId: "deskify-8bd6f", appId: "1:247125407711:web:762b38f33f61a9d7ac766a" };
+</script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="icon.png" alt="" width="30" height="30">Deskify</a>
+    <nav>
+      <a href="refund.html"><span lang-ko>환불</span><span lang-en>Refunds</span></a>
+      <a href="privacy.html"><span lang-ko>개인정보</span><span lang-en>Privacy</span></a>
+      <button class="lang" id="lang" type="button">English</button>
+    </nav>
+  </div>
+</header>
+<main class="wrap buy">
+  <h1 lang-ko>Deskify Pro</h1><h1 lang-en>Deskify Pro</h1>
+  <p class="note" lang-ko>PC·폰·태블릿이 한 계정으로 함께 풀립니다. Deskify에 로그인한 것과 <strong>같은 구글 계정</strong>으로 로그인해 주세요.</p>
+  <p class="note" lang-en>One account unlocks PC, phone and tablet together. Sign in with the <strong>same Google account</strong> you use in Deskify.</p>
+
+  <div class="acct" id="acct">
+    <img id="photo" alt="" class="hidden">
+    <div class="who"><b id="who"><span lang-ko>로그인하지 않았습니다</span><span lang-en>Not signed in</span></b><small id="plan"></small></div>
+    <button id="signin" type="button"><span lang-ko>Google로 로그인</span><span lang-en>Sign in with Google</span></button>
+    <button id="signout" type="button" class="hidden" style="background:#394357"><span lang-ko>로그아웃</span><span lang-en>Sign out</span></button>
+  </div>
+  <p id="msg" class="note"></p>
+
+  <div class="plans2" id="plans">
+    <div class="plan2" data-kind="pro">
+      <h3 lang-ko>Pro 구독</h3><h3 lang-en>Pro subscription</h3>
+      <div class="price"><span data-price="pro_monthly">₩4,990</span><small> <span lang-ko>/ 월</span><span lang-en>/ month</span></small></div>
+      <div class="price"><span data-price="pro_yearly">₩49,900</span><small> <span lang-ko>/ 년 (2개월 무료)</span><span lang-en>/ year (2 months free)</span></small></div>
+      <ul>
+        <li lang-ko>연결 탭 무제한 · 원격 PC에 드라이브 보이기</li><li lang-en>Unlimited tabs · drives on the remote PC</li>
+        <li lang-ko>폰·PC 파일 무제한 주고받기 · 보관함 동기화</li><li lang-en>Unlimited file transfer · vault sync</li>
+        <li lang-ko>OTP 무제한 · 광고 없음</li><li lang-en>Unlimited OTP · no ads</li>
+      </ul>
+      <button data-buy="pro_monthly" disabled><span lang-ko>월간 구독</span><span lang-en>Monthly</span></button>
+      <button data-buy="pro_yearly" disabled><span lang-ko>연간 구독</span><span lang-en>Yearly</span></button>
+      <div class="have hidden" data-have="pro"><span lang-ko>이미 Pro 구독 중입니다</span><span lang-en>Already subscribed</span></div>
+    </div>
+    <div class="plan2" data-kind="lifetime">
+      <h3 lang-ko>평생 이용권</h3><h3 lang-en>Lifetime license</h3>
+      <div class="price"><span data-price="lifetime">₩99,900</span><small> <span lang-ko>한 번</span><span lang-en>once</span></small></div>
+      <ul>
+        <li lang-ko>Pro 기능 평생 (동기화는 별도 구독)</li><li lang-en>Pro features for good (sync sold separately)</li>
+      </ul>
+      <button data-buy="lifetime" disabled><span lang-ko>평생 이용권 구매</span><span lang-en>Buy lifetime</span></button>
+      <div class="have hidden" data-have="lifetime"><span lang-ko>평생 이용권이 있습니다</span><span lang-en>You own the lifetime license</span></div>
+    </div>
+    <div class="plan2" data-kind="sync">
+      <h3 lang-ko>동기화 구독 (평생 이용권용)</h3><h3 lang-en>Sync subscription (for lifetime owners)</h3>
+      <div class="price"><span data-price="sync_monthly">₩1,000</span><small> <span lang-ko>/ 월</span><span lang-en>/ month</span></small></div>
+      <div class="price"><span data-price="sync_yearly">₩9,900</span><small> <span lang-ko>/ 년</span><span lang-en>/ year</span></small></div>
+      <ul>
+        <li lang-ko>폰·태블릿·PC 보관함 동기화 (5대)</li><li lang-en>Vault sync across phone, tablet and PC (5 devices)</li>
+      </ul>
+      <button data-buy="sync_monthly" disabled><span lang-ko>월간</span><span lang-en>Monthly</span></button>
+      <button data-buy="sync_yearly" disabled><span lang-ko>연간</span><span lang-en>Yearly</span></button>
+      <div class="have hidden" data-have="sync"><span lang-ko>동기화가 켜져 있습니다</span><span lang-en>Sync is already on</span></div>
+    </div>
+  </div>
+
+  <p class="note" lang-ko>결제는 판매 대행사 Paddle이 처리하며 부가세가 포함될 수 있습니다. 결제 뒤 1분 안에 앱에 반영됩니다(PC·폰 모두). Google Play에서 이미 구독 중이면 여기서 다시 살 필요가 없습니다. <a href="refund.html">환불 정책</a> · <a href="terms.html">이용약관</a></p>
+  <p class="note" lang-en>Payments are handled by Paddle, the merchant of record; VAT may apply. The app (PC and phone) picks it up within a minute. If you already subscribe on Google Play, there is nothing to buy here. <a href="refund.html#en">Refund policy</a> · <a href="terms.html#en">Terms</a></p>
+</main>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script>
+  document.getElementById("lang").addEventListener("click", function () {
+    var next = document.documentElement.getAttribute("data-lang") === "en" ? "ko" : "en";
+    document.documentElement.setAttribute("data-lang", next);
+    document.documentElement.lang = next;
+    try { localStorage.setItem("lang", next); } catch (e) {}
+    label();
+  });
+  function label() { document.getElementById("lang").textContent = document.documentElement.getAttribute("data-lang") === "en" ? "한국어" : "English"; }
+  label();
+  var ko = function () { return document.documentElement.getAttribute("data-lang") !== "en"; };
+  var $ = function (id) { return document.getElementById(id); };
+  var msg = function (text, cls) { var m = $("msg"); m.textContent = text || ""; m.className = "note " + (cls || ""); };
+
+  firebase.initializeApp(FIREBASE);
+  var auth = firebase.auth(), db = firebase.firestore();
+  var user = null, plan = null, ready = false;
+
+  if (PADDLE.token) {
+    if (PADDLE.env === "sandbox") Paddle.Environment.set("sandbox");
+    Paddle.Initialize({ token: PADDLE.token, eventCallback: function (ev) {
+      if (ev.name === "checkout.completed") { msg(ko() ? "결제가 끝났습니다. 앱이 1분 안에 Pro로 바뀝니다. 바뀌지 않으면 앱에서 로그아웃 후 다시 로그인하세요." : "Payment complete. The app turns Pro within a minute; if not, sign out and in again in the app.", "ok"); setTimeout(load, 4000); setTimeout(load, 15000); }
+    } });
+    ready = true;
+  } else {
+    msg(ko() ? "결제 준비 중입니다(판매자 등록 대기)." : "Checkout isn't open yet (seller registration pending).");
+  }
+
+  $("signin").onclick = function () {
+    var p = new firebase.auth.GoogleAuthProvider();
+    p.setCustomParameters({ prompt: "select_account" });
+    auth.signInWithPopup(p).catch(function (e) { if (e.code !== "auth/popup-closed-by-user") msg((ko() ? "로그인하지 못했습니다: " : "Couldn't sign in: ") + e.message, "err"); });
+  };
+  $("signout").onclick = function () { auth.signOut(); };
+
+  auth.onAuthStateChanged(function (u) {
+    user = u;
+    $("signin").classList.toggle("hidden", !!u);
+    $("signout").classList.toggle("hidden", !u);
+    $("photo").classList.toggle("hidden", !(u && u.photoURL));
+    if (u && u.photoURL) $("photo").src = u.photoURL;
+    $("who").textContent = u ? (u.email || u.displayName || u.uid) : (ko() ? "로그인하지 않았습니다" : "Not signed in");
+    $("plan").textContent = "";
+    plan = null;
+    render();
+    if (u) load();
+  });
+
+  function load() {
+    if (!user) return;
+    db.doc("users/" + user.uid + "/meta/plan").get().then(function (d) {
+      plan = d.exists ? d.data() : {};
+      var now = Date.now();
+      var parts = [];
+      if (plan.kind === "LIFETIME") parts.push(ko() ? "평생 이용권" : "Lifetime");
+      else if (plan.pro && (plan.proUntil || 0) > now) parts.push((ko() ? "Pro 구독 · " : "Pro until ") + new Date(plan.proUntil).toLocaleDateString() + (ko() ? "까지" : ""));
+      else if ((plan.trialEndsAt || 0) > now) parts.push((ko() ? "체험 · " : "Trial until ") + new Date(plan.trialEndsAt).toLocaleDateString() + (ko() ? "까지" : ""));
+      else parts.push(ko() ? "무료" : "Free");
+      if ((plan.syncUntil || 0) > now && plan.kind === "LIFETIME") parts.push(ko() ? "동기화 켜짐" : "sync on");
+      $("plan").textContent = parts.join(" · ");
+      render();
+    }).catch(function (e) { msg((ko() ? "계정 정보를 읽지 못했습니다: " : "Couldn't read the account: ") + e.message, "err"); });
+  }
+
+  // What this account may buy: a Play or web Pro subscriber nothing more; a lifetime owner the sync subscription only;
+  // everyone else Pro (monthly/yearly) or the lifetime license.
+  function render() {
+    var now = Date.now();
+    var hasPro = !!(plan && plan.pro && plan.kind === "SUBSCRIPTION" && (plan.proUntil || 0) > now);
+    var hasLife = !!(plan && plan.kind === "LIFETIME");
+    var hasSync = !!(plan && (plan.syncUntil || 0) > now && (hasPro || hasLife));
+    document.querySelectorAll("[data-buy]").forEach(function (b) {
+      var k = b.getAttribute("data-buy");
+      var kind = k.indexOf("sync") === 0 ? "sync" : k === "lifetime" ? "lifetime" : "pro";
+      var allowed = !!user && ready && !!PADDLE.prices[k] && (
+        kind === "pro" ? !hasPro && !hasLife :
+        kind === "lifetime" ? !hasLife && !hasPro :
+        hasLife && !hasSync);
+      b.disabled = !allowed;
+      b.classList.toggle("hidden", kind === "sync" ? !hasLife : hasLife && kind !== "sync" ? true : false);
+    });
+    document.querySelectorAll("[data-have]").forEach(function (d) {
+      var k = d.getAttribute("data-have");
+      d.classList.toggle("hidden", !(k === "pro" ? hasPro : k === "lifetime" ? hasLife : hasSync && hasLife));
+    });
+    var syncCard = document.querySelector('[data-kind="sync"]');
+    if (syncCard) syncCard.classList.toggle("hidden", !hasLife);
+  }
+
+  document.querySelectorAll("[data-buy]").forEach(function (b) {
+    b.onclick = function () {
+      if (!user || !ready) return;
+      var k = b.getAttribute("data-buy"), priceId = PADDLE.prices[k];
+      if (!priceId) return;
+      Paddle.Checkout.open({
+        items: [{ priceId: priceId, quantity: 1 }],
+        customer: user.email ? { email: user.email } : undefined,
+        customData: { uid: user.uid, product: k },
+        settings: { displayMode: "overlay", theme: "dark", locale: ko() ? "ko" : "en", successUrl: location.origin + location.pathname + "?done=1" }
+      });
+    };
+  });
+  if (location.search.indexOf("done=1") >= 0) msg(ko() ? "결제가 끝났습니다. 앱이 1분 안에 Pro로 바뀝니다." : "Payment complete. The app turns Pro within a minute.", "ok");
+  render();
+</script>
+</body>
+</html>
