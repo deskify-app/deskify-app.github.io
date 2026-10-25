@@ -13,6 +13,18 @@
   details[open] summary { margin-bottom: 8px; }
   details ol, details ul { margin: 6px 0 0 18px; padding: 0; }
   .contact { margin-top: 28px; padding: 16px; border-radius: 12px; background: rgba(110,139,255,.10); }
+  .jump { margin: 0 0 18px; }
+  #companion { scroll-margin-top: 72px; margin-top: 48px; padding-top: 8px; border-top: 1px solid var(--line); }
+  #companion h2 { font-size: 1.5rem; margin: 24px 0 8px; }
+  #companion h3 { font-size: 1.08rem; margin: 26px 0 6px; }
+  #companion ol, #companion ul { margin: 6px 0 0 20px; padding: 0; }
+  #companion li { margin: 4px 0; }
+  .roles { display: grid; gap: 10px; margin-top: 10px; }
+  .role { border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; background: var(--surface); }
+  .role b.t { display: block; }
+  .role .k { color: var(--muted); font-size: .88rem; }
+  .role p { margin: 4px 0 0; }
+  .tipbox { margin: 12px 0; padding: 12px 16px; border-radius: 12px; background: var(--green-soft); }
 </style>
 <script>
   (function () {
@@ -38,6 +50,7 @@
 </header>
 <main class="wrap doc">
   <h1 lang-ko>도움말 · 자주 묻는 질문</h1><h1 lang-en>Help · FAQ</h1>
+  <p class="jump"><a href="#companion"><span lang-ko>📱 보조 기기 사용법 →</span><span lang-en>📱 Using companion devices →</span></a></p>
 
   <details lang-ko><summary>Windows PC에 연결이 안 돼요</summary>
     <ol>
@@ -128,6 +141,247 @@
   <details lang-en><summary>Are my passwords safe?</summary>
     <p>Saved passwords and keys are encrypted on the device. With sync on, the vault goes to the server only encrypted. You can also turn on the app lock (fingerprint/face) and "authenticate to connect" per computer.</p>
   </details>
+
+  <div id="companion">
+
+  <!-- ===== 보조 기기 (Korean) ===== -->
+  <div lang-ko>
+    <h2>📱 보조 기기</h2>
+    <p>남는 폰이나 태블릿을 지금 작업하는 원격 세션의 트랙패드·키보드·두 번째 화면·그림 태블릿 같은 도구로 씁니다.</p>
+    <p class="muted">원격 컴퓨터에는 <b>주 기기</b>(세션을 연 기기)만 접속합니다. <b>보조 기기</b>는 같은 Wi-Fi에서 주 기기와만 통신하고, 비밀번호는 보조 기기로 가지 않습니다.</p>
+
+    <h3>준비물</h3>
+    <ul>
+      <li>두 기기가 <b>같은 Wi-Fi</b>(같은 공유기)에 있어야 합니다.</li>
+      <li>두 기기 모두 <b>Deskify</b>가 설치되어 있어야 합니다.</li>
+      <li>주 기기는 폰·태블릿의 Deskify, 또는 <b>Deskify PC판</b>(Windows)입니다. 주 기기에서 원격 컴퓨터에 <b>연결된 세션</b>이 있어야 역할을 고를 수 있습니다.</li>
+      <li>보조 기기 허용은 <b>주 기기 쪽 Pro 기능</b>입니다. 구독(7일 체험 포함)은 2대, 평생권은 1대까지 붙습니다. 무료판은 설정 → Pro에서 광고를 보면 3시간 동안 1대를 쓸 수 있습니다. 보조 기기 쪽은 무료로 됩니다.</li>
+    </ul>
+
+    <h3>처음 연결하기 (한 번만)</h3>
+    <ol>
+      <li><b>주 기기(폰·태블릿)</b>: <b>설정 → 보조 기기 → 보조 기기 허용</b>을 켭니다. Android 17에서 "근처 기기 권한 꺼짐"이 보이면 허용을 누릅니다.</li>
+      <li><b>주 기기가 PC판이면</b>: Deskify PC판에 로그인한 뒤 <b>설정 → 모바일 기기 → 보조 모니터 (Pro)</b>에서 "폰을 원격 데스크톱의 두 번째 모니터로"를 켭니다.</li>
+      <li>주 기기에서 원격 컴퓨터에 RDP나 SSH로 연결합니다.</li>
+      <li><b>보조 기기(폰)</b>: Deskify 보관함의 <b>보조 기기로 연결</b> 카드를 누릅니다. 카드가 없으면 <b>설정 → 보조 기기 → 맨 아래 "보조 기기로 연결"</b>을 누릅니다.</li>
+      <li>목록에 나타난 주 기기의 이름을 누릅니다.</li>
+      <li>주 기기 화면에 <b>6자리 코드</b>가 뜹니다. 폰에 그 코드를 입력하고 <b>페어링</b>을 누릅니다.</li>
+      <li>주 기기의 세션을 고르고, 이 폰으로 할 <b>역할</b>을 고릅니다.</li>
+    </ol>
+    <div class="tipbox">코드는 처음 한 번만 입력합니다. 페어링은 양쪽 모두에 저장되어, 다음에는 반대로 이 폰이 주 기기가 되어도 코드 없이 연결됩니다. 다음부터는 보관함의 카드를 누르면 바로 연결되고, 열린 세션이 하나면 지난번 역할로 바로 시작합니다.</div>
+
+    <h3>역할</h3>
+    <div class="roles">
+      <div class="role"><b class="t">⌨️ 키보드 · 트랙패드</b><span class="k">RDP · SSH</span>
+        <p>태블릿 화면을 가리지 않고 폰으로 포인터와 키를 다룹니다. 한 손가락: 이동, 탭: 클릭, 두 손가락: 스크롤, 두 손가락 탭: 우클릭, 길게: 드래그. 아래 키 줄과 단축키 버튼으로 입력합니다. SSH에서는 화면의 프로그램(vim, tmux 등)이 마우스를 받으면 트랙패드가 됩니다.</p></div>
+      <div class="role"><b class="t">🖥️ 보조 모니터</b><span class="k">RDP</span>
+        <p>원격 Windows에 폰 크기의 모니터가 하나 더 생깁니다. 창을 끌어다 폰 쪽으로 옮기면 됩니다. 탭: 클릭, 끌기: 스크롤, 길게: 우클릭. 뒤로 가기를 누르면 도구와 키 줄이 나타나고, 모니터 위치(오른쪽·왼쪽·아래·위)와 배율, "이 화면 크기로 모니터 다시 맞추기"를 고를 수 있습니다.</p></div>
+      <div class="role"><b class="t">✏️ 그림 타블렛</b><span class="k">RDP</span>
+        <p>폰·태블릿의 펜으로 원격 PC에 그립니다. 필압·펜 버튼·지우개가 Windows 펜 입력으로 갑니다. 원격 데스크톱 전체가 패드에 대응하고, 패드에 데스크톱 축소 화면을 띄우거나 끌 수 있습니다. 펜이 없으면 손가락으로도 그립니다.</p></div>
+      <div class="role"><b class="t">🖌️ 브러시 패드</b><span class="k">RDP</span>
+        <p>실행 취소·브러시 크기·지우개·화면 이동 같은 그림 프로그램 단축키를 큰 버튼으로 누릅니다. 버튼 순서를 바꾸거나 숨기고, 내 키 조합을 추가할 수 있습니다.</p></div>
+      <div class="role"><b class="t">🔲 스트림덱</b><span class="k">RDP · SSH · PC판의 "이 PC"</span>
+        <p>내가 만든 큰 버튼 하나로 단축키·문장·명령·프로그램 실행을 한 번에 보냅니다. 여러 단계를 묶거나 폴더로 정리할 수 있고, PC판이 주 기기면 OBS 조작과 앞에 있는 프로그램에 맞춘 페이지 전환도 됩니다.</p></div>
+      <div class="role"><b class="t">💡 세션 도우미</b><span class="k">SSH</span>
+        <p>명령어 도움말과 결과 보기를 폰에 띄웁니다. 고른 명령은 주 기기의 터미널로 들어갑니다.</p></div>
+      <div class="role"><b class="t">📂 파일</b><span class="k">SSH</span>
+        <p>서버 폴더를 폰에서 봅니다. "터미널 따라가기"를 켜면 터미널의 cd를 따라갑니다. 누른 경로를 프롬프트에 넣거나 그 폴더로 cd할 수 있습니다.</p></div>
+      <div class="role"><b class="t">🖥 두 번째 셸</b><span class="k">SSH</span>
+        <p>같은 SSH 연결에 셸을 하나 더 열어 폰에 보여 줍니다. 로그를 보면서 다른 명령을 칠 때 씁니다.</p></div>
+      <div class="role"><b class="t">✨ AI 도우미</b><span class="k">SSH</span>
+        <p>터미널은 주 기기에 두고, 폰에서 AI에게 부탁합니다. 명령은 주 기기 터미널에서 실행됩니다. 주 기기의 설정 → 실험실에 Claude·Gemini 키가 있어야 합니다(키는 주 기기에만 있습니다).</p></div>
+      <div class="role"><b class="t">🎮 PC 화면 스트리밍 (시험)</b><span class="k">PC판의 "이 PC"</span>
+        <p>Deskify PC판이 깔린 PC의 화면을 그래픽카드로 압축해 폰에서 보고, 폰 터치로 마우스를 움직입니다.</p></div>
+    </div>
+    <p class="muted">PC판이 주 기기일 때는 보조 모니터·스트림덱·PC 화면 스트리밍만 고를 수 있습니다.</p>
+
+    <h3>역할 바꾸기 · 끝내기</h3>
+    <ul>
+      <li><b>폰에서</b>: 위쪽 띠의 역할 이름(⇄)을 누르면 다른 역할로 바꿉니다. ←는 세션에서 나가고(연결은 유지), 보관함 카드의 연결 끊기로 완전히 끊습니다.</li>
+      <li><b>주 기기에서</b>: 세션 화면의 <b>⋮ → 보조 기기</b>에서 연결된 폰마다 역할을 정해 줄 수 있습니다. 보조 모니터 위치도 여기서 바꿉니다.</li>
+      <li><b>세션 넘기기</b>: 주 기기의 ⋮ → 보조 기기에서 세션을 폰으로 넘기거나, 폰의 역할 목록 아래 "세션 가져오기"로 가져옵니다. 비밀번호는 넘어가지 않아 받는 기기의 보관함 정보나 로그인 창을 씁니다. (PC판은 넘기기를 하지 않습니다.)</li>
+    </ul>
+
+    <h3>자주 생기는 문제</h3>
+    <details><summary>폰 목록에 주 기기가 보이지 않습니다</summary>
+      <ul>
+        <li>두 기기가 정말 같은 Wi-Fi인지 확인합니다. 한쪽이 모바일 데이터나 다른 공유기면 보이지 않습니다.</li>
+        <li><b>게스트 Wi-Fi</b>나 공유기의 <b>AP 격리(무선 기기 간 통신 차단)</b>가 켜져 있으면 기기끼리 서로 볼 수 없습니다. 일반 Wi-Fi를 쓰거나 공유기 설정에서 끕니다. 회사·카페 Wi-Fi는 대부분 막혀 있습니다.</li>
+        <li>폰이나 PC의 <b>VPN</b>을 끕니다. VPN은 같은 Wi-Fi의 기기를 찾는 신호를 막을 수 있습니다.</li>
+        <li>주 기기에서 Deskify를 열어 두고 보조 기기 허용이 켜져 있는지 봅니다. 화면이 꺼져 절전 중인 기기는 응답하지 않습니다.</li>
+        <li>Android 17은 두 기기 모두 <b>근처 기기</b> 권한이 필요합니다.</li>
+        <li>전에 페어링한 기기는 목록 아래 "이전에 페어링한 기기"를 누르면 마지막 주소로 연결합니다.</li>
+      </ul>
+    </details>
+    <details><summary>PC판이 주 기기인데 폰에서 찾지 못합니다</summary>
+      <ul>
+        <li>PC판에 로그인되어 있고 Pro인지, 설정 → 모바일 기기 → 보조 모니터가 켜져 있는지 확인합니다.</li>
+        <li><b>Windows 방화벽</b>: 처음 실행할 때 뜬 창에서 Deskify의 <b>개인 네트워크</b> 접근을 허용해야 합니다. 거부했다면 Windows 보안 → 방화벽 → "방화벽에서 앱 허용"에서 Deskify를 켭니다.</li>
+        <li>Windows 네트워크 프로필이 <b>공용</b>이면 막힐 수 있습니다. 설정 → 네트워크 및 인터넷에서 <b>개인</b>으로 바꿉니다.</li>
+        <li>PC의 VPN을 끕니다.</li>
+      </ul>
+    </details>
+    <details><summary>코드가 틀렸다고 나오거나 코드 창이 사라졌습니다</summary>
+      <ul>
+        <li>코드는 주 기기에 지금 떠 있는 6자리입니다. 3번 틀리면 연결이 끊깁니다.</li>
+        <li>코드는 한 번 쓰고 버립니다. 주 기기에서 취소했거나 연결이 끊겨 코드 창이 닫혔다면, 폰에서 주 기기를 다시 눌러 새 코드를 받습니다.</li>
+        <li>"다른 기기와 페어링 중"이면 다른 폰의 페어링이 끝난 뒤 다시 합니다.</li>
+      </ul>
+    </details>
+    <details><summary>"자리 없음"이 나옵니다</summary>
+      <p>주 기기가 받을 수 있는 대수를 다 썼습니다(구독 2대, 평생권·광고 1대, PC판 2대). 주 기기의 설정 → 보조 기기(PC판은 설정 → 모바일 기기)에서 안 쓰는 기기를 삭제합니다.</p>
+    </details>
+    <details><summary>보조 모니터가 생기지 않습니다</summary>
+      <ul>
+        <li>원격 Windows가 세션 중 화면 크기 바꾸기(디스플레이 제어)를 지원해야 합니다. Windows 8.1·Server 2012 R2 이후 버전에서 됩니다.</li>
+        <li>원격 PC의 그룹 정책에서 "최대 모니터 수 제한"이 1이면 모니터를 추가할 수 없습니다.</li>
+        <li>보조 모니터는 데스크톱 하나에 1대입니다. 다른 폰이나 DeX 화면이 이미 쓰고 있으면 그쪽을 끕니다.</li>
+        <li>PC판은 Deskify PC판 안에서 연결한 원격 데스크톱 탭에서만 됩니다(Windows 기본 원격 데스크톱 창은 안 됩니다).</li>
+        <li>여전히 안 되면 폰에서 뒤로 가기 → "이 화면 크기로 모니터 다시 맞추기"를 누르거나 역할을 다시 고릅니다.</li>
+      </ul>
+    </details>
+    <details><summary>키나 터치가 들어가지 않고 "잠시 멈췄습니다"가 보입니다</summary>
+      <p>키보드·보조 모니터·그림 타블렛·스트림덱 같은 입력 역할은 주 기기가 그 세션을 화면에 띄우고 있을 때만 동작합니다. 보이지 않는 PC에 잘못 입력되지 않게 막는 것입니다. 주 기기에서 그 세션을 열면 이어집니다. 주 기기의 앱 잠금이 걸려 있을 때도 멈춥니다.</p>
+    </details>
+    <details><summary>"도움을 꺼 두었습니다" / "보안 연결 실패"</summary>
+      <ul>
+        <li>주 기기의 설정 → 보조 기기 → 페어링한 기기에서 그 기기의 "이 기기가 내 세션을 돕게 허용"을 켭니다.</li>
+        <li>보안 연결(악수)에 실패하면 주 기기에서 보조 기기 허용을 껐다 켠 뒤 다시 시도합니다.</li>
+      </ul>
+    </details>
+    <details><summary>화면이 끊기거나 흐립니다</summary>
+      <p>보조 모니터 화면은 Wi-Fi로 전송되며, 바쁠 때는 화질과 빈도를 자동으로 낮춥니다(최대 약 1.5MB/s). 공유기 가까이에서 5GHz Wi-Fi를 쓰면 좋아집니다. 연결이 잠깐 끊기면 최대 5분까지 자동으로 다시 연결합니다.</p>
+    </details>
+
+    <h3>한계</h3>
+    <ul>
+      <li>같은 Wi-Fi(같은 네트워크)에서만 됩니다. 인터넷 너머의 기기는 보조 기기로 쓸 수 없습니다.</li>
+      <li>RDP와 SSH 세션에서 됩니다. VNC 세션은 지원하지 않습니다.</li>
+      <li>보조 모니터는 데스크톱 하나에 1대입니다.</li>
+      <li>PC판이 주 기기면 보조 모니터·스트림덱·PC 화면 스트리밍만 됩니다. 보조 모니터 위치는 오른쪽이나 아래입니다.</li>
+      <li>파일·두 번째 셸·AI 도우미는 주 기기가 다른 화면을 보여 줘도 계속 동작하지만, 입력 역할은 멈춥니다.</li>
+    </ul>
+  </div>
+
+  <!-- ===== Companion devices (English) ===== -->
+  <div lang-en>
+    <h2>📱 Companion devices</h2>
+    <p>Use a spare phone or tablet as a tool for the remote session you're working in: a trackpad, keyboard, second screen, drawing tablet and more.</p>
+    <p class="muted">Only the <b>main device</b> (the one that opened the session) connects to the remote computer. The <b>companion</b> talks only to the main device over the same Wi-Fi, and no password ever goes to it.</p>
+
+    <h3>What you need</h3>
+    <ul>
+      <li>Both devices on the <b>same Wi-Fi</b> (the same router).</li>
+      <li><b>Deskify</b> installed on both.</li>
+      <li>The main device is Deskify on a phone or tablet, or <b>Deskify for Windows</b>. It needs a <b>connected session</b> to a remote computer before you can pick a role.</li>
+      <li>Allowing companions is a <b>Pro feature of the main device</b>: two at once with the subscription (and the 7-day trial), one with the lifetime licence. On the free edition, watching an ad in Settings → Pro opens one for 3 hours. The companion itself needs nothing.</li>
+    </ul>
+
+    <h3>Connecting the first time (once)</h3>
+    <ol>
+      <li><b>Main device (phone/tablet)</b>: turn on <b>Settings → Companion devices → Allow companion devices</b>. On Android 17, if "Nearby devices" is off, tap Allow.</li>
+      <li><b>If the main device is the PC app</b>: sign in to Deskify for Windows, then turn on "The phone as a second monitor of a remote desktop" in <b>Settings → Mobile devices → Second monitor (Pro)</b>.</li>
+      <li>On the main device, connect to a remote computer over RDP or SSH.</li>
+      <li><b>Companion (phone)</b>: tap the <b>Connect as a companion</b> card in the Deskify vault. No card? Use <b>Settings → Companion devices → "Connect as a companion"</b> at the bottom.</li>
+      <li>Tap the main device's name in the list.</li>
+      <li>A <b>6-digit code</b> appears on the main device. Type it on the phone and tap <b>Pair</b>.</li>
+      <li>Pick one of the main device's sessions, then a <b>role</b> for this phone.</li>
+    </ol>
+    <div class="tipbox">You type the code only once. The pairing is saved on both sides, so next time either device can be the main one without a code. After that, tapping the vault card connects straight away, and with one open session it starts in the role you used last.</div>
+
+    <h3>Roles</h3>
+    <div class="roles">
+      <div class="role"><b class="t">⌨️ Keyboard · trackpad</b><span class="k">RDP · SSH</span>
+        <p>Move the pointer and type from the phone without covering the tablet. One finger: move, tap: click, two fingers: scroll, two-finger tap: right-click, hold: drag. Type with the key bar and shortcut buttons. Over SSH it becomes a trackpad when the program on screen (vim, tmux…) takes the mouse.</p></div>
+      <div class="role"><b class="t">🖥️ Second screen</b><span class="k">RDP</span>
+        <p>Windows gets one more monitor the size of the phone; drag windows over to it. Tap: click, drag: scroll, hold: right-click. Press Back for the tools and key bar: the monitor's side (right, left, below, above), its scale, and "Resize the monitor to this screen".</p></div>
+      <div class="role"><b class="t">✏️ Drawing tablet</b><span class="k">RDP</span>
+        <p>Draw on the remote PC with the device's pen. Pressure, the pen button and the eraser arrive as Windows pen input. The whole desktop maps to the pad, with a small picture of it on the pad (or a plain pad). Without a pen, fingers draw.</p></div>
+      <div class="role"><b class="t">🖌️ Brush pad</b><span class="k">RDP</span>
+        <p>Drawing-program shortcuts as big buttons: undo, brush size, eraser, pan. Reorder or hide them and add your own key combinations.</p></div>
+      <div class="role"><b class="t">🔲 Stream deck</b><span class="k">RDP · SSH · "This PC" on the PC app</span>
+        <p>One big button of your own sends a shortcut, text, a command or starts a program. Chain steps or group buttons in folders. With the PC app as the main device it also drives OBS and turns to the page of the program in front.</p></div>
+      <div class="role"><b class="t">💡 Session helper</b><span class="k">SSH</span>
+        <p>Command help and the result view on the phone; the command you pick goes into the main device's terminal.</p></div>
+      <div class="role"><b class="t">📂 Files</b><span class="k">SSH</span>
+        <p>The server's folders on the phone. "Follow terminal" tracks the terminal's cd. Insert a path at the prompt or cd there.</p></div>
+      <div class="role"><b class="t">🖥 Second shell</b><span class="k">SSH</span>
+        <p>Another shell on the same SSH connection, shown on the phone: watch a log while you type elsewhere.</p></div>
+      <div class="role"><b class="t">✨ AI helper</b><span class="k">SSH</span>
+        <p>Keep the terminal on the main device and ask the AI from the phone; commands run in the main device's terminal. Needs a Claude or Gemini key in the main device's Settings → Labs (the key stays there).</p></div>
+      <div class="role"><b class="t">🎮 PC screen streaming (beta)</b><span class="k">"This PC" on the PC app</span>
+        <p>The screen of the PC running Deskify for Windows, compressed by its graphics card, on the phone; touches move its mouse.</p></div>
+    </div>
+    <p class="muted">With the PC app as the main device, only Second screen, Stream deck and PC screen streaming are offered.</p>
+
+    <h3>Switching roles · leaving</h3>
+    <ul>
+      <li><b>On the phone</b>: tap the role name (⇄) in the strip at the top to switch. ← leaves the session (the link stays); disconnect from the vault card to end it.</li>
+      <li><b>On the main device</b>: the session's <b>⋮ → Companion devices</b> gives each connected phone a role and sets the second monitor's side.</li>
+      <li><b>Handing over</b>: send the session to the phone from ⋮ → Companion devices, or take it with "Take the session over" under the phone's role list. No password moves: the receiving device uses its own vault or a sign-in prompt. (The PC app doesn't hand sessions over.)</li>
+    </ul>
+
+    <h3>Common problems</h3>
+    <details><summary>The main device doesn't show up on the phone</summary>
+      <ul>
+        <li>Check both are really on the same Wi-Fi; mobile data or another router won't do.</li>
+        <li><b>Guest Wi-Fi</b> or the router's <b>AP / client isolation</b> stops devices from seeing each other. Use the main Wi-Fi or turn isolation off. Office and café Wi-Fi usually blocks it.</li>
+        <li>Turn off <b>VPNs</b> on the phone and the PC; they can block local discovery.</li>
+        <li>Keep Deskify open on the main device with companions allowed. A device asleep with its screen off doesn't answer.</li>
+        <li>Android 17 needs the <b>Nearby devices</b> permission on both.</li>
+        <li>A device paired before: tap it under "Paired before" to connect at its last address.</li>
+      </ul>
+    </details>
+    <details><summary>The PC app is the main device but the phone can't find it</summary>
+      <ul>
+        <li>Check you're signed in with Pro and Settings → Mobile devices → Second monitor is on.</li>
+        <li><b>Windows Firewall</b>: allow Deskify on <b>private networks</b> in the prompt shown the first time. If you declined, turn Deskify on in Windows Security → Firewall → "Allow an app through firewall".</li>
+        <li>A <b>Public</b> network profile can block it; switch it to <b>Private</b> in Settings → Network & internet.</li>
+        <li>Turn off the PC's VPN.</li>
+      </ul>
+    </details>
+    <details><summary>The code is wrong or the code window is gone</summary>
+      <ul>
+        <li>Use the 6 digits showing on the main device now. Three wrong tries end the connection.</li>
+        <li>A code is used once. If it was cancelled on the main device or the link dropped, tap the main device on the phone again for a new code.</li>
+        <li>"Pairing with another device": wait until the other phone is done.</li>
+      </ul>
+    </details>
+    <details><summary>"No room"</summary>
+      <p>The main device has all the companions it takes (subscription 2, lifetime or ad 1, PC app 2). Remove one you don't use in the main device's Settings → Companion devices (PC app: Settings → Mobile devices).</p>
+    </details>
+    <details><summary>The second screen doesn't appear</summary>
+      <ul>
+        <li>The remote Windows must support resizing during a session (Display Control): Windows 8.1 / Server 2012 R2 or later.</li>
+        <li>A group policy limiting the number of monitors to 1 on the remote PC blocks it.</li>
+        <li>One second screen per desktop. If another phone or the DeX screen has it, turn that off.</li>
+        <li>On the PC, only remote desktop tabs inside Deskify for Windows can do it (not Windows' own Remote Desktop window).</li>
+        <li>Still nothing: press Back on the phone → "Resize the monitor to this screen", or pick the role again.</li>
+      </ul>
+    </details>
+    <details><summary>Keys or touches do nothing and it says "Paused"</summary>
+      <p>Input roles (keyboard, second screen, drawing tablet, stream deck…) work only while the main device shows that session, so nothing goes to a PC you can't see. Open the session on the main device to continue. They also pause while the main device's app lock is on.</p>
+    </details>
+    <details><summary>"Help turned off" / "Secure connection failed"</summary>
+      <ul>
+        <li>On the main device, Settings → Companion devices → Paired devices: turn on "May help with my sessions" for it.</li>
+        <li>If the secure handshake fails, turn Allow companion devices off and on again on the main device, then retry.</li>
+      </ul>
+    </details>
+    <details><summary>The picture stutters or looks blurry</summary>
+      <p>The second screen streams over Wi-Fi and lowers quality and frame rate when busy (about 1.5 MB/s at most). 5 GHz Wi-Fi close to the router helps. A dropped link reconnects by itself for up to 5 minutes.</p>
+    </details>
+
+    <h3>Limits</h3>
+    <ul>
+      <li>Same Wi-Fi (same network) only; a device across the internet can't be a companion.</li>
+      <li>RDP and SSH sessions. VNC sessions aren't supported.</li>
+      <li>One second screen per desktop.</li>
+      <li>With the PC app as the main device: Second screen, Stream deck and PC screen streaming only; the second monitor goes to the right or below.</li>
+      <li>Files, the second shell and the AI helper keep working while the main device shows something else; input roles pause.</li>
+    </ul>
+  </div>
+  </div>
 
   <div class="contact">
     <p lang-ko><b>해결이 안 되면</b> 앱의 <b>설정 → 문제 해결 → 문의하기</b>로 보내 주세요. 진단 보고서가 함께 첨부되어 빨리 확인할 수 있습니다. 메일: <a href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a></p>
