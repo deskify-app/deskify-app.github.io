@@ -481,7 +481,8 @@
       '<div class="c-red" style="font-weight:650">' + n(e.count) + '건</div>' + recent.slice(0, 15).map(function (r) { return '<div class="line small"><div class="row"><b class="grow ellipsis">' + h(str(r.status) + ' · ' + str(r.place)) + '</b><span class="muted">' + ago(num(r.at)) + '</span></div><div class="muted" style="white-space:pre-wrap">' + h(r.msg) + '</div></div>'; }).join('')) + '</div>';
     var systems = arr(s.systems);
     if (systems.length) out += sec('시스템 계정') + '<div class="panel">' + systems.map(function (x) {
-      return '<div class="line"><div class="row"><b class="grow">' + (x.url ? '<a href="' + h(x.url) + '" target="_blank" rel="noopener">' + h(x.name) + '</a>' : h(x.name)) + '</b><span class="small">' + h(x.login) + '</span></div><div class="muted small">' + h(x.use) + (x.id ? ' · ' + h(x.id) : '') + (x.note ? ' · ' + h(x.note) : '') + '</div></div>';
+      // A link only for http(s): a javascript: url in the data would run in the owner's signed-in console.
+      return '<div class="line"><div class="row"><b class="grow">' + (/^https?:\/\//i.test(str(x.url)) ? '<a href="' + h(x.url) + '" target="_blank" rel="noopener">' + h(x.name) + '</a>' : h(x.name)) + '</b><span class="small">' + h(x.login) + '</span></div><div class="muted small">' + h(x.use) + (x.id ? ' · ' + h(x.id) : '') + (x.note ? ' · ' + h(x.note) : '') + '</div></div>';
     }).join('') + '</div>';
     out += '</div><div>' + sec('앱 스위치 (Remote Config)');
     var params = D.config || (s.config ? o(s.config) : null);
