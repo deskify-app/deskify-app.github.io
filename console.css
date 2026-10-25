@@ -1,3 +1,4 @@
+[hidden] { display: none !important; }
 /* The owner's admin console (console.html): the admin app's colours (Tone.*) on the site's neutrals. */
 :root {
   --bg: #f6f6f8; --surface: #ffffff; --surface2: #f0f1f4; --fg: #19181d; --muted: #63626b; --line: #e3e3e8;

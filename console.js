@@ -87,6 +87,8 @@
       return r.text().then(function (text) {
         if (r.status === 403) { denied(); throw new Fail(403, '관리자 계정이 아닙니다'); }
         if (!r.ok) throw new Fail(r.status, text || ('HTTP ' + r.status));
+        // The menu only once the server has taken this account as the owner (not on sign-in alone).
+        if (!isDenied) { $('tabs').hidden = false; $('refresh').hidden = false; }
         try { return text ? JSON.parse(text) : null; } catch (e) { return null; }
       });
     });
@@ -668,7 +670,7 @@
     isDenied = false;
     clearInterval(timer);
     $('drawer').hidden = true;
-    $('gate').hidden = !!user; $('view').hidden = !user; $('tabs').hidden = !user; $('refresh').hidden = !user; $('signout').hidden = !user;
+    $('gate').hidden = !!user; $('view').hidden = !user; $('tabs').hidden = true; $('refresh').hidden = true; $('signout').hidden = !user;
     $('status').textContent = user ? (user.email || '') : '';
     if (!user) { D = { snapshot: null, daily: [], users: [], alerts: [], reviews: [], state: null, rtdn: null, actions: [], errors: null, pc: null, config: null, configError: null, mail: null, mailError: null, loadedAt: 0 }; return; }
     route();
