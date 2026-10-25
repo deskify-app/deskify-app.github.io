@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Deskify 관리 콘솔</title>
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="console.css?v=1">
+</head>
+<body>
+<!-- The owner's admin console: what the admin app (adminapp/) shows, in a browser. Not linked from any page.
+     Every number comes from the Worker's owner routes (/v1/owner/*) and every action from admin-act, both behind the
+     signed-in account's Firebase ID token: anyone else gets "관리자 계정이 아닙니다". -->
+<header class="bar">
+  <div class="brand"><img src="icon.png" alt=""><span>Deskify 관리</span></div>
+  <nav id="tabs" class="tabs" hidden></nav>
+  <div class="who">
+    <span id="status" class="muted small"></span>
+    <button id="refresh" class="ghost" hidden title="다시 읽기">새로 고침</button>
+    <button id="signout" class="ghost" hidden>로그아웃</button>
+  </div>
+</header>
+<main id="main" class="wrap">
+  <section id="gate" class="gate">
+    <h1>Deskify 관리 콘솔</h1>
+    <p class="muted">소유자 계정으로만 들어갈 수 있습니다.</p>
+    <button id="signin" class="primary">Google 계정으로 로그인</button>
+    <p id="gateMsg" class="err small"></p>
+  </section>
+  <section id="view" hidden></section>
+</main>
+<div id="dialog" class="scrim" hidden><div class="dialog" role="dialog" aria-modal="true"></div></div>
+<div id="drawer" class="scrim side" hidden><aside class="drawer"></aside></div>
+<div id="toast" class="toast" hidden></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="console.js?v=1"></script>
+</body>
+</html>
