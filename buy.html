@@ -113,7 +113,6 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <script>
   document.getElementById("lang").addEventListener("click", function () {
@@ -130,7 +129,9 @@
   var msg = function (text, cls) { var m = $("msg"); m.textContent = text || ""; m.className = "note " + (cls || ""); };
 
   firebase.initializeApp(FIREBASE);
-  var auth = firebase.auth(), db = firebase.firestore();
+  var auth = firebase.auth();
+  // The account's plan from its hub on Cloudflare (Deskify's API; plan-verify keeps it there).
+  var HUB = "https://deskify-api.kim290.workers.dev";
   var user = null, plan = null, ready = false;
 
   if (PADDLE.token) {
@@ -165,8 +166,14 @@
 
   function load() {
     if (!user) return;
-    db.doc("users/" + user.uid + "/meta/plan").get().then(function (d) {
-      plan = d.exists ? d.data() : {};
+    user.getIdToken().then(function (token) {
+      return fetch(HUB + "/v1/plan", { headers: { Authorization: "Bearer " + token } });
+    }).then(function (r) {
+      if (r.status === 404) return {};
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    }).then(function (p) {
+      plan = p || {};
       var now = Date.now();
       var parts = [];
       if (plan.kind === "LIFETIME") parts.push(ko() ? "평생 이용권" : "Lifetime");
