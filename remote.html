@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Deskify 웹 원격 · Web remote</title>
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="remote.css?v=1">
+<script>
+  (function () {
+    var saved = null;
+    try { saved = localStorage.getItem("lang"); } catch (e) {}
+    var lang = saved || ((navigator.language || "").toLowerCase().indexOf("ko") === 0 ? "ko" : "en");
+    if (location.hash === "#en") lang = "en";
+    document.documentElement.setAttribute("data-lang", lang);
+    document.documentElement.lang = lang;
+  })();
+</script>
+</head>
+<body>
+<!-- 웹 원격: the user's own Deskify PC from this browser (D:\deskify\docs\Deskify-웹원격-설계.md). The browser signs in with
+     the Google account, joins it as a device the account's phone or PC must allow, then dials the PC over WebRTC
+     (direct first; a relay only when no direct path exists). Everything is in remote.js. -->
+<header class="top" id="top">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="icon.png" alt="" width="30" height="30">Deskify</a>
+    <nav>
+      <span id="who" class="who-mini"></span>
+      <button class="lang" id="signout" type="button" hidden><span lang-ko>로그아웃</span><span lang-en>Sign out</span></button>
+      <button class="lang" id="lang" type="button">English</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap rm-main" id="main">
+  <section id="gate" class="rm-card" hidden>
+    <h1><span lang-ko>웹 원격</span><span lang-en>Web remote</span></h1>
+    <p class="rm-muted" lang-ko>브라우저에서 내 PC를 조작합니다. PC의 Deskify에서 <b>설정 → 모바일 기기 → 브라우저에서 이 PC 원격 허용</b>을 켜고, Deskify와 <b>같은 구글 계정</b>으로 로그인해 주십시오.</p>
+    <p class="rm-muted" lang-en>Control your own PC from this browser. Turn on <b>Settings → Mobile devices → Allow remote control of this PC from a browser</b> in Deskify on the PC, and sign in with the <b>same Google account</b> you use in Deskify.</p>
+    <button id="signin" class="rm-primary" type="button"><span lang-ko>Google 계정으로 로그인</span><span lang-en>Sign in with Google</span></button>
+    <p id="gateMsg" class="rm-err"></p>
+  </section>
+
+  <section id="wait" class="rm-card" hidden>
+    <div class="rm-spinner" id="waitSpin"></div>
+    <h2><span lang-ko>다른 기기에서 이 브라우저를 허용해 주십시오</span><span lang-en>Allow this browser from another device</span></h2>
+    <p class="rm-muted" lang-ko>이 계정에 등록된 폰·태블릿·PC의 Deskify에 허용 요청이 갔습니다. "허용" 또는 "이번만 허용"을 누르면 바로 이어집니다.</p>
+    <p class="rm-muted" lang-en>A request went to Deskify on this account's phone, tablet or PC. Tap "Allow" or "Allow this once" there and this page goes on by itself.</p>
+    <p class="rm-box"><span lang-ko>이 브라우저</span><span lang-en>This browser</span>: <b id="waitName"></b></p>
+    <p id="waitLeft" class="rm-muted"></p>
+    <p id="waitMsg" class="rm-err"></p>
+    <button id="askAgain" class="rm-primary" type="button" hidden><span lang-ko>다시 요청</span><span lang-en>Ask again</span></button>
+  </section>
+
+  <section id="pcs" class="rm-card" hidden>
+    <div class="rm-row">
+      <h2><span lang-ko>내 PC</span><span lang-en>My PCs</span></h2>
+      <button id="reload" class="rm-ghost" type="button"><span lang-ko>새로 고침</span><span lang-en>Refresh</span></button>
+    </div>
+    <div id="pcList" class="rm-list"></div>
+    <p id="pcsMsg" class="rm-err"></p>
+    <p class="rm-muted rm-small" id="onceNote" hidden><span lang-ko>이 브라우저는 "이번만 허용"으로 들어왔습니다. 연결이 끝나면 다시 허용받아야 합니다.</span><span lang-en>This browser was allowed just this once: after the connection ends it must be allowed again.</span></p>
+    <p class="rm-muted rm-small"><button id="forget" class="rm-link" type="button"><span lang-ko>이 브라우저를 계정에서 빼기</span><span lang-en>Remove this browser from the account</span></button></p>
+  </section>
+
+  <section id="connecting" class="rm-card" hidden>
+    <div class="rm-spinner"></div>
+    <h2 id="connTitle"></h2>
+    <p id="connStep" class="rm-muted"></p>
+    <button id="connCancel" class="rm-ghost" type="button"><span lang-ko>취소</span><span lang-en>Cancel</span></button>
+  </section>
+
+  <section id="ended" class="rm-card" hidden>
+    <h2 id="endTitle"></h2>
+    <p id="endText" class="rm-muted"></p>
+    <div class="rm-row rm-gap">
+      <button id="again" class="rm-primary" type="button"><span lang-ko>다시 연결</span><span lang-en>Connect again</span></button>
+      <button id="toList" class="rm-ghost" type="button"><span lang-ko>PC 목록</span><span lang-en>PC list</span></button>
+    </div>
+  </section>
+</main>
+
+<div id="session" class="rm-session" hidden>
+  <div id="stage" class="rm-stage">
+    <canvas id="screen" tabindex="0"></canvas>
+    <img id="cursor" class="rm-cursor" alt="" hidden>
+  </div>
+  <div id="bar" class="rm-bar">
+    <span id="barName" class="rm-bar-name"></span>
+    <span id="relayBadge" class="rm-badge" hidden></span>
+    <span id="stats" class="rm-stats"></span>
+    <span class="rm-sep"></span>
+    <button id="btnFull" type="button" title="전체 화면 / Full screen">⛶</button>
+    <select id="quality" title="화질 / Quality">
+      <option value="auto">자동 · Auto</option>
+      <option value="high">높게 · High</option>
+      <option value="low">낮게 · Low</option>
+    </select>
+    <select id="keys" title="특수 키 / Special keys">
+      <option value="">특수 키 · Keys</option>
+      <option value="win">Win</option>
+      <option value="alttab">Alt+Tab</option>
+      <option value="ctrlesc">Ctrl+Esc</option>
+      <option value="taskmgr">Ctrl+Shift+Esc</option>
+      <option value="wind">Win+D</option>
+      <option value="wine">Win+E</option>
+      <option value="winr">Win+R</option>
+      <option value="altf4">Alt+F4</option>
+      <option value="prtsc">PrtSc</option>
+      <option value="hangul">한/영</option>
+    </select>
+    <select id="monitor" title="모니터 / Monitor" hidden></select>
+    <button id="btnKbd" type="button" title="키보드 / Keyboard">⌨</button>
+    <button id="btnHang" class="rm-hang" type="button"><span lang-ko>끊기</span><span lang-en>Disconnect</span></button>
+  </div>
+  <textarea id="ime" class="rm-ime" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" aria-hidden="true"></textarea>
+  <div id="toast" class="rm-toast" hidden></div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="remote.js?v=1"></script>
+</body>
+</html>
