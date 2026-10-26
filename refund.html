@@ -7,13 +7,17 @@
 <meta name="robots" content="noindex">
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 <script>
   (function () {
     var saved = null;
     try { saved = localStorage.getItem("lang"); } catch (e) {}
     var lang = saved || ((navigator.language || "").toLowerCase().indexOf("ko") === 0 ? "ko" : "en");
     if (location.hash === "#en") lang = "en";
+    // ?lang=ko|en|ja|zh from the apps (their UI language) wins over the saved choice for this visit;
+    // the site has Korean and English only, so every other language reads the English half.
+    var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
+    if (q) lang = q[1].toLowerCase().indexOf("ko") === 0 ? "ko" : "en";
     document.documentElement.setAttribute("data-lang", lang);
     document.documentElement.lang = lang;
   })();
@@ -24,6 +28,8 @@
   <div class="wrap">
     <a class="brand" href="./"><img src="icon.png" alt="" width="30" height="30">Deskify</a>
     <nav>
+      <a class="hide-sm" href="remote.html"><span lang-ko>웹 원격</span><span lang-en>Web remote</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span></span></a>
+      <a class="hide-sm" href="app.html"><span lang-ko>웹판</span><span lang-en>Web app</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span></span></a>
       <a href="privacy.html"><span lang-ko>개인정보</span><span lang-en>Privacy</span></a>
       <a href="terms.html"><span lang-ko>약관</span><span lang-en>Terms</span></a>
       <button class="lang" id="lang" type="button">English</button>

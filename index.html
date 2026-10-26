@@ -7,13 +7,17 @@
 <meta name="description" content="Deskify: Android용 원격 데스크톱(RDP)·SSH 클라이언트. 폰과 태블릿, 데스크톱 모드(DeX)에서 Windows PC와 Linux 서버를 씁니다.">
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 <script>
   // English for non-Korean browsers, or the visitor's last choice.
   (function () {
     var saved = null;
     try { saved = localStorage.getItem("lang"); } catch (e) {}
     var lang = saved || ((navigator.language || "").toLowerCase().indexOf("ko") === 0 ? "ko" : "en");
+    // ?lang=ko|en|ja|zh from the apps (their UI language) wins over the saved choice for this visit;
+    // the site has Korean and English only, so every other language reads the English half.
+    var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
+    if (q) lang = q[1].toLowerCase().indexOf("ko") === 0 ? "ko" : "en";
     document.documentElement.setAttribute("data-lang", lang);
     document.documentElement.lang = lang;
   })();
@@ -27,6 +31,9 @@
     <nav>
       <a class="hide-sm" href="#features"><span lang-ko>기능</span><span lang-en>Features</span></a>
       <a class="hide-sm" href="#plans"><span lang-ko>요금</span><span lang-en>Plans</span></a>
+      <a class="hide-sm" href="remote.html"><span lang-ko>웹 원격</span><span lang-en>Web remote</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span></span></a>
+      <a class="hide-sm" href="app.html"><span lang-ko>웹판</span><span lang-en>Web app</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span></span></a>
+      <a class="hide-sm" href="help.html"><span lang-ko>도움말</span><span lang-en>Help</span></a>
       <a href="privacy.html"><span lang-ko>개인정보</span><span lang-en>Privacy</span></a>
       <button class="lang" id="lang" type="button">English</button>
     </nav>
@@ -221,6 +228,8 @@
     <a href="privacy.html"><span lang-ko>개인정보처리방침</span><span lang-en>Privacy policy</span></a>
     <a href="terms.html"><span lang-ko>이용약관</span><span lang-en>Terms of use</span></a>
     <a href="help.html"><span lang-ko>도움말</span><span lang-en>Help</span></a>
+    <a href="remote.html"><span lang-ko>웹 원격 (베타)</span><span lang-en>Web remote (beta)</span></a>
+    <a href="app.html"><span lang-ko>웹판 Deskify (베타)</span><span lang-en>Web Deskify (beta)</span></a>
     <a href="refund.html"><span lang-ko>환불 정책</span><span lang-en>Refund policy</span></a>
     <a class="sp" href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a>
   </div>

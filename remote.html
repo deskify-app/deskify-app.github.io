@@ -15,6 +15,10 @@
     try { saved = localStorage.getItem("lang"); } catch (e) {}
     var lang = saved || ((navigator.language || "").toLowerCase().indexOf("ko") === 0 ? "ko" : "en");
     if (location.hash === "#en") lang = "en";
+    // ?lang=ko|en|ja|zh from the apps (their UI language) wins over the saved choice for this visit;
+    // the site has Korean and English only, so every other language reads the English half.
+    var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
+    if (q) lang = q[1].toLowerCase().indexOf("ko") === 0 ? "ko" : "en";
     document.documentElement.setAttribute("data-lang", lang);
     document.documentElement.lang = lang;
   })();
@@ -220,6 +224,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="qrcode.min.js?v=0d9b5dc921"></script>
-<script src="remote.min.js?v=31795f96ef"></script>
+<script src="stream.min.js?v=7907eee96b"></script>
+<script src="remote.min.js?v=05fc808065"></script>
 </body>
 </html>

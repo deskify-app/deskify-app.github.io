@@ -17,6 +17,10 @@
     try { saved = localStorage.getItem("lang"); } catch (e) {}
     var lang = saved || ((navigator.language || "").toLowerCase().indexOf("ko") === 0 ? "ko" : "en");
     if (location.hash === "#en") lang = "en";
+    // ?lang=ko|en|ja|zh from the apps (their UI language) wins over the saved choice for this visit;
+    // the site has Korean and English only, so every other language reads the English half.
+    var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
+    if (q) lang = q[1].toLowerCase().indexOf("ko") === 0 ? "ko" : "en";
     document.documentElement.setAttribute("data-lang", lang);
     document.documentElement.lang = lang;
   })();
@@ -247,7 +251,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-unicode11@0.8.0/lib/addon-unicode11.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-web-links@0.11.0/lib/addon-web-links.js"></script>
 <script src="qrcode.min.js?v=0d9b5dc921"></script>
-<script src="stream.min.js?v=7f1c70d764"></script>
+<script src="stream.min.js?v=7907eee96b"></script>
 <script src="app.min.js?v=0184fe4abf"></script>
 </body>
 </html>

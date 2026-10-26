@@ -114,3 +114,6 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 48px 0; }
 .mock.real .phone { width: 27%; aspect-ratio: 9 / 20; padding: 5px; border-radius: 22px; }
 .mock .shot { width: 100%; height: 100%; display: block; object-fit: cover; object-position: top left; border-radius: 12px; }
 .mock.real .phone .shot { border-radius: 17px; }
+
+/* 베타 tag next to a link or heading (웹 원격, 웹판) */
+.beta { display: inline-block; font-size: .68em; font-weight: 700; line-height: 1; padding: 3px 6px; border-radius: 999px; vertical-align: middle; color: var(--green); background: var(--green-soft); letter-spacing: .02em; }

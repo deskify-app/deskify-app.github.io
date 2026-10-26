@@ -6,7 +6,7 @@
 <title>Deskify · 도움말 / Help</title>
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 <style>
   details { border: 1px solid rgba(128,128,128,.25); border-radius: 12px; padding: 12px 16px; margin: 10px 0; }
   details summary { cursor: pointer; font-weight: 600; }
@@ -14,6 +14,11 @@
   details ol, details ul { margin: 6px 0 0 18px; padding: 0; }
   .contact { margin-top: 28px; padding: 16px; border-radius: 12px; background: rgba(110,139,255,.10); }
   .jump { margin: 0 0 18px; }
+  #web { scroll-margin-top: 72px; margin-top: 48px; padding-top: 8px; border-top: 1px solid var(--line); }
+  #web h2 { font-size: 1.5rem; margin: 24px 0 8px; }
+  #web h3 { font-size: 1.08rem; margin: 26px 0 6px; }
+  #web ol, #web ul { margin: 6px 0 0 20px; padding: 0; }
+  #web li { margin: 4px 0; }
   #companion { scroll-margin-top: 72px; margin-top: 48px; padding-top: 8px; border-top: 1px solid var(--line); }
   #companion h2 { font-size: 1.5rem; margin: 24px 0 8px; }
   #companion h3 { font-size: 1.08rem; margin: 26px 0 6px; }
@@ -32,6 +37,10 @@
     try { saved = localStorage.getItem("lang"); } catch (e) {}
     var lang = saved || ((navigator.language || "").toLowerCase().indexOf("ko") === 0 ? "ko" : "en");
     if (location.hash === "#en") lang = "en";
+    // ?lang=ko|en|ja|zh from the apps (their UI language) wins over the saved choice for this visit;
+    // the site has Korean and English only, so every other language reads the English half.
+    var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
+    if (q) lang = q[1].toLowerCase().indexOf("ko") === 0 ? "ko" : "en";
     document.documentElement.setAttribute("data-lang", lang);
     document.documentElement.lang = lang;
   })();
@@ -42,6 +51,8 @@
   <div class="wrap">
     <a class="brand" href="./"><img src="icon.png" alt="" width="30" height="30">Deskify</a>
     <nav>
+      <a class="hide-sm" href="remote.html"><span lang-ko>웹 원격</span><span lang-en>Web remote</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span></span></a>
+      <a class="hide-sm" href="app.html"><span lang-ko>웹판</span><span lang-en>Web app</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span></span></a>
       <a href="privacy.html"><span lang-ko>개인정보</span><span lang-en>Privacy</span></a>
       <a href="terms.html"><span lang-ko>약관</span><span lang-en>Terms</span></a>
       <button class="lang" id="lang" type="button">English</button>
@@ -50,7 +61,7 @@
 </header>
 <main class="wrap doc">
   <h1 lang-ko>도움말 · 자주 묻는 질문</h1><h1 lang-en>Help · FAQ</h1>
-  <p class="jump"><a href="#companion"><span lang-ko>📱 보조 기기 사용법 →</span><span lang-en>📱 Using companion devices →</span></a></p>
+  <p class="jump"><a href="#companion"><span lang-ko>📱 보조 기기 사용법 →</span><span lang-en>📱 Using companion devices →</span></a><br><a href="#web"><span lang-ko>🌐 웹 원격 · 웹판 Deskify (베타) →</span><span lang-en>🌐 Web remote · Web Deskify (beta) →</span></a></p>
 
   <details lang-ko><summary>Windows PC에 연결이 안 돼요</summary>
     <ol>
@@ -141,6 +152,62 @@
   <details lang-en><summary>Are my passwords safe?</summary>
     <p>Saved passwords and keys are encrypted on the device. With sync on, the vault goes to the server only encrypted. You can also turn on the app lock (fingerprint/face) and "authenticate to connect" per computer.</p>
   </details>
+
+  <div id="web">
+
+  <!-- ===== 웹 원격 · 웹판 Deskify (Korean) ===== -->
+  <div lang-ko>
+    <h2>🌐 웹 원격 · 웹판 Deskify <span class="beta">베타</span></h2>
+    <p>설치 없이 브라우저에서 내 PC를 씁니다. Deskify PC판이 켜져 있고 로그인된 PC에서 되며, <b>Pro 기능</b>입니다. 최신 브라우저(Chrome·Edge·Safari 등)에서 엽니다.</p>
+    <div class="roles">
+      <div class="role"><b class="t"><a href="remote.html">웹 원격</a></b><span class="k">deskify-app.github.io/remote.html</span>
+        <p>브라우저에서 내 PC의 실제 화면을 보고 마우스·키보드로 조작합니다. 원격 데스크톱(RDP)이 없는 Windows Home PC도 됩니다. 소리, 클립보드, 파일 보내기도 됩니다.</p></div>
+      <div class="role"><b class="t"><a href="app.html">웹판 Deskify</a></b><span class="k">deskify-app.github.io/app.html</span>
+        <p>PC판 보관함의 컴퓨터 목록을 브라우저에서 열고, 그 PC를 거쳐 SSH 터미널·파일(SFTP)·원격 데스크톱·VNC에 접속합니다. 비밀번호와 키는 브라우저로 가지 않고 PC가 대신 접속합니다. PC 화면에는 아무것도 뜨지 않습니다.</p></div>
+    </div>
+
+    <h3>PC에서 켜기</h3>
+    <ol>
+      <li>Deskify PC판에 로그인합니다.</li>
+      <li><b>설정 → 모바일 기기 → 화면 공유 원격 (Pro)</b>에서 웹 원격은 <b>"화면 공유 원격 허용 (브라우저·Deskify 앱)"</b>을, 웹판은 <b>"웹에서 내 컴퓨터 목록·원격 쓰기"</b>를 켭니다. 필요한 것만 켜면 됩니다. 처음에는 둘 다 꺼져 있습니다.</li>
+      <li>(선택) 잠금 화면·로그인 화면에서도 쓰려면 같은 곳의 <b>"잠금 화면에서도 쓰기 (서비스 설치)"</b>를 켭니다. 관리자 권한을 한 번 묻습니다.</li>
+    </ol>
+
+    <h3>브라우저에서 로그인</h3>
+    <ul>
+      <li><b>QR (공용 컴퓨터에 권장)</b>: 페이지에 뜬 QR을 폰 Deskify 보관함 위쪽의 <b>QR 단추</b>로 비춥니다. 브라우저 종류와 접속 위치를 확인한 뒤 PC를 고르고 허용합니다. QR을 비출 수 없으면 페이지의 코드를 폰에 입력합니다. 이렇게 들어온 브라우저는 페이지를 닫거나 12시간이 지나면 계정에서 자동으로 빠집니다.</li>
+      <li><b>구글 계정</b>: 앱과 같은 구글 계정으로 로그인하면 이미 쓰는 폰이나 PC에 허용 창이 뜹니다. <b>허용</b>하면 기기 목록에 남고, <b>이번만 허용</b>하면 페이지를 닫을 때 빠집니다.</li>
+    </ul>
+    <div class="tipbox">연결될 때마다 PC 화면 위쪽에 띠(끊기 단추)가 뜨고 폰에 알림이 갑니다. 다른 사람이 보낸 QR은 허용하지 마십시오. 화면과 입력은 브라우저와 PC 사이에서 암호화되어 오가며, 직접 연결이 안 될 때만 데이터 절약 화질로 중계를 거칩니다(계정당 하루 1시간).</div>
+  </div>
+
+  <!-- ===== Web remote · Web Deskify (English) ===== -->
+  <div lang-en>
+    <h2>🌐 Web remote · Web Deskify <span class="beta">Beta</span></h2>
+    <p>Use your PC from a browser, nothing to install. It works with a PC where the Deskify PC app is running and signed in, and it is a <b>Pro feature</b>. Open it in a current browser (Chrome, Edge, Safari and others).</p>
+    <div class="roles">
+      <div class="role"><b class="t"><a href="remote.html">Web remote</a></b><span class="k">deskify-app.github.io/remote.html</span>
+        <p>See your PC’s actual screen in the browser and control it with mouse and keyboard. Works on Windows Home PCs without Remote Desktop too. Sound, clipboard and sending files come along.</p></div>
+      <div class="role"><b class="t"><a href="app.html">Web Deskify</a></b><span class="k">deskify-app.github.io/app.html</span>
+        <p>Open the PC app’s vault in the browser and connect through that PC to SSH terminals, files (SFTP), Remote Desktop and VNC. Passwords and keys never go to the browser; the PC connects for it. Nothing appears on the PC’s screen.</p></div>
+    </div>
+
+    <h3>Turn it on at the PC</h3>
+    <ol>
+      <li>Sign in to the Deskify PC app.</li>
+      <li>In <b>Settings → Mobile devices → Screen sharing (Pro)</b>, turn on <b>“Allow screen sharing (browser · Deskify app)”</b> for web remote and <b>“Computer list and remote access from the web”</b> for web Deskify. Turn on only what you need; both start off.</li>
+      <li>(Optional) To use it at the lock and sign-in screens too, turn on <b>“Also on the lock screen (installs a service)”</b> there. It asks for administrator rights once.</li>
+    </ol>
+
+    <h3>Sign in from the browser</h3>
+    <ul>
+      <li><b>QR (best on a shared computer)</b>: scan the QR code on the page with the <b>QR button</b> at the top of the Deskify vault on your phone. Check the browser and its location, pick the PC and allow it. If you can’t scan, type the page’s code on the phone instead. A browser let in this way leaves the account by itself when its page closes or after 12 hours.</li>
+      <li><b>Google account</b>: sign in with the same Google account as the app and an approval prompt appears on a phone or PC you already use. <b>Allow</b> keeps it in the device list; <b>Allow just this once</b> removes it when the page closes.</li>
+    </ul>
+    <div class="tipbox">Each time it connects, a bar (with a disconnect button) appears at the top of the PC’s screen and your phone gets a notification. Never allow a QR code someone else sent you. Screen and input travel encrypted between the browser and the PC; only when no direct path exists do they go through a relay at data-saving quality (one hour a day per account).</div>
+  </div>
+
+  </div>
 
   <div id="companion">
 
