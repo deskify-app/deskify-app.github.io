@@ -38,6 +38,10 @@
     border-radius: 20px; padding: 26px 24px 22px; box-shadow: var(--shadow); transition: border-color .12s, transform .12s;
   }
   .wh-card:hover { border-color: var(--line-hi); transform: translateY(-2px); }
+  .wh-card { position: relative; }
+  .wh-tag { position: absolute; top: 22px; right: 22px; font-size: 11.5px; font-weight: 700; line-height: 1; padding: 5px 10px; border-radius: 999px; letter-spacing: .2px; }
+  .wh-tag.sub { background: var(--accent); color: #fff; }
+  .wh-tag.free { border: 1px solid var(--line-hi); color: var(--dim); }
   .wh-card:has(.wh-go:focus-visible) { outline: 2px solid var(--accent-hi); outline-offset: 3px; }
   .wh-ic { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; color: #fff; }
   .wh-ic svg { width: 26px; height: 26px; stroke-width: 1.8; }
@@ -72,6 +76,7 @@
     .wh-head { margin-bottom: 22px; }
     .wh-head h1 { font-size: 25px; margin-top: 12px; }
     .wh-card { padding: 22px 20px 18px; border-radius: 18px; }
+    .wh-tag { top: 18px; right: 18px; }
     .wh-go::after { border-radius: 18px; }
   }
 </style>
@@ -106,6 +111,7 @@
 
   <div class="wh-grid">
     <article class="wh-card">
+      <span class="wh-tag sub"><span lang-ko>구독</span><span lang-en>Subscription</span></span>
       <div class="wh-ic wh-blue"><svg aria-hidden="true"><use href="#i-monitor"/></svg></div>
       <h2><a class="wh-go" href="remote.html"><span lang-ko>내 PC 화면 보기</span><span lang-en>See my PC's screen</span></a></h2>
       <p class="wh-kind"><span lang-ko>웹 원격</span><span lang-en>Web remote</span></p>
@@ -115,13 +121,13 @@
         <ul>
           <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span lang-ko>PC에 Deskify</span><span lang-en>Deskify on the PC</span></span></li>
           <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span lang-ko>PC 설정에서 "화면 공유 원격 허용" 켜기</span><span lang-en>"Allow screen sharing" turned on in the PC's settings</span></span></li>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Pro</span></li>
         </ul>
       </div>
       <div class="wh-cta" aria-hidden="true"><span><span lang-ko>웹 원격 열기</span><span lang-en>Open web remote</span></span><svg><use href="#i-arrow"/></svg></div>
     </article>
 
     <article class="wh-card">
+      <span class="wh-tag sub"><span lang-ko>구독</span><span lang-en>Subscription</span></span>
       <div class="wh-ic wh-violet"><svg aria-hidden="true"><use href="#i-server"/></svg></div>
       <h2><a class="wh-go" href="app.html"><span lang-ko>내 컴퓨터·서버 열기</span><span lang-en>Open my computers and servers</span></a></h2>
       <p class="wh-kind"><span lang-ko>웹판</span><span lang-en>Web Deskify</span></p>
@@ -131,13 +137,13 @@
         <ul>
           <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span lang-ko>PC에 Deskify</span><span lang-en>Deskify on the PC</span></span></li>
           <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span lang-ko>PC 설정에서 "웹에서 내 컴퓨터 목록·원격 쓰기" 켜기</span><span lang-en>"Computer list and remote access from the web" turned on in the PC's settings</span></span></li>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span>Pro</span></li>
         </ul>
       </div>
       <div class="wh-cta" aria-hidden="true"><span><span lang-ko>웹판 열기</span><span lang-en>Open web Deskify</span></span><svg><use href="#i-arrow"/></svg></div>
     </article>
 
     <article class="wh-card">
+      <span class="wh-tag free"><span lang-ko>도움 받기 무료</span><span lang-en>Getting help is free</span></span>
       <div class="wh-ic wh-green"><svg aria-hidden="true"><use href="#i-help"/></svg></div>
       <h2><a class="wh-go" href="support.html"><span lang-ko>원격 지원</span><span lang-en>Remote support</span></a></h2>
       <p class="wh-kind"><span lang-ko>다른 사람의 PC</span><span lang-en>Someone else's PC</span></p>
@@ -145,7 +151,7 @@
       <div class="wh-need">
         <b><span lang-ko>필요한 것</span><span lang-en>You need</span></b>
         <ul>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span class="wh-who"><span lang-ko>돕는 사람</span><span lang-en>Helping</span></span> · Pro</span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span class="wh-who"><span lang-ko>돕는 사람</span><span lang-en>Helping</span></span> · <span lang-ko>구독 (Pro 또는 클라우드 구독)</span><span lang-en>a subscription (Pro or Cloud)</span></span></li>
           <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span class="wh-who"><span lang-ko>도움 받는 사람</span><span lang-en>Getting help</span></span> · <span lang-ko>무료, 설치·로그인 없음 (Windows)</span><span lang-en>free, no install or account (Windows)</span></span></li>
         </ul>
         <span class="wh-dl" aria-disabled="true" style="opacity:.6"><svg aria-hidden="true"><use href="#i-download"/></svg><span lang-ko>Deskify 도움 받기 · 정식 출시 때 제공</span><span lang-en>Get help with Deskify · coming at launch</span></span>
