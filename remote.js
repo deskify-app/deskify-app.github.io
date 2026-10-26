@@ -19,7 +19,7 @@
   var WAIT_POLL_MS = 4000;
   var ANSWER_MS = 60000;
   var OPEN_MS = 15000;
-  var FRAME = 1, JSONMSG = 2;
+  var FRAME = 1, JSONMSG = 2, AUDIO = 3, FILECHUNK = 4;
 
   firebase.initializeApp(FIREBASE);
   var auth = firebase.auth();
@@ -86,6 +86,8 @@
       var r = await api('PUT', '/v1/devices/' + encodeURIComponent(me.id), { name: info.name, model: info.model, os: info.os, kind: 'web' });
       // The hub holds a key for this id that this browser lost (storage cleared): a new id, asked about anew.
       if (r.status === 401) { me = null; continue; }
+      // No app let in on this account: nobody could let this browser in (a browser is never an account's first device).
+      if (r.status === 412) { me = null; try { localStorage.removeItem(storeKey(uid)); } catch (e) {} throw new Error(T('이 계정에 등록된 PC가 없습니다. PC에 Deskify를 설치하고 같은 구글 계정으로 로그인하십시오.', 'This account has no PC yet. Install Deskify on your PC and sign in there with the same Google account.')); }
       if (r.status === 409) throw new Error(T('이 계정에 브라우저가 너무 많습니다. 폰이나 PC의 Deskify에서 쓰지 않는 브라우저를 빼 주십시오.', 'Too many browsers on this account. Remove unused ones in Deskify on your phone or PC.'));
       if (r.status !== 200 || !r.body) throw new Error('HTTP ' + r.status);
       if (r.body.key) { me.key = r.body.key; saveMe(uid); }
@@ -115,6 +117,12 @@
     stopWait();
     expiresAt = d.expiresAt || 0;
     $('waitMsg').textContent = ''; $('askAgain').hidden = true; $('waitSpin').hidden = false;
+    // Someone tried to keep this browser for good, but the account has its five devices: said here, still waiting
+    // (이번만 허용 can still let it in).
+    var full = function (dev) {
+      if (dev && dev.full) $('waitMsg').textContent = T('이 계정에 기기가 5대라 이 브라우저를 계속 허용할 수는 없습니다. 허용하는 기기에서 "이번만 허용"을 누르거나, 기기 하나를 지운 뒤 다시 허용해 주십시오.', 'This account already has 5 devices, so this browser can\'t be allowed for good. Choose "Allow this once" on the other device, or remove a device there and allow again.');
+    };
+    full(d);
     var paint = function () {
       var left = expiresAt ? expiresAt - (Date.now() + skew) : 0;
       if (expiresAt && left <= 0) {
@@ -139,6 +147,7 @@
           return;
         }
         if (r.status === 200 && r.body && r.body.approved) { stopWait(); listPcs(r.body); return; }
+        if (r.status === 200) full(r.body);
         if (r.body && r.body.expiresAt && r.body.expiresAt !== expiresAt) expiresAt = r.body.expiresAt;
       } catch (e) {}
     }, WAIT_POLL_MS);
@@ -205,6 +214,7 @@
   async function connect(pc) {
     lastPc = pc; cancelled = false;
     clearTimeout(pcsTimer);
+    $('pcsInfo').hidden = true;
     if (!('VideoDecoder' in window)) return ended(T('이 브라우저로는 화면을 볼 수 없습니다', 'This browser can\'t show the screen'),
       T('WebCodecs를 지원하지 않습니다. 최신 Chrome·Edge·Safari(16.4 이상)·Firefox(130 이상)를 사용해 주십시오.', 'It has no WebCodecs. Use a recent Chrome, Edge, Safari (16.4+) or Firefox (130+).'));
     show('connecting');
@@ -343,6 +353,9 @@
     S.relay = S.relay || await relayed(S.peer);
     paintRelay();
     needKey = true; codec = ''; stream = { w: 0, h: 0, mw: 0, mh: 0 };
+    $('notice').hidden = true;
+    sound.on = false; sound.chosen = false; paintSound();
+    resetZoom(); noPageZoom(true);
     S.dc.onmessage = onMessage;
     S.dc.onclose = function () { if (S && !S.ended) lost(); };
     S.peer.oniceconnectionstatechange = function () { if (S && S.peer.iceConnectionState === 'failed' && !S.ended) lost(); };
@@ -355,7 +368,11 @@
     pingTimer = setInterval(async function () {
       send({ t: 'ping', at: performance.now() });
       var r = await relayed(S.peer);
-      if (r !== !!S.relay && S.dc && S.dc.readyState === 'open') { S.relay = r; send({ t: 'relay', on: r }); paintRelay(); }
+      if (r !== !!S.relay && S.dc && S.dc.readyState === 'open') {
+        S.relay = r; send({ t: 'relay', on: r }); paintRelay();
+        // Over a relay the sound goes off (its data counts), unless it was turned on by hand.
+        if (r && sound.on && !sound.chosen) setSound(false, false);
+      }
     }, 2000);
   }
 
@@ -382,6 +399,7 @@
     if (!b.length) return;
     counters.bytes += b.length; window.__rmBytes = (window.__rmBytes || 0) + b.length;
     if (b[0] === FRAME) return onFramePart(b);
+    if (b[0] === AUDIO) return onAudio(b);
     if (b[0] !== JSONMSG) return;
     var m; try { m = JSON.parse(new TextDecoder().decode(b.subarray(1))); } catch (x) { return; }
     switch (m.t) {
@@ -394,12 +412,26 @@
         (m.monitors || []).forEach(function (i) { var o = document.createElement('option'); o.value = i; o.textContent = T('모니터 ', 'Monitor ') + (i + 1); sel.appendChild(o); });
         sel.value = m.monitor;
         needKey = true;
+        // What else the PC does: the clipboard, files to it, its sound (on by default on a direct path only).
+        $('btnClip').hidden = !m.clip; $('btnFile').hidden = !m.files; $('btnSnd').hidden = !m.sound || !('AudioDecoder' in window);
+        // The secure desktop (lock/sign-in screen, UAC) through the PC's service helper: say so, offer Ctrl+Alt+Del, no files/sound/clipboard there.
+        S.secure = !!m.secure;
+        $('optCad').hidden = !m.secure;
+        if (m.secure) { $('btnClip').hidden = true; $('btnFile').hidden = true; $('btnSnd').hidden = true; }
+        $('secure').hidden = !m.secure;
+        if (!$('btnSnd').hidden && !sound.chosen && sound.on !== !S.relay) setSound(!S.relay, false);
         break;
+      case 'clip': gotClip(m.s || ''); break;
+      case 'snd': sound.rate = m.rate || 48000; break;
+      case 'fdone': fileDone(m.id, T('PC의 받기 폴더에 저장했습니다: ', 'Saved in the PC\'s receive folder: ') + m.name); break;
+      case 'ferr': fileDone(m.id, m.message || T('PC에 저장하지 못했습니다', 'Couldn\'t save it on the PC')); break;
       case 'size': stream.w = m.w; stream.h = m.h; needKey = true; break;
       case 'cur': moveCursor(m); break;
       case 'curs': setCursor(m); break;
       case 'pong': S.rttPing = performance.now() - m.at; break;
       case 'error': toast(m.message, 8000); break;
+      // The PC's session isn't drawing its screen (its remote desktop window minimized or disconnected): said until it is again.
+      case 'drawing': $('notice').textContent = m.message || ''; $('notice').hidden = !!m.on; break;
       case 'bye':
         S.byeWhy = m.why;
         var why = m.why === 'replaced' ? T('다른 곳에서 새 웹 원격을 시작해 이 연결이 끝났습니다.', 'A new web remote session started elsewhere, so this one ended.')
@@ -516,6 +548,7 @@
 
   canvas.addEventListener('contextmenu', function (e) { e.preventDefault(); });
   canvas.addEventListener('pointerdown', function (e) {
+    gesture();
     if (e.pointerType === 'touch') return touchStart(e);
     touchMode = false; placeCursor();
     canvas.focus();
@@ -563,13 +596,28 @@
       clearTimeout(tState.hold);
       if (tState.mode === 'drag') send({ t: 'pm', a: 'up', b: 'l', x: tState.p.x, y: tState.p.y });
       var a = touches[ids[0]], b = touches[ids[1]];
-      tState = { mode: 'scroll', y: (a.y + b.y) / 2, x: (a.x + b.x) / 2, acc: 0, accx: 0 };
-      var m = norm(tState.x, tState.y); send({ t: 'pm', a: 'move', x: m.x, y: m.y });
+      // Two fingers: a pinch (their distance changes) zooms this view, else moving them together is the wheel.
+      tState = { mode: 'two', y: (a.y + b.y) / 2, x: (a.x + b.x) / 2, acc: 0, accx: 0, d0: Math.hypot(a.x - b.x, a.y - b.y), v0: { k: view.k, x: view.x, y: view.y } };
+      tState.cx0 = tState.x; tState.cy0 = tState.y;
     }
   }
   function touchMove(e) {
     if (!touches[e.pointerId] || !tState) return;
     touches[e.pointerId] = { x: e.clientX, y: e.clientY };
+    if (tState.mode === 'two' || tState.mode === 'zoom') {
+      var tw = Object.keys(touches); if (tw.length < 2) return;
+      var p1 = touches[tw[0]], p2 = touches[tw[1]], cx = (p1.x + p2.x) / 2, cy = (p1.y + p2.y) / 2, d = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+      if (tState.mode === 'two') {
+        if (Math.abs(d - tState.d0) > 24) tState.mode = 'zoom';
+        else if (Math.hypot(cx - tState.cx0, cy - tState.cy0) > 12) {
+          tState.mode = 'scroll'; tState.x = cx; tState.y = cy;
+          var m = norm(cx, cy); send({ t: 'pm', a: 'move', x: m.x, y: m.y });
+          return;
+        } else return;
+      }
+      zoomTo(tState.v0, tState.d0 ? d / tState.d0 : 1, tState.cx0, tState.cy0, cx, cy);
+      return;
+    }
     if (tState.mode === 'scroll') {
       var ids = Object.keys(touches); if (ids.length < 2) return;
       var a = touches[ids[0]], b = touches[ids[1]], y = (a.y + b.y) / 2, x = (a.x + b.x) / 2;
@@ -595,8 +643,8 @@
       var p = tState.p;
       send({ t: 'pm', a: 'move', x: p.x, y: p.y }); send({ t: 'pm', a: 'down', b: 'l', x: p.x, y: p.y }); send({ t: 'pm', a: 'up', b: 'l', x: p.x, y: p.y });
     } else if (tState.mode === 'drag') send({ t: 'pm', a: 'up', b: 'l', x: tState.p.x, y: tState.p.y });
-    if (!Object.keys(touches).length) tState = null;
-    else if (tState.mode !== 'scroll') tState = null;
+    if (!Object.keys(touches).length) { if (tState.mode === 'zoom' && view.k < 1.05) resetZoom(); tState = null; }
+    else if (tState.mode !== 'scroll' && tState.mode !== 'zoom' && tState.mode !== 'two') tState = null;
   }
 
   // Keys: each physical key by its code (the PC's own keyboard layout and IME make the letters, Korean included).
@@ -605,11 +653,26 @@
     if (!inSession() || document.activeElement === $('ime') || e.target.tagName === 'SELECT') return;
     e.preventDefault();
     if (e.repeat && e.code.indexOf('Shift') === 0) return;
+    gesture();
+    // Ctrl+V: this device's clipboard goes to the PC first (where the browser lets the page read it), then the V.
+    if (e.code === 'KeyV' && e.ctrlKey && !e.repeat && navigator.clipboard && navigator.clipboard.readText) {
+      skipVUp = true;
+      // (Ctrl may be let go before the clipboard is read, a permission prompt say: held again around the V.)
+      pushClip(false).then(function () {
+        send({ t: 'k', code: 'ControlLeft', down: true }); send({ t: 'k', code: 'KeyV', down: true }); send({ t: 'k', code: 'KeyV', down: false });
+        if (!ctrlNow) send({ t: 'k', code: 'ControlLeft', down: false });
+      });
+      return;
+    }
+    if (e.code.indexOf('Control') === 0) ctrlNow = true;
     send({ t: 'k', code: e.code, down: true });
   });
+  var skipVUp = false, ctrlNow = false;
   document.addEventListener('keyup', function (e) {
     if (!inSession() || document.activeElement === $('ime') || e.target.tagName === 'SELECT') return;
     e.preventDefault();
+    if (e.code === 'KeyV' && skipVUp) { skipVUp = false; return; }
+    if (e.code.indexOf('Control') === 0) ctrlNow = false;
     send({ t: 'k', code: e.code, down: false });
   });
   // Keys held when the page loses focus would stay down on the PC.
@@ -634,6 +697,168 @@
     if (['Backspace', 'Enter', 'Tab', 'Escape', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Delete', 'Home', 'End'].indexOf(e.key) >= 0 && !composing) { e.preventDefault(); tap(e.code || e.key); }
   });
   function tap(code) { send({ t: 'k', code: code, down: true }); send({ t: 'k', code: code, down: false }); }
+
+  // --- zoom (phones: a pinch) --------------------------------------------------------------------------------------------
+  // This view only, uniformly (the picture keeps the monitor's shape): the canvas scaled and moved inside the stage.
+  // Positions sent to the PC come from the canvas's box as drawn (picture()), so input stays where the finger is.
+  var view = { k: 1, x: 0, y: 0 };
+  function applyZoom() {
+    canvas.style.transform = view.k === 1 && !view.x && !view.y ? '' : 'translate(' + view.x + 'px,' + view.y + 'px) scale(' + view.k + ')';
+    placeCursor();
+  }
+  function resetZoom() { view = { k: 1, x: 0, y: 0 }; applyZoom(); }
+  /** From [v0] (the view when the pinch began): [scale] times as large, the point under (cx0, cy0) now under (cx, cy). */
+  function zoomTo(v0, scale, cx0, cy0, cx, cy) {
+    var st = $('stage').getBoundingClientRect();
+    var k = Math.min(6, Math.max(1, v0.k * scale));
+    // The stage point under the fingers when it began, in the canvas's own (unscaled) pixels.
+    var px = (cx0 - st.left - v0.x) / v0.k, py = (cy0 - st.top - v0.y) / v0.k;
+    var x = cx - st.left - px * k, y = cy - st.top - py * k;
+    // Never past the stage's edges.
+    x = Math.min(0, Math.max(st.width - st.width * k, x)); y = Math.min(0, Math.max(st.height - st.height * k, y));
+    view = { k: k, x: x, y: y };
+    applyZoom();
+  }
+  window.addEventListener('resize', function () { if (view.k !== 1) resetZoom(); });
+  /** In a session, the page itself doesn't zoom (the pinch zooms the PC's picture instead). */
+  function noPageZoom(on) {
+    var m = document.querySelector('meta[name=viewport]');
+    if (m) m.setAttribute('content', 'width=device-width, initial-scale=1, viewport-fit=cover' + (on ? ', maximum-scale=1, user-scalable=no' : ''));
+  }
+
+  // --- the PC's sound: AAC frames → WebCodecs AudioDecoder → Web Audio, a little ahead of the clock -----------------------
+  var sound = { on: false, chosen: false, ctx: null, dec: null, at: 0, rate: 48000 };
+  function audioCtx() {
+    if (!sound.ctx) { try { sound.ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return null; } }
+    if (sound.ctx.state === 'suspended') sound.ctx.resume().catch(function () {});
+    return sound.ctx;
+  }
+  /** On or off ([chosen]: by the 소리 button; else the default, on for a direct path, off over a relay). */
+  function setSound(on, chosen) {
+    sound.on = on; if (chosen) sound.chosen = true;
+    paintSound();
+    send({ t: 'snd', on: on });
+    if (on) audioCtx(); else closeAudioDecoder();
+  }
+  function paintSound() { $('btnSnd').setAttribute('aria-pressed', sound.on ? 'true' : 'false'); }
+  $('btnSnd').onclick = function () { setSound(!sound.on, true); canvas.focus(); };
+  function closeAudioDecoder() { try { if (sound.dec && sound.dec.state !== 'closed') sound.dec.close(); } catch (e) {} sound.dec = null; }
+  // [3][i64 µs] + one AAC frame (ADTS: no description needed).
+  function onAudio(b) {
+    if (!sound.on || !('AudioDecoder' in window) || b.length < 10) return;
+    if (!audioCtx()) return;
+    if (!sound.dec || sound.dec.state === 'closed') {
+      sound.dec = new AudioDecoder({ output: playAudio, error: function (e) { console.warn('audio', e); sound.dec = null; } });
+      sound.dec.configure({ codec: 'mp4a.40.2', sampleRate: sound.rate, numberOfChannels: 2 });
+    }
+    var ts = Number(new DataView(b.buffer, b.byteOffset, b.byteLength).getBigInt64(1));
+    try { sound.dec.decode(new EncodedAudioChunk({ type: 'key', timestamp: ts, data: b.subarray(9) })); } catch (e) {}
+  }
+  function playAudio(data) {
+    var ctx = sound.ctx;
+    if (!ctx || !sound.on) { data.close(); return; }
+    var n = data.numberOfFrames, ch = data.numberOfChannels, buf = ctx.createBuffer(ch, n, data.sampleRate);
+    for (var c = 0; c < ch; c++) { var a = new Float32Array(n); data.copyTo(a, { planeIndex: c, format: 'f32-planar' }); buf.copyToChannel(a, c); }
+    data.close();
+    window.__rmAudio = (window.__rmAudio || 0) + 1;
+    // A small cushion against the network's jitter; a backlog (too far ahead) starts over at the cushion.
+    var now = ctx.currentTime;
+    if (sound.at < now + 0.02 || sound.at > now + 0.4) sound.at = now + 0.08;
+    var src = ctx.createBufferSource(); src.buffer = buf; src.connect(ctx.destination); src.start(sound.at);
+    sound.at += buf.duration;
+  }
+
+  // --- the clipboard's text, both ways ---------------------------------------------------------------------------------
+  // PC → here: written to this device's clipboard (or at the next tap/key, when the browser wants a gesture for it).
+  // Here → PC: before Ctrl+V reaches the PC, with the button (phones), and when this tab comes back to the front (where
+  // the browser already lets the page read it).
+  var clip = { last: '', pending: null };
+  function gotClip(s) { if (!s || s === clip.last) return; clip.last = s; writeClip(s); }
+  function writeClip(s) {
+    if (!navigator.clipboard || !navigator.clipboard.writeText) return;
+    navigator.clipboard.writeText(s).then(function () { if (clip.pending === s) clip.pending = null; }, function () { clip.pending = s; });
+  }
+  /** A tap or key in the session: what waits for this device's clipboard goes now, and stopped sound resumes. */
+  function gesture() {
+    if (clip.pending) writeClip(clip.pending);
+    if (sound.on) audioCtx();
+  }
+  async function pushClip(asked) {
+    if (!navigator.clipboard || !navigator.clipboard.readText) {
+      if (asked) toast(T('이 브라우저는 페이지가 클립보드를 읽지 못하게 합니다.', 'This browser doesn\'t let pages read the clipboard.'), 4000);
+      return false;
+    }
+    try {
+      var s = await navigator.clipboard.readText();
+      if (s && (asked || s !== clip.last)) { clip.last = s; send({ t: 'clip', s: s }); if (asked) toast(T('클립보드를 PC로 보냈습니다', 'Clipboard sent to the PC'), 2000); }
+      return true;
+    } catch (e) {
+      if (asked) toast(T('클립보드를 읽지 못했습니다. 브라우저가 허락하지 않았습니다.', 'Couldn\'t read the clipboard: the browser didn\'t allow it.'), 4000);
+      return false;
+    }
+  }
+  $('btnClip').onclick = function () { pushClip(true); canvas.focus(); };
+  window.addEventListener('focus', function () {
+    if (!inSession() || !navigator.permissions || !navigator.permissions.query) return;
+    navigator.permissions.query({ name: 'clipboard-read' }).then(function (p) { if (p.state === 'granted') pushClip(false); }).catch(function () {});
+  });
+
+  // --- files to the PC (its receive folder: the same as the phones' sends) -----------------------------------------------
+  // fs{id, name, size}, then [4][u32 id] + up to 32 KB at a time (waiting while the channel holds 1 MB), fe{id}; the PC
+  // answers fdone or ferr. One file at a time; over a relay 100 MB at most (its data is the free allowance).
+  var files = { seq: 0, busy: false, queue: [], wait: {} };
+  var RELAY_FILE_MAX = 100 * 1024 * 1024;
+  $('btnFile').onclick = function () { $('fileIn').value = ''; $('fileIn').click(); };
+  $('fileIn').onchange = function () { sendFiles($('fileIn').files); canvas.focus(); };
+  var stage = $('stage'), dragDepth = 0;
+  stage.addEventListener('dragenter', function (e) { if (!inSession() || $('btnFile').hidden) return; e.preventDefault(); dragDepth++; $('drop').hidden = false; });
+  stage.addEventListener('dragover', function (e) { if (inSession() && !$('btnFile').hidden) e.preventDefault(); });
+  stage.addEventListener('dragleave', function () { if (--dragDepth <= 0) { dragDepth = 0; $('drop').hidden = true; } });
+  stage.addEventListener('drop', function (e) {
+    e.preventDefault(); dragDepth = 0; $('drop').hidden = true;
+    if (inSession() && !$('btnFile').hidden && e.dataTransfer && e.dataTransfer.files.length) sendFiles(e.dataTransfer.files);
+  });
+  async function sendFiles(list) {
+    for (var i = 0; i < list.length; i++) files.queue.push(list[i]);
+    if (files.busy) return;
+    files.busy = true;
+    try { while (files.queue.length && inSession()) await sendFile(files.queue.shift()); }
+    finally { files.busy = false; $('xfer').hidden = true; }
+  }
+  async function sendFile(f) {
+    if (S.relay && f.size > RELAY_FILE_MAX) { toast(T('중계 연결에서는 100MB가 넘는 파일을 보낼 수 없습니다: ', 'Over a relay, files over 100 MB can\'t be sent: ') + f.name, 6000); return; }
+    var id = ++files.seq, CH = 32 * 1024, at = 0;
+    send({ t: 'fs', id: id, name: f.name, size: f.size });
+    paintXfer(f.name, 0, f.size);
+    while (at < f.size) {
+      if (!inSession()) return;
+      while (S.dc.bufferedAmount > 1024 * 1024 && inSession()) await bufferLow();
+      var part = new Uint8Array(await f.slice(at, at + CH).arrayBuffer());
+      var msg = new Uint8Array(5 + part.length);
+      msg[0] = FILECHUNK; new DataView(msg.buffer).setUint32(1, id); msg.set(part, 5);
+      try { S.dc.send(msg); } catch (e) { return; }
+      at += part.length;
+      paintXfer(f.name, at, f.size);
+    }
+    send({ t: 'fe', id: id });
+    var said = await new Promise(function (res) { files.wait[id] = res; setTimeout(function () { res(null); }, 60000); });
+    delete files.wait[id];
+    toast(said || T('PC가 파일을 받았는지 확인하지 못했습니다: ', 'Couldn\'t confirm that the PC got it: ') + f.name, 5000);
+  }
+  function bufferLow() {
+    return new Promise(function (res) {
+      var dc = S.dc; dc.bufferedAmountLowThreshold = 256 * 1024;
+      var done = function () { dc.removeEventListener('bufferedamountlow', done); res(); };
+      dc.addEventListener('bufferedamountlow', done); setTimeout(done, 1000);
+    });
+  }
+  function fileDone(id, text) { var w = files.wait[id]; if (w) w(text); else toast(text, 5000); }
+  function paintXfer(name, done, size) {
+    var pct = size ? Math.floor(done * 100 / size) : 100;
+    $('xfer').hidden = false;
+    $('xferText').textContent = T('PC로 보내는 중 · ', 'Sending to the PC · ') + name + ' · ' + pct + '%';
+    $('xferBar').style.width = pct + '%';
+  }
 
   // --- the bar -------------------------------------------------------------------------------------------------------
   $('btnFull').onclick = async function () {
@@ -667,19 +892,32 @@
     try { if (decoder && decoder.state !== 'closed') decoder.close(); } catch (e) {}
     decoder = null; codec = '';
     if (document.fullscreenElement) document.exitFullscreen().catch(function () {});
-    ended(title, text);
+    $('notice').hidden = true; $('xfer').hidden = true;
+    closeAudioDecoder(); files.queue = [];
+    noPageZoom(false);
+    // Back to the PCs (connect again from there), with what happened above the list. A browser let in "이번만" stays in
+    // until its page closes; one taken off meanwhile is asked about again (listPcs sees the 403).
+    $('pcsInfo').textContent = title + (text ? ' · ' + text : ''); $('pcsInfo').hidden = false;
+    listPcs();
   }
 
   function ended(title, text) {
     $('endTitle').textContent = title; $('endText').textContent = text || '';
     show('ended');
-    // Let in "이번만": that was its one session (the hub took it off the account); asked again from 다시 연결.
   }
-  $('again').onclick = function () { if (onceDevice) return reallow(); if (lastPc) connect(lastPc); };
-  $('toList').onclick = function () { if (onceDevice) return reallow(); listPcs(); };
+  // (A browser let in "이번만" and taken off meanwhile is asked about again: connect and listPcs see the 403.)
+  $('again').onclick = function () { if (lastPc) connect(lastPc); };
+  $('toList').onclick = function () { listPcs(); };
 
-  // Closing the page ends the session at once (the PC hangs up; a browser let in "이번만" leaves the account).
-  window.addEventListener('pagehide', function () { if (S && !S.ended) { send({ t: 'bye' }); endSession('closed', true); } });
+  // Closing the page ends the session at once (the PC hangs up) and, for a browser let in "이번만", its time on the
+  // account (why 'page': the hub takes it off even when the session had ended before).
+  window.addEventListener('pagehide', function () {
+    var live = S && !S.ended;
+    if (live) send({ t: 'bye' });
+    if (!live && !onceDevice) return;
+    if (S) S.ended = true;
+    api('POST', '/v1/web/end', { session: S ? S.session : '', why: 'page' }, true).catch(function () {});
+  });
 
   // A local copy only (http://localhost): the session part driven by a test harness over a connection it made itself
   // (no sign-in, no hub), to check the media path against the PC app's --dev-web-offer.
@@ -701,6 +939,9 @@
         return true;
       },
       send: send,
+      // A file made here, sent as if picked (the files path), and what the clipboard, sound and zoom did.
+      sendText: function (name, text) { sendFiles([new File([text], name)]); },
+      extras: function () { return { audio: window.__rmAudio || 0, clip: clip.last, zoom: canvas.style.transform, sound: sound.on, buttons: ['btnSnd', 'btnClip', 'btnFile'].map(function (b) { return $(b).hidden ? '' : b; }).join(','), toast: $('toast').hidden ? '' : $('toast').textContent }; },
       // A message as if from the PC (frame parts, JSON), for checking the decoder without a screen to capture.
       inject: function (bytes) { onMessage({ data: bytes.buffer }); },
       state: function () { return { codec: codec, w: canvas.width, h: canvas.height, stream: stream, relay: S && S.relay, stats: $('stats').textContent, badge: $('relayBadge').hidden ? '' : $('relayBadge').textContent, ended: $('ended').hidden ? '' : $('endText').textContent, frames: window.__rmFrames || 0, bytes: window.__rmBytes || 0, cursor: canvas.style.cursor.slice(0, 40) }; },

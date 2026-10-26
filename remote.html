@@ -7,7 +7,7 @@
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="style.css?v=5">
-<link rel="stylesheet" href="remote.css?v=1">
+<link rel="stylesheet" href="remote.css?v=3">
 <script>
   (function () {
     var saved = null;
@@ -59,9 +59,10 @@
       <h2><span lang-ko>내 PC</span><span lang-en>My PCs</span></h2>
       <button id="reload" class="rm-ghost" type="button"><span lang-ko>새로 고침</span><span lang-en>Refresh</span></button>
     </div>
+    <p id="pcsInfo" class="rm-box rm-small" hidden></p>
     <div id="pcList" class="rm-list"></div>
     <p id="pcsMsg" class="rm-err"></p>
-    <p class="rm-muted rm-small" id="onceNote" hidden><span lang-ko>이 브라우저는 "이번만 허용"으로 들어왔습니다. 연결이 끝나면 다시 허용받아야 합니다.</span><span lang-en>This browser was allowed just this once: after the connection ends it must be allowed again.</span></p>
+    <p class="rm-muted rm-small" id="onceNote" hidden><span lang-ko>이 브라우저는 "이번만 허용"으로 들어왔습니다. 이 페이지를 닫거나 12시간이 지나면 다시 허용받아야 합니다.</span><span lang-en>This browser was allowed just this once: once this page closes, or after 12 hours, it must be allowed again.</span></p>
     <p class="rm-muted rm-small"><button id="forget" class="rm-link" type="button"><span lang-ko>이 브라우저를 계정에서 빼기</span><span lang-en>Remove this browser from the account</span></button></p>
   </section>
 
@@ -86,10 +87,14 @@
   <div id="stage" class="rm-stage">
     <canvas id="screen" tabindex="0"></canvas>
     <img id="cursor" class="rm-cursor" alt="" hidden>
+    <div id="notice" class="rm-notice" hidden></div>
+    <div id="xfer" class="rm-xfer" hidden><span id="xferText"></span><div class="rm-xfer-bar"><i id="xferBar"></i></div></div>
+    <div id="drop" class="rm-drop" hidden><span lang-ko>여기에 놓으면 PC의 받기 폴더로 보냅니다</span><span lang-en>Drop here to send to the PC's receive folder</span></div>
   </div>
   <div id="bar" class="rm-bar">
     <span id="barName" class="rm-bar-name"></span>
     <span id="relayBadge" class="rm-badge" hidden></span>
+    <span id="secure" class="rm-badge rm-secure" hidden><span lang-ko>잠금 화면</span><span lang-en>Lock screen</span></span>
     <span id="stats" class="rm-stats"></span>
     <span class="rm-sep"></span>
     <button id="btnFull" type="button" title="전체 화면 / Full screen">⛶</button>
@@ -110,8 +115,13 @@
       <option value="altf4">Alt+F4</option>
       <option value="prtsc">PrtSc</option>
       <option value="hangul">한/영</option>
+      <option value="cad" id="optCad" hidden>Ctrl+Alt+Del</option>
     </select>
     <select id="monitor" title="모니터 / Monitor" hidden></select>
+    <button id="btnSnd" class="rm-ico" type="button" title="PC 소리 / PC sound" aria-pressed="false" hidden><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path class="on" d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path class="off" d="M16.5 9.5l5 5m0-5l-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <button id="btnClip" class="rm-ico" type="button" title="이 기기의 클립보드를 PC로 / This device's clipboard to the PC" hidden><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M9 4h6v3H9zM7 5H5v16h14V5h-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></button>
+    <button id="btnFile" class="rm-ico" type="button" title="파일을 PC로 보내기 / Send files to the PC" hidden><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 16V4m0 0l-5 5m5-5l5 5M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <input id="fileIn" type="file" multiple hidden>
     <button id="btnKbd" type="button" title="키보드 / Keyboard">⌨</button>
     <button id="btnHang" class="rm-hang" type="button"><span lang-ko>끊기</span><span lang-en>Disconnect</span></button>
   </div>
@@ -121,6 +131,6 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script src="remote.js?v=1"></script>
+<script src="remote.js?v=3"></script>
 </body>
 </html>

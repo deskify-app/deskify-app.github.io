@@ -40,6 +40,22 @@
 .rm-sep { flex: 1; }
 .rm-ime { position: fixed; left: 0; bottom: 0; width: 1px; height: 1px; opacity: 0; border: 0; padding: 0; resize: none; }
 .rm-toast { position: absolute; left: 50%; top: 18px; transform: translateX(-50%); background: rgba(24, 24, 28, .92); color: #ececf0; padding: 10px 16px; border-radius: 12px; z-index: 5; max-width: 90vw; font-size: .9rem; }
+/* stays while it holds (the PC not drawing its screen), unlike the toast */
+.rm-notice { position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%); background: rgba(74, 58, 18, .95); color: #f5d38a; padding: 10px 16px; border-radius: 12px; z-index: 5; width: max-content; max-width: min(560px, 90vw); font-size: .88rem; line-height: 1.45; }
+.rm-bar .rm-ico { display: inline-flex; align-items: center; justify-content: center; padding: 5px 8px; }
+.rm-ico .off { display: none; }
+.rm-ico[aria-pressed="false"] .on { display: none; }
+.rm-ico[aria-pressed="false"] .off { display: inline; }
+.rm-ico[aria-pressed="true"] { border-color: #3b6fe0; }
+/* a file on its way to the PC */
+.rm-xfer { position: absolute; right: 14px; top: 14px; background: rgba(24, 24, 28, .92); color: #ececf0; padding: 9px 12px; border-radius: 12px; z-index: 5; width: min(300px, 80vw); font-size: .82rem; }
+.rm-xfer span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-bottom: 6px; }
+.rm-xfer-bar { height: 4px; border-radius: 2px; background: #34343c; overflow: hidden; }
+.rm-xfer-bar i { display: block; height: 100%; width: 0; background: #3b6fe0; }
+.rm-drop { position: absolute; inset: 12px; border: 2px dashed #3b6fe0; border-radius: 16px; background: rgba(59, 111, 224, .12); color: #ececf0; display: flex; align-items: center; justify-content: center; z-index: 6; pointer-events: none; font-size: 1rem; }
+.rm-drop[hidden] { display: none !important; }
+.rm-stage canvas { transform-origin: 0 0; }
+.rm-secure { background: #3a2a4a; color: #d7a8f5; }
 @media (max-width: 640px) {
   .rm-card { padding: 20px; }
   .rm-stats { display: none; }
