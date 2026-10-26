@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Deskify 브라우저 연결 · Connect a browser</title>
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="style.css?v=5">
+<style>
+  .pair { max-width: 520px; margin: 0 auto; text-align: center; }
+  .pair h1 { font-size: 24px; margin: 8px 0 10px; }
+  .pair p { line-height: 1.6; }
+  .pair .btns { display: grid; gap: 10px; margin: 22px auto 8px; max-width: 320px; }
+  .pair .btn { display: block; padding: 12px 16px; border-radius: 10px; font-weight: 600; text-decoration: none; border: 1px solid rgba(127,127,127,.35); }
+  .pair .btn.primary { background: #3B6FE0; color: #fff; border-color: #3B6FE0; }
+  .pair .note { font-size: 13.5px; opacity: .75; }
+  .pair hr { margin: 34px 0; border: 0; border-top: 1px solid rgba(127,127,127,.25); }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./"><img src="icon.png" alt="" width="30" height="30">Deskify</a>
+    <nav><a href="./">홈 · Home</a></nav>
+  </div>
+</header>
+<!--
+  The QR on remote.html holds https://deskify-app.github.io/pair#pair=<id>. With Deskify installed the phone's camera
+  opens the app straight on its browser-pair sheet (a verified App Link, /.well-known/assetlinks.json); this page is
+  what shows without it (or when the link wasn't handed to the app): scan it with Deskify, or get Deskify.
+-->
+<main class="doc pair">
+  <img src="icon.png" alt="" width="64" height="64">
+  <h1>이 QR은 Deskify 앱으로 찍어 주십시오</h1>
+  <p>컴퓨터의 브라우저를 내 PC에 연결하는 QR입니다. 폰에서 <b>Deskify</b>를 열고 보관함 위쪽의 <b>QR 단추 (브라우저 연결)</b>로 다시 비춰 주십시오.</p>
+  <div class="btns">
+    <a class="btn primary" id="openApp" href="#" hidden>Deskify 앱에서 열기</a>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=kr.co.sdh.deskify">Google Play에서 Deskify 받기</a>
+  </div>
+  <p class="note">컴퓨터에서 이 페이지를 열었다면 <a href="remote.html">deskify-app.github.io/remote.html</a>을 여십시오.</p>
+  <hr>
+  <h1 lang="en">Scan this QR with the Deskify app</h1>
+  <p lang="en">This QR connects a computer's browser to your PC. Open <b>Deskify</b> on your phone and scan it again with the <b>QR button (Connect a browser)</b> at the top of the vault.</p>
+  <div class="btns" lang="en">
+    <a class="btn primary" id="openAppEn" href="#" hidden>Open in the Deskify app</a>
+    <a class="btn" href="https://play.google.com/store/apps/details?id=kr.co.sdh.deskify">Get Deskify on Google Play</a>
+  </div>
+  <p class="note" lang="en">Opened this on a computer? Go to <a href="remote.html">deskify-app.github.io/remote.html</a>.</p>
+</main>
+<script>
+  // On Android: a button that hands the pairing to the app by name (when the App Link wasn't verified yet, or the
+  // browser kept the link to itself). The id goes as a query (an intent: URL's fragment is its own).
+  (function () {
+    var m = /[#&?]pair=([A-Za-z0-9_-]{16,32})/.exec(location.hash + location.search);
+    if (!m || !/Android/i.test(navigator.userAgent)) return;
+    var back = encodeURIComponent('https://play.google.com/store/apps/details?id=kr.co.sdh.deskify');
+    var url = 'intent://deskify-app.github.io/pair?pair=' + m[1] + '#Intent;scheme=https;package=kr.co.sdh.deskify;S.browser_fallback_url=' + back + ';end';
+    ['openApp', 'openAppEn'].forEach(function (id) { var a = document.getElementById(id); a.href = url; a.hidden = false; });
+  })();
+</script>
+</body>
+</html>
