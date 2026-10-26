@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.css">
 <link rel="stylesheet" href="remote.min.css?v=d44e4a67a7">
-<link rel="stylesheet" href="app.min.css?v=d47ddcec88">
+<link rel="stylesheet" href="app.min.css?v=4c76ce5b85">
 <script>
   (function () {
     var saved = null;
@@ -107,7 +107,7 @@
     <ul class="rm-feats">
       <li><svg><use href="#i-key"/></svg><span lang-ko>비밀번호와 키는 브라우저로 오지 않습니다. 내 PC가 저장된 정보로 접속합니다</span><span lang-en>Passwords and keys never come to the browser: your PC connects with what it keeps</span></li>
       <li><svg><use href="#i-shield"/></svg><span lang-ko>이 계정의 폰이나 PC가 허용한 브라우저만 들어옵니다. QR로 들어온 브라우저는 이 페이지를 닫으면 빠집니다</span><span lang-en>Only browsers your phone or PC allows get in. One let in by QR is gone when this page closes</span></li>
-      <li><svg><use href="#i-monitor"/></svg><span lang-ko>PC의 설정 → 모바일 기기 → 화면 공유 원격에서 "웹에서 내 컴퓨터 목록·SSH 쓰기"를 켜야 합니다 (Pro)</span><span lang-en>Turn on "Computer list and SSH from the web" in the PC's Settings → Mobile devices (Pro)</span></li>
+      <li><svg><use href="#i-monitor"/></svg><span lang-ko>PC의 설정 → 모바일 기기 → 화면 공유 원격에서 "웹에서 내 컴퓨터 목록·원격 쓰기"를 켜야 합니다 (Pro)</span><span lang-en>Turn on "Computer list and remote access from the web" in the PC's Settings → Mobile devices (Pro)</span></li>
     </ul>
     <p class="rm-agree"><span lang-ko>로그인하면 <a href="terms.html">이용약관</a>과 <a href="privacy.html">개인정보처리방침</a>에 동의하는 것으로 봅니다.</span><span lang-en>By signing in you agree to the <a href="terms.html">Terms</a> and the <a href="privacy.html">Privacy Policy</a>.</span></p>
   </section>
@@ -176,6 +176,7 @@
       <button type="button" data-f="fav"><svg><use href="#i-star"/></svg><span lang-ko>즐겨찾기</span><span lang-en>Favorites</span></button>
       <button type="button" data-f="ssh">SSH</button>
       <button type="button" data-f="rdp">RDP</button>
+      <button type="button" data-f="vnc">VNC</button>
     </div>
     <div class="ap-list" id="list"></div>
     <div class="ap-side-foot">
@@ -196,6 +197,9 @@
       <span id="barState" class="rm-chip" hidden></span>
       <span class="ap-grow"></span>
       <button id="btnFiles" class="rm-tool" type="button" data-tip-ko="파일 (SFTP)" data-tip-en="Files (SFTP)" aria-pressed="false"><svg><use href="#i-folder"/></svg><span class="rm-tool-t"><span lang-ko>파일</span><span lang-en>Files</span></span></button>
+      <button id="btnCad" class="rm-tool" type="button" data-tip-ko="Ctrl+Alt+Del 보내기" data-tip-en="Send Ctrl+Alt+Del" hidden><svg><use href="#i-key"/></svg><span class="rm-tool-t">Ctrl+Alt+Del</span></button>
+      <button id="btnKbd" class="rm-tool" type="button" data-tip-ko="화면 키보드" data-tip-en="On-screen keyboard" hidden><svg><use href="#i-kbd"/></svg></button>
+      <button id="btnClipGet" class="rm-tool" type="button" data-tip-ko="원격 클립보드 가져오기" data-tip-en="Get the remote clipboard" hidden><svg><use href="#i-download"/></svg></button>
       <button id="btnPaste" class="rm-tool" type="button" data-tip-ko="붙여넣기" data-tip-en="Paste"><svg><use href="#i-clip"/></svg></button>
       <button id="btnSmaller" class="rm-tool" type="button" data-tip-ko="글자 작게" data-tip-en="Smaller text"><svg><use href="#i-minus"/></svg></button>
       <button id="btnBigger" class="rm-tool" type="button" data-tip-ko="글자 크게" data-tip-en="Larger text"><svg><use href="#i-plus"/></svg></button>
@@ -233,6 +237,7 @@
   </form>
 </div>
 <input id="fileIn" type="file" multiple hidden>
+<textarea id="ime" class="ap-ime" autocomplete="off" autocapitalize="off" spellcheck="false" aria-hidden="true"></textarea>
 <div id="toast" class="rm-toast ap-toast" hidden></div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -242,6 +247,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-unicode11@0.8.0/lib/addon-unicode11.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-web-links@0.11.0/lib/addon-web-links.js"></script>
 <script src="qrcode.min.js?v=0d9b5dc921"></script>
-<script src="app.min.js?v=0b0c1e648e"></script>
+<script src="stream.min.js?v=7f1c70d764"></script>
+<script src="app.min.js?v=0184fe4abf"></script>
 </body>
 </html>
