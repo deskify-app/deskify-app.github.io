@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<title>Deskify 원격 지원</title>
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="remote.min.css?v=01f3a17d5d">
+<script>
+  (function () {
+    var saved = null; try { saved = localStorage.getItem('lang'); } catch (e) {}
+    var lang = saved || ((navigator.language || '').toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en');
+    if (location.hash === '#en') lang = 'en';
+    var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
+    if (q) lang = q[1].toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en';
+    document.documentElement.setAttribute('data-lang', lang);
+    document.documentElement.lang = lang;
+  })();
+</script>
+<style>
+  /* 원격 지원 is its own small page; it leans on remote.css tokens (colours, cards) and adds only its own layout. */
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: 'Pretendard Variable', Pretendard, system-ui, sans-serif; }
+  .wrap { max-width: 560px; margin: 0 auto; padding: 24px 16px 48px; }
+  .topbar { display: flex; align-items: center; gap: 10px; padding: 14px 16px; }
+  .topbar .sp { flex: 1; }
+  .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; }
+  .brand svg { width: 26px; height: 26px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; margin: 14px 0; }
+  h1 { font-size: 20px; margin: 4px 0 12px; }
+  h2 { font-size: 15px; margin: 0 0 10px; }
+  p { line-height: 1.6; color: var(--fg); margin: 8px 0; }
+  .muted { color: var(--fg-dim, #888); font-size: 13px; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 10px; padding: 11px 16px; font-size: 15px; font-weight: 600; cursor: pointer; background: var(--accent); color: #fff; }
+  .btn.sec { background: var(--card); color: var(--fg); border: 1px solid var(--line); }
+  .btn.red { background: var(--red); color: #fff; }
+  .btn:disabled { opacity: .5; cursor: default; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; }
+  input[type=text], input[type=tel] { width: 100%; box-sizing: border-box; padding: 12px; font-size: 20px; letter-spacing: .12em; text-align: center; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--fg); }
+  .code { font-size: 38px; font-weight: 800; letter-spacing: .1em; text-align: center; margin: 12px 0; font-variant-numeric: tabular-nums; }
+  .msg { color: var(--red); font-size: 13px; min-height: 18px; margin-top: 8px; }
+  .stage { position: relative; width: 100vw; height: 100vh; background: #000; display: flex; align-items: center; justify-content: center; }
+  #screen { max-width: 100%; max-height: 100%; outline: none; }
+  .sessbar { position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 5; display: flex; align-items: center; gap: 10px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 7px 10px; box-shadow: 0 4px 22px rgba(0,0,0,.35); }
+  .notice { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 5; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; max-width: 80vw; }
+  .files { position: fixed; right: 12px; bottom: 12px; z-index: 6; max-width: min(360px, calc(100vw - 32px)); background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; box-shadow: 0 4px 22px rgba(0,0,0,.35); }
+  .files ul { list-style: none; margin: 6px 0 0; padding: 0; max-height: 40vh; overflow: auto; }
+  .files li { display: flex; gap: 8px; align-items: center; padding: 4px 0; font-size: 13px; word-break: break-all; }
+  .files li a { color: var(--accent); font-weight: 600; }
+  .sessbar { flex-wrap: wrap; max-width: calc(100vw - 32px); justify-content: center; }
+  .toast { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 9; background: #222; color: #fff; padding: 10px 14px; border-radius: 10px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-logo" viewBox="480 520 970 900"><path style="fill:var(--mark)" fill-rule="evenodd" d="M531,560 L961,560 C1271,560,1401,760,1401,966 C1401,1172,1271,1372,961,1372 L531,1372 ZM693,722 L956,722 C1131,722,1233,830,1233,966 C1233,1102,1131,1210,956,1210 L693,1210 Z"/><circle cx="771" cy="800" r="21" fill="#2eb872"/><circle cx="833" cy="800" r="21" fill="#2eb872"/><circle cx="895" cy="800" r="21" fill="#2eb872"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-hang"viewBox="0 0 24 24"><path d="M12 3.5v8M6.6 6.6a7.5 7.5 0 1 0 10.8 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-full" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+</defs></svg>
+
+<div class="topbar">
+  <span class="brand"><svg><use href="#i-logo"/></svg> Deskify</span>
+  <a class="rm-back" href="web.html" aria-label="웹에서 쓰기"><svg aria-hidden="true"><use href="#i-back"/></svg><span class="rm-back-t"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span></span></a>
+  <span class="sp"></span>
+  <button id="btnLang" class="btn sec">English</button>
+</div>
+
+<div class="wrap">
+  <!-- Sign in: the helper must be a Pro account. -->
+  <section id="gate" hidden>
+    <div class="card">
+      <h1 data-ko="원격 지원" data-en="Remote support">원격 지원</h1>
+      <p data-ko="다른 사람의 Windows PC를 번호 하나로 도와줍니다. 도우미(돕는 사람)는 Deskify Pro 계정으로 로그인합니다." data-en="Help someone else's Windows PC with a single number. The helper signs in with a Deskify Pro account.">다른 사람의 Windows PC를 번호 하나로 도와줍니다.</p>
+      <button id="btnSignIn" class="btn" data-ko="구글로 로그인" data-en="Sign in with Google">구글로 로그인</button>
+      <div id="gateMsg" class="msg"></div>
+    </div>
+    <div class="card">
+      <h2 data-ko="도움을 받는 분이라면" data-en="If you are the one getting help">도움을 받는 분이라면</h2>
+      <p data-ko="설치나 로그인 없이 'Deskify 도움 받기'를 내려받아 실행한 뒤, 화면에 뜬 번호를 도우미에게 불러 주시거나 도우미가 준 번호를 입력하면 됩니다. 연결 전에 PC에서 '보기만 허용 / 조작까지 허용 / 거절'을 직접 고릅니다." data-en="With no install and no sign-in, download and run 'Get help with Deskify', then read the number on screen to your helper, or type the number they give you. Before anything connects, you choose 'view only / allow control / decline' on your own PC.">설치나 로그인 없이 'Deskify 도움 받기'를 내려받아 실행한 뒤, 번호를 주고받으면 됩니다.</p>
+      <span class="btn sec" id="dlSupport" aria-disabled="true" style="opacity:.6;cursor:default" data-ko="Deskify 도움 받기 · 정식 출시 때 제공" data-en="Get help with Deskify · coming at launch">Deskify 도움 받기 · 정식 출시 때 제공</span>
+      <p class="muted" data-ko="압축을 풀고 Deskify.exe를 실행합니다(Windows 10·11). Deskify PC판이 이미 있으면 트레이 메뉴나 홈의 '도움 받기'를 누르면 됩니다." data-en="Unzip it and run Deskify.exe (Windows 10/11). Already have Deskify for Windows? Use 'Get help' in its tray menu or home screen.">압축을 풀고 Deskify.exe를 실행합니다.</p>
+      <p class="muted"><a href="help.html#support" data-ko="원격 지원 도움말" data-en="Remote support help">원격 지원 도움말</a></p>
+      <p class="muted" data-ko="연결 중에는 PC 위에 '원격 지원 중' 띠가 떠 있고, 언제든 끝낼 수 있습니다. 세션이 끝나면 아무것도 남지 않습니다." data-en="While connected a bar says 'Remote support in progress' and you can end it any time. Nothing is left behind afterwards.">연결 중에는 PC 위에 띠가 떠 있고, 언제든 끝낼 수 있습니다.</p>
+    </div>
+  </section>
+
+  <!-- The helper: type the supported person's number, or make one for them. -->
+  <section id="menu" hidden>
+    <div class="card">
+      <h1 data-ko="도울 PC에 연결" data-en="Connect to the PC you'll help">도울 PC에 연결</h1>
+      <p data-ko="도움 받는 분의 9자리 번호를 입력하십시오." data-en="Type the 9-digit number from the person you are helping.">도움 받는 분의 9자리 번호를 입력하십시오.</p>
+      <input id="joinCode" type="tel" inputmode="numeric" maxlength="13" data-ph-ko="000 000 000" data-ph-en="000 000 000">
+      <div class="row" style="margin-top:12px">
+        <button id="btnJoin" class="btn" data-ko="연결" data-en="Connect">연결</button>
+      </div>
+      <div id="menuMsg" class="msg"></div>
+    </div>
+    <div class="card">
+      <h2 data-ko="또는 내 번호를 알려주기" data-en="Or give them your number">또는 내 번호를 알려주기</h2>
+      <p data-ko="도움 받는 분이 'Deskify 도움 받기'에서 번호를 입력하기 어려우면, 대신 내가 번호를 만들어 불러 줄 수 있습니다." data-en="If it's easier for the other person, make a number here and read it to them to type.">대신 내가 번호를 만들어 불러 줄 수 있습니다.</p>
+      <button id="btnMake" class="btn sec" data-ko="번호 만들기" data-en="Make a number">번호 만들기</button>
+    </div>
+    <p class="muted"><span id="who"></span> · <a href="#" id="btnSignOut" data-ko="로그아웃" data-en="Sign out">로그아웃</a></p>
+  </section>
+
+  <section id="making" hidden>
+    <div class="card">
+      <h1 data-ko="이 번호를 불러 주십시오" data-en="Read this number out">이 번호를 불러 주십시오</h1>
+      <div id="madeCode" class="code">…</div>
+      <div id="makeLeft" class="muted" style="text-align:center"></div>
+      <div id="makeMsg" class="muted"></div>
+      <div class="row" style="margin-top:14px">
+        <button id="btnShare" class="btn" data-ko="링크 보내기" data-en="Send a link">링크 보내기</button>
+        <button id="btnCopyLink" class="btn sec" data-ko="링크 복사" data-en="Copy link">링크 복사</button>
+        <button id="btnMakeNew" class="btn sec" data-ko="새 번호" data-en="New code">새 번호</button>
+        <button id="btnMakeCancel" class="btn sec" data-ko="취소" data-en="Cancel">취소</button>
+      </div>
+      <p class="muted" data-ko="링크를 카카오톡·문자로 보내면, 받는 분이 PC에서 열어 프로그램을 받고 번호로 바로 연결할 수 있습니다. 링크는 번호와 함께 10분 뒤 끝납니다." data-en="Send the link by chat or text: they open it on their PC, get the tool and connect with the code. The link ends with the code, in 10 minutes.">링크를 카카오톡·문자로 보내면 받는 분이 PC에서 열어 바로 연결할 수 있습니다.</p>
+    </div>
+  </section>
+
+  <!-- A helper's link (support.html#c=<code>), opened by the person who needs help: no sign-in. -->
+  <section id="invite" hidden>
+    <div class="card">
+      <h1 id="invTitle">원격 지원 요청</h1>
+      <div id="invCode" class="code">…</div>
+      <p id="invLeft" class="muted" style="text-align:center"></p>
+      <div id="invWin">
+        <span class="btn" id="invDl" aria-disabled="true" style="opacity:.6;cursor:default" data-ko="도움 받기 프로그램 · 정식 출시 때 제공" data-en="Help tool · coming at launch">도움 받기 프로그램 · 정식 출시 때 제공</span>
+        <ol class="muted" style="line-height:1.7;padding-left:20px">
+          <li data-ko="받은 파일의 압축을 풀고 Deskify.exe를 실행합니다(설치·로그인 없음)." data-en="Unzip the download and run Deskify.exe (no install, no sign-in).">받은 파일의 압축을 풀고 Deskify.exe를 실행합니다.</li>
+          <li data-ko="창에서 '복사한 번호로 연결'을 누릅니다. 없으면 위 번호를 입력합니다." data-en="Press 'Connect with the copied code' in its window, or type the code above.">창에서 '복사한 번호로 연결'을 누릅니다.</li>
+          <li data-ko="허락 창에서 '보기만 허용' 또는 '조작까지 허용'을 고릅니다. 언제든 '끝내기'로 끝낼 수 있습니다." data-en="In the prompt choose 'View only' or 'Allow control'. 'End' stops it any time.">허락 창에서 '보기만 허용' 또는 '조작까지 허용'을 고릅니다.</li>
+        </ol>
+        <div class="row"><button id="invCopy" class="btn sec" data-ko="번호 복사" data-en="Copy the code">번호 복사</button></div>
+        <p class="muted" data-ko="Deskify PC판이 이미 있으면 트레이 메뉴나 홈의 '도움 받기'를 누르십시오. 모르는 사람이 보낸 링크라면 열지 마십시오." data-en="Already have Deskify for Windows? Use 'Get help' in its tray menu or home screen. Don't use a link from someone you don't know.">Deskify PC판이 이미 있으면 '도움 받기'를 누르십시오.</p>
+      </div>
+      <div id="invMobile" hidden>
+        <p data-ko="이 기능은 Windows PC에서 엽니다 · PC에서 이 링크를 열어 주십시오" data-en="This opens on a Windows PC · please open this link on your PC">이 기능은 Windows PC에서 엽니다 · PC에서 이 링크를 열어 주십시오</p>
+        <div class="row"><button id="invLink" class="btn" data-ko="링크 복사" data-en="Copy link">링크 복사</button></div>
+      </div>
+      <div id="invMsg" class="msg"></div>
+    </div>
+  </section>
+
+  <section id="connecting" hidden>
+    <div class="card">
+      <h1 data-ko="연결 중" data-en="Connecting">연결 중</h1>
+      <p id="connStep"></p>
+    </div>
+  </section>
+
+  <section id="ended" hidden>
+    <div class="card">
+      <h1 id="endTitle"></h1>
+      <p id="endMsg"></p>
+      <button id="btnAgain" class="btn" data-ko="처음으로" data-en="Start over">처음으로</button>
+    </div>
+  </section>
+</div>
+
+<!-- The picture (its own full-screen stage, shown only while connected). -->
+<section id="session" hidden>
+  <div class="sessbar">
+    <svg style="width:16px;height:16px;color:var(--amber,#e0a030)"><use href="#i-hang"/></svg>
+    <span id="barName"></span>
+    <!-- 원격 지원's extras: the clipboard as the supported person set it, files both ways (each one confirmed on their PC). -->
+    <span id="clipState" class="muted" data-ko="클립보드 공유 꺼짐" data-en="Clipboard sharing off">클립보드 공유 꺼짐</span>
+    <button id="btnClipSend" class="btn sec" style="padding:6px 10px" hidden data-ko="내 클립보드 보내기" data-en="Send my clipboard">내 클립보드 보내기</button>
+    <button id="btnFileSend" class="btn sec" style="padding:6px 10px" data-ko="파일 보내기" data-en="Send a file">파일 보내기</button>
+    <input id="fileIn" type="file" multiple hidden>
+    <button id="btnFull" class="btn sec" style="padding:6px 10px"><svg style="width:16px;height:16px"><use href="#i-full"/></svg></button>
+    <button id="btnEnd" class="btn red" style="padding:6px 12px" data-ko="끝내기" data-en="End">끝내기</button>
+  </div>
+  <div class="stage" id="stage"><canvas id="screen" tabindex="0"></canvas></div>
+  <div id="notice" class="notice" hidden></div>
+  <!-- A prompt is open on the supported PC (consent, a file): its owner answers there; nothing from here reaches it meanwhile. -->
+  <div id="holdNote" class="notice" style="bottom:auto;top:64px" hidden data-ko="상대 PC에서 확인을 기다리는 중 · 그동안 마우스와 키보드는 전달되지 않습니다" data-en="Waiting for the other PC to confirm · your mouse and keys aren't passed on meanwhile">상대 PC에서 확인을 기다리는 중</div>
+  <!-- Files: what is going to the PC, and what came from it (downloads). -->
+  <div id="xferBox" class="files" hidden>
+    <div id="xferOut" class="muted"></div>
+    <div id="dlHead" class="muted" hidden data-ko="상대가 보낸 파일" data-en="Files from the other PC">상대가 보낸 파일</div>
+    <ul id="dlList"></ul>
+  </div>
+</section>
+
+<div id="toast" class="toast" hidden></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="stream.min.js?v=7907eee96b"></script>
+<script src="support.min.js?v=6431e8d431"></script>
+</body>
+</html>
