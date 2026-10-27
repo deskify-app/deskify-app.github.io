@@ -2,26 +2,27 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-DzXHvkHGpWFyoV7DmKM40c+T79HxQGwSPDe9XJsQDVc=' 'sha256-7GMaEfhVNG6NAEd+mPitleOk3+r2W6uqcKTKzoKl8JI=' 'self'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-jTFzZMSsi22zad7BpcRx0i6xQPfAaz3Wt52wRU07OAE=' 'sha256-aA8X0lq50CUf5sNhnCGieMKNkvjmtO95UUmFl+iAm7o=' 'self'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <title>Deskify 웹에서 쓰기</title>
 <meta name="description" content="설치 없이 브라우저에서 Deskify를 씁니다: 내 PC 화면 보기(웹 원격), 내 컴퓨터·서버 열기(웹판), 원격 지원.">
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="remote.min.css?v=01f3a17d5d">
+<link rel="stylesheet" href="remote.min.css?v=15675b0821">
 <script>
   (function () {
-    var saved = null;
-    try { saved = localStorage.getItem("lang"); } catch (e) {}
-    var lang = saved || ((navigator.language || "").toLowerCase().indexOf("ko") === 0 ? "ko" : "en");
-    if (location.hash === "#en") lang = "en";
-    // ?lang=ko|en|ja|zh from the apps (their UI language) wins over the saved choice for this visit;
-    // the site has Korean and English only, so every other language reads the English half.
+    // Language: ?lang= from the apps (their UI language) for this visit, else #en, else the visitor's last choice,
+    // else the browser's first supported language (ko, en, ja, zh: any Chinese reads 简体中文), else English.
+    var pick = function (s) { s = String(s || "").toLowerCase(); return /^(ko|en|ja|zh)/.test(s) ? s.slice(0, 2) : ""; };
     var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
-    if (q) lang = q[1].toLowerCase().indexOf("ko") === 0 ? "ko" : "en";
+    var lang = q ? pick(q[1]) : location.hash === "#en" ? "en" : "";
+    if (!lang) { try { lang = pick(localStorage.getItem("lang")); } catch (e) {} }
+    var nav = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+    for (var i = 0; !lang && i < nav.length; i++) lang = pick(nav[i]);
+    lang = lang || "en";
     document.documentElement.setAttribute("data-lang", lang);
-    document.documentElement.lang = lang;
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
   })();
 </script>
 <style>
@@ -102,69 +103,69 @@
 </svg>
 
 <header class="rm-top">
-  <a class="rm-brand" href="./"><svg class="rm-logo" aria-hidden="true"><use href="#i-logo"/></svg><b>Deskify</b><span class="rm-tag"><span lang-ko>웹</span><span lang-en>Web</span></span></a>
+  <a class="rm-brand" href="./"><svg class="rm-logo" aria-hidden="true"><use href="#i-logo"/></svg><b>Deskify</b><span class="rm-tag"><span lang-ko>웹</span><span lang-en>Web</span><span lang-ja>Web</span><span lang-zh>网页</span></span></a>
   <div class="rm-top-r">
-    <a class="rm-pill" href="help.html#web"><span lang-ko>도움말</span><span lang-en>Help</span></a>
-    <button class="rm-pill" id="lang" type="button">English</button>
+    <a class="rm-pill" href="help.html#web"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
+    <select class="rm-pill lang-menu" id="lang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
   </div>
 </header>
 
 <main class="wh-main">
   <div class="wh-head">
     <svg class="rm-logo-big" aria-hidden="true"><use href="#i-logo"/></svg>
-    <h1><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span class="wh-beta"><span lang-ko>베타</span><span lang-en>Beta</span></span></h1>
-    <p class="rm-lead"><span lang-ko>설치 없이 브라우저에서 Deskify를 씁니다. 하려는 일을 고르십시오.</span><span lang-en>Deskify in your browser, nothing to install. Pick what you want to do.</span></p>
+    <h1><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span><span class="wh-beta"><span lang-ko>베타</span><span lang-en>Beta</span><span lang-ja>ベータ</span><span lang-zh>测试版</span></span></h1>
+    <p class="rm-lead"><span lang-ko>설치 없이 브라우저에서 Deskify를 씁니다. 하려는 일을 고르십시오.</span><span lang-en>Deskify in your browser, nothing to install. Pick what you want to do.</span><span lang-ja>インストール不要でブラウザーから Deskify を使えます。行いたい操作を選択してください。</span><span lang-zh>无需安装，直接在浏览器中使用 Deskify。请选择你要进行的操作。</span></p>
   </div>
 
   <div class="wh-grid">
     <article class="wh-card">
-      <span class="wh-tag sub"><span lang-ko>구독</span><span lang-en>Subscription</span></span>
+      <span class="wh-tag sub"><span lang-ko>구독</span><span lang-en>Subscription</span><span lang-ja>サブスク</span><span lang-zh>订阅</span></span>
       <div class="wh-ic wh-blue"><svg aria-hidden="true"><use href="#i-monitor"/></svg></div>
-      <h2><a class="wh-go" href="remote.html"><span lang-ko>내 PC 화면 보기</span><span lang-en>See my PC's screen</span></a></h2>
-      <p class="wh-kind"><span lang-ko>웹 원격</span><span lang-en>Web remote</span></p>
-      <p class="wh-desc"><span lang-ko>집 PC 화면을 그대로 보고 조작합니다.</span><span lang-en>See your home PC's screen as it is and control it.</span></p>
+      <h2><a class="wh-go" href="remote.html"><span lang-ko>내 PC 화면 보기</span><span lang-en>See my PC's screen</span><span lang-ja>自分の PC の画面を見る</span><span lang-zh>查看我的电脑屏幕</span></a></h2>
+      <p class="wh-kind"><span lang-ko>웹 원격</span><span lang-en>Web remote</span><span lang-ja>Web リモート</span><span lang-zh>网页远程</span></p>
+      <p class="wh-desc"><span lang-ko>집 PC 화면을 그대로 보고 조작합니다.</span><span lang-en>See your home PC's screen as it is and control it.</span><span lang-ja>自宅の PC 画面をそのまま見て操作します。</span><span lang-zh>原样查看并操作家中电脑的屏幕。</span></p>
       <div class="wh-need">
-        <b><span lang-ko>필요한 것</span><span lang-en>You need</span></b>
+        <b><span lang-ko>필요한 것</span><span lang-en>You need</span><span lang-ja>必要なもの</span><span lang-zh>所需条件</span></b>
         <ul>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span lang-ko>PC에 Deskify</span><span lang-en>Deskify on the PC</span></span></li>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span lang-ko>PC 설정에서 "화면 공유 원격 허용" 켜기</span><span lang-en>"Allow screen sharing" turned on in the PC's settings</span></span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span lang-ko>PC에 Deskify</span><span lang-en>Deskify on the PC</span><span lang-ja>PC に Deskify</span><span lang-zh>电脑端 Deskify</span></span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span lang-ko>PC 설정에서 "화면 공유 원격 허용" 켜기</span><span lang-en>"Allow screen sharing" turned on in the PC's settings</span><span lang-ja>PC の設定で「画面共有リモートを許可」をオンにする</span><span lang-zh>在电脑设置中开启“允许屏幕共享远程”</span></span></li>
         </ul>
       </div>
-      <div class="wh-cta" aria-hidden="true"><span><span lang-ko>웹 원격 열기</span><span lang-en>Open web remote</span></span><svg><use href="#i-arrow"/></svg></div>
+      <div class="wh-cta" aria-hidden="true"><span><span lang-ko>웹 원격 열기</span><span lang-en>Open web remote</span><span lang-ja>Web リモートを開く</span><span lang-zh>打开网页远程</span></span><svg><use href="#i-arrow"/></svg></div>
     </article>
 
     <article class="wh-card">
-      <span class="wh-tag sub"><span lang-ko>구독</span><span lang-en>Subscription</span></span>
+      <span class="wh-tag sub"><span lang-ko>구독</span><span lang-en>Subscription</span><span lang-ja>サブスク</span><span lang-zh>订阅</span></span>
       <div class="wh-ic wh-violet"><svg aria-hidden="true"><use href="#i-server"/></svg></div>
-      <h2><a class="wh-go" href="app.html"><span lang-ko>내 컴퓨터·서버 열기</span><span lang-en>Open my computers and servers</span></a></h2>
-      <p class="wh-kind"><span lang-ko>웹판</span><span lang-en>Web Deskify</span></p>
-      <p class="wh-desc"><span lang-ko>집 PC를 거쳐 보관함의 RDP·SSH·VNC를 엽니다.</span><span lang-en>Open the RDP, SSH and VNC computers in your vault, through your home PC.</span></p>
+      <h2><a class="wh-go" href="app.html"><span lang-ko>내 컴퓨터·서버 열기</span><span lang-en>Open my computers and servers</span><span lang-ja>自分のコンピューター・サーバーを開く</span><span lang-zh>打开我的电脑·服务器</span></a></h2>
+      <p class="wh-kind"><span lang-ko>웹판</span><span lang-en>Web Deskify</span><span lang-ja>Web 版 Deskify</span><span lang-zh>网页版 Deskify</span></p>
+      <p class="wh-desc"><span lang-ko>집 PC를 거쳐 보관함의 RDP·SSH·VNC를 엽니다.</span><span lang-en>Open the RDP, SSH and VNC computers in your vault, through your home PC.</span><span lang-ja>自宅の PC を経由して保管庫の RDP・SSH・VNC を開きます。</span><span lang-zh>通过家中电脑打开保管库中的 RDP·SSH·VNC。</span></p>
       <div class="wh-need">
-        <b><span lang-ko>필요한 것</span><span lang-en>You need</span></b>
+        <b><span lang-ko>필요한 것</span><span lang-en>You need</span><span lang-ja>必要なもの</span><span lang-zh>所需条件</span></b>
         <ul>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span lang-ko>PC에 Deskify</span><span lang-en>Deskify on the PC</span></span></li>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span lang-ko>PC 설정에서 "웹에서 내 컴퓨터 목록·원격 쓰기" 켜기</span><span lang-en>"Computer list and remote access from the web" turned on in the PC's settings</span></span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span lang-ko>PC에 Deskify</span><span lang-en>Deskify on the PC</span><span lang-ja>PC に Deskify</span><span lang-zh>电脑端 Deskify</span></span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span lang-ko>PC 설정에서 "웹에서 내 컴퓨터 목록·원격 쓰기" 켜기</span><span lang-en>"Computer list and remote access from the web" turned on in the PC's settings</span><span lang-ja>PC の設定で「Web からコンピューター一覧・リモートを使う」をオンにする</span><span lang-zh>在电脑设置中开启“从网页使用电脑列表和远程”</span></span></li>
         </ul>
       </div>
-      <div class="wh-cta" aria-hidden="true"><span><span lang-ko>웹판 열기</span><span lang-en>Open web Deskify</span></span><svg><use href="#i-arrow"/></svg></div>
+      <div class="wh-cta" aria-hidden="true"><span><span lang-ko>웹판 열기</span><span lang-en>Open web Deskify</span><span lang-ja>Web 版 Deskify を開く</span><span lang-zh>打开网页版 Deskify</span></span><svg><use href="#i-arrow"/></svg></div>
     </article>
 
     <article class="wh-card">
-      <span class="wh-tag free"><span lang-ko>도움 받기 무료</span><span lang-en>Getting help is free</span></span>
+      <span class="wh-tag free"><span lang-ko>도움 받기 무료</span><span lang-en>Getting help is free</span><span lang-ja>サポートを受けるのは無料</span><span lang-zh>接受协助免费</span></span>
       <div class="wh-ic wh-green"><svg aria-hidden="true"><use href="#i-help"/></svg></div>
-      <h2><a class="wh-go" href="support.html"><span lang-ko>원격 지원</span><span lang-en>Remote support</span></a></h2>
-      <p class="wh-kind"><span lang-ko>다른 사람의 PC</span><span lang-en>Someone else's PC</span></p>
-      <p class="wh-desc"><span lang-ko>번호로 다른 사람의 PC를 돕거나, 도움을 받습니다.</span><span lang-en>Help someone else's PC with a code, or get help with yours.</span></p>
+      <h2><a class="wh-go" href="support.html"><span lang-ko>원격 지원</span><span lang-en>Remote support</span><span lang-ja>リモートサポート</span><span lang-zh>远程协助</span></a></h2>
+      <p class="wh-kind"><span lang-ko>다른 사람의 PC</span><span lang-en>Someone else's PC</span><span lang-ja>他の人の PC</span><span lang-zh>他人的电脑</span></p>
+      <p class="wh-desc"><span lang-ko>번호로 다른 사람의 PC를 돕거나, 도움을 받습니다.</span><span lang-en>Help someone else's PC with a code, or get help with yours.</span><span lang-ja>番号で他の人の PC をサポートしたり、サポートを受けたりします。</span><span lang-zh>使用号码协助他人的电脑，或获取协助。</span></p>
       <div class="wh-need">
-        <b><span lang-ko>필요한 것</span><span lang-en>You need</span></b>
+        <b><span lang-ko>필요한 것</span><span lang-en>You need</span><span lang-ja>必要なもの</span><span lang-zh>所需条件</span></b>
         <ul>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span class="wh-who"><span lang-ko>돕는 사람</span><span lang-en>Helping</span></span> · <span lang-ko>구독 (Pro 또는 클라우드 구독)</span><span lang-en>a subscription (Pro or Cloud)</span></span></li>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span class="wh-who"><span lang-ko>도움 받는 사람</span><span lang-en>Getting help</span></span> · <span lang-ko>무료, 계정 없음 (설치 없이 화면만 보여 주기도 됩니다)</span><span lang-en>free, no account (or just show the screen, nothing to install)</span></span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span class="wh-who"><span lang-ko>돕는 사람</span><span lang-en>Helping</span><span lang-ja>サポートする側</span><span lang-zh>协助方</span></span> · <span lang-ko>구독 (Pro 또는 클라우드 구독)</span><span lang-en>a subscription (Pro or Cloud)</span><span lang-ja>サブスク（Pro 購読またはクラウド購読）</span><span lang-zh>订阅（Pro 订阅或云订阅）</span></span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span class="wh-who"><span lang-ko>도움 받는 사람</span><span lang-en>Getting help</span><span lang-ja>サポートを受ける側</span><span lang-zh>接受协助方</span></span> · <span lang-ko>무료, 계정 없음 (설치 없이 화면만 보여 주기도 됩니다)</span><span lang-en>free, no account (or just show the screen, nothing to install)</span><span lang-ja>無料、アカウント不要（インストール不要で画面を見せるだけでも可能です）</span><span lang-zh>免费，无需账号（无需安装，仅展示屏幕也可以）</span></span></li>
         </ul>
       </div>
       <div class="wh-two">
-        <a class="wh-btn" href="support.html"><span lang-ko>돕기</span><span lang-en>Help</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        <a class="wh-btn sec" href="gethelp.html"><span lang-ko>도움 받기</span><span lang-en>Get help</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="wh-btn" href="support.html"><span lang-ko>돕기</span><span lang-en>Help</span><span lang-ja>サポートする</span><span lang-zh>协助</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="wh-btn sec" href="gethelp.html"><span lang-ko>도움 받기</span><span lang-en>Get help</span><span lang-ja>サポートを受ける</span><span lang-zh>获取协助</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
     </article>
   </div>
@@ -172,25 +173,19 @@
   <p class="wh-note">
     <span lang-ko>구글로 한 번 로그인하면 같은 브라우저에서 세 페이지 모두 로그인된 채로 열립니다. 최신 Chrome·Edge·Safari에서 씁니다. <a href="help.html#web">자세한 도움말</a></span>
     <span lang-en>Sign in with Google once and all three pages open signed in, in the same browser. Use a current Chrome, Edge or Safari. <a href="help.html#web">Help</a></span>
+    <span lang-ja>Google で一度ログインすれば、同じブラウザーで 3 つのページすべてがログインした状態で開きます。最新の Chrome・Edge・Safari でご利用いただけます。<a href="help.html#web">詳しいヘルプ</a></span>
+    <span lang-zh>使用 Google 登录一次，即可在同一浏览器中以登录状态打开全部三个页面。请在最新版本的 Chrome·Edge·Safari 中使用。<a href="help.html#web">详细帮助</a></span>
   </p>
 </main>
 
 <script>
+  // The language menu (한국어 / English / 日本語 / 简体中文); the choice is remembered.
   (function () {
-    var b = document.getElementById("lang");
-    function label() {
-      var en = document.documentElement.getAttribute("data-lang") === "en";
-      b.textContent = en ? "한국어" : "English";
-      document.title = en ? "Deskify on the web" : "Deskify 웹에서 쓰기";
-    }
-    b.addEventListener("click", function () {
-      var next = document.documentElement.getAttribute("data-lang") === "en" ? "ko" : "en";
-      document.documentElement.setAttribute("data-lang", next);
-      document.documentElement.lang = next;
-      try { localStorage.setItem("lang", next); } catch (e) {}
-      label();
-    });
-    label();
+    var titles = { ko: "Deskify 웹에서 쓰기", en: "Deskify on the web", ja: "Deskify · Web で使う", zh: "Deskify · 在网页上使用" };
+    var m = document.getElementById("lang"), root = document.documentElement;
+    function apply(l) { root.setAttribute("data-lang", l); root.lang = l === "zh" ? "zh-CN" : l; m.value = l; if (titles[l]) document.title = titles[l]; }
+    m.addEventListener("change", function () { try { localStorage.setItem("lang", m.value); } catch (e) {} apply(m.value); });
+    apply(root.getAttribute("data-lang"));
   })();
 </script>
 </body>

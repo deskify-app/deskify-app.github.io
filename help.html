@@ -6,7 +6,7 @@
 <title>Deskify · 도움말 / Help</title>
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="style.css?v=6">
+<link rel="stylesheet" href="style.css?v=7">
 <style>
   details { border: 1px solid rgba(128,128,128,.25); border-radius: 12px; padding: 12px 16px; margin: 10px 0; }
   details summary { cursor: pointer; font-weight: 600; }
@@ -33,16 +33,17 @@
 </style>
 <script>
   (function () {
-    var saved = null;
-    try { saved = localStorage.getItem("lang"); } catch (e) {}
-    var lang = saved || ((navigator.language || "").toLowerCase().indexOf("ko") === 0 ? "ko" : "en");
-    if (location.hash === "#en") lang = "en";
-    // ?lang=ko|en|ja|zh from the apps (their UI language) wins over the saved choice for this visit;
-    // the site has Korean and English only, so every other language reads the English half.
+    // Language: ?lang= from the apps (their UI language) for this visit, else #en, else the visitor's last choice,
+    // else the browser's first supported language (ko, en, ja, zh: any Chinese reads 简体中文), else English.
+    var pick = function (s) { s = String(s || "").toLowerCase(); return /^(ko|en|ja|zh)/.test(s) ? s.slice(0, 2) : ""; };
     var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
-    if (q) lang = q[1].toLowerCase().indexOf("ko") === 0 ? "ko" : "en";
+    var lang = q ? pick(q[1]) : location.hash === "#en" ? "en" : "";
+    if (!lang) { try { lang = pick(localStorage.getItem("lang")); } catch (e) {} }
+    var nav = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+    for (var i = 0; !lang && i < nav.length; i++) lang = pick(nav[i]);
+    lang = lang || "en";
     document.documentElement.setAttribute("data-lang", lang);
-    document.documentElement.lang = lang;
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
   })();
 </script>
 </head>
@@ -51,16 +52,16 @@
   <div class="wrap">
     <a class="brand" href="./"><img src="icon.png" alt="" width="30" height="30">Deskify</a>
     <nav>
-      <a class="hide-sm" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span></span></a>
-      <a href="privacy.html"><span lang-ko>개인정보</span><span lang-en>Privacy</span></a>
-      <a href="terms.html"><span lang-ko>약관</span><span lang-en>Terms</span></a>
-      <button class="lang" id="lang" type="button">English</button>
+      <a class="hide-sm" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span><span lang-ja>ベータ</span><span lang-zh>测试版</span></span></a>
+      <a href="privacy.html"><span lang-ko>개인정보</span><span lang-en>Privacy</span><span lang-ja>プライバシー</span><span lang-zh>隐私</span></a>
+      <a href="terms.html"><span lang-ko>약관</span><span lang-en>Terms</span><span lang-ja>利用規約</span><span lang-zh>服务条款</span></a>
+      <select class="lang lang-menu" id="lang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
     </nav>
   </div>
 </header>
 <main class="wrap doc">
-  <h1 lang-ko>도움말 · 자주 묻는 질문</h1><h1 lang-en>Help · FAQ</h1>
-  <p class="jump"><a href="#companion"><span lang-ko>📱 보조 기기 사용법 →</span><span lang-en>📱 Using companion devices →</span></a><br><a href="#web"><span lang-ko>🌐 웹에서 쓰기: 웹 원격 · 웹판 Deskify (베타) →</span><span lang-en>🌐 Use on the web: web remote · web Deskify (beta) →</span></a><br><a href="#support"><span lang-ko>🤝 원격 지원 (다른 사람의 PC 돕기) →</span><span lang-en>🤝 Remote support (helping someone else's PC) →</span></a></p>
+  <h1 lang-ko>도움말 · 자주 묻는 질문</h1><h1 lang-en>Help · FAQ</h1><h1 lang-ja>ヘルプ · よくある質問</h1><h1 lang-zh>帮助 · 常见问题</h1>
+  <p class="jump"><a href="#companion"><span lang-ko>📱 보조 기기 사용법 →</span><span lang-en>📱 Using companion devices →</span><span lang-ja>📱 サブ端末の使い方 →</span><span lang-zh>📱 辅助设备使用方法 →</span></a><br><a href="#web"><span lang-ko>🌐 웹에서 쓰기: 웹 원격 · 웹판 Deskify (베타) →</span><span lang-en>🌐 Use on the web: web remote · web Deskify (beta) →</span><span lang-ja>🌐 Web で使う: Web リモート · Web 版 Deskify (ベータ) →</span><span lang-zh>🌐 在网页上使用：网页远程 · 网页版 Deskify (测试版) →</span></a><br><a href="#support"><span lang-ko>🤝 원격 지원 (다른 사람의 PC 돕기) →</span><span lang-en>🤝 Remote support (helping someone else's PC) →</span><span lang-ja>🤝 リモートサポート (他の人の PC をサポート) →</span><span lang-zh>🤝 远程协助 (协助他人的电脑) →</span></a></p>
 
   <details lang-ko><summary>Windows PC에 연결이 안 돼요</summary>
     <ol>
@@ -78,12 +79,34 @@
       <li>If the PC is asleep, wake it and try again (vault ⋮ → Wake, when Wake-on-LAN is set up).</li>
     </ol>
   </details>
+  <details lang-ja><summary>Windows PC に接続できません</summary>
+    <ol>
+      <li>PC で<b>設定 → システム → リモート デスクトップ</b>をオンにします (Windows <b>Pro/Enterprise</b>のみ。Home については以下をご覧ください)。</li>
+      <li>スマホと PC が<b>同じ Wi-Fi</b>にあることを確認してください。外出先の場合は「外出先から接続するには」をご覧ください。</li>
+      <li>ユーザー名は PC へのログインに使用するアカウントです。Microsoft アカウントの場合は、メールアドレスとそのパスワード (PIN ではありません) を入力します。</li>
+      <li>PC がスリープ状態の場合は、復帰させてからもう一度お試しください (保管庫 ⋮ → 起動、Wake-on-LAN 設定時)。</li>
+    </ol>
+  </details>
+  <details lang-zh><summary>无法连接到 Windows PC</summary>
+    <ol>
+      <li>在电脑上开启<b>设置 → 系统 → 远程桌面</b>（仅限 Windows <b>Pro/Enterprise</b>；Home 版请参见下方）。</li>
+      <li>请确保手机和电脑连接至<b>同一 Wi-Fi</b>。如果在外面，请参见“在外连接”。</li>
+      <li>用户名是你在电脑上登录所用的账号。如果是 Microsoft 账号，请输入邮箱地址及其密码（不是 PIN 码）。</li>
+      <li>如果电脑处于睡眠状态，请唤醒后再试（设置了 Wake-on-LAN 时，保管库 ⋮ → 唤醒）。</li>
+    </ol>
+  </details>
 
   <details lang-ko><summary>집 밖에서 접속하려면</summary>
     <p>집 PC에 <b>Deskify PC판</b>을 설치하고 같은 구글 계정으로 로그인해 두면, 밖에서도 그 PC를 거쳐 연결됩니다(공유기 설정 필요 없음). 직접 연결하려면 공유기에서 포트 포워딩과 DDNS를 설정할 수도 있습니다.</p>
   </details>
   <details lang-en><summary>Connecting from outside</summary>
     <p>Install <b>Deskify for Windows</b> on the home PC and sign in with the same Google account: away from home the phone connects through it (no router setup). You can also set up port forwarding and DDNS on your router for a direct connection.</p>
+  </details>
+  <details lang-ja><summary>外出先から接続するには</summary>
+    <p>自宅の PC に<b>Deskify Windows 版</b>をインストールして同じ Google アカウントでログインしておけば、外出先からでもその PC を経由して接続できます (ルーター設定は不要)。直接接続したい場合は、ルーターでポートフォワーディングと DDNS を設定することもできます。</p>
+  </details>
+  <details lang-zh><summary>在外连接</summary>
+    <p>在家里电脑上安装 <b>Deskify Windows 版</b>并登录相同的 Google 账号：在外面时手机可通过该电脑中转连接（无需设置路由器）。若想直接连接，也可以在路由器上设置端口转发和 DDNS。</p>
   </details>
 
   <details lang-ko><summary>Windows Home이라 원격 데스크톱이 없어요</summary>
@@ -92,12 +115,24 @@
   <details lang-en><summary>My PC runs Windows Home (no Remote Desktop)</summary>
     <p>Windows Home can't accept Remote Desktop connections. Use <b>VNC</b>: install a VNC server such as TightVNC or UltraVNC on the PC, set a password, then add the computer in Deskify as <b>VNC</b>.</p>
   </details>
+  <details lang-ja><summary>Windows Home のためリモート デスクトップがありません</summary>
+    <p>Windows Home はリモート デスクトップ接続を受け付けることができません。<b>VNC</b>をご利用ください: PC に TightVNC や UltraVNC などの VNC サーバーをインストールしてパスワードを設定し、Deskify でコンピューターを追加 → <b>VNC</b>として追加します。</p>
+  </details>
+  <details lang-zh><summary>电脑是 Windows Home 版（没有远程桌面）</summary>
+    <p>Windows Home 版无法接收远程桌面连接。请使用 <b>VNC</b>：在电脑上安装 TightVNC 或 UltraVNC 等 VNC 服务器并设置密码，然后在 Deskify 中选择添加电脑 → <b>VNC</b> 进行添加。</p>
+  </details>
 
   <details lang-ko><summary>Mac에 연결하려면</summary>
     <p>Mac에서 <b>시스템 설정 → 일반 → 공유 → 화면 공유</b>를 켭니다. Deskify에서 컴퓨터 추가 → <b>VNC</b>, 운영체제 Mac을 고르고 Mac의 사용자 이름과 비밀번호를 넣습니다.</p>
   </details>
   <details lang-en><summary>Connecting to a Mac</summary>
     <p>On the Mac, turn on <b>System Settings → General → Sharing → Screen Sharing</b>. In Deskify add a computer as <b>VNC</b>, pick Mac, and enter the Mac's user name and password.</p>
+  </details>
+  <details lang-ja><summary>Mac に接続するには</summary>
+    <p>Mac で<b>システム設定 → 一般 → 共有 → 画面共有</b>をオンにします。Deskify でコンピューターを追加 → <b>VNC</b>を選択し、OS に Mac を選んで、Mac のユーザー名とパスワードを入力します。</p>
+  </details>
+  <details lang-zh><summary>连接到 Mac</summary>
+    <p>在 Mac 上开启<b>系统设置 → 通用 → 共享 → 屏幕共享</b>。在 Deskify 中选择添加电脑 → <b>VNC</b>，操作系统选择 Mac，并输入 Mac 的用户名和密码。</p>
   </details>
 
   <details lang-ko><summary>리눅스·라즈베리파이·NAS</summary>
@@ -108,12 +143,26 @@
     <p>Use <b>SSH</b> (port 22) for a terminal and <b>VNC</b> for the screen. RealVNC Server needs <b>Options → Security</b>: Authentication "VNC password", Encryption "Prefer off".</p>
     <p>For SSH without a password, press <b>Make a key → Add to server</b> in the computer's editor; from then on the key logs in.</p>
   </details>
+  <details lang-ja><summary>Linux、Raspberry Pi、NAS</summary>
+    <p>ターミナルは<b>SSH</b> (ポート 22)、画面は<b>VNC</b>で接続します。RealVNC Server は<b>オプション → セキュリティ</b>で、認証を「VNC パスワード」、暗号化を「オフを優先」に変更する必要があります。</p>
+    <p>パスワードなしで SSH を使用するには、コンピューターの編集画面で<b>キー作成 → サーバーに登録</b>を押してください。次回以降はキーでそのままログインできます。</p>
+  </details>
+  <details lang-zh><summary>Linux、Raspberry Pi、NAS</summary>
+    <p>终端使用 <b>SSH</b>（端口 22）连接，画面使用 <b>VNC</b> 连接。RealVNC Server 需要在<b>选项 → 安全</b>中将身份验证设为“VNC 密码”，加密设为“优先关闭”才能连接。</p>
+    <p>如需免密码使用 SSH，请在电脑编辑界面中点击<b>创建密钥 → 添加到服务器</b>，之后即可直接使用密钥登录。</p>
+  </details>
 
   <details lang-ko><summary>한글 입력은 어떻게 하나요</summary>
     <p>원격 PC의 한/영 전환을 그대로 씁니다. 실물 키보드는 한/영 키, 화면 키보드는 자판 위 키 막대의 한/영 키를 누르세요. 글자는 원격 PC의 입력기가 조합합니다.</p>
   </details>
   <details lang-en><summary>Typing Korean (or another IME)</summary>
     <p>Use the remote PC's own input switching: the Han/Eng key on a keyboard, or the key bar above the on-screen keyboard. The remote PC's IME composes the characters.</p>
+  </details>
+  <details lang-ja><summary>日本語などの入力 (IME)</summary>
+    <p>リモート PC 側の入力切り替えをそのまま使います。文字の変換はリモート PC の IME が行います。韓国語入力の 한/영 キーは、画面キーボード上部のキーバーにもあります。</p>
+  </details>
+  <details lang-zh><summary>输入中文等（输入法）</summary>
+    <p>直接使用远程电脑自己的输入法切换，文字由远程电脑的输入法组字。韩文输入的 한/영 键也在屏幕键盘上方的按键栏中。</p>
   </details>
 
   <details lang-ko><summary>파일 주고받기</summary>
@@ -130,12 +179,32 @@
       <li><b>SSH servers</b>: the session's <b>Files</b> (SFTP).</li>
     </ul>
   </details>
+  <details lang-ja><summary>ファイルの転送</summary>
+    <ul>
+      <li><b>送信</b>: スマホと Deskify Windows 版の間で直接ファイルを送ります (外出先からでも)。</li>
+      <li><b>リモート デスクトップ内</b>: スマホのストレージがリモート PC にドライブとして表示されます (Pro)。</li>
+      <li><b>SSH サーバー</b>: セッション画面の<b>ファイル</b> (SFTP) でアップロード・ダウンロードします。</li>
+    </ul>
+  </details>
+  <details lang-zh><summary>文件传输</summary>
+    <ul>
+      <li><b>发送</b>：手机与 Deskify Windows 版之间直接发送文件（在外也可以）。</li>
+      <li><b>在远程桌面内</b>：手机存储在远程电脑上显示为驱动器（Pro）。</li>
+      <li><b>SSH 服务器</b>：在会话界面的<b>文件</b>（SFTP）中上传和下载。</li>
+    </ul>
+  </details>
 
   <details lang-ko><summary>무료와 Pro는 무엇이 다른가요</summary>
     <p>무료: 저장 컴퓨터 3대, 동시 세션 1개, 하루 보내기 3번, OTP 2개, 광고. Pro: 모두 무제한, 기기 간 동기화, 광고 없음, 폰·태블릿·PC가 한 계정으로 함께 풀립니다. 평생 이용권은 앱 기능(폰 앱 전부·PC판 Pro·광고 없음·보조 기기 1대)을 평생 쓰고, 서버를 쓰는 동기화·웹 원격·웹판·중계·원격 지원 도와주기는 클라우드 구독(월 ₩1,900 / 연 ₩19,000)을 더해 씁니다. 가입하면 7일 동안 Pro를 무료로 써 볼 수 있습니다.</p>
   </details>
   <details lang-en><summary>Free vs Pro</summary>
     <p>Free: 3 saved computers, 1 session at a time, 3 sends a day, 2 OTP codes, ads. Pro: no limits, sync between devices, no ads; phone, tablet and PC unlock with one account. The lifetime licence keeps the app's features for good (every phone feature, PC Pro, no ads, one companion device); the server ones — sync, web remote, web Deskify, relays and helping with remote support — come with the Cloud subscription (₩1,900 a month / ₩19,000 a year). New accounts get Pro free for 7 days.</p>
+  </details>
+  <details lang-ja><summary>無料と Pro の違い</summary>
+    <p>無料: 保存できるコンピューター 3 台、同時セッション 1 つ、1 日の送信 3 回、OTP 2 つ、広告あり。Pro: すべて無制限、端末間の同期、広告なし、スマホ・タブレット・PC が 1 つのアカウントでまとめてアンロックされます。買い切りはアプリ機能 (すべてのスマホ機能、PC 版 Pro、広告なし、サブ端末 1 台) をずっと利用でき、サーバーを使用する同期、Web リモート、Web 版 Deskify、中継、リモートサポートでの手伝いはクラウド購読 (月額 ₩1,900 / 年額 ₩19,000) を追加して利用します。新規登録すると、7 日間 Pro を無料でお試しいただけます。</p>
+  </details>
+  <details lang-zh><summary>免费版与 Pro 的区别</summary>
+    <p>免费：保存 3 台电脑，同时运行 1 个会话，每天发送 3 次，2 个 OTP 验证码，有广告。Pro：全部无限制，设备间同步，无广告；手机、平板和电脑通用一个账号解锁。终身版可永久使用应用功能（全部手机功能、电脑版 Pro、无广告、1 台辅助设备）；使用服务器的同步、网页远程、网页版 Deskify、中继以及提供远程协助，则需另外搭配云订阅（每月 ₩1,900 / 每年 ₩19,000）。注册即可免费试用 Pro 7 天。</p>
   </details>
 
   <details lang-ko><summary>구독 해지·환불</summary>
@@ -144,12 +213,24 @@
   <details lang-en><summary>Cancelling and refunds</summary>
     <p>Bought on Google Play: cancel in <b>Play Store → Payments & subscriptions</b>. Bought on the web: use the link in Paddle's receipt e-mail (<a href="refund.html">refund policy</a>). Cancelling deletes nothing: your computers, keys and OTP codes stay; only the Pro features lock.</p>
   </details>
+  <details lang-ja><summary>解約・返金</summary>
+    <p>Google Play で購入した場合: <b>Play ストア → お支払いと定期購入</b>から解約します。Web で購入した場合: Paddle の領収書メールにあるリンクから解約・返金をリクエストします (<a href="refund.html">返金ポリシー</a>)。解約しても保存したコンピューター、キー、OTP コードは削除されず、Pro 機能のみがロックされます。</p>
+  </details>
+  <details lang-zh><summary>取消订阅与退款</summary>
+    <p>在 Google Play 购买：在 <b>Play 商店 → 付款和订阅</b>中取消。在网页上购买：请使用 Paddle 收据邮件中的链接申请退订或退款（<a href="refund.html">退款政策</a>）。取消订阅不会删除任何内容：你保存的电脑、密钥和 OTP 验证码都会保留，仅锁定 Pro 功能。</p>
+  </details>
 
   <details lang-ko><summary>비밀번호는 안전한가요</summary>
     <p>저장한 비밀번호와 키는 기기 안에 암호화해 보관합니다. 동기화를 켜면 보관함은 암호화된 상태로만 서버에 올라갑니다. 앱 잠금(지문·얼굴)과 컴퓨터별 "연결할 때 인증"도 켤 수 있습니다.</p>
   </details>
   <details lang-en><summary>Are my passwords safe?</summary>
     <p>Saved passwords and keys are encrypted on the device. With sync on, the vault goes to the server only encrypted. You can also turn on the app lock (fingerprint/face) and "authenticate to connect" per computer.</p>
+  </details>
+  <details lang-ja><summary>パスワードは安全ですか？</summary>
+    <p>保存されたパスワードとキーは端末内で暗号化して保管されます。同期をオンにすると、保管庫は暗号化された状態でのみサーバーに送信されます。アプリロック (指紋/顔) や、コンピューターごとの「接続時に認証」を有効にすることもできます。</p>
+  </details>
+  <details lang-zh><summary>我的密码安全吗？</summary>
+    <p>保存的密码和密钥均在设备本地加密保存。开启同步后，保管库也仅在加密状态下上传至服务器。你还可以开启应用锁（指纹/面部识别）以及针对每台电脑的“连接时验证”。</p>
   </details>
 
   <div id="web">
@@ -208,6 +289,58 @@
       <li><b>Google account</b>: sign in with the same Google account as the app and an approval prompt appears on a phone or PC you already use. <b>Allow</b> keeps it in the device list; <b>Allow just this once</b> removes it when the page closes.</li>
     </ul>
     <div class="tipbox">Each time it connects, a bar (with a disconnect button) appears at the top of the PC’s screen and your phone gets a notification. Never allow a QR code someone else sent you. Screen and input travel encrypted between the browser and the PC; only when no direct path exists do they go through a relay at data-saving quality (one hour a day per account).</div>
+  </div><div lang-ja>
+    <h2>🌐 Web リモート · Web 版 Deskify <span class="beta">ベータ</span></h2>
+    <p>インストール不要で、ブラウザーから PC を使えます。Deskify PC 版が起動してログインしている PC で動作し、<b>サブスク（Pro 購読またはクラウド購読）</b>で利用できます（買い切りのみでは利用できません）。最新のブラウザー（Chrome、Edge、Safari など）で開いてください。</p>
+    <p><b><a href="web.html">Web で使う</a></b> (deskify-app.github.io/web.html) で以下の 2 つまたは <a href="#support">リモートサポート</a> のいずれかを選択します。Google で一度ログインすれば、同じブラウザーの他のページもログインした状態で開きます。</p>
+    <div class="roles">
+      <div class="role"><b class="t"><a href="remote.html">Web リモート</a></b><span class="k">deskify-app.github.io/remote.html</span>
+        <p>ブラウザーで PC の実際の画面を表示し、マウスやキーボードで操作します。リモート デスクトップ (RDP) のない Windows Home PC でも動作します。音声、クリップボード、ファイル送信にも対応しています。</p></div>
+      <div class="role"><b class="t"><a href="app.html">Web 版 Deskify</a></b><span class="k">deskify-app.github.io/app.html</span>
+        <p>PC 版の保管庫にあるコンピューター一覧をブラウザーで開き、その PC を経由して SSH ターミナル、ファイル (SFTP)、リモート デスクトップ、VNC に接続します。パスワードやキーはブラウザーには送信されず、PC が代わりに接続します。PC の画面には何も表示されません。</p></div>
+      <div class="role"><b class="t"><a href="support.html">リモートサポート</a></b><span class="k">deskify-app.github.io/support.html</span>
+        <p>9 桁の番号で他の人の Windows PC をサポートします。サポートする人はサブスク（Pro 購読またはクラウド購読）が必要で、サポートを受ける方は無料でインストールやアカウントも不要です。下の <a href="#support">リモートサポート</a> をご覧ください。</p></div>
+    </div>
+
+    <h3>PC で有効にする</h3>
+    <ol>
+      <li>Deskify PC 版にログインします。</li>
+      <li><b>設定 → モバイル端末 → 画面共有リモート (Pro)</b> で、Web リモートには<b>「画面共有リモートを許可 (ブラウザー・Deskify アプリ)」</b>を、Web 版には<b>「Web からコンピューター一覧・リモートを使う」</b>をオンにします。必要なものだけオンにしてください。初期状態では両方ともオフになっています。</li>
+      <li>（任意）ロック画面やサインイン画面でも使用する場合は、同じ場所の<b>「ロック画面でも使う (サービスをインストール)」</b>をオンにします。管理者権限の確認が一度表示されます。</li>
+    </ol>
+
+    <h3>ブラウザーからログイン</h3>
+    <ul>
+      <li><b>QR（共有コンピューターに推奨）</b>: ページに表示された QR コードをスマホの Deskify 保管庫上部にある <b>QR ボタン</b> で読み取ります。ブラウザーの種類と接続場所を確認し、PC を選択して許可します。スキャンできない場合は、ページのコードをスマホに入力します。この方法で接続したブラウザーは、ページを閉じるか 12 時間が経過すると自動的にアカウントから解除されます。</li>
+      <li><b>Google アカウント</b>: アプリと同じ Google アカウントでログインすると、既にお使いのスマホや PC に確認画面が表示されます。<b>許可</b> すると端末一覧に残り、<b>今回のみ許可</b> するとページを閉じたときに解除されます。</li>
+    </ul>
+    <div class="tipbox">接続するたびに PC 画面の上部にバー（切断ボタン）が表示され、スマホに通知が届きます。他の人が送信した QR コードは絶対に許可しないでください。画面と入力はブラウザーと PC の間で暗号化されて送受信され、直接接続できない場合のみデータ節約画質で中継サーバーを経由します（1 アカウントにつき 1 日 1 時間）。</div>
+  </div><div lang-zh>
+    <h2>🌐 网页远程 · 网页版 Deskify <span class="beta">测试版</span></h2>
+    <p>无需安装，即可在浏览器中使用你的电脑。适用于已运行并登录 Deskify 电脑版的电脑，包含在<b>订阅（Pro 订阅或云订阅）</b>中（仅凭终身版无法使用）。请在现代浏览器（Chrome、Edge、Safari 等）中打开。</p>
+    <p>在 <b><a href="web.html">在网页上使用</a></b> (deskify-app.github.io/web.html) 中，可以从下方两项或 <a href="#support">远程协助</a> 中选择其一。使用 Google 登录一次后，在同一浏览器的其他页面中也会保持登录状态打开。</p>
+    <div class="roles">
+      <div class="role"><b class="t"><a href="remote.html">网页远程</a></b><span class="k">deskify-app.github.io/remote.html</span>
+        <p>在浏览器中查看电脑的实际屏幕，并使用鼠标和键盘进行控制。没有远程桌面 (RDP) 的 Windows Home PC 也能使用。声音、剪贴板和文件发送也一并支持。</p></div>
+      <div class="role"><b class="t"><a href="app.html">网页版 Deskify</a></b><span class="k">deskify-app.github.io/app.html</span>
+        <p>在浏览器中打开 电脑版保管库中的电脑列表，并通过该电脑连接到 SSH 终端、文件 (SFTP)、远程桌面和 VNC。密码和密钥绝不会传到浏览器，而是由电脑代为连接。电脑屏幕上不会显示任何内容。</p></div>
+      <div class="role"><b class="t"><a href="support.html">远程协助</a></b><span class="k">deskify-app.github.io/support.html</span>
+        <p>通过 9 位号码协助他人的 Windows PC。协助者需要订阅（Pro 订阅或云订阅）；接受协助的一方完全免费，且无需安装或账号。请参阅下方的 <a href="#support">远程协助</a>。</p></div>
+    </div>
+
+    <h3>在电脑上开启</h3>
+    <ol>
+      <li>登录 Deskify 电脑版。</li>
+      <li>在<b>设置 → 移动设备 → 屏幕共享远程 (Pro)</b>中，针对网页远程开启<b>“允许屏幕共享远程 (浏览器·Deskify 应用)”</b>，针对网页版开启<b>“从网页使用电脑列表和远程”</b>。只需开启所需项即可；初始状态下两者均为关闭。</li>
+      <li>（可选）若要在锁定屏幕和登录屏幕上也使用，请在同一位置开启<b>“锁屏时也可使用 (安装服务)”</b>。系统会提示授予一次管理员权限。</li>
+    </ol>
+
+    <h3>在浏览器中登录</h3>
+    <ul>
+      <li><b>二维码（推荐在公用电脑上使用）</b>：使用手机上 Deskify 保管库顶部的 <b>二维码按钮</b> 扫描页面上的二维码。确认浏览器类型和连接位置后，选择电脑并允许。如果无法扫描，可以在手机上输入页面上的代码。以此方式进入的浏览器会在页面关闭或 12 小时后自动从账号中退出。</li>
+      <li><b>Google 账号</b>：使用与应用相同的 Google 账号登录，你已在使用的手机或电脑上就会弹出允许提示。选择<b>允许</b>会将其保留在设备列表中；选择<b>仅允许本次</b>则会在页面关闭时将其移除。</li>
+    </ul>
+    <div class="tipbox">每次连接时，电脑屏幕顶部都会显示一个横条（带有断开按钮），手机也会收到通知。切勿允许他人发给你的二维码。屏幕和输入在浏览器与电脑之间加密传输；仅在无法直接连接时，才会以省流量画质通过中继服务器传输（每个账号每天 1 小时）。</div>
   </div>
 
   </div>
@@ -254,6 +387,44 @@
     </ul>
     <p><b>Inviting by link</b>: after <b>Make a code</b>, the helper uses <b>Send a link / Copy link</b> to send it by chat or text. The other person opens it on their PC, gets the tool and presses <b>Connect with the copied code</b>. The link holds only the code and ends with it after 10 minutes. The person getting help must be on a Windows PC (opened on a phone, the page says to open it on the PC).</p>
     <div class="tipbox">If a stranger asks for your code or tells you to press "Allow", decline. Screen and input travel encrypted between the two devices and use the helper's relay (one hour a day) only when no direct path exists. Get help with Deskify installs and registers nothing.</div>
+  </div><div lang-ja>
+    <h2>🤝 リモートサポート</h2>
+    <p>ご両親や友人のように、<b>他の人の Windows PC</b> を番号ひとつでサポートできます。サポートする人（ヘルパー）は<b>サブスク（Pro 購読またはクラウド購読）</b>が必要で、サポートを受ける方は<b>無料でインストールやアカウントも不要</b>です。</p>
+    <h3>サポートを受ける方</h3>
+    <ol>
+      <li>「Deskify サポートを受ける」（正式リリース時に提供）をダウンロードして解凍し、<b>Deskify.exe</b> を実行します。（既に Deskify PC 版をお持ちの場合は、トレイメニューまたはホームの <b>サポートを受ける</b> をクリックします。）</li>
+      <li>画面に表示された <b>9 桁の番号</b> をサポートする人に伝えるか、サポートする人から教えられた番号を入力します。番号は 1 回限り、10 分間のみ有効です。</li>
+      <li>「○○ さんがこの PC を見ようとしています」画面で、<b>表示のみ</b>、<b>操作まで許可</b>、<b>拒否</b> の中から選択します。選択する前には何も表示されません。</li>
+      <li>接続中は画面上部に<b>「リモートサポート中」</b>のバーが表示され、<b>終了</b> でいつでも終了できます。終了後は次回に新しい番号が必要になります。</li>
+    </ol>
+    <p>管理者権限で実行中のプログラムでもサポートを受けるには、ウィンドウ内の <b>管理者として再起動</b> をクリックします（新しい番号が生成されます）。</p>
+    <h3>サポートする人（サブスク）</h3>
+    <ul>
+      <li><b>Web</b>: <a href="support.html">deskify-app.github.io/support.html</a> で Google アカウントにログインし、相手の番号を入力するか自分の番号を作成します。</li>
+      <li><b>スマホ・タブレット</b>: Deskify アプリの <b>設定 → 端末 → リモートサポート</b>。</li>
+      <li><b>PC</b>: Deskify PC 版ホームの <b>他の PC をサポート</b>（Web ページが開きます）。</li>
+    </ul>
+    <p><b>リンクで招待</b>: サポートする人が <b>番号を作成</b> した後、<b>リンクを送信 / リンクをコピー</b> でチャットやメッセージにリンクを送信します。サポートを受ける方が PC でそのリンクを開き、ツールをダウンロードして <b>コピーしたコードで接続</b> をクリックします。リンクには番号のみが含まれ、番号と同様に 10 分後に終了します。サポートを受ける側は Windows PC である必要があります（スマホで開いた場合は PC で開くよう案内されます）。</p>
+    <div class="tipbox">見知らぬ人から番号を求められたり、「許可」を押すよう言われたりした場合は拒否してください。画面と入力は 2 台の端末間で暗号化されて送受信され、直接接続できない場合のみサポートする側のアカウントの中継サーバーを経由します（1 日 1 時間）。「Deskify サポートを受ける」は何もインストールせず、登録もしません。</div>
+  </div><div lang-zh>
+    <h2>🤝 远程协助</h2>
+    <p>只需一个号码，即可协助父母、朋友等<b>他人的 Windows PC</b>。协助者需要<b>订阅（Pro 订阅或云订阅）</b>；接受协助的一方完全<b>免费，且无需安装和账号</b>。</p>
+    <h3>接受协助的一方</h3>
+    <ol>
+      <li>下载“Deskify 获取协助”（正式发布时提供），解压并运行 <b>Deskify.exe</b>。（如果已有 Deskify 电脑版，可在托盘菜单或主页中点击<b>获取协助</b>。）</li>
+      <li>将屏幕上显示的 <b>9 位号码</b>告知协助者，或输入协助者提供的号码。号码仅限使用一次，有效期为 10 分钟。</li>
+      <li>在“○○ 想要查看此电脑”弹窗中，选择<b>仅查看</b>、<b>允许控制</b>或<b>拒绝</b>。做出选择前，不会显示任何内容。</li>
+      <li>连接期间，屏幕顶部会显示<b>“正在远程协助”</b>横条；点击<b>结束</b>可随时终止。结束后下次需要使用新号码。</li>
+    </ol>
+    <p>若需要针对以管理员身份运行的程序获取协助，请在窗口中点击<b>以管理员身份重新运行</b>（将生成新的号码）。</p>
+    <h3>协助者（订阅）</h3>
+    <ul>
+      <li><b>网页</b>：在 <a href="support.html">deskify-app.github.io/support.html</a> 中使用 Google 账号登录，然后输入对方的号码或生成你的号码。</li>
+      <li><b>手机/平板</b>：在 Deskify 应用中，前往<b>设置 → 设备 → 远程协助</b>。</li>
+      <li><b>电脑</b>：在 Deskify 电脑版主页中点击<b>协助其他电脑</b>（将打开网页）。</li>
+    </ul>
+    <p><b>通过链接邀请</b>：协助者点击<b>生成号码</b>后，通过<b>发送链接 / 复制链接</b>将链接通过聊天软件或短信发送。对方在电脑上打开该链接，下载工具后点击<b>用复制的号码连接</b>即可。链接中仅包含号码，并在 10 分钟后随号码一同失效。接受协助的一方必须使用 Windows PC（若在手机上打开，页面会提示在电脑上打开）。</p>
+    <div class="tipbox">若有陌生人索要你的号码或让你点击“允许”，请予以拒绝。屏幕和输入在两台设备之间加密传输，仅在无法直接连接时才会使用协助者账号的中继服务（每天 1 小时）。“Deskify 获取协助”不会安装或注册任何内容。</div>
   </div>
 
   </div>
@@ -494,24 +665,257 @@
       <li>With the PC app as the main device: Second screen, Stream deck and PC screen streaming only; the second monitor goes to the right or below.</li>
       <li>Files, the second shell and the AI helper keep working while the main device shows something else; input roles pause.</li>
     </ul>
+  </div><div lang-ja>
+    <h2>📱 サブ端末</h2>
+    <p>余っているスマホやタブレットを、作業中のリモートセッションのトラックパッド、キーボード、サブモニター、ペンタブレットなどのツールとして使います。</p>
+    <p class="muted">リモートコンピューターには<b>メイン端末</b>（セッションを開いた端末）のみが接続します。<b>サブ端末</b>は同じ Wi-Fi 内でメイン端末とのみ通信し、パスワードがサブ端末に送信されることはありません。</p>
+
+    <h3>必要なもの</h3>
+    <ul>
+      <li>両方の端末が<b>同じ Wi-Fi</b>（同じルーター）に接続されている必要があります。</li>
+      <li>両方の端末に <b>Deskify</b> がインストールされている必要があります。</li>
+      <li>メイン端末はスマホ・タブレットの Deskify、または <b>Deskify PC 版</b>（Windows）です。役割を選択するには、メイン端末でリモートコンピューターに<b>接続されたセッション</b>がある必要があります。</li>
+      <li>サブ端末の許可は<b>メイン端末側の Pro 機能</b>です。サブスク（7 日間の無料トライアルを含む）では同時に 2 台、買い切りでは 1 台まで接続できます。無料版では、設定 → Pro で広告を見ると 3 時間 1 台利用できます。サブ端末側は無料で利用できます。</li>
+    </ul>
+
+    <h3>初回接続（一度のみ）</h3>
+    <ol>
+      <li><b>メイン端末（スマホ・タブレット）</b>：<b>設定 → サブ端末 → サブ端末を許可</b>をオンにします。Android 17 で「付近のデバイスの権限がオフ」と表示された場合は「許可」をタップします。</li>
+      <li><b>メイン端末が PC 版の場合</b>：Deskify PC 版にログイン後、<b>設定 → モバイル端末 → サブモニター (Pro)</b> で「スマホをリモート デスクトップのセカンド モニターにする」をオンにします。</li>
+      <li>メイン端末からリモートコンピューターに RDP または SSH で接続します。</li>
+      <li><b>サブ端末（スマホ）</b>：Deskify 保管庫の<b>サブ端末として接続</b>カードをタップします。カードがない場合は、<b>設定 → サブ端末 → 一番下の「サブ端末として接続」</b>をタップします。</li>
+      <li>一覧に表示されたメイン端末の名前をタップします。</li>
+      <li>メイン端末に <b>6 桁のコード</b>が表示されます。スマホにそのコードを入力し、<b>ペアリング</b>をタップします。</li>
+      <li>メイン端末のセッションを選択し、このスマホで使う<b>役割</b>を選択します。</li>
+    </ol>
+    <div class="tipbox">コードの入力は初回の一度のみです。ペアリング情報は双方に保存されるため、次回からはどちらの端末がメインになってもコードなしで接続できます。次回以降は保管庫のカードをタップするだけで直接接続され、開いているセッションが 1 つだけの場合は前回使用した役割ですぐに開始されます。</div>
+
+    <h3>役割</h3>
+    <div class="roles">
+      <div class="role"><b class="t">⌨️ キーボード · トラックパッド</b><span class="k">RDP · SSH</span>
+        <p>タブレットの画面を遮ることなく、スマホでポインターの操作やキー入力を行えます。1 本指：移動、タップ：クリック、2 本指：スクロール、2 本指タップ：右クリック、長押し：ドラッグ。キーバーやショートカットボタンで入力します。SSH では画面上のプログラム（vim、tmux など）がマウスを受け付けるとトラックパッドになります。</p></div>
+      <div class="role"><b class="t">🖥️ サブモニター</b><span class="k">RDP</span>
+        <p>リモートの Windows にスマホサイズのモニターがもう 1 台追加され、ウィンドウをドラッグして移動できます。タップ：クリック、ドラッグ：スクロール、長押し：右クリック。「戻る」を押すとツールやキーバーが表示され、モニターの位置（右・左・下・上）や倍率、「この画面サイズに合わせてモニターを再調整」を選択できます。</p></div>
+      <div class="role"><b class="t">✏️ ペンタブレット</b><span class="k">RDP</span>
+        <p>端末のペンを使ってリモート PC に描画できます。筆圧、ペンボタン、消しゴムは Windows のペン入力として送信されます。デスクトップ全体がパッドに対応し、パッド上にデスクトップの縮小画面を表示したり非表示にしたりできます。ペンがない場合は指でも描けます。</p></div>
+      <div class="role"><b class="t">🖌️ ブラシパッド</b><span class="k">RDP</span>
+        <p>元に戻す、ブラシサイズ、消しゴム、画面移動などのお絵描きソフトのショートカットを大きなボタンで操作できます。ボタンの並べ替えや非表示、独自のキーの組み合わせの追加も可能です。</p></div>
+      <div class="role"><b class="t">🔲 ストリームデッキ</b><span class="k">RDP · SSH · PC 版の「この PC」</span>
+        <p>自作した大きなボタン 1 つで、ショートカット、定型文、コマンドの送信やプログラムの起動を一括で行えます。複数のステップを組み合わせたりフォルダーで整理したりできるほか、PC 版がメイン端末の場合は OBS の操作や最前面のプログラムに応じたページ切り替えも行えます。</p></div>
+      <div class="role"><b class="t">💡 セッションヘルパー</b><span class="k">SSH</span>
+        <p>コマンドのヘルプや実行結果をスマホに表示します。選択したコマンドはメイン端末のターミナルに入力されます。</p></div>
+      <div class="role"><b class="t">📂 ファイル</b><span class="k">SSH</span>
+        <p>サーバーのフォルダーをスマホで閲覧できます。「ターミナルに追従」をオンにすると、ターミナルの cd に連動します。タップしたパスをプロンプトに入力したり、そのフォルダーへ cd したりできます。</p></div>
+      <div class="role"><b class="t">🖥 2 つ目のシェル</b><span class="k">SSH</span>
+        <p>同じ SSH 接続上でもう 1 つのシェルを開いてスマホに表示します。ログを確認しながら別のコマンドを入力したいときに便利です。</p></div>
+      <div class="role"><b class="t">✨ AI アシスタント</b><span class="k">SSH</span>
+        <p>ターミナルはメイン端末に置いたまま、スマホから AI に指示を出せます。コマンドはメイン端末のターミナルで実行されます。メイン端末の設定 → Labs に Claude または Gemini の API キーが必要です（キーはメイン端末にのみ保存されます）。</p></div>
+      <div class="role"><b class="t">🎮 PC 画面ストリーミング (試験)</b><span class="k">PC 版の「この PC」</span>
+        <p>Deskify PC 版がインストールされた PC の画面をグラフィックカードで圧縮してスマホに表示し、スマホのタッチ操作でマウスを動かせます。</p></div>
+    </div>
+    <p class="muted">PC 版がメイン端末の場合、サブモニター、ストリームデッキ、PC 画面ストリーミングのみ選択できます。</p>
+
+    <h3>役割の切り替え · 終了</h3>
+    <ul>
+      <li><b>スマホ側</b>：上部バーの役割名（⇄）をタップすると別の役割に切り替わります。← でセッションから退出（接続は維持）し、完全に終了するには保管庫カードの「切断」をタップします。</li>
+      <li><b>メイン端末側</b>：セッション画面の <b>⋮ → サブ端末</b> で、接続されているスマホごとに役割を設定できます。サブモニターの位置もここで変更します。</li>
+      <li><b>セッションの引き継ぎ</b>：メイン端末の ⋮ → サブ端末 からセッションをスマホに引き継ぐか、スマホ側の役割一覧の下にある「セッションを引き継ぐ」で取得します。パスワードは転送されないため、受け取り側の端末の保管庫情報またはログイン画面を使用します。（PC 版では引き継ぎは行えません。）</li>
+    </ul>
+
+    <h3>よくあるトラブル</h3>
+    <details><summary>スマホのリストにメイン端末が表示されません</summary>
+      <ul>
+        <li>両方の端末が本当に同じ Wi-Fi に接続されているか確認してください。片方がモバイルデータ通信や別のルーターの場合は検出されません。</li>
+        <li><b>ゲスト Wi-Fi</b> やルーターの <b>AP 分離（端末間通信の遮断）</b>が有効になっていると、端末同士がお互いを検出できません。通常の Wi-Fi を使用するか、ルーターの設定で無効にしてください。会社やカフェの Wi-Fi では基本的に遮断されています。</li>
+        <li>スマホや PC の <b>VPN</b> をオフにしてください。VPN が同じ Wi-Fi 内の端末検出シグナルを遮断することがあります。</li>
+        <li>メイン端末で Deskify を開いたままにし、サブ端末の許可がオンになっているか確認してください。画面が消灯してスリープ中の端末は応答しません。</li>
+        <li>Android 17 では両方の端末で<b>付近のデバイス</b>の権限が必要です。</li>
+        <li>以前ペアリングした端末は、リストの下の「以前にペアリングした端末」をタップすると最後の接続先アドレスで接続します。</li>
+      </ul>
+    </details>
+    <details><summary>PC 版がメイン端末なのにスマホから検出できません</summary>
+      <ul>
+        <li>PC 版にログイン済みで Pro であること、設定 → モバイル端末 → サブモニター がオンになっていることを確認してください。</li>
+        <li><b>Windows ファイアウォール</b>：初回起動時の画面で Deskify の<b>プライベート ネットワーク</b>へのアクセスを許可している必要があります。拒否した場合は、Windows セキュリティ → ファイアウォール →「ファイアウォールを介したアプリの許可」で Deskify を有効にしてください。</li>
+        <li>Windows のネットワーク プロファイルが<b>パブリック</b>になっているとブロックされる場合があります。設定 → ネットワークとインターネット で<b>プライベート</b>に変更してください。</li>
+        <li>PC の VPN をオフにしてください。</li>
+      </ul>
+    </details>
+    <details><summary>コードが間違っていると表示される、またはコード画面が消えました</summary>
+      <ul>
+        <li>コードはメイン端末に現在表示されている 6 桁の数字です。3 回間違えると接続が切断されます。</li>
+        <li>コードは一度しか使えません。メイン端末側でキャンセルされたか接続が切れてコード画面が閉じた場合は、スマホでもう一度メイン端末をタップして新しいコードを取得してください。</li>
+        <li>「他の端末とペアリング中」と表示される場合は、他のスマホのペアリングが完了してからやり直してください。</li>
+      </ul>
+    </details>
+    <details><summary>「空きがありません」と表示されます</summary>
+      <p>メイン端末が接続できる台数の上限に達しています（サブスクは 2 台、買い切り・広告は 1 台、PC 版は 2 台）。メイン端末の設定 → サブ端末（PC 版は 設定 → モバイル端末）で使用していない端末を削除してください。</p>
+    </details>
+    <details><summary>サブモニターが表示されません</summary>
+      <ul>
+        <li>リモートの Windows がセッション中の画面サイズ変更（ディスプレイ制御）に対応している必要があります。Windows 8.1、Server 2012 R2 以降のバージョンで利用できます。</li>
+        <li>リモート PC のグループ ポリシーで「モニターの最大数を制限する」が 1 になっているとモニターを追加できません。</li>
+        <li>サブモニターは 1 つのデスクトップにつき 1 台までです。他のスマホや DeX 画面ですでに使用している場合は、そちらをオフにしてください。</li>
+        <li>PC 版では、Deskify PC 版の中で接続したリモート デスクトップのタブでのみ利用可能です（Windows 標準のリモート デスクトップ ウィンドウでは利用できません）。</li>
+        <li>それでも表示されない場合は、スマホで「戻る」→「この画面サイズに合わせてモニターを再調整」をタップするか、役割を選び直してください。</li>
+      </ul>
+    </details>
+    <details><summary>キーやタッチが効かず「一時停止中」と表示されます</summary>
+      <p>キーボード、サブモニター、ペンタブレット、ストリームデッキなどの入力役割は、メイン端末の画面にそのセッションが表示されている間のみ動作します。画面が見えていない PC に誤入力されるのを防ぐためです。メイン端末でそのセッションを表示すると再開されます。また、メイン端末でアプリのロックがかかっている間も一時停止します。</p>
+    </details>
+    <details><summary>「サポートが無効になっています」/「安全な接続に失敗しました」</summary>
+      <ul>
+        <li>メイン端末の 設定 → サブ端末 → ペアリング済み端末 で、その端末の「この端末が自分のセッションをサポートすることを許可」をオンにします。</li>
+        <li>安全な接続（ハンドシェイク）に失敗した場合は、メイン端末で「サブ端末を許可」を一度オフにしてから再度オンにし、もう一度試してください。</li>
+      </ul>
+    </details>
+    <details><summary>画面が途切れる、またはぼやけて見えます</summary>
+      <p>サブモニターの画面は Wi-Fi 経由で転送され、通信負荷が高いときは画質とフレームレートを自動的に下げます（最大約 1.5MB/s）。ルーターの近くで 5GHz Wi-Fi を使用すると改善されます。一時的に接続が切断された場合でも、最大 5 分間自動で再接続を試みます。</p>
+    </details>
+
+    <h3>制限事項</h3>
+    <ul>
+      <li>同じ Wi-Fi（同一ネットワーク）でのみ利用できます。インターネット越しの端末をサブ端末として使用することはできません。</li>
+      <li>RDP および SSH セッションで利用できます。VNC セッションには対応していません。</li>
+      <li>サブモニターは 1 つのデスクトップにつき 1 台までです。</li>
+      <li>PC 版がメイン端末の場合は、サブモニター、ストリームデッキ、PC 画面ストリーミングのみ利用できます。サブモニターの配置位置は右側または下側となります。</li>
+      <li>ファイル、2 つ目のシェル、AI アシスタントはメイン端末が他の画面を表示していても動作し続けますが、入力の役割は一時停止します。</li>
+    </ul>
+  </div><div lang-zh>
+    <h2>📱 辅助设备</h2>
+    <p>将闲置的手机或平板用作当前正在操作的远程会话的工具：触控板、键盘、副显示器、绘图板等。</p>
+    <p class="muted">只有<b>主设备</b>（打开会话的设备）会连接到远程电脑。<b>辅助设备</b>仅在同一 Wi-Fi 下与主设备通信，密码绝不会发送到辅助设备。</p>
+
+    <h3>所需条件</h3>
+    <ul>
+      <li>两台设备处于<b>同一 Wi-Fi</b>（同一路由器）下。</li>
+      <li>两台设备均已安装 <b>Deskify</b>。</li>
+      <li>主设备可以是手机/平板上的 Deskify，也可以是 <b>Deskify 电脑版</b>（Windows）。主设备上需要有已连接到远程电脑的<b>活动会话</b>，才能选择角色。</li>
+      <li>允许辅助设备是<b>主设备侧的 Pro 功能</b>：订阅（含 7 天免费试用）可同时连接 2 台，终身版可连接 1 台。免费版在“设置 → Pro”中观看广告即可使用 1 台 3 小时。辅助设备本身完全免费。</li>
+    </ul>
+
+    <h3>首次连接（仅需一次）</h3>
+    <ol>
+      <li><b>主设备（手机/平板）</b>：开启<b>设置 → 辅助设备 → 允许辅助设备</b>。在 Android 17 上，若提示“附近的设备权限已关闭”，请点击“允许”。</li>
+      <li><b>如果主设备是电脑版</b>：登录 Deskify 电脑版后，在<b>设置 → 移动设备 → 副显示器 (Pro)</b>中开启“将手机作为远程桌面的第二台显示器”。</li>
+      <li>在主设备上通过 RDP 或 SSH 连接到远程电脑。</li>
+      <li><b>辅助设备（手机）</b>：点击 Deskify 保管库中的<b>作为辅助设备连接</b>卡片。若没有该卡片，请点击<b>设置 → 辅助设备 → 底部的“作为辅助设备连接”</b>。</li>
+      <li>点击列表中显示的主设备名称。</li>
+      <li>主设备屏幕上会显示 <b>6 位代码</b>。在手机上输入该代码并点击<b>配对</b>。</li>
+      <li>选择主设备上的会话，然后选择此手机要担任的<b>角色</b>。</li>
+    </ol>
+    <div class="tipbox">代码仅需输入一次。配对信息会保存在双方设备中，下次即使两台设备的角色互换也可以免代码连接。之后只需点击保管库中的卡片即可直接连接；如果只有一个打开的会话，将直接以你上次使用的角色启动。</div>
+
+    <h3>角色</h3>
+    <div class="roles">
+      <div class="role"><b class="t">⌨️ 键盘 · 触控板</b><span class="k">RDP · SSH</span>
+        <p>无需遮挡平板屏幕，即可在手机上移动指针和输入文字。单指：移动，点按：点击，双指：滚动，双指点按：右键，长按：拖拽。通过按键栏和快捷键按钮进行输入。在 SSH 下，当屏幕上的程序（vim、tmux 等）捕获鼠标时，便会作为触控板使用。</p></div>
+      <div class="role"><b class="t">🖥️ 副显示器</b><span class="k">RDP</span>
+        <p>远程 Windows 会新增一台手机大小的显示器，可直接将窗口拖动到手机屏幕上。点按：点击，拖动：滚动，长按：右键。按返回键可调出工具和按键栏：选择显示器位置（右侧、左侧、下方、上方）、缩放比例以及“按此屏幕尺寸重新调整显示器”。</p></div>
+      <div class="role"><b class="t">✏️ 绘图板</b><span class="k">RDP</span>
+        <p>使用设备的手写笔在远程电脑上作画。压感、笔按键和橡皮擦均作为 Windows 触控笔输入传递。整个桌面映射到数位板上，可以在板上显示桌面的缩略图（也可以关闭）。没有手写笔时，用手指也可以绘制。</p></div>
+      <div class="role"><b class="t">🖌️ 画笔面板</b><span class="k">RDP</span>
+        <p>以大按钮的形式操作绘图软件的快捷键：撤销、画笔大小、橡皮擦、画布平移等。可以调整按钮顺序、隐藏按钮，或添加自定义按键组合。</p></div>
+      <div class="role"><b class="t">🔲 快捷面板 (Stream Deck)</b><span class="k">RDP · SSH · 电脑版中的“此电脑”</span>
+        <p>只需自定义一个大按钮，即可一键发送快捷键、文本、命令或启动程序。支持组合多步操作或用文件夹整理；如果电脑版为主设备，还能控制 OBS 并根据当前前台程序自动切换页面。</p></div>
+      <div class="role"><b class="t">💡 会话助手</b><span class="k">SSH</span>
+        <p>在手机上显示命令帮助和执行结果查看；选中的命令会自动输入到主设备的终端中。</p></div>
+      <div class="role"><b class="t">📂 文件</b><span class="k">SSH</span>
+        <p>在手机上浏览服务器文件夹。开启“跟随终端”可同步跟踪终端中的 cd 命令。可将点击的路径插入到提示符处，或直接 cd 到该目录。</p></div>
+      <div class="role"><b class="t">🖥 第二个 Shell</b><span class="k">SSH</span>
+        <p>在同一个 SSH 连接中多打开一个 Shell 并显示在手机上：可以一边查看日志，一边在别处输入命令。</p></div>
+      <div class="role"><b class="t">✨ AI 助手</b><span class="k">SSH</span>
+        <p>终端保留在主设备上，从手机向 AI 发出请求；命令会在主设备终端中执行。需要在主设备的“设置 → 实验室”中配置 Claude 或 Gemini 密钥（密钥仅保留在主设备上）。</p></div>
+      <div class="role"><b class="t">🎮 电脑屏幕串流（测试）</b><span class="k">电脑版中的“此电脑”</span>
+        <p>将安装了 Deskify 电脑版的电脑屏幕通过显卡压缩后在手机上显示，并通过手机触控操作鼠标。</p></div>
+    </div>
+    <p class="muted">当电脑版作为主设备时，仅可选择副显示器、快捷面板 (Stream Deck) 和电脑屏幕串流。</p>
+
+    <h3>切换角色 · 结束</h3>
+    <ul>
+      <li><b>在手机上</b>：点击顶部栏中的角色名称（⇄）即可切换到其他角色。点击 ← 离开会话（连接仍会保持）；若要彻底断开，请在保管库卡片中点击断开连接。</li>
+      <li><b>在主设备上</b>：在会话画面的 <b>⋮ → 辅助设备</b> 中，可以为每台已连接的手机指定角色，副显示器的位置也在此处更改。</li>
+      <li><b>移交会话</b>：在主设备的 ⋮ → 辅助设备 中将会话移交至手机，或通过手机角色列表下方的“接管会话”来获取。密码不会被转移，接收设备将使用自身保管库中的凭据或显示登录窗口。（电脑版不支持移交会话。）</li>
+    </ul>
+
+    <h3>常见问题</h3>
+    <details><summary>手机列表中未显示主设备</summary>
+      <ul>
+        <li>请确认两台设备是否确实处于同一 Wi-Fi 下；若有一方使用移动数据或其他路由器，将无法发现设备。</li>
+        <li><b>访客 Wi-Fi</b> 或路由器的 <b>AP 隔离（无线设备间通信拦截）</b>开启时，设备间将无法互相发现。请使用常规 Wi-Fi 或在路由器设置中关闭该功能。公司和咖啡店的 Wi-Fi 通常都会拦截此通信。</li>
+        <li>请关闭手机和电脑上的 <b>VPN</b>；VPN 可能会拦截局域网内搜索设备的信号。</li>
+        <li>请在主设备上保持 Deskify 打开，并确认已开启允许辅助设备。屏幕熄灭且处于休眠状态的设备不会响应。</li>
+        <li>在 Android 17 上，两台设备均需要<b>附近设备</b>权限。</li>
+        <li>对于之前配对过的设备，点击列表下方的“之前配对过的设备”即可尝试连接其最后的地址。</li>
+      </ul>
+    </details>
+    <details><summary>电脑版为主设备，但手机无法找到它</summary>
+      <ul>
+        <li>请确认电脑版已登录且具有 Pro 权限，并且设置 → 移动设备 → 副显示器 已开启。</li>
+        <li><b>Windows 防火墙</b>：首次启动弹出的提示中，必须允许 Deskify 在<b>专用网络</b>上访问。如果当时拒绝了，请在 Windows 安全中心 → 防火墙 →“允许应用通过防火墙”中勾选 Deskify。</li>
+        <li>如果 Windows 网络配置文件为<b>公用</b>，可能会被拦截；请在“设置 → 网络和 Internet”中将其更改为<b>专用</b>。</li>
+        <li>请关闭电脑上的 VPN。</li>
+      </ul>
+    </details>
+    <details><summary>提示代码错误或代码窗口消失</summary>
+      <ul>
+        <li>代码为当前显示在主设备上的 6 位数字。输错 3 次将断开连接。</li>
+        <li>代码仅可使用一次。如果在主设备上取消了操作，或因连接断开导致代码窗口关闭，请在手机上重新点击主设备以获取新代码。</li>
+        <li>若提示“正在与其他设备配对”，请等待另一台手机配对完成后再试。</li>
+      </ul>
+    </details>
+    <details><summary>提示“名额已满”</summary>
+      <p>主设备可连接的设备数量已达上限（订阅为 2 台，终身版/广告为 1 台，电脑版为 2 台）。请在主设备的“设置 → 辅助设备”（电脑版为“设置 → 移动设备”）中删除不使用的设备。</p>
+    </details>
+    <details><summary>副显示器未出现</summary>
+      <ul>
+        <li>远程 Windows 必须支持在会话中调整画面尺寸（显示控制）：需要 Windows 8.1、Server 2012 R2 或更高版本。</li>
+        <li>如果远程电脑上的组策略将“限制最大监视器数”设置为 1，则无法添加显示器。</li>
+        <li>每个桌面仅支持 1 台副显示器。如果另一台手机或 DeX 屏幕正在使用，请将其关闭。</li>
+        <li>在电脑版上，仅支持在 Deskify 电脑版内部连接的远程桌面标签页中使用（Windows 自带的远程桌面窗口不支持）。</li>
+        <li>若仍未出现：请在手机上按返回键 → 点击“按此屏幕尺寸重新调整显示器”，或重新选择角色。</li>
+      </ul>
+    </details>
+    <details><summary>按键或触控无效，并显示“已暂停”</summary>
+      <p>输入类角色（键盘、副显示器、绘图板、快捷面板等）仅在主设备屏幕上显示该会话时才会工作，以防止误输入到看不到的电脑上。在主设备上打开该会话即可继续。当主设备开启应用锁时也会暂停。</p>
+    </details>
+    <details><summary>提示“协助已关闭”/“安全连接失败”</summary>
+      <ul>
+        <li>在主设备的“设置 → 辅助设备 → 已配对的设备”中，为该设备开启“允许此设备协助我的会话”。</li>
+        <li>若安全连接（握手）失败，请在主设备上关闭并重新开启“允许辅助设备”，然后再试一次。</li>
+      </ul>
+    </details>
+    <details><summary>画面卡顿或模糊</summary>
+      <p>副显示器画面通过 Wi-Fi 传输，网络繁忙时会自动降低画质和帧率（最高约 1.5MB/s）。靠近路由器并使用 5GHz Wi-Fi 可改善体验。若连接暂时中断，最长会在 5 分钟内自动重新连接。</p>
+    </details>
+
+    <h3>使用限制</h3>
+    <ul>
+      <li>仅支持同一 Wi-Fi（同一网络）；无法将跨互联网的设备作为辅助设备使用。</li>
+      <li>支持 RDP 和 SSH 会话。不支持 VNC 会话。</li>
+      <li>每个桌面仅限 1 台副显示器。</li>
+      <li>电脑版作为主设备时：仅支持副显示器、快捷面板 (Stream Deck) 和电脑屏幕串流；副显示器的位置位于右侧或下方。</li>
+      <li>主设备显示其他画面时，文件、第二个 Shell 和 AI 助手仍会继续工作；输入类角色则会暂停。</li>
+    </ul>
   </div>
   </div>
 
   <div class="contact">
     <p lang-ko><b>해결이 안 되면</b> 앱의 <b>설정 → 문제 해결 → 문의하기</b>로 보내 주세요. 진단 보고서가 함께 첨부되어 빨리 확인할 수 있습니다. 메일: <a href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a></p>
     <p lang-en><b>Still stuck?</b> Use <b>Settings → Troubleshooting → Contact us</b> in the app: a diagnostic report goes with it so we can look quickly. E-mail: <a href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a></p>
+    <p lang-ja><b>解決しない場合</b>は、アプリの<b>設定 → トラブルシューティング → お問い合わせ</b>からご連絡ください。診断レポートが添付されるため、迅速に確認できます。メール: <a href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a></p>
+    <p lang-zh><b>仍未解决？</b>请在应用中通过<b>设置 → 故障排除 → 联系我们</b>发送信息：将同时附带诊断报告，便于我们快速排查。邮箱：<a href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a></p>
   </div>
 </main>
 <script>
-  document.getElementById("lang").addEventListener("click", function () {
-    var next = document.documentElement.getAttribute("data-lang") === "en" ? "ko" : "en";
-    document.documentElement.setAttribute("data-lang", next);
-    document.documentElement.lang = next;
-    try { localStorage.setItem("lang", next); } catch (e) {}
-    label();
-  });
-  function label() { document.getElementById("lang").textContent = document.documentElement.getAttribute("data-lang") === "en" ? "한국어" : "English"; }
-  label();
+  // The language menu (한국어 / English / 日本語 / 简体中文); the choice is remembered.
+  (function () {
+    var titles = { ko: "Deskify · 도움말", en: "Deskify · Help", ja: "Deskify · ヘルプ", zh: "Deskify · 帮助" };
+    var m = document.getElementById("lang"), root = document.documentElement;
+    function apply(l) { root.setAttribute("data-lang", l); root.lang = l === "zh" ? "zh-CN" : l; m.value = l; if (titles[l]) document.title = titles[l]; }
+    m.addEventListener("change", function () { try { localStorage.setItem("lang", m.value); } catch (e) {} apply(m.value); });
+    apply(root.getAttribute("data-lang"));
+  })();
 </script>
 </body>
 </html>

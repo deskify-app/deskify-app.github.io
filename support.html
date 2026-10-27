@@ -2,23 +2,27 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-Pw7Nugx+qfkp2elf+g9OVnS64JgWBv9kcEJUMwD+kBk=' 'self' https://www.gstatic.com/firebasejs/ https://apis.google.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: blob:; connect-src 'self' blob: https://deskify-api.kim290.workers.dev https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com http://127.0.0.1:* http://localhost:*; frame-src https://deskify-8bd6f.firebaseapp.com https://accounts.google.com https://apis.google.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-gGAHdEcsrGThjUEA8ZcNLwJjOxhe3080yqGoSoeBljQ=' 'self' https://www.gstatic.com/firebasejs/ https://apis.google.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: blob:; connect-src 'self' blob: https://deskify-api.kim290.workers.dev https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com http://127.0.0.1:* http://localhost:*; frame-src https://deskify-8bd6f.firebaseapp.com https://accounts.google.com https://apis.google.com; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light dark">
 <title>Deskify 원격 지원</title>
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="remote.min.css?v=01f3a17d5d">
+<link rel="stylesheet" href="remote.min.css?v=15675b0821">
 <script>
   (function () {
-    var saved = null; try { saved = localStorage.getItem('lang'); } catch (e) {}
-    var lang = saved || ((navigator.language || '').toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en');
-    if (location.hash === '#en') lang = 'en';
+    // Language: ?lang= from the apps (their UI language) for this visit, else #en, else the visitor's last choice,
+    // else the browser's first supported language (ko, en, ja, zh: any Chinese reads 简体中文), else English.
+    var pick = function (s) { s = String(s || "").toLowerCase(); return /^(ko|en|ja|zh)/.test(s) ? s.slice(0, 2) : ""; };
     var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
-    if (q) lang = q[1].toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en';
-    document.documentElement.setAttribute('data-lang', lang);
-    document.documentElement.lang = lang;
+    var lang = q ? pick(q[1]) : location.hash === "#en" ? "en" : "";
+    if (!lang) { try { lang = pick(localStorage.getItem("lang")); } catch (e) {} }
+    var nav = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+    for (var i = 0; !lang && i < nav.length; i++) lang = pick(nav[i]);
+    lang = lang || "en";
+    document.documentElement.setAttribute("data-lang", lang);
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
     // An invitation link of the old form (support.html#c=<code>): the person getting help has their own page now.
     if (/^#c=\d{9}$/.test(location.hash)) location.replace('gethelp.html' + (q ? '?lang=' + lang : '') + location.hash);
   })();
@@ -79,67 +83,67 @@
 
 <div class="topbar">
   <span class="brand"><svg><use href="#i-logo"/></svg> Deskify</span>
-  <a class="rm-back" href="web.html" aria-label="웹에서 쓰기"><svg aria-hidden="true"><use href="#i-back"/></svg><span class="rm-back-t"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span></span></a>
+  <a class="rm-back" href="web.html"><svg aria-hidden="true"><use href="#i-back"/></svg><span class="rm-back-t"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span></span></a>
   <span class="sp"></span>
-  <button id="btnLang" class="btn sec">English</button>
+  <select class="btn sec lang-menu" id="btnLang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
 </div>
 
 <div class="wrap">
   <section id="gate" hidden>
     <div class="card">
-      <h1 data-ko="원격 지원" data-en="Remote support">원격 지원</h1>
-      <p data-ko="다른 사람의 PC를 번호 하나로 도와줍니다. 돕는 사람은 구독(Pro 또는 클라우드 구독) 계정으로 로그인합니다." data-en="Help someone else's PC with a single number. The helper signs in with an account that has a subscription (Pro or Cloud).">다른 사람의 PC를 번호 하나로 도와줍니다.</p>
-      <button id="btnSignIn" class="btn" data-ko="구글로 로그인" data-en="Sign in with Google">구글로 로그인</button>
+      <h1 data-ko="원격 지원" data-en="Remote support" data-ja="リモートサポート" data-zh="远程协助">원격 지원</h1>
+      <p data-ko="다른 사람의 PC를 번호 하나로 도와줍니다. 돕는 사람은 구독(Pro 또는 클라우드 구독) 계정으로 로그인합니다." data-en="Help someone else's PC with a single number. The helper signs in with an account that has a subscription (Pro or Cloud)." data-ja="番号 1 つで他の人の PC をサポートします。サポートする人は、サブスク（Pro 購読またはクラウド購読）のあるアカウントでログインします。" data-zh="通过一个号码协助他人的电脑。协助者使用拥有订阅（Pro 订阅或云订阅）的账号登录。">다른 사람의 PC를 번호 하나로 도와줍니다.</p>
+      <button id="btnSignIn" class="btn" data-ko="구글로 로그인" data-en="Sign in with Google" data-ja="Google でログイン" data-zh="使用 Google 登录">구글로 로그인</button>
       <div id="gateMsg" class="msg"></div>
-      <p class="muted"><a href="help.html#support" data-ko="원격 지원 도움말" data-en="Remote support help">원격 지원 도움말</a></p>
+      <p class="muted"><a href="help.html#support" data-ko="원격 지원 도움말" data-en="Remote support help" data-ja="リモートサポート ヘルプ" data-zh="远程协助帮助">원격 지원 도움말</a></p>
     </div>
     <a class="card gh-link" href="gethelp.html">
-      <span data-ko="도움 받는 분은 여기 →" data-en="Getting help? Start here →">도움 받는 분은 여기 →</span>
-      <small data-ko="계정 없이 무료 · 설치 없이 화면만 보여 줄 수도 있습니다" data-en="Free, no account · you can even just show your screen without installing anything">계정 없이 무료 · 설치 없이 화면만 보여 줄 수도 있습니다</small>
+      <span data-ko="도움 받는 분은 여기 →" data-en="Getting help? Start here →" data-ja="サポートを受ける方はこちら →" data-zh="接受协助的一方请看这里 →">도움 받는 분은 여기 →</span>
+      <small data-ko="계정 없이 무료 · 설치 없이 화면만 보여 줄 수도 있습니다" data-en="Free, no account · you can even just show your screen without installing anything" data-ja="アカウント不要で無料 · インストールなしで画面を見せるだけでも可能です" data-zh="无需账号且免费 · 无需安装也可仅展示屏幕">계정 없이 무료 · 설치 없이 화면만 보여 줄 수도 있습니다</small>
     </a>
   </section>
 
   <section id="menu" hidden>
     <div class="card">
-      <h1 data-ko="도울 PC에 연결" data-en="Connect to the PC you'll help">도울 PC에 연결</h1>
-      <p data-ko="도움 받는 분의 9자리 번호를 입력하십시오." data-en="Type the 9-digit number from the person you are helping.">도움 받는 분의 9자리 번호를 입력하십시오.</p>
-      <input id="joinCode" type="tel" inputmode="numeric" maxlength="13" data-ph-ko="000 000 000" data-ph-en="000 000 000">
+      <h1 data-ko="도울 PC에 연결" data-en="Connect to the PC you'll help" data-ja="サポートする PC に接続" data-zh="连接到要协助的电脑">도울 PC에 연결</h1>
+      <p data-ko="도움 받는 분의 9자리 번호를 입력하십시오." data-en="Type the 9-digit number from the person you are helping." data-ja="サポートを受ける方の 9 桁の番号を入力してください。" data-zh="请输入接受协助一方的 9 位号码。">도움 받는 분의 9자리 번호를 입력하십시오.</p>
+      <input id="joinCode" type="tel" inputmode="numeric" maxlength="13" data-ph-ko="000 000 000" data-ph-en="000 000 000" data-ph-ja="000 000 000" data-ph-zh="000 000 000">
       <div class="row" style="margin-top:12px">
-        <button id="btnJoin" class="btn" data-ko="연결" data-en="Connect">연결</button>
+        <button id="btnJoin" class="btn" data-ko="연결" data-en="Connect" data-ja="接続" data-zh="连接">연결</button>
       </div>
       <div id="menuMsg" class="msg"></div>
     </div>
     <div class="card">
-      <h2 data-ko="또는 내 번호를 알려주기" data-en="Or give them your number">또는 내 번호를 알려주기</h2>
-      <p data-ko="내 번호를 만들어 불러 주거나 링크로 보냅니다. 받는 분은 프로그램으로 열거나, 설치 없이 브라우저에서 화면만 보여 줄 수 있습니다." data-en="Make a number and read it out or send it as a link. They open it with the tool, or just show their screen in the browser without installing anything.">내 번호를 만들어 불러 주거나 링크로 보냅니다.</p>
+      <h2 data-ko="또는 내 번호를 알려주기" data-en="Or give them your number" data-ja="または自分の番号を伝える" data-zh="或把你的号码告诉对方">또는 내 번호를 알려주기</h2>
+      <p data-ko="내 번호를 만들어 불러 주거나 링크로 보냅니다. 받는 분은 프로그램으로 열거나, 설치 없이 브라우저에서 화면만 보여 줄 수 있습니다." data-en="Make a number and read it out or send it as a link. They open it with the tool, or just show their screen in the browser without installing anything." data-ja="自分の番号を作成して読み上げるか、リンクで送信します。サポートを受ける方はプログラムで開くか、インストールなしでブラウザーから画面を見せるだけでも可能です。" data-zh="生成你的号码并念给对方听，或者通过链接发送。接受协助的一方可以使用程序打开，也可以无需安装直接在浏览器中仅展示屏幕。">내 번호를 만들어 불러 주거나 링크로 보냅니다.</p>
       <div class="want" role="radiogroup">
-        <label><input type="radio" name="want" value="control" checked><span><span data-ko="조작 요청" data-en="Ask to control">조작 요청</span><small data-ko="화면을 보고 마우스·키보드로 도와줍니다" data-en="See the screen and use the mouse and keys">화면을 보고 마우스·키보드로 도와줍니다</small></span></label>
-        <label><input type="radio" name="want" value="view"><span><span data-ko="화면만 요청" data-en="Ask to view only">화면만 요청</span><small data-ko="설치 없이 브라우저 화면 공유를 먼저 권합니다" data-en="Suggests showing the screen in the browser, no install">설치 없이 브라우저 화면 공유를 먼저 권합니다</small></span></label>
+        <label><input type="radio" name="want" value="control" checked><span><span data-ko="조작 요청" data-en="Ask to control" data-ja="操作をリクエスト" data-zh="请求控制">조작 요청</span><small data-ko="화면을 보고 마우스·키보드로 도와줍니다" data-en="See the screen and use the mouse and keys" data-ja="画面を見ながらマウス・キーボードでサポートします" data-zh="查看屏幕并通过鼠标与键盘进行协助">화면을 보고 마우스·키보드로 도와줍니다</small></span></label>
+        <label><input type="radio" name="want" value="view"><span><span data-ko="화면만 요청" data-en="Ask to view only" data-ja="表示のみをリクエスト" data-zh="请求仅查看">화면만 요청</span><small data-ko="설치 없이 브라우저 화면 공유를 먼저 권합니다" data-en="Suggests showing the screen in the browser, no install" data-ja="まずはインストール不要のブラウザー画面共有をおすすめします" data-zh="优先推荐无需安装的浏览器屏幕共享">설치 없이 브라우저 화면 공유를 먼저 권합니다</small></span></label>
       </div>
-      <button id="btnMake" class="btn sec" data-ko="번호 만들기" data-en="Make a number">번호 만들기</button>
+      <button id="btnMake" class="btn sec" data-ko="번호 만들기" data-en="Make a number" data-ja="番号を作成" data-zh="生成号码">번호 만들기</button>
     </div>
-    <p class="muted"><span id="who"></span> · <a href="#" id="btnSignOut" data-ko="로그아웃" data-en="Sign out">로그아웃</a></p>
+    <p class="muted"><span id="who"></span> · <a href="#" id="btnSignOut" data-ko="로그아웃" data-en="Sign out" data-ja="ログアウト" data-zh="退出登录">로그아웃</a></p>
   </section>
 
   <section id="making" hidden>
     <div class="card">
-      <h1 data-ko="이 번호를 불러 주십시오" data-en="Read this number out">이 번호를 불러 주십시오</h1>
+      <h1 data-ko="이 번호를 불러 주십시오" data-en="Read this number out" data-ja="この番号を読み上げてください" data-zh="请念出此号码">이 번호를 불러 주십시오</h1>
       <div id="madeCode" class="code">…</div>
       <div id="makeLeft" class="muted" style="text-align:center"></div>
       <div id="makeMsg" class="muted"></div>
       <div class="row" style="margin-top:14px">
-        <button id="btnShare" class="btn" data-ko="링크 보내기" data-en="Send a link">링크 보내기</button>
-        <button id="btnCopyLink" class="btn sec" data-ko="링크 복사" data-en="Copy link">링크 복사</button>
-        <button id="btnMakeNew" class="btn sec" data-ko="새 번호" data-en="New code">새 번호</button>
-        <button id="btnMakeCancel" class="btn sec" data-ko="취소" data-en="Cancel">취소</button>
+        <button id="btnShare" class="btn" data-ko="링크 보내기" data-en="Send a link" data-ja="リンクを送信" data-zh="发送链接">링크 보내기</button>
+        <button id="btnCopyLink" class="btn sec" data-ko="링크 복사" data-en="Copy link" data-ja="リンクをコピー" data-zh="复制链接">링크 복사</button>
+        <button id="btnMakeNew" class="btn sec" data-ko="새 번호" data-en="New code" data-ja="新しい番号" data-zh="新号码">새 번호</button>
+        <button id="btnMakeCancel" class="btn sec" data-ko="취소" data-en="Cancel" data-ja="キャンセル" data-zh="取消">취소</button>
       </div>
-      <p class="muted" data-ko="링크를 카카오톡·문자로 보내면, 받는 분이 PC에서 열어 바로 연결할 수 있습니다. 링크는 번호와 함께 10분 뒤 끝납니다." data-en="Send the link by chat or text: they open it on their PC and connect right away. The link ends with the code, in 10 minutes.">링크를 카카오톡·문자로 보내면 받는 분이 PC에서 열어 바로 연결할 수 있습니다.</p>
+      <p class="muted" data-ko="링크를 카카오톡·문자로 보내면, 받는 분이 PC에서 열어 바로 연결할 수 있습니다. 링크는 번호와 함께 10분 뒤 끝납니다." data-en="Send the link by chat or text: they open it on their PC and connect right away. The link ends with the code, in 10 minutes." data-ja="チャットや SMS でリンクを送信すると、相手が PC で開いてすぐに接続できます。リンクは番号とともに 10 分後に終了します。" data-zh="通过聊天软件或短信发送链接，对方在电脑上打开即可立即连接。链接与号码将在 10 分钟后失效。">링크를 카카오톡·문자로 보내면 받는 분이 PC에서 열어 바로 연결할 수 있습니다.</p>
     </div>
   </section>
 
   <section id="connecting" hidden>
     <div class="card">
-      <h1 data-ko="연결 중" data-en="Connecting">연결 중</h1>
+      <h1 data-ko="연결 중" data-en="Connecting" data-ja="接続中" data-zh="连接中">연결 중</h1>
       <p id="connStep"></p>
     </div>
   </section>
@@ -148,7 +152,7 @@
     <div class="card">
       <h1 id="endTitle"></h1>
       <p id="endMsg"></p>
-      <button id="btnAgain" class="btn" data-ko="처음으로" data-en="Start over">처음으로</button>
+      <button id="btnAgain" class="btn" data-ko="처음으로" data-en="Start over" data-ja="最初に戻る" data-zh="重新开始">처음으로</button>
     </div>
   </section>
 </div>
@@ -157,20 +161,20 @@
   <div class="sessbar">
     <svg style="width:16px;height:16px;color:var(--amber,#e0a030)"><use href="#i-hang"/></svg>
     <span id="barName"></span>
-    <span id="clipState" class="muted" data-ko="클립보드 공유 꺼짐" data-en="Clipboard sharing off">클립보드 공유 꺼짐</span>
-    <button id="btnPoint" class="btn sec" style="padding:6px 10px" hidden aria-pressed="false" data-ko="가리키기" data-en="Point">가리키기</button>
-    <button id="btnClipSend" class="btn sec" style="padding:6px 10px" hidden data-ko="내 클립보드 보내기" data-en="Send my clipboard">내 클립보드 보내기</button>
-    <button id="btnFileSend" class="btn sec" style="padding:6px 10px" data-ko="파일 보내기" data-en="Send a file">파일 보내기</button>
+    <span id="clipState" class="muted" data-ko="클립보드 공유 꺼짐" data-en="Clipboard sharing off" data-ja="クリップボード共有 オフ" data-zh="剪贴板共享已关闭">클립보드 공유 꺼짐</span>
+    <button id="btnPoint" class="btn sec" style="padding:6px 10px" hidden aria-pressed="false" data-ko="가리키기" data-en="Point" data-ja="指し示し" data-zh="指示">가리키기</button>
+    <button id="btnClipSend" class="btn sec" style="padding:6px 10px" hidden data-ko="내 클립보드 보내기" data-en="Send my clipboard" data-ja="自分のクリップボードを送信" data-zh="发送我的剪贴板">내 클립보드 보내기</button>
+    <button id="btnFileSend" class="btn sec" style="padding:6px 10px" data-ko="파일 보내기" data-en="Send a file" data-ja="ファイルを送信" data-zh="发送文件">파일 보내기</button>
     <input id="fileIn" type="file" multiple hidden>
     <button id="btnFull" class="btn sec" style="padding:6px 10px"><svg style="width:16px;height:16px"><use href="#i-full"/></svg></button>
-    <button id="btnEnd" class="btn red" style="padding:6px 12px" data-ko="끝내기" data-en="End">끝내기</button>
+    <button id="btnEnd" class="btn red" style="padding:6px 12px" data-ko="끝내기" data-en="End" data-ja="終了" data-zh="结束">끝내기</button>
   </div>
   <div class="stage" id="stage"><canvas id="screen" tabindex="0"></canvas></div>
   <div id="notice" class="notice" hidden></div>
-  <div id="holdNote" class="notice" style="bottom:auto;top:64px" hidden data-ko="상대 PC에서 확인을 기다리는 중 · 그동안 마우스와 키보드는 전달되지 않습니다" data-en="Waiting for the other PC to confirm · your mouse and keys aren't passed on meanwhile">상대 PC에서 확인을 기다리는 중</div>
+  <div id="holdNote" class="notice" style="bottom:auto;top:64px" hidden data-ko="상대 PC에서 확인을 기다리는 중 · 그동안 마우스와 키보드는 전달되지 않습니다" data-en="Waiting for the other PC to confirm · your mouse and keys aren't passed on meanwhile" data-ja="相手の PC での確認を待機中 · その間マウスとキーボードの入力は送信されません" data-zh="正在等待对方电脑确认 · 在此期间鼠标和键盘操作不会传递">상대 PC에서 확인을 기다리는 중</div>
   <div id="xferBox" class="files" hidden>
     <div id="xferOut" class="muted"></div>
-    <div id="dlHead" class="muted" hidden data-ko="상대가 보낸 파일" data-en="Files from the other PC">상대가 보낸 파일</div>
+    <div id="dlHead" class="muted" hidden data-ko="상대가 보낸 파일" data-en="Files from the other PC" data-ja="相手から送信されたファイル" data-zh="对方发送的文件">상대가 보낸 파일</div>
     <ul id="dlList"></ul>
   </div>
 </section>
@@ -180,6 +184,6 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="stream.min.js?v=7b1fece255"></script>
-<script src="support.min.js?v=f174c03fa3"></script>
+<script src="support.min.js?v=fd0c636c63"></script>
 </body>
 </html>

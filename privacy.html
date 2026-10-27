@@ -1,23 +1,42 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" class="koen">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Deskify 개인정보처리방침 · Privacy Policy</title>
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=7">
+<script>
+  (function () {
+    // Language: ?lang= from the apps (their UI language) for this visit, else the visitor's last choice,
+    // else the browser's first supported language (ko, en, ja, zh: any Chinese reads 简体中文), else English
+    // (a Korean reader sent to #en reads English).
+    var pick = function (s) { s = String(s || "").toLowerCase(); return /^(ko|en|ja|zh)/.test(s) ? s.slice(0, 2) : ""; };
+    var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
+    var lang = q ? pick(q[1]) : "";
+    if (!lang) { try { lang = pick(localStorage.getItem("lang")); } catch (e) {} }
+    var nav = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+    for (var i = 0; !lang && i < nav.length; i++) lang = pick(nav[i]);
+    lang = lang || "en";
+    if (lang === "ko" && location.hash === "#en" && !q) lang = "en";
+    document.documentElement.setAttribute("data-lang", lang);
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
+  })();
+</script>
 </head>
 <body>
 <header class="top">
   <div class="wrap">
     <a class="brand" href="./"><img src="icon.png" alt="" width="30" height="30">Deskify</a>
-    <nav><a href="./">홈 · Home</a><a href="#en">English</a></nav>
+    <nav><a href="./"><span class="ko-part">홈 · </span>Home</a><a href="#en">English</a></nav>
   </div>
 </header>
 <main class="doc">
+<p class="koen-note" lang-ja>この文書は韓国語と英語で提供しています（以下は英語版です）。</p><p class="koen-note" lang-zh>本文件提供韩文和英文版本（以下为英文版）。</p>
+<div class="ko-part">
 <h1>Deskify 개인정보처리방침</h1>
-<p class="muted">시행일: 2026년 10월 26일</p>
+<p class="muted">시행일: 2026년 10월 27일</p>
 
 <p>Deskify(이하 "앱")는 원격 데스크톱(RDP)·SSH 앱입니다(Android·Windows 앱과 웹 페이지 deskify-app.github.io). 앱은 꼭 필요한 경우가 아니면 정보를 어디로도 보내지 않습니다. 무엇을, 왜 보내는지 아래에 모두 적었습니다.</p>
 
@@ -68,15 +87,16 @@
 <p>인터넷·네트워크 상태(접속), 근처 기기·로컬 네트워크(같은 네트워크의 컴퓨터와 보조 기기), 알림(연결 유지·작업 완료·PC 켜짐 알림), 마이크(직접 켠 경우 원격 컴퓨터로 소리 보내기), 정확한 알람(예약한 시각에 PC 켜기), 부팅 완료(예약 다시 걸기), 키보드 캡처(Win 키·Alt+Tab 같은 단축키를 원격 컴퓨터로 보내기), 포그라운드 서비스(백그라운드에서 연결 유지), 광고 ID(무료 사용 시 광고).</p>
 
 <h2>11. 삭제</h2>
-<p>앱을 지우면 기기에 저장된 정보는 모두 지워집니다. 앱의 <b>내 계정 → 계정 삭제</b>로 클라우드의 모든 데이터와 계정을 바로 지울 수 있습니다. 자세한 내용은 <a href="delete-account.html">계정 삭제 안내</a>를 보세요. 메일로 요청하셔도 됩니다(아래 주소). 계정을 지워도 결제 기록(계정 식별 번호·상품·일시·금액)은 전자상거래법에 따라 5년 동안 보관하고, 체험 기록은 같은 계정의 재사용을 막기 위해 1년 동안 남습니다. 동기화를 쓸 수 있는 기간이 끝나고 12개월 동안 어느 기기에서도 쓰지 않으면, 클라우드의 동기화 데이터는 자동으로 지웁니다(계정과 체험 기록은 남습니다).</p>
+<p>앱을 지우면 기기에 저장된 정보는 모두 지워집니다. 앱의 <b>내 계정 → 계정 삭제</b>로 클라우드의 모든 데이터와 계정을 바로 지울 수 있습니다. 자세한 내용은 <a href="delete-account.html">계정 삭제 안내</a>를 보세요. 메일로 요청하셔도 됩니다(아래 주소). 계정을 지워도 결제 기록(계정 식별 번호·상품·일시·금액)은 전자상거래법에 따라 5년 동안 보관하고, 체험 기록은 같은 계정의 재사용을 막기 위해 1년 동안 남습니다. 탈퇴 통계를 위해 삭제 일시·나라·탈퇴 당시 요금제를 계정 식별 번호와 함께 1년간 보관합니다(이메일·이름은 보관하지 않습니다). 동기화를 쓸 수 있는 기간이 끝나고 12개월 동안 어느 기기에서도 쓰지 않으면, 클라우드의 동기화 데이터는 자동으로 지웁니다(계정과 체험 기록은 남습니다).</p>
 
 <h2>12. 문의</h2>
 <p><a href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a></p>
 
 <hr>
+</div>
 
 <h1 id="en">Deskify Privacy Policy</h1>
-<p class="muted">Effective: October 26, 2026</p>
+<p class="muted">Effective: October 27, 2026</p>
 
 <p>Deskify (“the app”) is a Remote Desktop (RDP) and SSH app (the Android and Windows apps and the web pages at deskify-app.github.io). It sends information nowhere unless it has to; everything it sends, and why, is listed below.</p>
 
@@ -127,7 +147,7 @@
 <p>Internet and network state (connecting), nearby devices / local network (computers and companions on the same network), notifications (keeping connections, finished tasks, PC-on alerts), microphone (sending sound to the remote computer, when you turn it on), exact alarms (waking a PC at a scheduled time), boot completed (restoring schedules), keyboard capture (sending shortcuts such as Win and Alt+Tab to the remote computer), foreground service (keeping connections in the background), advertising ID (ads during free use).</p>
 
 <h2>11. Deletion</h2>
-<p>Uninstalling the app removes everything stored on the device. <b>My account → Delete account</b> in the app deletes all your cloud data and the account right away. See <a href="delete-account.html#en">Delete your account</a> for details. You can also ask by email (address below). After the account is deleted, payment records (account identifier, product, time, amount) are kept for five years as Korean e-commerce law requires, and the trial record stays for a year so the same account can't reuse it. If your sync allowance has ended and no device has used the account for 12 months, the cloud sync data is deleted automatically (the account and the trial record stay).</p>
+<p>Uninstalling the app removes everything stored on the device. <b>My account → Delete account</b> in the app deletes all your cloud data and the account right away. See <a href="delete-account.html#en">Delete your account</a> for details. You can also ask by email (address below). After the account is deleted, payment records (account identifier, product, time, amount) are kept for five years as Korean e-commerce law requires, and the trial record stays for a year so the same account can't reuse it. For statistics on account deletions, the time of deletion, the country and the plan at that time are kept for one year with the account identifier (no e-mail address or name). If your sync allowance has ended and no device has used the account for 12 months, the cloud sync data is deleted automatically (the account and the trial record stay).</p>
 
 <h2>12. Contact</h2>
 <p><a href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a></p>

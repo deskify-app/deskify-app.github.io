@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-MU+4TteRc+72nxwbeMslz9D/7d0QbO6h1cinKLDc0xY=' 'self'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: blob:; media-src 'self' blob: mediastream:; connect-src 'self' https://deskify-api.kim290.workers.dev http://127.0.0.1:* http://localhost:*; frame-src deskify-support:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-jTFzZMSsi22zad7BpcRx0i6xQPfAaz3Wt52wRU07OAE=' 'self'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: blob:; media-src 'self' blob: mediastream:; connect-src 'self' https://deskify-api.kim290.workers.dev http://127.0.0.1:* http://localhost:*; frame-src deskify-support:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light dark">
@@ -10,16 +10,21 @@
 <title>Deskify 도움 받기</title>
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="remote.min.css?v=01f3a17d5d">
+<link rel="stylesheet" href="remote.min.css?v=15675b0821">
 <link rel="stylesheet" href="gethelp.min.css?v=f90d981489">
 <script>
   (function () {
-    var saved = null; try { saved = localStorage.getItem('lang'); } catch (e) {}
-    var lang = saved || ((navigator.language || '').toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en');
+    // Language: ?lang= from the apps (their UI language) for this visit, else #en, else the visitor's last choice,
+    // else the browser's first supported language (ko, en, ja, zh: any Chinese reads 简体中文), else English.
+    var pick = function (s) { s = String(s || "").toLowerCase(); return /^(ko|en|ja|zh)/.test(s) ? s.slice(0, 2) : ""; };
     var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
-    if (q) lang = q[1].toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en';
-    document.documentElement.setAttribute('data-lang', lang);
-    document.documentElement.lang = lang;
+    var lang = q ? pick(q[1]) : location.hash === "#en" ? "en" : "";
+    if (!lang) { try { lang = pick(localStorage.getItem("lang")); } catch (e) {} }
+    var nav = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+    for (var i = 0; !lang && i < nav.length; i++) lang = pick(nav[i]);
+    lang = lang || "en";
+    document.documentElement.setAttribute("data-lang", lang);
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
   })();
 </script>
 </head>
@@ -34,10 +39,10 @@
 </defs></svg>
 
 <header class="rm-top">
-  <a class="rm-brand" href="./"><svg class="rm-logo" aria-hidden="true"><use href="#i-logo"/></svg><b>Deskify</b><span class="rm-tag"><span lang-ko>도움 받기</span><span lang-en>Get help</span></span></a>
+  <a class="rm-brand" href="./"><svg class="rm-logo" aria-hidden="true"><use href="#i-logo"/></svg><b>Deskify</b><span class="rm-tag"><span lang-ko>도움 받기</span><span lang-en>Get help</span><span lang-ja>サポートを受ける</span><span lang-zh>获取协助</span></span></a>
   <div class="rm-top-r">
-    <a class="rm-pill" href="help.html#support"><span lang-ko>도움말</span><span lang-en>Help</span></a>
-    <button class="rm-pill" id="btnLang" type="button">English</button>
+    <a class="rm-pill" href="help.html#support"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
+    <select class="rm-pill lang-menu" id="btnLang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
   </div>
 </header>
 
@@ -45,13 +50,13 @@
   <section id="start">
     <div class="gh-hero">
       <svg class="gh-logo" aria-hidden="true"><use href="#i-logo"/></svg>
-      <div class="gh-brand">Deskify <span lang-ko>원격 지원</span><span lang-en>Remote support</span></div>
+      <div class="gh-brand">Deskify <span lang-ko>원격 지원</span><span lang-en>Remote support</span><span lang-ja>リモートサポート</span><span lang-zh>远程协助</span></div>
       <h1 id="reqTitle" hidden></h1>
-      <p id="reqWho" class="gh-who" hidden><span lang-ko>이름은 도우미가 직접 정한 것입니다 · 아는 사람일 때만 계속하십시오. 은행·경찰·관공서는 원격 지원을 요구하지 않습니다.</span><span lang-en>The name is one the helper chose · Continue only if you know them. Banks, police and government offices don't ask for remote access.</span></p>
+      <p id="reqWho" class="gh-who" hidden><span lang-ko>이름은 도우미가 직접 정한 것입니다 · 아는 사람일 때만 계속하십시오. 은행·경찰·관공서는 원격 지원을 요구하지 않습니다.</span><span lang-en>The name is one the helper chose · Continue only if you know them. Banks, police and government offices don't ask for remote access.</span><span lang-ja>名前はサポートする人が自分で設定したものです · 知っている相手の場合のみ続けてください。銀行・警察・官公庁がリモートサポートを求めることはありません。</span><span lang-zh>名字由协助者自行设置 · 仅在确认认识对方时继续。银行、警察和政府机关不会要求远程协助。</span></p>
     </div>
 
     <div class="gh-code-box">
-      <div class="gh-code-label"><span lang-ko>도우미 번호</span><span lang-en>Helper's code</span></div>
+      <div class="gh-code-label"><span lang-ko>도우미 번호</span><span lang-en>Helper's code</span><span lang-ja>サポートする人の番号</span><span lang-zh>协助者号码</span></div>
       <div id="codeShow" class="gh-code" hidden></div>
       <input id="codeIn" class="gh-code-in" type="tel" inputmode="numeric" autocomplete="off" maxlength="13" placeholder="000 000 000" aria-label="9자리 번호">
       <div id="codeLeft" class="gh-left"></div>
@@ -62,49 +67,49 @@
       <article id="wayOpen" class="gh-way" hidden>
         <div class="gh-way-n">1</div>
         <div class="gh-way-b">
-          <h2><span lang-ko>도움 받기 열기</span><span lang-en>Open Get help</span></h2>
-          <p><span lang-ko>설치한 'Deskify 도움 받기'를 이 번호로 엽니다.</span><span lang-en>Opens the installed "Deskify Get help" with this code.</span></p>
-          <button id="btnOpen" class="gh-btn" type="button"><svg aria-hidden="true"><use href="#i-open"/></svg><span lang-ko>도움 받기 열기</span><span lang-en>Open Get help</span></button>
-          <p id="openHint" class="gh-hint" hidden><span lang-ko>열리지 않으면 아래 '프로그램 받기'로 받으십시오.</span><span lang-en>Nothing opened? Get the program below.</span></p>
+          <h2><span lang-ko>도움 받기 열기</span><span lang-en>Open Get help</span><span lang-ja>「サポートを受ける」を開く</span><span lang-zh>打开“获取协助”</span></h2>
+          <p><span lang-ko>설치한 'Deskify 도움 받기'를 이 번호로 엽니다.</span><span lang-en>Opens the installed "Deskify Get help" with this code.</span><span lang-ja>インストール済みの「Deskify サポートを受ける」をこの番号で開きます。</span><span lang-zh>使用此号码打开已安装的“Deskify 获取协助”。</span></p>
+          <button id="btnOpen" class="gh-btn" type="button"><svg aria-hidden="true"><use href="#i-open"/></svg><span lang-ko>도움 받기 열기</span><span lang-en>Open Get help</span><span lang-ja>「サポートを受ける」を開く</span><span lang-zh>打开“获取协助”</span></button>
+          <p id="openHint" class="gh-hint" hidden><span lang-ko>열리지 않으면 아래 '프로그램 받기'로 받으십시오.</span><span lang-en>Nothing opened? Get the program below.</span><span lang-ja>開かない場合は、下の「プログラムを入手」からダウンロードしてください。</span><span lang-zh>如果未能打开，请通过下方的“获取程序”进行下载。</span></p>
         </div>
       </article>
 
       <article id="wayGet" class="gh-way">
         <div class="gh-way-n" data-n="get">2</div>
         <div class="gh-way-b">
-          <h2><span lang-ko>프로그램 받기</span><span lang-en>Get the program</span> <small class="gh-os">Windows</small></h2>
-          <p><span lang-ko>'Deskify 도움 받기'를 받아 실행합니다. 도우미가 허락을 받아 화면을 보고 도울 수 있습니다.</span><span lang-en>Download and run "Deskify Get help". With your permission, the helper can see and help with your screen.</span></p>
+          <h2><span lang-ko>프로그램 받기</span><span lang-en>Get the program</span><span lang-ja>プログラムを入手</span><span lang-zh>获取程序</span> <small class="gh-os">Windows</small></h2>
+          <p><span lang-ko>'Deskify 도움 받기'를 받아 실행합니다. 도우미가 허락을 받아 화면을 보고 도울 수 있습니다.</span><span lang-en>Download and run "Deskify Get help". With your permission, the helper can see and help with your screen.</span><span lang-ja>「Deskify サポートを受ける」をダウンロードして実行します。許可を得たサポートする人が画面を確認し、サポートできます。</span><span lang-zh>下载并运行“Deskify 获取协助”。经你允许后，协助者可以查看你的屏幕并提供协助。</span></p>
           <div class="gh-two">
-            <a id="btnRun" class="gh-btn" href="#" aria-disabled="true"><svg aria-hidden="true"><use href="#i-download"/></svg><span><span lang-ko>설치 없이 실행</span><span lang-en>Run without installing</span></span></a>
-            <a id="btnGet" class="gh-btn sec sm2" href="#" aria-disabled="true"><span><span lang-ko>설치하기 · 다음부터 링크로 바로 열림</span><span lang-en>Install · links open it from then on</span></span></a>
+            <a id="btnRun" class="gh-btn" href="#" aria-disabled="true"><svg aria-hidden="true"><use href="#i-download"/></svg><span><span lang-ko>설치 없이 실행</span><span lang-en>Run without installing</span><span lang-ja>インストールせずに実行</span><span lang-zh>无需安装直接运行</span></span></a>
+            <a id="btnGet" class="gh-btn sec sm2" href="#" aria-disabled="true"><span><span lang-ko>설치하기 · 다음부터 링크로 바로 열림</span><span lang-en>Install · links open it from then on</span><span lang-ja>インストール · 次回からはリンクですぐに開きます</span><span lang-zh>安装 · 此后可通过链接直接打开</span></span></a>
           </div>
           <ul class="gh-which">
-            <li><b><span lang-ko>설치 없이 실행:</span><span lang-en>Run without installing:</span></b> <span lang-ko>한 번만 도움받을 때 · 다음엔 받은 파일을 다시 눌러 실행합니다</span><span lang-en>for getting help once · next time, open the downloaded file again</span></li>
-            <li><b><span lang-ko>설치하기:</span><span lang-en>Install:</span></b> <span lang-ko>자주 도움받는 가족이라면 · 다음부터 링크만 누르면 바로 열립니다</span><span lang-en>for family who get help often · from then on, a link opens it right away</span></li>
+            <li><b><span lang-ko>설치 없이 실행:</span><span lang-en>Run without installing:</span><span lang-ja>インストールせずに実行:</span><span lang-zh>无需安装直接运行：</span></b> <span lang-ko>한 번만 도움받을 때 · 다음엔 받은 파일을 다시 눌러 실행합니다</span><span lang-en>for getting help once · next time, open the downloaded file again</span><span lang-ja>一度だけサポートを受ける場合 · 次回はダウンロードしたファイルを再度開いて実行します</span><span lang-zh>仅接受一次协助时 · 下次请再次打开已下载的文件运行</span></li>
+            <li><b><span lang-ko>설치하기:</span><span lang-en>Install:</span><span lang-ja>インストール:</span><span lang-zh>安装：</span></b> <span lang-ko>자주 도움받는 가족이라면 · 다음부터 링크만 누르면 바로 열립니다</span><span lang-en>for family who get help often · from then on, a link opens it right away</span><span lang-ja>よくサポートを受けるご家族なら · 次回からはリンクをクリックするだけですぐに開きます</span><span lang-zh>适合经常接受协助的家人 · 此后点击链接即可直接打开</span></li>
           </ul>
-          <p id="getSoon" class="gh-soon"><span lang-ko>정식 출시 때 제공</span><span lang-en>Coming at launch</span></p>
-          <p id="getOther" class="gh-hint" hidden><span lang-ko>이 프로그램은 Windows PC용입니다. 다른 기기에서는 아래 '화면만 보여 주기'를 쓰거나, PC에서 이 링크를 여십시오.</span><span lang-en>This program is for Windows PCs. On other devices use "Just show my screen" below, or open this link on your PC.</span></p>
+          <p id="getSoon" class="gh-soon"><span lang-ko>정식 출시 때 제공</span><span lang-en>Coming at launch</span><span lang-ja>正式リリース時に提供</span><span lang-zh>正式发布时提供</span></p>
+          <p id="getOther" class="gh-hint" hidden><span lang-ko>이 프로그램은 Windows PC용입니다. 다른 기기에서는 아래 '화면만 보여 주기'를 쓰거나, PC에서 이 링크를 여십시오.</span><span lang-en>This program is for Windows PCs. On other devices use "Just show my screen" below, or open this link on your PC.</span><span lang-ja>このプログラムは Windows PC 用です。他の端末では下の「画面だけ見せる」を使用するか、PC でこのリンクを開いてください。</span><span lang-zh>此程序适用于 Windows PC。在其他设备上，请使用下方的“只共享屏幕”，或在电脑上打开此链接。</span></p>
         </div>
       </article>
 
       <article id="wayShare" class="gh-way">
         <div class="gh-way-n" data-n="share">3</div>
         <div class="gh-way-b">
-          <h2><span lang-ko>설치 없이 화면만 보여 주기</span><span lang-en>Just show my screen, no install</span></h2>
-          <p><span lang-ko>이 브라우저에서 바로 화면을 보여 줍니다. 도우미는 보기만 하고 조작할 수 없습니다 (Windows·Mac의 Chrome·Edge·Safari).</span><span lang-en>Shows your screen from this browser right away. The helper can only look, not control (Chrome, Edge or Safari on Windows or Mac).</span></p>
-          <button id="btnShare" class="gh-btn" type="button"><svg aria-hidden="true"><use href="#i-screen"/></svg><span lang-ko>화면만 보여 주기</span><span lang-en>Show my screen</span></button>
+          <h2><span lang-ko>설치 없이 화면만 보여 주기</span><span lang-en>Just show my screen, no install</span><span lang-ja>インストールせずに画面だけ見せる</span><span lang-zh>无需安装，只共享屏幕</span></h2>
+          <p><span lang-ko>이 브라우저에서 바로 화면을 보여 줍니다. 도우미는 보기만 하고 조작할 수 없습니다 (Windows·Mac의 Chrome·Edge·Safari).</span><span lang-en>Shows your screen from this browser right away. The helper can only look, not control (Chrome, Edge or Safari on Windows or Mac).</span><span lang-ja>このブラウザーですぐに画面を表示します。サポートする人は表示のみで、操作はできません (Windows・Mac の Chrome・Edge・Safari)。</span><span lang-zh>在此浏览器中直接显示屏幕。协助者仅能查看，无法操作 (Windows、Mac 上的 Chrome、Edge、Safari)。</span></p>
+          <button id="btnShare" class="gh-btn" type="button"><svg aria-hidden="true"><use href="#i-screen"/></svg><span lang-ko>화면만 보여 주기</span><span lang-en>Show my screen</span><span lang-ja>画面だけ見せる</span><span lang-zh>只共享屏幕</span></button>
           <p id="shareNo" class="gh-hint" hidden></p>
         </div>
       </article>
     </div>
 
-    <p class="gh-safe"><svg aria-hidden="true"><use href="#i-shield"/></svg><span><span lang-ko>허락 없이는 조작할 수 없습니다 · 언제든 [끝내기]로 멈출 수 있습니다</span><span lang-en>Nobody can control your PC without your permission · You can stop any time with [End]</span></span></p>
-    <p class="gh-scam"><span lang-ko>모르는 사람이 전화로 번호를 알려 달라고 하면 절대 알려 주지 마십시오.</span><span lang-en>If a stranger calls and asks for the code, never give it.</span></p>
+    <p class="gh-safe"><svg aria-hidden="true"><use href="#i-shield"/></svg><span><span lang-ko>허락 없이는 조작할 수 없습니다 · 언제든 [끝내기]로 멈출 수 있습니다</span><span lang-en>Nobody can control your PC without your permission · You can stop any time with [End]</span><span lang-ja>許可なく操作されることはありません · いつでも [終了] で停止できます</span><span lang-zh>未经允许无法操作 · 可随时通过 [结束] 停止</span></span></p>
+    <p class="gh-scam"><span lang-ko>모르는 사람이 전화로 번호를 알려 달라고 하면 절대 알려 주지 마십시오.</span><span lang-en>If a stranger calls and asks for the code, never give it.</span><span lang-ja>見知らぬ人から電話で番号を尋ねられても、絶対に教えないでください。</span><span lang-zh>如果有陌生人通过电话索要号码，切勿告知。</span></p>
   </section>
 
   <section id="prep" hidden>
     <div class="gh-card">
-      <h1><span lang-ko>공유할 화면을 고를 때 '전체 화면'을 고르십시오</span><span lang-en>When asked what to share, pick "Entire screen"</span></h1>
+      <h1><span lang-ko>공유할 화면을 고를 때 '전체 화면'을 고르십시오</span><span lang-en>When asked what to share, pick "Entire screen"</span><span lang-ja>共有する画面を選択する際は「画面全体」を選択してください</span><span lang-zh>选择要共享的屏幕时，请选择“整个屏幕”</span></h1>
       <svg class="gh-pick" viewBox="0 0 320 150" role="img" aria-label="전체 화면 선택">
         <rect x="1" y="1" width="318" height="148" rx="12" class="pk-frame"/>
         <rect x="16" y="14" width="84" height="22" rx="6" class="pk-tab"/><text x="58" y="29" class="pk-t">Tab</text>
@@ -115,12 +120,12 @@
         <rect x="16" y="48" width="170" height="66" rx="8" class="pk-dim"/>
         <rect x="236" y="122" width="68" height="18" rx="6" class="pk-go"/><text x="270" y="135" class="pk-t on">OK</text>
       </svg>
-      <p class="gh-small"><span lang-ko>탭이나 창 하나만 고르면 그 탭(창)만 보입니다. 화면이 여러 개면 도우미에게 보여 줄 화면을 고르십시오.</span><span lang-en>If you pick a tab or a window, only that tab (window) is shown. With several screens, pick the one to show.</span></p>
-      <p id="macLine" class="gh-small gh-mac" hidden><span lang-ko>Mac: 처음 한 번은 시스템 설정 → 개인정보 보호 및 보안 → 화면 기록에서 브라우저를 허용해야 합니다.</span><span lang-en>Mac: the first time, allow your browser in System Settings → Privacy &amp; Security → Screen Recording.</span></p>
-      <p class="gh-small"><span lang-ko>도우미는 화면을 보기만 합니다. 마우스·키보드·클립보드·파일은 전달되지 않습니다.</span><span lang-en>The helper only sees the screen. No mouse, keys, clipboard or files go through.</span></p>
+      <p class="gh-small"><span lang-ko>탭이나 창 하나만 고르면 그 탭(창)만 보입니다. 화면이 여러 개면 도우미에게 보여 줄 화면을 고르십시오.</span><span lang-en>If you pick a tab or a window, only that tab (window) is shown. With several screens, pick the one to show.</span><span lang-ja>タブまたはウィンドウを 1 つだけ選択した場合、そのタブ (ウィンドウ) のみ表示されます。画面が複数ある場合は、サポートする人に見せる画面を選択してください。</span><span lang-zh>如果仅选择一个标签页或窗口，则只会显示该标签页 (窗口)。如果有多块屏幕，请选择要向协助者展示的屏幕。</span></p>
+      <p id="macLine" class="gh-small gh-mac" hidden><span lang-ko>Mac: 처음 한 번은 시스템 설정 → 개인정보 보호 및 보안 → 화면 기록에서 브라우저를 허용해야 합니다.</span><span lang-en>Mac: the first time, allow your browser in System Settings → Privacy &amp; Security → Screen Recording.</span><span lang-ja>Mac: 初回のみ「システム設定 → プライバシーとセキュリティ → 画面収録」でブラウザーを許可する必要があります。</span><span lang-zh>Mac：首次使用时，需要在“系统设置 → 隐私与安全性 → 屏幕录制”中允许浏览器。</span></p>
+      <p class="gh-small"><span lang-ko>도우미는 화면을 보기만 합니다. 마우스·키보드·클립보드·파일은 전달되지 않습니다.</span><span lang-en>The helper only sees the screen. No mouse, keys, clipboard or files go through.</span><span lang-ja>サポートする人は画面の表示のみ行えます。マウス・キーボード・クリップボード・ファイルは送信されません。</span><span lang-zh>协助者仅能查看屏幕。鼠标、键盘、剪贴板和文件均不会被传送。</span></p>
       <div class="gh-row">
-        <button id="btnStart" class="gh-btn" type="button"><span lang-ko>화면 공유 시작</span><span lang-en>Start sharing</span></button>
-        <button id="btnPrepBack" class="gh-btn sec" type="button"><span lang-ko>취소</span><span lang-en>Cancel</span></button>
+        <button id="btnStart" class="gh-btn" type="button"><span lang-ko>화면 공유 시작</span><span lang-en>Start sharing</span><span lang-ja>画面共有を開始</span><span lang-zh>开始屏幕共享</span></button>
+        <button id="btnPrepBack" class="gh-btn sec" type="button"><span lang-ko>취소</span><span lang-en>Cancel</span><span lang-ja>キャンセル</span><span lang-zh>取消</span></button>
       </div>
       <div id="prepMsg" class="gh-msg" role="status"></div>
     </div>
@@ -129,21 +134,21 @@
   <section id="share" hidden>
     <div class="gh-card">
       <div id="myCodeBox" hidden>
-        <div class="gh-code-label"><span lang-ko>이 번호를 도우미에게 불러 주십시오</span><span lang-en>Read this code to your helper</span></div>
+        <div class="gh-code-label"><span lang-ko>이 번호를 도우미에게 불러 주십시오</span><span lang-en>Read this code to your helper</span><span lang-ja>この番号をサポートする人に伝えてください</span><span lang-zh>请将此号码告知协助者</span></div>
         <div id="myCode" class="gh-code"></div>
         <div id="myLeft" class="gh-left"></div>
       </div>
       <p id="shareState" class="gh-state"></p>
       <div id="surfaceNote" class="gh-note" hidden>
-        <span><span lang-ko>지금은 탭(창)만 공유 중입니다 · 바탕화면 전체를 보여 주려면 다시 공유해 '전체 화면'을 고르십시오</span><span lang-en>Only a tab (window) is shared now · To show the whole desktop, share again and pick "Entire screen"</span></span>
-        <button id="btnReshare" class="gh-btn sec" type="button"><span lang-ko>다시 공유</span><span lang-en>Share again</span></button>
+        <span><span lang-ko>지금은 탭(창)만 공유 중입니다 · 바탕화면 전체를 보여 주려면 다시 공유해 '전체 화면'을 고르십시오</span><span lang-en>Only a tab (window) is shared now · To show the whole desktop, share again and pick "Entire screen"</span><span lang-ja>現在はタブ (ウィンドウ) のみ共有中です · デスクトップ全体を表示するには、再度共有して「画面全体」を選択してください</span><span lang-zh>当前仅共享了标签页 (窗口) · 若要展示整个桌面，请重新共享并选择“整个屏幕”</span></span>
+        <button id="btnReshare" class="gh-btn sec" type="button"><span lang-ko>다시 공유</span><span lang-en>Share again</span><span lang-ja>再度共有</span><span lang-zh>重新共享</span></button>
       </div>
       <div class="gh-preview" id="preview">
         <video id="local" muted playsinline autoplay></video>
         <div id="pointLayer" class="gh-points" aria-hidden="true"></div>
       </div>
-      <p class="gh-small"><span lang-ko>도우미가 가리키는 곳은 위 미리 보기에만 표시됩니다(실제 바탕화면에는 그려지지 않습니다).</span><span lang-en>Where the helper points shows on the preview above only (it isn't drawn on your actual desktop).</span></p>
-      <div class="gh-row"><button id="btnEnd2" class="gh-btn red" type="button"><span lang-ko>끝내기</span><span lang-en>End</span></button></div>
+      <p class="gh-small"><span lang-ko>도우미가 가리키는 곳은 위 미리 보기에만 표시됩니다(실제 바탕화면에는 그려지지 않습니다).</span><span lang-en>Where the helper points shows on the preview above only (it isn't drawn on your actual desktop).</span><span lang-ja>サポートする人が指し示した場所は上のプレビューにのみ表示されます (実際のデスクトップ上には描画されません)。</span><span lang-zh>协助者指示的位置仅显示在上方的预览中 (不会在实际桌面上绘制)。</span></p>
+      <div class="gh-row"><button id="btnEnd2" class="gh-btn red" type="button"><span lang-ko>끝내기</span><span lang-en>End</span><span lang-ja>終了</span><span lang-zh>结束</span></button></div>
     </div>
   </section>
 
@@ -151,21 +156,21 @@
     <div class="gh-card">
       <h1 id="overTitle"></h1>
       <p id="overMsg"></p>
-      <div class="gh-row"><a class="gh-btn" href="gethelp.html" id="btnAgain"><span lang-ko>처음으로</span><span lang-en>Start over</span></a></div>
+      <div class="gh-row"><a class="gh-btn" href="gethelp.html" id="btnAgain"><span lang-ko>처음으로</span><span lang-en>Start over</span><span lang-ja>最初に戻る</span><span lang-zh>重新开始</span></a></div>
     </div>
   </section>
 </main>
 
 <div id="liveBar" class="gh-live" hidden role="status">
   <span class="gh-dot" aria-hidden="true"></span>
-  <span id="liveText"><span lang-ko>화면 공유 중</span><span lang-en>Sharing your screen</span></span>
-  <button id="btnEnd" class="gh-btn red sm" type="button"><span lang-ko>끝내기</span><span lang-en>End</span></button>
+  <span id="liveText"><span lang-ko>화면 공유 중</span><span lang-en>Sharing your screen</span><span lang-ja>画面共有中</span><span lang-zh>屏幕共享中</span></span>
+  <button id="btnEnd" class="gh-btn red sm" type="button"><span lang-ko>끝내기</span><span lang-en>End</span><span lang-ja>終了</span><span lang-zh>结束</span></button>
 </div>
 
-<div id="dlArrow" class="gh-dl-arrow" hidden role="status"><svg aria-hidden="true"><use href="#i-arrow-up"/></svg><span><span lang-ko>브라우저 오른쪽 위 다운로드 표시를 눌러 실행하세요</span><span lang-en>Click the download icon at the top right of your browser to run it</span></span></div>
+<div id="dlArrow" class="gh-dl-arrow" hidden role="status"><svg aria-hidden="true"><use href="#i-arrow-up"/></svg><span><span lang-ko>브라우저 오른쪽 위 다운로드 표시를 눌러 실행하세요</span><span lang-en>Click the download icon at the top right of your browser to run it</span><span lang-ja>ブラウザーの右上にあるダウンロードアイコンをクリックして実行してください</span><span lang-zh>点击浏览器右上方的下载图标以运行</span></span></div>
 
 <div id="toast" class="gh-toast" hidden></div>
 
-<script src="gethelp.min.js?v=6c4eed364a"></script>
+<script src="gethelp.min.js?v=f47e772e16"></script>
 </body>
 </html>

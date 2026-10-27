@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex">
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="style.css?v=6">
+<link rel="stylesheet" href="style.css?v=7">
 <style>
   .buy { max-width: 720px; margin: 0 auto; }
   .acct { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1px solid var(--line, #2a3242); border-radius: 14px; margin: 18px 0; }
@@ -31,16 +31,17 @@
 </style>
 <script>
   (function () {
-    var saved = null;
-    try { saved = localStorage.getItem("lang"); } catch (e) {}
-    var lang = saved || ((navigator.language || "").toLowerCase().indexOf("ko") === 0 ? "ko" : "en");
-    if (location.hash === "#en") lang = "en";
-    // ?lang=ko|en|ja|zh from the apps (their UI language) wins over the saved choice for this visit;
-    // the site has Korean and English only, so every other language reads the English half.
+    // Language: ?lang= from the apps (their UI language) for this visit, else #en, else the visitor's last choice,
+    // else the browser's first supported language (ko, en, ja, zh: any Chinese reads 简体中文), else English.
+    var pick = function (s) { s = String(s || "").toLowerCase(); return /^(ko|en|ja|zh)/.test(s) ? s.slice(0, 2) : ""; };
     var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
-    if (q) lang = q[1].toLowerCase().indexOf("ko") === 0 ? "ko" : "en";
+    var lang = q ? pick(q[1]) : location.hash === "#en" ? "en" : "";
+    if (!lang) { try { lang = pick(localStorage.getItem("lang")); } catch (e) {} }
+    var nav = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+    for (var i = 0; !lang && i < nav.length; i++) lang = pick(nav[i]);
+    lang = lang || "en";
     document.documentElement.setAttribute("data-lang", lang);
-    document.documentElement.lang = lang;
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
   })();
   // Filled by scripts/paddle_setup.py after the prices exist (sandbox first, then live).
   var PADDLE = {
@@ -56,83 +57,87 @@
   <div class="wrap">
     <a class="brand" href="./"><img src="icon.png" alt="" width="30" height="30">Deskify</a>
     <nav>
-      <a href="refund.html"><span lang-ko>환불</span><span lang-en>Refunds</span></a>
-      <a class="hide-sm" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span></span></a>
-      <a href="privacy.html"><span lang-ko>개인정보</span><span lang-en>Privacy</span></a>
-      <button class="lang" id="lang" type="button">English</button>
+      <a href="refund.html"><span lang-ko>환불</span><span lang-en>Refunds</span><span lang-ja>返金</span><span lang-zh>退款</span></a>
+      <a class="hide-sm" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span><span lang-ja>ベータ</span><span lang-zh>测试版</span></span></a>
+      <a href="privacy.html"><span lang-ko>개인정보</span><span lang-en>Privacy</span><span lang-ja>プライバシー</span><span lang-zh>隐私</span></a>
+      <select class="lang lang-menu" id="lang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
     </nav>
   </div>
 </header>
 <main class="wrap buy">
-  <h1 lang-ko>Deskify Pro</h1><h1 lang-en>Deskify Pro</h1>
+  <h1 lang-ko>Deskify Pro</h1><h1 lang-en>Deskify Pro</h1><h1 lang-ja>Deskify Pro</h1><h1 lang-zh>Deskify Pro</h1>
   <p class="note" lang-ko>PC·폰·태블릿이 한 계정으로 함께 풀립니다. Deskify에 로그인한 것과 <strong>같은 구글 계정</strong>으로 로그인해 주세요.</p>
   <p class="note" lang-en>One account unlocks PC, phone and tablet together. Sign in with the <strong>same Google account</strong> you use in Deskify.</p>
+  <p class="note" lang-ja>1 つのアカウントで PC・スマホ・タブレットのすべてで Pro が使えるようになります。Deskify にログインしたのと<strong>同じ Google アカウント</strong>でログインしてください。</p>
+  <p class="note" lang-zh>一个账号即可同时解锁电脑、手机和平板。请使用与 Deskify 登录时<strong>相同的 Google 账号</strong>登录。</p>
 
   <div class="acct" id="acct">
     <img id="photo" alt="" class="hidden">
-    <div class="who"><b id="who"><span lang-ko>로그인하지 않았습니다</span><span lang-en>Not signed in</span></b><small id="plan"></small></div>
-    <button id="signin" type="button"><span lang-ko>Google로 로그인</span><span lang-en>Sign in with Google</span></button>
-    <button id="signout" type="button" class="hidden" style="background:#394357"><span lang-ko>로그아웃</span><span lang-en>Sign out</span></button>
+    <div class="who"><b id="who"><span lang-ko>로그인하지 않았습니다</span><span lang-en>Not signed in</span><span lang-ja>ログインしていません</span><span lang-zh>未登录</span></b><small id="plan"></small></div>
+    <button id="signin" type="button"><span lang-ko>Google로 로그인</span><span lang-en>Sign in with Google</span><span lang-ja>Google でログイン</span><span lang-zh>使用 Google 登录</span></button>
+    <button id="signout" type="button" class="hidden" style="background:#394357"><span lang-ko>로그아웃</span><span lang-en>Sign out</span><span lang-ja>ログアウト</span><span lang-zh>退出登录</span></button>
   </div>
   <p id="msg" class="note"></p>
 
   <div class="plans2" id="plans">
     <div class="plan2" data-kind="pro">
-      <h3 lang-ko>Pro 구독</h3><h3 lang-en>Pro subscription</h3>
-      <div class="price"><span data-price="pro_monthly">₩5,990</span><small> <span lang-ko>/ 월</span><span lang-en>/ month</span></small></div>
-      <div class="price"><span data-price="pro_yearly">₩59,900</span><small> <span lang-ko>/ 년 (2개월 무료)</span><span lang-en>/ year (2 months free)</span></small></div>
+      <h3 lang-ko>Pro 구독</h3><h3 lang-en>Pro subscription</h3><h3 lang-ja>Pro 購読</h3><h3 lang-zh>Pro 订阅</h3>
+      <div class="price"><span data-price="pro_monthly">₩5,990</span><small> <span lang-ko>/ 월</span><span lang-en>/ month</span><span lang-ja>/ 月</span><span lang-zh>/ 月</span></small></div>
+      <div class="price"><span data-price="pro_yearly">₩59,900</span><small> <span lang-ko>/ 년 (2개월 무료)</span><span lang-en>/ year (2 months free)</span><span lang-ja>/ 年（2 か月分無料）</span><span lang-zh>/ 年（相当于免费 2 个月）</span></small></div>
       <ul>
-        <li lang-ko>연결 탭 무제한 · 원격 PC에 드라이브 보이기</li><li lang-en>Unlimited tabs · drives on the remote PC</li>
-        <li lang-ko>폰·PC 파일 무제한 주고받기 · 보관함 동기화</li><li lang-en>Unlimited file transfer · vault sync</li>
-        <li lang-ko>OTP 무제한 · 광고 없음</li><li lang-en>Unlimited OTP · no ads</li>
-        <li lang-ko>웹 원격·웹판 · 원격 지원 도와주기 · 보조 기기 2대</li><li lang-en>Web remote · web Deskify · helping with remote support · 2 companion devices</li>
+        <li lang-ko>연결 탭 무제한 · 원격 PC에 드라이브 보이기</li><li lang-en>Unlimited tabs · drives on the remote PC</li><li lang-ja>接続タブ無制限 · リモート PC にドライブを表示</li><li lang-zh>连接标签页无限制 · 在远程电脑上显示驱动器</li>
+        <li lang-ko>폰·PC 파일 무제한 주고받기 · 보관함 동기화</li><li lang-en>Unlimited file transfer · vault sync</li><li lang-ja>スマホ・PC 間のファイル送受信無制限 · 保管庫の同期</li><li lang-zh>手机·电脑间文件无限制互传 · 保管库同步</li>
+        <li lang-ko>OTP 무제한 · 광고 없음</li><li lang-en>Unlimited OTP · no ads</li><li lang-ja>OTP 無制限 · 広告なし</li><li lang-zh>OTP 无限制 · 无广告</li>
+        <li lang-ko>웹 원격·웹판 · 원격 지원 도와주기 · 보조 기기 2대</li><li lang-en>Web remote · web Deskify · helping with remote support · 2 companion devices</li><li lang-ja>Web リモート・Web 版 Deskify · リモートサポートで手伝う · サブ端末 2 台</li><li lang-zh>网页远程·网页版 Deskify · 提供远程协助 · 辅助设备 2 台</li>
       </ul>
-      <button data-buy="pro_monthly" disabled><span lang-ko>월간 구독</span><span lang-en>Monthly</span></button>
-      <button data-buy="pro_yearly" disabled><span lang-ko>연간 구독</span><span lang-en>Yearly</span></button>
-      <div class="have hidden" data-have="pro"><span lang-ko>이미 Pro 구독 중입니다</span><span lang-en>Already subscribed</span></div>
+      <button data-buy="pro_monthly" disabled><span lang-ko>월간 구독</span><span lang-en>Monthly</span><span lang-ja>月額購読</span><span lang-zh>月付订阅</span></button>
+      <button data-buy="pro_yearly" disabled><span lang-ko>연간 구독</span><span lang-en>Yearly</span><span lang-ja>年額購読</span><span lang-zh>年付订阅</span></button>
+      <div class="have hidden" data-have="pro"><span lang-ko>이미 Pro 구독 중입니다</span><span lang-en>Already subscribed</span><span lang-ja>すでに Pro 購読中です</span><span lang-zh>已订阅 Pro</span></div>
     </div>
     <div class="plan2" data-kind="lifetime">
-      <h3 lang-ko>평생 이용권</h3><h3 lang-en>Lifetime license</h3>
-      <div class="price"><span data-price="lifetime">₩129,000</span><small> <span lang-ko>한 번</span><span lang-en>once</span></small></div>
+      <h3 lang-ko>평생 이용권</h3><h3 lang-en>Lifetime license</h3><h3 lang-ja>買い切り</h3><h3 lang-zh>终身版</h3>
+      <div class="price"><span data-price="lifetime">₩129,000</span><small> <span lang-ko>한 번</span><span lang-en>once</span><span lang-ja>一回払い</span><span lang-zh>一次性付款</span></small></div>
       <ul>
-        <li lang-ko>앱 기능 평생 (폰 앱 전부 · PC판 Pro · 광고 없음 · 보조 기기 1대)</li><li lang-en>The app's features for good (every phone feature · PC Pro · no ads · 1 companion device)</li>
-        <li lang-ko>동기화·웹 원격·웹판·중계·원격 지원 도와주기는 클라우드 구독</li><li lang-en>Sync, web remote, web Deskify, relays and helping with remote support come with the Cloud subscription</li>
+        <li lang-ko>앱 기능 평생 (폰 앱 전부 · PC판 Pro · 광고 없음 · 보조 기기 1대)</li><li lang-en>The app's features for good (every phone feature · PC Pro · no ads · 1 companion device)</li><li lang-ja>アプリの機能をずっと（スマホアプリの全機能 · PC 版 Pro · 広告なし · サブ端末 1 台）</li><li lang-zh>永久使用应用功能（全部手机功能 · 电脑版 Pro · 无广告 · 1 台辅助设备）</li>
+        <li lang-ko>동기화·웹 원격·웹판·중계·원격 지원 도와주기는 클라우드 구독</li><li lang-en>Sync, web remote, web Deskify, relays and helping with remote support come with the Cloud subscription</li><li lang-ja>同期・Web リモート・Web 版 Deskify・中継・リモートサポートで手伝う機能はクラウド購読に含まれます。</li><li lang-zh>同步·网页远程·网页版 Deskify·中继·提供远程协助包含在云订阅中。</li>
       </ul>
-      <button data-buy="lifetime" disabled><span lang-ko>평생 이용권 구매</span><span lang-en>Buy lifetime</span></button>
-      <div class="have hidden" data-have="lifetime"><span lang-ko>평생 이용권이 있습니다</span><span lang-en>You own the lifetime license</span></div>
+      <button data-buy="lifetime" disabled><span lang-ko>평생 이용권 구매</span><span lang-en>Buy lifetime</span><span lang-ja>買い切りを購入</span><span lang-zh>购买终身版</span></button>
+      <div class="have hidden" data-have="lifetime"><span lang-ko>평생 이용권이 있습니다</span><span lang-en>You own the lifetime license</span><span lang-ja>買い切りを所有しています</span><span lang-zh>已拥有终身版</span></div>
     </div>
     <div class="plan2" data-kind="sync">
-      <h3 lang-ko>클라우드 구독 (평생 이용권용)</h3><h3 lang-en>Cloud subscription (for lifetime owners)</h3>
-      <div class="price"><span data-price="sync_monthly">₩1,900</span><small> <span lang-ko>/ 월</span><span lang-en>/ month</span></small></div>
-      <div class="price"><span data-price="sync_yearly">₩19,000</span><small> <span lang-ko>/ 년 (2개월 무료)</span><span lang-en>/ year (2 months free)</span></small></div>
+      <h3 lang-ko>클라우드 구독 (평생 이용권용)</h3><h3 lang-en>Cloud subscription (for lifetime owners)</h3><h3 lang-ja>クラウド購読（買い切り用）</h3><h3 lang-zh>云订阅（终身版专用）</h3>
+      <div class="price"><span data-price="sync_monthly">₩1,900</span><small> <span lang-ko>/ 월</span><span lang-en>/ month</span><span lang-ja>/ 月</span><span lang-zh>/ 月</span></small></div>
+      <div class="price"><span data-price="sync_yearly">₩19,000</span><small> <span lang-ko>/ 년 (2개월 무료)</span><span lang-en>/ year (2 months free)</span><span lang-ja>/ 年（2 か月分無料）</span><span lang-zh>/ 年（相当于免费 2 个月）</span></small></div>
       <ul>
-        <li lang-ko>폰·태블릿·PC 보관함 동기화 (5대)</li><li lang-en>Vault sync across phone, tablet and PC (5 devices)</li>
-        <li lang-ko>웹 원격·웹판 · 원격 지원 도와주기 · 중계 · 보조 기기 2대째</li><li lang-en>Web remote · web Deskify · helping with remote support · relays · a 2nd companion device</li>
+        <li lang-ko>폰·태블릿·PC 보관함 동기화 (5대)</li><li lang-en>Vault sync across phone, tablet and PC (5 devices)</li><li lang-ja>スマホ・タブレット・PC の保管庫同期（5 台）</li><li lang-zh>手机·平板·电脑保管库同步（5 台设备）</li>
+        <li lang-ko>웹 원격·웹판 · 원격 지원 도와주기 · 중계 · 보조 기기 2대째</li><li lang-en>Web remote · web Deskify · helping with remote support · relays · a 2nd companion device</li><li lang-ja>Web リモート・Web 版 Deskify · リモートサポートで手伝う · 中継 · 2 台目のサブ端末</li><li lang-zh>网页远程·网页版 Deskify · 提供远程协助 · 中继 · 第 2 台辅助设备</li>
       </ul>
-      <button data-buy="sync_monthly" disabled><span lang-ko>월간</span><span lang-en>Monthly</span></button>
-      <button data-buy="sync_yearly" disabled><span lang-ko>연간</span><span lang-en>Yearly</span></button>
-      <div class="have hidden" data-have="sync"><span lang-ko>동기화가 켜져 있습니다</span><span lang-en>Sync is already on</span></div>
+      <button data-buy="sync_monthly" disabled><span lang-ko>월간</span><span lang-en>Monthly</span><span lang-ja>月額</span><span lang-zh>月付</span></button>
+      <button data-buy="sync_yearly" disabled><span lang-ko>연간</span><span lang-en>Yearly</span><span lang-ja>年額</span><span lang-zh>年付</span></button>
+      <div class="have hidden" data-have="sync"><span lang-ko>동기화가 켜져 있습니다</span><span lang-en>Sync is already on</span><span lang-ja>同期はオンになっています</span><span lang-zh>同步已开启</span></div>
     </div>
   </div>
 
   <p class="note" lang-ko>결제는 판매 대행사 Paddle이 처리하며 부가세가 포함될 수 있습니다. 결제 뒤 1분 안에 앱에 반영됩니다(PC·폰 모두). Google Play에서 이미 구독 중이면 여기서 다시 살 필요가 없습니다. <strong>결제 후 48시간이 지나 Pro 기능을 쓰기 시작하면 청약철회(환불)가 제한되며, 환불은 계정당 한 번입니다.</strong> <a href="refund.html">환불 정책</a> · <a href="terms.html">이용약관</a></p>
   <p class="note" lang-en>Payments are handled by Paddle, the merchant of record; VAT may apply. The app (PC and phone) picks it up within a minute. If you already subscribe on Google Play, there is nothing to buy here. <strong>Once 48 hours have passed and the Pro features are in use, the purchase can't be refunded; refunds are once per account.</strong> <a href="refund.html#en">Refund policy</a> · <a href="terms.html#en">Terms</a></p>
+  <p class="note" lang-ja>決済は販売代行業者（Merchant of Record）の Paddle が行い、付加価値税が含まれる場合があります。決済後 1 分以内にアプリ（PC・スマホとも）に反映されます。Google Play ですでにサブスク中の場合は、ここで購入する必要はありません。<strong>決済から 48 時間が過ぎ、Pro 機能を使い始めた後は返金できません。返金は 1 アカウントにつき 1 回までです。</strong> <a href="refund.html#en">返金ポリシー</a> · <a href="terms.html#en">利用規約</a></p>
+  <p class="note" lang-zh>付款由销售代理商 Paddle 处理，可能会收取增值税（VAT）。付款后 1 分钟内即可在应用中生效（电脑·手机端均适用）。如果你已在 Google Play 订阅，则无需在此重复购买。<strong>付款超过 48 小时且已开始使用 Pro 功能后，将无法申请退款；每个账号仅限退款一次。</strong> <a href="refund.html#en">退款政策</a> · <a href="terms.html#en">使用条款</a></p>
 </main>
 
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
 <script>
-  document.getElementById("lang").addEventListener("click", function () {
-    var next = document.documentElement.getAttribute("data-lang") === "en" ? "ko" : "en";
-    document.documentElement.setAttribute("data-lang", next);
-    document.documentElement.lang = next;
-    try { localStorage.setItem("lang", next); } catch (e) {}
-    label();
-  });
-  function label() { document.getElementById("lang").textContent = document.documentElement.getAttribute("data-lang") === "en" ? "한국어" : "English"; }
-  label();
-  var ko = function () { return document.documentElement.getAttribute("data-lang") !== "en"; };
+  // The language menu (한국어 / English / 日本語 / 简体中文); the choice is remembered.
+  (function () {
+    var titles = { ko: "Deskify Pro · 구매", en: "Deskify Pro · Buy", ja: "Deskify Pro · 購入", zh: "Deskify Pro · 购买" };
+    var m = document.getElementById("lang"), root = document.documentElement;
+    function apply(l) { root.setAttribute("data-lang", l); root.lang = l === "zh" ? "zh-CN" : l; m.value = l; if (titles[l]) document.title = titles[l]; }
+    m.addEventListener("change", function () { try { localStorage.setItem("lang", m.value); } catch (e) {} apply(m.value); });
+    apply(root.getAttribute("data-lang"));
+  })();
+  // The page language (ko / en / ja / zh) picks one of the four texts.
+  var L = function (k, e, j, z) { var l = document.documentElement.getAttribute("data-lang"); return l === "ko" ? k : l === "ja" ? j : l === "zh" ? z : e; };
   var $ = function (id) { return document.getElementById(id); };
   var msg = function (text, cls) { var m = $("msg"); m.textContent = text || ""; m.className = "note " + (cls || ""); };
 
@@ -145,17 +150,17 @@
   if (PADDLE.token) {
     if (PADDLE.env === "sandbox") Paddle.Environment.set("sandbox");
     Paddle.Initialize({ token: PADDLE.token, eventCallback: function (ev) {
-      if (ev.name === "checkout.completed") { msg(ko() ? "결제가 끝났습니다. 앱이 1분 안에 Pro로 바뀝니다. 바뀌지 않으면 앱에서 로그아웃 후 다시 로그인하세요." : "Payment complete. The app turns Pro within a minute; if not, sign out and in again in the app.", "ok"); setTimeout(load, 4000); setTimeout(load, 15000); }
+      if (ev.name === "checkout.completed") { msg(L("결제가 끝났습니다. 앱이 1분 안에 Pro로 바뀝니다. 바뀌지 않으면 앱에서 로그아웃 후 다시 로그인하세요.", "Payment complete. The app turns Pro within a minute; if not, sign out and in again in the app.", "お支払いが完了しました。1 分以内にアプリが Pro に切り替わります。切り替わらない場合は、アプリでログアウトしてからもう一度ログインしてください。", "付款完成。应用将在 1 分钟内切换为 Pro。如果没有切换，请在应用中退出登录后重新登录。"), "ok"); setTimeout(load, 4000); setTimeout(load, 15000); }
     } });
     ready = true;
   } else {
-    msg(ko() ? "결제 준비 중입니다(판매자 등록 대기)." : "Checkout isn't open yet (seller registration pending).");
+    msg(L("결제 준비 중입니다(판매자 등록 대기).", "Checkout isn't open yet (seller registration pending).", "決済の準備中です（販売者登録の審査待ち）。", "付款功能准备中（等待卖家注册审核）。"));
   }
 
   $("signin").onclick = function () {
     var p = new firebase.auth.GoogleAuthProvider();
     p.setCustomParameters({ prompt: "select_account" });
-    auth.signInWithPopup(p).catch(function (e) { if (e.code !== "auth/popup-closed-by-user") msg((ko() ? "로그인하지 못했습니다: " : "Couldn't sign in: ") + e.message, "err"); });
+    auth.signInWithPopup(p).catch(function (e) { if (e.code !== "auth/popup-closed-by-user") msg(L("로그인하지 못했습니다: ", "Couldn't sign in: ", "ログインできませんでした: ", "无法登录：") + e.message, "err"); });
   };
   $("signout").onclick = function () { auth.signOut(); };
 
@@ -165,12 +170,16 @@
     $("signout").classList.toggle("hidden", !u);
     $("photo").classList.toggle("hidden", !(u && u.photoURL));
     if (u && u.photoURL) $("photo").src = u.photoURL;
-    $("who").textContent = u ? (u.email || u.displayName || u.uid) : (ko() ? "로그인하지 않았습니다" : "Not signed in");
+    showWho();
     $("plan").textContent = "";
     plan = null;
     render();
     if (u) load();
   });
+
+  function showWho() { $("who").textContent = user ? (user.email || user.displayName || user.uid) : L("로그인하지 않았습니다", "Not signed in", "ログインしていません", "未登录"); }
+  // A language switch redraws the lines this script wrote.
+  document.getElementById("lang").addEventListener("change", function () { showWho(); if (user) load(); });
 
   function load() {
     if (!user) return;
@@ -184,14 +193,14 @@
       plan = p || {};
       var now = Date.now();
       var parts = [];
-      if (plan.kind === "LIFETIME") parts.push(ko() ? "평생 이용권" : "Lifetime");
-      else if (plan.pro && (plan.proUntil || 0) > now) parts.push((ko() ? "Pro 구독 · " : "Pro until ") + new Date(plan.proUntil).toLocaleDateString() + (ko() ? "까지" : ""));
-      else if ((plan.trialEndsAt || 0) > now) parts.push((ko() ? "체험 · " : "Trial until ") + new Date(plan.trialEndsAt).toLocaleDateString() + (ko() ? "까지" : ""));
-      else parts.push(ko() ? "무료" : "Free");
-      if ((plan.syncUntil || 0) > now && plan.kind === "LIFETIME") parts.push(ko() ? "동기화 켜짐" : "sync on");
+      if (plan.kind === "LIFETIME") parts.push(L("평생 이용권", "Lifetime", "買い切り", "终身版"));
+      else if (plan.pro && (plan.proUntil || 0) > now) parts.push(L("Pro 구독 · ", "Pro until ", "Pro 購読 · ", "Pro 订阅 · ") + new Date(plan.proUntil).toLocaleDateString() + L("까지", "", " まで", " 到期"));
+      else if ((plan.trialEndsAt || 0) > now) parts.push(L("체험 · ", "Trial until ", "無料トライアル · ", "试用 · ") + new Date(plan.trialEndsAt).toLocaleDateString() + L("까지", "", " まで", " 到期"));
+      else parts.push(L("무료", "Free", "無料", "免费"));
+      if ((plan.syncUntil || 0) > now && plan.kind === "LIFETIME") parts.push(L("동기화 켜짐", "sync on", "同期オン", "同步已开启"));
       $("plan").textContent = parts.join(" · ");
       render();
-    }).catch(function (e) { msg((ko() ? "계정 정보를 읽지 못했습니다: " : "Couldn't read the account: ") + e.message, "err"); });
+    }).catch(function (e) { msg(L("계정 정보를 읽지 못했습니다: ", "Couldn't read the account: ", "アカウント情報を読み込めませんでした: ", "无法读取账号信息：") + e.message, "err"); });
   }
 
   // What this account may buy: a Play or web Pro subscriber nothing more; a lifetime owner the sync subscription only;
@@ -228,11 +237,11 @@
         items: [{ priceId: priceId, quantity: 1 }],
         customer: user.email ? { email: user.email } : undefined,
         customData: { uid: user.uid, product: k },
-        settings: { displayMode: "overlay", theme: "dark", locale: ko() ? "ko" : "en", successUrl: location.origin + location.pathname + "?done=1" }
+        settings: { displayMode: "overlay", theme: "dark", locale: L("ko", "en", "ja", "zh-Hans"), successUrl: location.origin + location.pathname + "?done=1" }
       });
     };
   });
-  if (location.search.indexOf("done=1") >= 0) msg(ko() ? "결제가 끝났습니다. 앱이 1분 안에 Pro로 바뀝니다." : "Payment complete. The app turns Pro within a minute.", "ok");
+  if (location.search.indexOf("done=1") >= 0) msg(L("결제가 끝났습니다. 앱이 1분 안에 Pro로 바뀝니다.", "Payment complete. The app turns Pro within a minute.", "お支払いが完了しました。1 分以内にアプリが Pro に切り替わります。", "付款完成。应用将在 1 分钟内切换为 Pro。"), "ok");
   render();
 </script>
 </body>

@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-DzXHvkHGpWFyoV7DmKM40c+T79HxQGwSPDe9XJsQDVc=' 'self' https://www.gstatic.com/firebasejs/ https://apis.google.com https://cdn.jsdelivr.net/npm/@xterm/; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: blob:; connect-src 'self' blob: https://deskify-api.kim290.workers.dev https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com http://127.0.0.1:* http://localhost:*; frame-src https://deskify-8bd6f.firebaseapp.com https://accounts.google.com https://apis.google.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-jTFzZMSsi22zad7BpcRx0i6xQPfAaz3Wt52wRU07OAE=' 'self' https://www.gstatic.com/firebasejs/ https://apis.google.com https://cdn.jsdelivr.net/npm/@xterm/; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: blob:; connect-src 'self' blob: https://deskify-api.kim290.workers.dev https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com http://127.0.0.1:* http://localhost:*; frame-src https://deskify-8bd6f.firebaseapp.com https://accounts.google.com https://apis.google.com; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light dark">
@@ -10,20 +10,21 @@
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.css">
-<link rel="stylesheet" href="remote.min.css?v=01f3a17d5d">
+<link rel="stylesheet" href="remote.min.css?v=15675b0821">
 <link rel="stylesheet" href="app.min.css?v=4c76ce5b85">
 <script>
   (function () {
-    var saved = null;
-    try { saved = localStorage.getItem("lang"); } catch (e) {}
-    var lang = saved || ((navigator.language || "").toLowerCase().indexOf("ko") === 0 ? "ko" : "en");
-    if (location.hash === "#en") lang = "en";
-    // ?lang=ko|en|ja|zh from the apps (their UI language) wins over the saved choice for this visit;
-    // the site has Korean and English only, so every other language reads the English half.
+    // Language: ?lang= from the apps (their UI language) for this visit, else #en, else the visitor's last choice,
+    // else the browser's first supported language (ko, en, ja, zh: any Chinese reads 简体中文), else English.
+    var pick = function (s) { s = String(s || "").toLowerCase(); return /^(ko|en|ja|zh)/.test(s) ? s.slice(0, 2) : ""; };
     var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
-    if (q) lang = q[1].toLowerCase().indexOf("ko") === 0 ? "ko" : "en";
+    var lang = q ? pick(q[1]) : location.hash === "#en" ? "en" : "";
+    if (!lang) { try { lang = pick(localStorage.getItem("lang")); } catch (e) {} }
+    var nav = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+    for (var i = 0; !lang && i < nav.length; i++) lang = pick(nav[i]);
+    lang = lang || "en";
     document.documentElement.setAttribute("data-lang", lang);
-    document.documentElement.lang = lang;
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
   })();
 </script>
 </head>
@@ -72,83 +73,87 @@
 </svg>
 
 <header class="rm-top" id="top">
-  <a class="rm-brand" href="./"><svg class="rm-logo" aria-hidden="true"><use href="#i-logo"/></svg><b>Deskify</b><span class="rm-tag"><span lang-ko>웹</span><span lang-en>Web</span></span></a>
-  <a class="rm-back" href="web.html" data-tip-ko="웹에서 쓰기" data-tip-en="Use on the web" aria-label="웹에서 쓰기"><svg aria-hidden="true"><use href="#i-back"/></svg><span class="rm-back-t"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span></span></a>
+  <a class="rm-brand" href="./"><svg class="rm-logo" aria-hidden="true"><use href="#i-logo"/></svg><b>Deskify</b><span class="rm-tag"><span lang-ko>웹</span><span lang-en>Web</span><span lang-ja>Web</span><span lang-zh>网页</span></span></a>
+  <a class="rm-back" href="web.html" data-tip-ko="웹에서 쓰기" data-tip-en="Use on the web" data-tip-ja="Web で使う" data-tip-zh="在网页上使用" aria-label="웹에서 쓰기"><svg aria-hidden="true"><use href="#i-back"/></svg><span class="rm-back-t"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span></span></a>
   <div class="rm-top-r">
     <span id="whoBox" class="rm-who" hidden><span id="whoAv" class="rm-av"></span><span id="who" class="rm-who-t"></span></span>
-    <button class="rm-pill" id="lang" type="button">English</button>
-    <button class="rm-icon" id="signout" type="button" data-tip-ko="로그아웃" data-tip-en="Sign out" hidden><svg><use href="#i-out"/></svg></button>
+    <select class="rm-pill lang-menu" id="lang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
+    <button class="rm-icon" id="signout" type="button" data-tip-ko="로그아웃" data-tip-en="Sign out" data-tip-ja="ログアウト" data-tip-zh="退出登录" hidden><svg><use href="#i-out"/></svg></button>
   </div>
 </header>
 
 <main class="rm-main" id="main">
   <section id="gate" class="rm-card rm-card-wide rm-center" hidden>
     <svg class="rm-logo-big" aria-hidden="true"><use href="#i-logo"/></svg>
-    <h1><span lang-ko>브라우저에서 쓰는 Deskify</span><span lang-en>Deskify in your browser</span></h1>
+    <h1><span lang-ko>브라우저에서 쓰는 Deskify</span><span lang-en>Deskify in your browser</span><span lang-ja>ブラウザーで使う Deskify</span><span lang-zh>在浏览器中使用的 Deskify</span></h1>
     <p class="rm-lead" lang-ko>내 PC의 Deskify를 거쳐 보관함의 서버에 접속합니다. 폰의 Deskify로 아래 QR을 비춰 주십시오.</p>
     <p class="rm-lead" lang-en>Reach the servers in your vault through Deskify on your PC. Scan the QR below with Deskify on your phone.</p>
+    <p class="rm-lead" lang-ja>PC の Deskify を経由して保管庫のサーバーに接続します。スマホの Deskify で下の QR をスキャンしてください。</p>
+    <p class="rm-lead" lang-zh>通过电脑上的 Deskify 连接保管库中的服务器。请使用手机上的 Deskify 扫描下方二维码。</p>
     <div class="rm-qr">
       <div class="rm-qr-box" id="qrBox"><canvas id="qr" width="172" height="172" aria-label="QR"></canvas>
-        <div class="rm-qr-over" id="qrOver"><span class="rm-spin rm-spin-big" id="qrSpin"></span><button id="qrNew" class="rm-btn rm-primary" type="button" hidden><svg><use href="#i-refresh"/></svg><span lang-ko>새 QR</span><span lang-en>New QR</span></button></div>
+        <div class="rm-qr-over" id="qrOver"><span class="rm-spin rm-spin-big" id="qrSpin"></span><button id="qrNew" class="rm-btn rm-primary" type="button" hidden><svg><use href="#i-refresh"/></svg><span lang-ko>새 QR</span><span lang-en>New QR</span><span lang-ja>新しい QR</span><span lang-zh>新二维码</span></button></div>
       </div>
       <div>
         <ol class="rm-qr-steps">
-          <li lang-ko>폰에서 <b>Deskify</b>를 엽니다</li><li lang-en>Open <b>Deskify</b> on your phone</li>
-          <li lang-ko>보관함 위쪽의 <b>QR 단추 (브라우저 연결)</b>를 누릅니다</li><li lang-en>Tap the <b>QR button (Connect a browser)</b> at the top of the vault</li>
-          <li lang-ko>이 QR을 비추고 <b>PC를 골라 허용</b>합니다</li><li lang-en>Scan this QR, <b>pick the PC and allow</b></li>
+          <li lang-ko>폰에서 <b>Deskify</b>를 엽니다</li><li lang-en>Open <b>Deskify</b> on your phone</li><li lang-ja>スマホで<b>Deskify</b>を開きます</li><li lang-zh>在手机上打开 <b>Deskify</b></li>
+          <li lang-ko>보관함 위쪽의 <b>QR 단추 (브라우저 연결)</b>를 누릅니다</li><li lang-en>Tap the <b>QR button (Connect a browser)</b> at the top of the vault</li><li lang-ja>保管庫の上部にある<b>QR ボタン（ブラウザーを接続）</b>をタップします</li><li lang-zh>点击保管库顶部的 <b>QR 按钮（连接浏览器）</b></li>
+          <li lang-ko>이 QR을 비추고 <b>PC를 골라 허용</b>합니다</li><li lang-en>Scan this QR, <b>pick the PC and allow</b></li><li lang-ja>この QR をスキャンし、<b>PC を選択して許可</b>します</li><li lang-zh>扫描此二维码，<b>选择电脑并允许</b></li>
         </ol>
         <div class="rm-code" id="qrCode" title="">····-····</div>
         <div class="rm-qr-left" id="qrLeft"></div>
       </div>
     </div>
     <p id="pairMsg" class="rm-err"></p>
-    <div class="rm-or"><span lang-ko>또는</span><span lang-en>or</span></div>
-    <button id="signin" class="rm-btn rm-gbtn" type="button"><span class="rm-g"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.570-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.150 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></span><span lang-ko>Google 계정으로 로그인</span><span lang-en>Sign in with Google</span></button>
+    <div class="rm-or"><span lang-ko>또는</span><span lang-en>or</span><span lang-ja>または</span><span lang-zh>或</span></div>
+    <button id="signin" class="rm-btn rm-gbtn" type="button"><span class="rm-g"><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.570-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.150 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></span><span lang-ko>Google 계정으로 로그인</span><span lang-en>Sign in with Google</span><span lang-ja>Google アカウントでログイン</span><span lang-zh>使用 Google 账号登录</span></button>
     <p id="gateMsg" class="rm-err"></p>
     <ul class="rm-feats">
-      <li><svg><use href="#i-key"/></svg><span lang-ko>비밀번호와 키는 브라우저로 오지 않습니다. 내 PC가 저장된 정보로 접속합니다</span><span lang-en>Passwords and keys never come to the browser: your PC connects with what it keeps</span></li>
-      <li><svg><use href="#i-shield"/></svg><span lang-ko>이 계정의 폰이나 PC가 허용한 브라우저만 들어옵니다. QR로 들어온 브라우저는 이 페이지를 닫으면 빠집니다</span><span lang-en>Only browsers your phone or PC allows get in. One let in by QR is gone when this page closes</span></li>
-      <li><svg><use href="#i-monitor"/></svg><span lang-ko>PC의 설정 → 모바일 기기 → 화면 공유 원격에서 "웹에서 내 컴퓨터 목록·원격 쓰기"를 켜야 합니다 (Pro)</span><span lang-en>Turn on "Computer list and remote access from the web" in the PC's Settings → Mobile devices (Pro)</span></li>
+      <li><svg><use href="#i-key"/></svg><span lang-ko>비밀번호와 키는 브라우저로 오지 않습니다. 내 PC가 저장된 정보로 접속합니다</span><span lang-en>Passwords and keys never come to the browser: your PC connects with what it keeps</span><span lang-ja>パスワードや鍵はブラウザーに送信されません。PC が保存された情報で接続します</span><span lang-zh>密码和密钥不会发送到浏览器。你的电脑将使用已保存的信息进行连接</span></li>
+      <li><svg><use href="#i-shield"/></svg><span lang-ko>이 계정의 폰이나 PC가 허용한 브라우저만 들어옵니다. QR로 들어온 브라우저는 이 페이지를 닫으면 빠집니다</span><span lang-en>Only browsers your phone or PC allows get in. One let in by QR is gone when this page closes</span><span lang-ja>このアカウントのスマホや PC が許可したブラウザーのみアクセスできます。QR で接続したブラウザーはこのページを閉じると解除されます</span><span lang-zh>仅允许此账号的手机或电脑所授权的浏览器访问。通过二维码访问的浏览器在此页面关闭后将退出</span></li>
+      <li><svg><use href="#i-monitor"/></svg><span lang-ko>PC의 설정 → 모바일 기기 → 화면 공유 원격에서 "웹에서 내 컴퓨터 목록·원격 쓰기"를 켜야 합니다 (Pro)</span><span lang-en>Turn on "Computer list and remote access from the web" in the PC's Settings → Mobile devices (Pro)</span><span lang-ja>PC の設定 → モバイル端末 → 画面共有リモートで「Web からコンピューター一覧・リモートを使う」をオンにする必要があります (Pro)</span><span lang-zh>需在电脑的设置 → 移动设备 → 屏幕共享远程中开启“从网页使用电脑列表和远程”(Pro)</span></li>
     </ul>
-    <p class="rm-agree"><span lang-ko>로그인하면 <a href="terms.html">이용약관</a>과 <a href="privacy.html">개인정보처리방침</a>에 동의하는 것으로 봅니다.</span><span lang-en>By signing in you agree to the <a href="terms.html">Terms</a> and the <a href="privacy.html">Privacy Policy</a>.</span></p>
+    <p class="rm-agree"><span lang-ko>로그인하면 <a href="terms.html">이용약관</a>과 <a href="privacy.html">개인정보처리방침</a>에 동의하는 것으로 봅니다.</span><span lang-en>By signing in you agree to the <a href="terms.html">Terms</a> and the <a href="privacy.html">Privacy Policy</a>.</span><span lang-ja>ログインすると、<a href="terms.html">利用規約</a>および<a href="privacy.html">プライバシーポリシー</a>に同意したものとみなされます。</span><span lang-zh>登录即表示你同意<a href="terms.html">服务条款</a>和<a href="privacy.html">隐私政策</a>。</span></p>
   </section>
 
   <section id="wait" class="rm-card" hidden>
     <div class="rm-head">
       <span class="rm-mark rm-amber"><svg><use href="#i-shield"/></svg></span>
-      <div><h2><span lang-ko>이 브라우저를 허용해 주십시오</span><span lang-en>Allow this browser</span></h2>
-        <p class="rm-sub"><span lang-ko>새 기기는 이미 쓰는 기기가 허용해야 합니다</span><span lang-en>A new device needs one you already use to let it in</span></p></div>
+      <div><h2><span lang-ko>이 브라우저를 허용해 주십시오</span><span lang-en>Allow this browser</span><span lang-ja>このブラウザーを許可してください</span><span lang-zh>请允许此浏览器</span></h2>
+        <p class="rm-sub"><span lang-ko>새 기기는 이미 쓰는 기기가 허용해야 합니다</span><span lang-en>A new device needs one you already use to let it in</span><span lang-ja>新しい端末は、すでに使用している端末で許可する必要があります</span><span lang-zh>新设备需要已在使用的设备进行允许</span></p></div>
     </div>
     <div class="rm-waitbox">
-      <div class="rm-waitline"><span class="rm-spin" id="waitSpin"></span><b><span lang-ko>다른 기기에서 승인을 기다리는 중입니다</span><span lang-en>Waiting for another device to allow it</span></b></div>
+      <div class="rm-waitline"><span class="rm-spin" id="waitSpin"></span><b><span lang-ko>다른 기기에서 승인을 기다리는 중입니다</span><span lang-en>Waiting for another device to allow it</span><span lang-ja>他の端末での承認を待機しています</span><span lang-zh>正在等待其他设备批准</span></b></div>
       <p lang-ko>이 계정에 등록된 폰·태블릿·PC의 Deskify에 요청이 갔습니다. <b>허용</b> 또는 <b>이번만 허용</b>을 누르면 이 페이지가 바로 이어집니다.</p>
       <p lang-en>A request went to Deskify on this account's phones, tablets and PCs. Choose <b>Allow</b> or <b>Allow this once</b> there and this page goes on by itself.</p>
-      <div class="rm-device"><span class="rm-mark rm-small-mark"><svg><use href="#i-browser"/></svg></span><div><b id="waitName"></b><small><span lang-ko>이 브라우저</span><span lang-en>This browser</span></small></div></div>
+      <p lang-ja>このアカウントに登録されているスマホ・タブレット・PC の Deskify にリクエストを送信しました。<b>許可</b>または<b>今回のみ許可</b>を選択すると、このページが自動的に続行します。</p>
+      <p lang-zh>已向此账号下手机、平板和电脑上的 Deskify 发送请求。选择<b>允许</b>或<b>仅允许本次</b>后，此页面将自动继续。</p>
+      <div class="rm-device"><span class="rm-mark rm-small-mark"><svg><use href="#i-browser"/></svg></span><div><b id="waitName"></b><small><span lang-ko>이 브라우저</span><span lang-en>This browser</span><span lang-ja>このブラウザー</span><span lang-zh>此浏览器</span></small></div></div>
       <div class="rm-meter" id="waitMeter"><i id="waitBar"></i></div>
       <p id="waitLeft" class="rm-sub"></p>
     </div>
     <p id="waitMsg" class="rm-err"></p>
-    <div class="rm-actions"><button id="askAgain" class="rm-btn rm-primary" type="button" hidden><svg><use href="#i-refresh"/></svg><span lang-ko>다시 요청</span><span lang-en>Ask again</span></button></div>
+    <div class="rm-actions"><button id="askAgain" class="rm-btn rm-primary" type="button" hidden><svg><use href="#i-refresh"/></svg><span lang-ko>다시 요청</span><span lang-en>Ask again</span><span lang-ja>再リクエスト</span><span lang-zh>重新请求</span></button></div>
   </section>
 
   <section id="pcs" class="rm-home" hidden>
     <h1 id="hello" class="rm-hello"></h1>
     <div id="pcsInfo" class="rm-banner" hidden></div>
     <div class="rm-sect">
-      <span><span lang-ko>어느 PC를 거쳐 접속할까요?</span><span lang-en>Which PC should connect for you?</span></span>
-      <button id="reload" class="rm-icon" type="button" data-tip-ko="새로 고침" data-tip-en="Refresh"><svg><use href="#i-refresh"/></svg></button>
+      <span><span lang-ko>어느 PC를 거쳐 접속할까요?</span><span lang-en>Which PC should connect for you?</span><span lang-ja>どの PC を経由して接続しますか？</span><span lang-zh>通过哪台电脑进行连接？</span></span>
+      <button id="reload" class="rm-icon" type="button" data-tip-ko="새로 고침" data-tip-en="Refresh" data-tip-ja="更新" data-tip-zh="刷新"><svg><use href="#i-refresh"/></svg></button>
     </div>
     <div id="pcList" class="rm-grid"></div>
     <p id="pcsMsg" class="rm-err"></p>
-    <div class="rm-banner rm-banner-soft" id="onceNote" hidden><svg><use href="#i-info"/></svg><span><span lang-ko>이 브라우저는 "이번만 허용"으로 들어왔습니다. 이 페이지를 닫거나 12시간이 지나면 다시 허용받아야 합니다.</span><span lang-en>This browser was allowed just this once: once this page closes, or after 12 hours, it must be allowed again.</span></span></div>
-    <p class="rm-foot"><button id="forget" class="rm-link" type="button"><span lang-ko>이 브라우저를 계정에서 빼기</span><span lang-en>Remove this browser from the account</span></button></p>
+    <div class="rm-banner rm-banner-soft" id="onceNote" hidden><svg><use href="#i-info"/></svg><span><span lang-ko>이 브라우저는 "이번만 허용"으로 들어왔습니다. 이 페이지를 닫거나 12시간이 지나면 다시 허용받아야 합니다.</span><span lang-en>This browser was allowed just this once: once this page closes, or after 12 hours, it must be allowed again.</span><span lang-ja>このブラウザーは「今回のみ許可」でアクセスしています。このページを閉じるか、12 時間が経過すると、再度許可が必要になります。</span><span lang-zh>此浏览器通过“仅允许本次”访问。关闭此页面或超过 12 小时后，需要重新获取允许。</span></span></div>
+    <p class="rm-foot"><button id="forget" class="rm-link" type="button"><span lang-ko>이 브라우저를 계정에서 빼기</span><span lang-en>Remove this browser from the account</span><span lang-ja>このブラウザーをアカウントから削除</span><span lang-zh>从账号中移除此浏览器</span></button></p>
   </section>
 
   <section id="connecting" class="rm-card rm-center" hidden>
     <span class="rm-spin rm-spin-big"></span>
     <h2 id="connTitle"></h2>
     <p id="connStep" class="rm-sub"></p>
-    <div class="rm-actions rm-actions-c"><button id="connCancel" class="rm-btn rm-ghost" type="button"><span lang-ko>취소</span><span lang-en>Cancel</span></button></div>
+    <div class="rm-actions rm-actions-c"><button id="connCancel" class="rm-btn rm-ghost" type="button"><span lang-ko>취소</span><span lang-en>Cancel</span><span lang-ja>キャンセル</span><span lang-zh>取消</span></button></div>
   </section>
 
   <section id="ended" class="rm-card rm-center" hidden>
@@ -156,8 +161,8 @@
     <h2 id="endTitle"></h2>
     <p id="endText" class="rm-sub"></p>
     <div class="rm-actions rm-actions-c">
-      <button id="toList" class="rm-btn rm-ghost" type="button"><svg><use href="#i-back"/></svg><span lang-ko>PC 목록</span><span lang-en>PC list</span></button>
-      <button id="again" class="rm-btn rm-primary" type="button"><svg><use href="#i-refresh"/></svg><span lang-ko>다시 연결</span><span lang-en>Connect again</span></button>
+      <button id="toList" class="rm-btn rm-ghost" type="button"><svg><use href="#i-back"/></svg><span lang-ko>PC 목록</span><span lang-en>PC list</span><span lang-ja>PC 一覧</span><span lang-zh>电脑列表</span></button>
+      <button id="again" class="rm-btn rm-primary" type="button"><svg><use href="#i-refresh"/></svg><span lang-ko>다시 연결</span><span lang-en>Connect again</span><span lang-ja>再接続</span><span lang-zh>重新连接</span></button>
     </div>
   </section>
 </main>
@@ -171,8 +176,8 @@
     <div id="notice" class="ap-notice" hidden><svg><use href="#i-info"/></svg><span id="noticeText"></span></div>
     <div class="ap-search"><svg><use href="#i-search"/></svg><input id="q" type="search" autocomplete="off" spellcheck="false"></div>
     <div class="ap-chips" id="chips">
-      <button type="button" data-f="all" class="on"><span lang-ko>전체</span><span lang-en>All</span></button>
-      <button type="button" data-f="fav"><svg><use href="#i-star"/></svg><span lang-ko>즐겨찾기</span><span lang-en>Favorites</span></button>
+      <button type="button" data-f="all" class="on"><span lang-ko>전체</span><span lang-en>All</span><span lang-ja>すべて</span><span lang-zh>全部</span></button>
+      <button type="button" data-f="fav"><svg><use href="#i-star"/></svg><span lang-ko>즐겨찾기</span><span lang-en>Favorites</span><span lang-ja>お気に入り</span><span lang-zh>收藏</span></button>
       <button type="button" data-f="ssh">SSH</button>
       <button type="button" data-f="rdp">RDP</button>
       <button type="button" data-f="vnc">VNC</button>
@@ -182,33 +187,33 @@
       <span id="pathChip" class="rm-chip" hidden></span>
       <span id="relayBadge" class="rm-chip rm-chip-amber" hidden></span>
       <span class="ap-grow"></span>
-      <button id="btnLang2" class="rm-icon" type="button" data-tip-ko="English" data-tip-en="한국어"><span class="ap-lang">A</span></button>
-      <button id="btnHang" class="rm-icon ap-hang" type="button" data-tip-ko="PC 연결 끊기" data-tip-en="Disconnect from the PC"><svg><use href="#i-hang"/></svg></button>
+      <button id="btnLang2" class="rm-icon" type="button" aria-label="Language"><span class="ap-lang">A</span></button>
+      <button id="btnHang" class="rm-icon ap-hang" type="button" data-tip-ko="PC 연결 끊기" data-tip-en="Disconnect from the PC" data-tip-ja="PC の接続を切断" data-tip-zh="断开电脑连接"><svg><use href="#i-hang"/></svg></button>
     </div>
   </aside>
   <section class="ap-work" id="work">
     <div class="ap-tabs" id="tabsRow">
-      <button id="btnBack" class="rm-tool ap-back" type="button" data-tip-ko="보관함" data-tip-en="Vault"><svg><use href="#i-list"/></svg></button>
+      <button id="btnBack" class="rm-tool ap-back" type="button" data-tip-ko="보관함" data-tip-en="Vault" data-tip-ja="保管庫" data-tip-zh="保管库"><svg><use href="#i-list"/></svg></button>
       <div class="ap-tablist" id="tabs" role="tablist"></div>
     </div>
     <div class="ap-bar" id="bar" hidden>
       <span id="barName" class="rm-bar-name"></span>
       <span id="barState" class="rm-chip" hidden></span>
       <span class="ap-grow"></span>
-      <button id="btnFiles" class="rm-tool" type="button" data-tip-ko="파일 (SFTP)" data-tip-en="Files (SFTP)" aria-pressed="false"><svg><use href="#i-folder"/></svg><span class="rm-tool-t"><span lang-ko>파일</span><span lang-en>Files</span></span></button>
-      <button id="btnCad" class="rm-tool" type="button" data-tip-ko="Ctrl+Alt+Del 보내기" data-tip-en="Send Ctrl+Alt+Del" hidden><svg><use href="#i-key"/></svg><span class="rm-tool-t">Ctrl+Alt+Del</span></button>
-      <button id="btnKbd" class="rm-tool" type="button" data-tip-ko="화면 키보드" data-tip-en="On-screen keyboard" hidden><svg><use href="#i-kbd"/></svg></button>
-      <button id="btnClipGet" class="rm-tool" type="button" data-tip-ko="원격 클립보드 가져오기" data-tip-en="Get the remote clipboard" hidden><svg><use href="#i-download"/></svg></button>
-      <button id="btnPaste" class="rm-tool" type="button" data-tip-ko="붙여넣기" data-tip-en="Paste"><svg><use href="#i-clip"/></svg></button>
-      <button id="btnSmaller" class="rm-tool" type="button" data-tip-ko="글자 작게" data-tip-en="Smaller text"><svg><use href="#i-minus"/></svg></button>
-      <button id="btnBigger" class="rm-tool" type="button" data-tip-ko="글자 크게" data-tip-en="Larger text"><svg><use href="#i-plus"/></svg></button>
-      <button id="btnRe" class="rm-tool" type="button" data-tip-ko="다시 연결" data-tip-en="Reconnect"><svg><use href="#i-refresh"/></svg></button>
-      <button id="btnFull" class="rm-tool" type="button" data-tip-ko="전체 화면" data-tip-en="Full screen"><svg><use href="#i-full"/></svg></button>
+      <button id="btnFiles" class="rm-tool" type="button" data-tip-ko="파일 (SFTP)" data-tip-en="Files (SFTP)" data-tip-ja="ファイル (SFTP)" data-tip-zh="文件 (SFTP)" aria-pressed="false"><svg><use href="#i-folder"/></svg><span class="rm-tool-t"><span lang-ko>파일</span><span lang-en>Files</span><span lang-ja>ファイル</span><span lang-zh>文件</span></span></button>
+      <button id="btnCad" class="rm-tool" type="button" data-tip-ko="Ctrl+Alt+Del 보내기" data-tip-en="Send Ctrl+Alt+Del" data-tip-ja="Ctrl+Alt+Del を送信" data-tip-zh="发送 Ctrl+Alt+Del" hidden><svg><use href="#i-key"/></svg><span class="rm-tool-t">Ctrl+Alt+Del</span></button>
+      <button id="btnKbd" class="rm-tool" type="button" data-tip-ko="화면 키보드" data-tip-en="On-screen keyboard" data-tip-ja="スクリーン キーボード" data-tip-zh="屏幕键盘" hidden><svg><use href="#i-kbd"/></svg></button>
+      <button id="btnClipGet" class="rm-tool" type="button" data-tip-ko="원격 클립보드 가져오기" data-tip-en="Get the remote clipboard" data-tip-ja="リモートのクリップボードを取得" data-tip-zh="获取远程剪贴板" hidden><svg><use href="#i-download"/></svg></button>
+      <button id="btnPaste" class="rm-tool" type="button" data-tip-ko="붙여넣기" data-tip-en="Paste" data-tip-ja="貼り付け" data-tip-zh="粘贴"><svg><use href="#i-clip"/></svg></button>
+      <button id="btnSmaller" class="rm-tool" type="button" data-tip-ko="글자 작게" data-tip-en="Smaller text" data-tip-ja="文字を小さく" data-tip-zh="缩小文字"><svg><use href="#i-minus"/></svg></button>
+      <button id="btnBigger" class="rm-tool" type="button" data-tip-ko="글자 크게" data-tip-en="Larger text" data-tip-ja="文字を大きく" data-tip-zh="放大文字"><svg><use href="#i-plus"/></svg></button>
+      <button id="btnRe" class="rm-tool" type="button" data-tip-ko="다시 연결" data-tip-en="Reconnect" data-tip-ja="再接続" data-tip-zh="重新连接"><svg><use href="#i-refresh"/></svg></button>
+      <button id="btnFull" class="rm-tool" type="button" data-tip-ko="전체 화면" data-tip-en="Full screen" data-tip-ja="全画面表示" data-tip-zh="全屏"><svg><use href="#i-full"/></svg></button>
     </div>
     <div class="ap-panes" id="panes">
       <div class="ap-welcome" id="welcome">
         <svg class="rm-logo-big" aria-hidden="true"><use href="#i-logo"/></svg>
-        <h2><span lang-ko>보관함에서 서버를 고르십시오</span><span lang-en>Pick a server from the vault</span></h2>
+        <h2><span lang-ko>보관함에서 서버를 고르십시오</span><span lang-en>Pick a server from the vault</span><span lang-ja>保管庫からサーバーを選択してください</span><span lang-zh>请从保管库中选择服务器</span></h2>
         <p class="rm-sub" id="welcomeSub"></p>
       </div>
     </div>
@@ -227,10 +232,10 @@
       <div><h2 id="askTitle"></h2><p class="rm-sub" id="askSub"></p></div></div>
     <p class="ap-ask-why" id="askWhy"></p>
     <input id="askPw" type="password" autocomplete="off" spellcheck="false">
-    <p class="rm-sub ap-ask-note"><span lang-ko>이번 연결에만 쓰고 저장하지 않습니다. PC로만 보냅니다.</span><span lang-en>Used for this connection only, never saved. Sent to your PC only.</span></p>
+    <p class="rm-sub ap-ask-note"><span lang-ko>이번 연결에만 쓰고 저장하지 않습니다. PC로만 보냅니다.</span><span lang-en>Used for this connection only, never saved. Sent to your PC only.</span><span lang-ja>今回の接続にのみ使用され、保存されません。PC にのみ送信されます。</span><span lang-zh>仅用于本次连接，不会保存。仅发送至电脑。</span></p>
     <div class="rm-actions">
-      <button id="askCancel" class="rm-btn rm-ghost" type="button"><span lang-ko>취소</span><span lang-en>Cancel</span></button>
-      <button class="rm-btn rm-primary" type="submit"><span lang-ko>연결</span><span lang-en>Connect</span></button>
+      <button id="askCancel" class="rm-btn rm-ghost" type="button"><span lang-ko>취소</span><span lang-en>Cancel</span><span lang-ja>キャンセル</span><span lang-zh>取消</span></button>
+      <button class="rm-btn rm-primary" type="submit"><span lang-ko>연결</span><span lang-en>Connect</span><span lang-ja>接続</span><span lang-zh>连接</span></button>
     </div>
   </form>
 </div>
@@ -246,6 +251,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-web-links@0.11.0/lib/addon-web-links.js"></script>
 <script src="qrcode.min.js?v=0d9b5dc921"></script>
 <script src="stream.min.js?v=7b1fece255"></script>
-<script src="app.min.js?v=5f83a22285"></script>
+<script src="app.min.js?v=0d508ee04d"></script>
 </body>
 </html>
