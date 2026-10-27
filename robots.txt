@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /console.html
+Disallow: /pair.html
+Disallow: /testing.html
+
+Sitemap: https://deskify-app.com/sitemap.xml
