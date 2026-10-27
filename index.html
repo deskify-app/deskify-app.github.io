@@ -1,226 +1,307 @@
 <!doctype html>
-<html lang="ko">
+<html lang="ko" data-lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <title>Deskify · 원격 데스크톱 · SSH</title>
-<meta name="description" content="Deskify: Android용 원격 데스크톱(RDP)·SSH 클라이언트. 폰과 태블릿, 데스크톱 모드(DeX)에서 Windows PC와 Linux 서버를 씁니다.">
+<meta name="description" content="Deskify: Android용 원격 데스크톱(RDP)·SSH·VNC 클라이언트와 Windows 앱. 폰과 태블릿, 데스크톱 모드(DeX), PC에서 내 컴퓨터와 서버를 씁니다.">
 <link rel="icon" href="icon.png">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="style.css?v=7">
-<script>
-  // English for non-Korean browsers, or the visitor's last choice.
-  (function () {
-    // Language: ?lang= from the apps (their UI language) for this visit, else #en, else the visitor's last choice,
-    // else the browser's first supported language (ko, en, ja, zh: any Chinese reads 简体中文), else English.
-    var pick = function (s) { s = String(s || "").toLowerCase(); return /^(ko|en|ja|zh)/.test(s) ? s.slice(0, 2) : ""; };
-    var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
-    var lang = q ? pick(q[1]) : location.hash === "#en" ? "en" : "";
-    if (!lang) { try { lang = pick(localStorage.getItem("lang")); } catch (e) {} }
-    var nav = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
-    for (var i = 0; !lang && i < nav.length; i++) lang = pick(nav[i]);
-    lang = lang || "en";
-    document.documentElement.setAttribute("data-lang", lang);
-    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
-  })();
-</script>
+<link rel="stylesheet" href="home.min.css?v=ff1317dd17">
+<script src="home.min.js?v=4f5c438f0c"></script>
 </head>
 <body>
+<a class="skip" href="#main"><span lang-ko>본문으로 건너뛰기</span><span lang-en>Skip to content</span><span lang-ja>本文へスキップ</span><span lang-zh>跳到正文</span></a>
 
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="./"><img src="icon.png" alt="" width="30" height="30">Deskify</a>
-    <nav>
-      <a class="hide-sm" href="#features"><span lang-ko>기능</span><span lang-en>Features</span><span lang-ja>機能</span><span lang-zh>功能</span></a>
-      <a class="hide-sm" href="#plans"><span lang-ko>요금</span><span lang-en>Plans</span><span lang-ja>料金プラン</span><span lang-zh>价格</span></a>
-      <a class="hide-sm" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span><span lang-ja>ベータ</span><span lang-zh>测试版</span></span></a>
-      <a class="hide-sm" href="help.html"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
-      <a href="privacy.html"><span lang-ko>개인정보</span><span lang-en>Privacy</span><span lang-ja>プライバシー</span><span lang-zh>隐私</span></a>
-      <select class="lang lang-menu" id="lang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
+<header class="nav" id="top">
+  <div class="nav-in">
+    <a class="brand" href="./"><img src="icon.png" alt="" width="26" height="26">Deskify</a>
+    <nav class="links" aria-label="Main">
+      <a href="#features"><span lang-ko>기능</span><span lang-en>Features</span><span lang-ja>機能</span><span lang-zh>功能</span></a>
+      <a href="#windows">Windows</a>
+      <a href="#web"><span lang-ko>웹</span><span lang-en>Web</span><span lang-ja>Web</span><span lang-zh>网页</span></a>
+      <a href="#plans"><span lang-ko>요금</span><span lang-en>Plans</span><span lang-ja>料金プラン</span><span lang-zh>价格</span></a>
+      <a href="help.html"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
     </nav>
+    <select class="lang-menu" id="lang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
+    <a class="nav-cta" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span></a>
   </div>
 </header>
 
-<main class="wrap">
-  <div class="hero">
-    <div>
-      <div class="pills"><span class="pill"><span lang-ko>Google Play 출시 준비 중</span><span lang-en>Coming soon to Google Play</span><span lang-ja>Google Play で近日公開</span><span lang-zh>即将上架 Google Play</span></span><span class="pill soon"><span lang-ko>Windows판 준비 중 · Linux 예정</span><span lang-en>Windows app coming soon · Linux later</span><span lang-ja>Windows 版準備中 · Linux 対応予定</span><span lang-zh>Windows 版即将推出 · 计划支持 Linux</span></span></div>
-      <h1 lang-ko>내 PC와 서버를<br><em>손 안에서</em> 그대로.</h1>
-      <h1 lang-en>Your PC and servers,<br><em>right in your hand.</em></h1>
-      <h1 lang-ja>PC やサーバーを、<br><em>手のひらで</em>そのまま。</h1>
-      <h1 lang-zh>你的电脑与服务器，<br><em>尽在掌中</em>。</h1>
-      <p class="sub" lang-ko>Deskify는 Android용 원격 데스크톱(RDP)·SSH 클라이언트입니다. 폰, 태블릿, 데스크톱 모드(DeX)에서 Windows PC와 Linux 서버를 내 컴퓨터처럼 씁니다.</p>
-      <p class="sub" lang-en>Deskify is a Remote Desktop (RDP) and SSH client for Android. Use your Windows PC and Linux servers from a phone, a tablet or desktop mode (DeX) as if you were sitting in front of them.</p>
-      <p class="sub" lang-ja>Deskify は Android 向けのリモート デスクトップ (RDP)・SSH クライアントです。スマホ、タブレット、デスクトップモード (DeX) から、Windows PC や Linux サーバーを自分のコンピューターのように操作できます。</p>
-      <p class="sub" lang-zh>Deskify 是一款适用于 Android 的远程桌面 (RDP) 与 SSH 客户端。可在手机、平板和桌面模式 (DeX) 上，像使用自己的电脑一样操作 Windows PC 和 Linux 服务器。</p>
-      <div class="cta">
-        <a class="btn primary" href="#features"><span lang-ko>기능 둘러보기</span><span lang-en>See the features</span><span lang-ja>機能を見る</span><span lang-zh>查看功能</span></a>
-        <a class="btn" href="mailto:support.deskify@gmail.com"><span lang-ko>문의하기</span><span lang-en>Contact</span><span lang-ja>お問い合わせ</span><span lang-zh>联系我们</span></a>
+<main id="main">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="status rise">
+        <span class="dot"></span><span lang-ko>Google Play 출시 준비 중</span><span lang-en>Coming soon to Google Play</span><span lang-ja>Google Play で近日公開</span><span lang-zh>即将上架 Google Play</span>
+        <span class="sep" aria-hidden="true"></span><span lang-ko>Windows판 준비 중 · Linux 예정</span><span lang-en>Windows app coming soon · Linux later</span><span lang-ja>Windows 版準備中 · Linux 対応予定</span><span lang-zh>Windows 版即将推出 · 计划支持 Linux</span>
+      </p>
+      <h1 id="hero-title" class="rise">
+        <span lang-ko>내 PC와 서버를<br><em>손 안에서</em> 그대로.</span>
+        <span lang-en>Your PC and servers,<br><em>right in your hand.</em></span>
+        <span lang-ja>PC やサーバーを、<br><em>手のひらで</em><span class="nw">そのまま。</span></span>
+        <span lang-zh>你的电脑与服务器，<br><em>尽在掌中</em>。</span>
+      </h1>
+      <p class="hero-sub rise">
+        <span lang-ko>Deskify는 원격 데스크톱(RDP)·SSH·VNC 클라이언트입니다. 폰, 태블릿, 데스크톱 모드(DeX), 그리고 PC에서 Windows PC와 Linux 서버를 내 컴퓨터처럼 씁니다.</span>
+        <span lang-en>Deskify is a Remote Desktop (RDP), SSH and VNC client. Use your Windows PC and Linux servers from a phone, a tablet, desktop mode (DeX) or another PC as if you were sitting in front of them.</span>
+        <span lang-ja>Deskify はリモート デスクトップ (RDP)・SSH・VNC クライアントです。スマホ、タブレット、デスクトップモード (DeX)、そして PC から、Windows PC や Linux サーバーを自分のコンピューターのように操作できます。</span>
+        <span lang-zh>Deskify 是一款远程桌面 (RDP)、SSH 与 VNC 客户端。可在手机、平板、桌面模式 (DeX) 以及电脑上，像使用自己的电脑一样操作 Windows PC 和 Linux 服务器。</span>
+      </p>
+      <div class="ctas rise">
+        <span class="store">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 2.6 13.6 12l-9.4 9.4a1.6 1.6 0 0 1-.7-1.3V3.9c0-.5.3-1 .7-1.3Zm10.5 10.5 2.5 2.5-11 6.3 8.5-8.8Zm3.8-3.8 2.6 1.5c.9.5.9 1.9 0 2.4l-2.6 1.5-2.8-2.7 2.8-2.7ZM6.2 2.1l11 6.3-2.5 2.5-8.5-8.8Z" fill="currentColor"/></svg>
+          <span><small><span lang-ko>출시 준비 중</span><span lang-en>Coming soon</span><span lang-ja>近日公開</span><span lang-zh>即将上架</span></small>Google Play</span>
+        </span>
+        <span class="store">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.3 10.4 4.3v7.1H3V5.3Zm0 13.4 7.4 1v-7.1H3v6.1Zm8.2 1.1L21 21v-8.4h-9.8v7.2Zm0-15.6v7.2H21V3l-9.8 1.2Z" fill="currentColor"/></svg>
+          <span><small><span lang-ko>준비 중</span><span lang-en>Coming soon</span><span lang-ja>準備中</span><span lang-zh>即将推出</span></small>Windows</span>
+        </span>
+        <a class="btn-primary" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span><span lang-ja>ベータ</span><span lang-zh>测试版</span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
     </div>
-    <div class="mock real" aria-hidden="true">
-      <div class="tablet"><img class="shot" src="shot-tablet.jpg?v=3" alt=""></div>
-      <div class="phone"><img class="shot" src="shot-phone.jpg?v=3" alt=""></div>
-    </div>
-  </div>
 
-  <section id="features">
-    <p class="eyebrow"><span lang-ko>기능</span><span lang-en>Features</span><span lang-ja>機能</span><span lang-zh>功能</span></p>
-    <h2 class="title" lang-ko>작은 화면에서도 편하게, 큰 화면에서는 PC처럼</h2>
-    <h2 class="title" lang-en>Comfortable on a phone, a real PC on a big screen</h2>
-    <h2 class="title" lang-ja>小さな画面でも快適に、大画面では PC のように</h2>
-    <h2 class="title" lang-zh>小屏幕舒适顺手，大屏幕宛如电脑</h2>
-    <p class="lead" lang-ko>터치로 쓰기 좋게 다듬은 원격 데스크톱과 터미널. 모니터와 키보드를 연결하면 단축키까지 PC로 보냅니다.</p>
-    <p class="lead" lang-en>Remote desktop and terminal shaped for touch. Plug in a monitor and keyboard and even the shortcuts go to the PC.</p>
-    <p class="lead" lang-ja>タッチ操作に最適化されたリモート デスクトップとターミナル。モニターとキーボードを接続すれば、ショートカットキーまで PC にそのまま送信されます。</p>
-    <p class="lead" lang-zh>为触控操作精心优化的远程桌面与终端。连接显示器和键盘，连快捷键也能直接发送到电脑。</p>
-
-    <div class="grid">
-      <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-        <h3 lang-ko>원격 데스크톱 (RDP)</h3><h3 lang-en>Remote Desktop (RDP)</h3><h3 lang-ja>リモート デスクトップ (RDP)</h3><h3 lang-zh>远程桌面 (RDP)</h3>
-        <p lang-ko>화면 크기에 맞춰 Windows 해상도와 글자 크기를 자동으로 맞춥니다. 소리, 클립보드, 파일도 함께.</p>
-        <p lang-en>Windows resolution and text size follow your screen. Sound, clipboard and files come along.</p>
-        <p lang-ja>画面サイズに合わせて Windows の解像度と文字サイズを自動調整します。音声、クリップボード、ファイルもそのまま利用できます。</p>
-        <p lang-zh>根据屏幕尺寸自动调整 Windows 分辨率与文字大小。声音、剪贴板和文件也一并支持。</p>
+    <div class="stage" aria-hidden="true">
+      <div class="glow"></div>
+      <div class="dev monitor">
+        <div class="bezel"><div class="screen">
+          <picture class="only-ko">
+            <source media="(prefers-color-scheme: dark)" srcset="img/home/pc-home-ko-light-1200.webp 1200w, img/home/pc-home-ko-light-2000.webp 2000w" sizes="(min-width: 1100px) 860px, 88vw">
+            <img src="img/home/pc-home-ko-light-1200.webp" srcset="img/home/pc-home-ko-light-1200.webp 1200w, img/home/pc-home-ko-light-2000.webp 2000w" sizes="(min-width: 1100px) 860px, 88vw" width="1200" height="750" alt="" fetchpriority="high">
+          </picture>
+          <picture class="not-ko">
+            <source media="(prefers-color-scheme: dark)" srcset="img/home/pc-home-en-light-1200.webp 1200w, img/home/pc-home-en-light-2000.webp 2000w" sizes="(min-width: 1100px) 860px, 88vw">
+            <img src="img/home/pc-home-en-light-1200.webp" srcset="img/home/pc-home-en-light-1200.webp 1200w, img/home/pc-home-en-light-2000.webp 2000w" sizes="(min-width: 1100px) 860px, 88vw" width="1200" height="750" alt="" fetchpriority="high">
+          </picture>
+        </div></div>
+        <div class="stand"></div>
       </div>
-      <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 17 6-6-6-6M12 19h8"/></svg></div>
-        <h3 lang-ko>SSH 터미널</h3><h3 lang-en>SSH terminal</h3><h3 lang-ja>SSH ターミナル</h3><h3 lang-zh>SSH 终端</h3>
-        <p lang-ko>키 인증, 점프 호스트, 자주 쓰는 키 조합. 연결이 끊겨도 서버에서 작업이 이어지게 할 수 있습니다.</p>
-        <p lang-en>Key auth, jump hosts and handy key combos. Work can keep running on the server when the link drops.</p>
-        <p lang-ja>鍵認証、踏み台サーバー、よく使うキーの組み合わせ。接続が切れてもサーバー側で作業をそのまま継続できます。</p>
-        <p lang-zh>密钥认证、跳板服务器以及常用按键组合。即使连接断开，也能让服务器上的任务继续运行。</p>
+      <div class="dev tablet">
+        <div class="screen">
+          <img class="only-ko" src="img/home/tablet-ssh-ko-960.webp" srcset="img/home/tablet-ssh-ko-960.webp 960w, img/home/tablet-ssh-ko-1600.webp 1600w" sizes="(min-width: 1100px) 440px, 46vw" width="960" height="600" alt="">
+          <img class="not-ko" src="img/home/tablet-ssh-en-960.webp" srcset="img/home/tablet-ssh-en-960.webp 960w, img/home/tablet-ssh-en-1600.webp 1600w" sizes="(min-width: 1100px) 440px, 46vw" width="960" height="600" alt="">
+        </div>
       </div>
-      <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="12" rx="2"/><path d="M7 21h10M9 15l-1 6M15 15l1 6"/></svg></div>
-        <h3 lang-ko>데스크톱 모드 (DeX)</h3><h3 lang-en>Desktop mode (DeX)</h3><h3 lang-ja>デスクトップモード (DeX)</h3><h3 lang-zh>桌面模式 (DeX)</h3>
-        <p lang-ko>모니터에 연결하면 모니터에 맞는 해상도로. Win 키와 Alt+Tab 같은 단축키도 PC로 보냅니다.</p>
-        <p lang-en>On a monitor it uses the monitor’s resolution, and shortcuts like Win and Alt+Tab go to the PC.</p>
-        <p lang-ja>モニターに接続すれば、そのモニターに合わせた解像度に。Win キーや Alt+Tab などのショートカットキーも PC に送信します。</p>
-        <p lang-zh>连接到显示器时，会自动适配显示器分辨率。Win 键和 Alt+Tab 等快捷键也能直接发送到电脑。</p>
-      </div>
-      <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="13" height="14" rx="2"/><rect x="17" y="8" width="5" height="11" rx="1"/></svg></div>
-        <h3 lang-ko>보조 기기</h3><h3 lang-en>Companion devices</h3><h3 lang-ja>サブ端末</h3><h3 lang-zh>辅助设备</h3>
-        <p lang-ko>남는 폰이나 태블릿을 트랙패드, 키보드, 그림 태블릿, 두 번째 화면으로. 같은 Wi-Fi에서 바로 연결됩니다.</p>
-        <p lang-en>Turn a spare phone or tablet into a trackpad, keyboard, drawing tablet or second screen over the same Wi-Fi.</p>
-        <p lang-ja>余っているスマホやタブレットを、トラックパッド、キーボード、ペンタブレット、セカンドディスプレイとして活用。同じ Wi-Fi ならすぐに接続できます。</p>
-        <p lang-zh>把闲置的手机或平板变成触控板、键盘、数位板或副屏。在同一 Wi-Fi 下即可快速连接。</p>
-        <p style="margin-top:10px"><a href="help.html#companion"><span lang-ko>사용 방법 →</span><span lang-en>How to use →</span><span lang-ja>使い方 →</span><span lang-zh>使用方法 →</span></a></p>
-      </div>
-      <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v10M18.4 6.6a9 9 0 1 1-12.8 0"/></svg></div>
-        <h3 lang-ko>PC 켜고 끄기</h3><h3 lang-en>Wake and power</h3><h3 lang-ja>PC の起動と終了</h3><h3 lang-zh>电脑开关机</h3>
-        <p lang-ko>Wake-on-LAN으로 원격에서 PC를 켜고, 끝나면 종료나 재시작까지. 보관함에서 켜짐·꺼짐이 바로 보입니다.</p>
-        <p lang-en>Wake a PC with Wake-on-LAN, then shut it down or restart when you’re done. The vault shows which are on.</p>
-        <p lang-ja>Wake-on-LAN で離れた場所から PC を起動し、作業が終わったらシャットダウンや再起動まで。保管庫で電源のオン・オフ状態が一目で分かります。</p>
-        <p lang-zh>通过 Wake-on-LAN 远程唤醒电脑，用完后还可以关机或重启。在保管库中即可直观查看开关机状态。</p>
-      </div>
-      <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4-4 4M3 7h18M7 21l-4-4 4-4M21 17H3"/></svg></div>
-        <h3 lang-ko>포트 포워딩 · 게이트웨이</h3><h3 lang-en>Port forwarding · Gateway</h3><h3 lang-ja>ポートフォワーディング · ゲートウェイ</h3><h3 lang-zh>端口转发 · 网关</h3>
-        <p lang-ko>SSH 터널로 집이나 사무실 안쪽 서비스에 접속하고, 회사 RD 게이트웨이도 지원합니다.</p>
-        <p lang-en>Reach services inside home or office through SSH tunnels, and connect through a company RD Gateway.</p>
-        <p lang-ja>SSH トンネルで自宅やオフィスの社内サービスに接続でき、会社の RD ゲートウェイにも対応しています。</p>
-        <p lang-zh>通过 SSH 隧道访问家中或办公室内部的服务，同时还支持公司的 RD 网关。</p>
-      </div>
-      <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 16.6A5 5 0 0 0 18 7h-1.3A8 8 0 1 0 4 15.3"/><path d="M8 17l4 4 4-4M12 12v9"/></svg></div>
-        <h3 lang-ko>클라우드 동기화</h3><h3 lang-en>Cloud sync</h3><h3 lang-ja>クラウド同期</h3><h3 lang-zh>云同步</h3>
-        <p lang-ko>저장한 컴퓨터, 포워딩, 매크로가 같은 구글 계정의 기기끼리 몇 초 안에 맞춰집니다. 암호화해서 저장합니다.</p>
-        <p lang-en>Saved computers, forwards and macros stay the same on every device with your Google account, within seconds. Stored encrypted.</p>
-        <p lang-ja>保存したコンピューター、ポートフォワーディング、マクロが、同じ Google アカウントの端末間で数秒のうちに同期されます。暗号化して保存されます。</p>
-        <p lang-zh>保存的电脑、端口转发和宏可在登录同一 Google 账号的设备间数秒内保持同步。所有数据均加密存储。</p>
-      </div>
-      <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg></div>
-        <h3 lang-ko>매크로 · 키 조합</h3><h3 lang-en>Macros · Key combos</h3><h3 lang-ja>マクロ · キーの組み合わせ</h3><h3 lang-zh>宏 · 按键组合</h3>
-        <p lang-ko>자주 하는 입력을 녹화해 한 번에. 실물 키보드, 게임패드, S펜 버튼도 원격 PC에서 그대로 씁니다.</p>
-        <p lang-en>Record what you type often and replay it in one tap. Physical keyboards, gamepads and S Pen buttons work on the PC too.</p>
-        <p lang-ja>よく使う入力を記録してワンタップで実行。物理キーボードやゲームパッド、S ペンのボタンも、リモート PC でそのまま使えます。</p>
-        <p lang-zh>录制常用输入并一键执行。实体键盘、手柄以及 S Pen 按键也能直接在远程电脑上使用。</p>
+      <div class="dev phone">
+        <div class="screen">
+          <img class="only-ko" src="img/home/phone-vault-ko-390.webp" srcset="img/home/phone-vault-ko-390.webp 390w, img/home/phone-vault-ko-600.webp 600w" sizes="(min-width: 1100px) 190px, 24vw" width="390" height="867" alt="">
+          <img class="not-ko" src="img/home/phone-vault-en-390.webp" srcset="img/home/phone-vault-en-390.webp 390w, img/home/phone-vault-en-600.webp 600w" sizes="(min-width: 1100px) 190px, 24vw" width="390" height="867" alt="">
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="windows">
-    <p class="eyebrow"><span lang-ko>Windows용 Deskify · 준비 중</span><span lang-en>Deskify for Windows · coming soon</span><span lang-ja>Windows 版 Deskify · 準備中</span><span lang-zh>Windows 版 Deskify · 即将推出</span></p>
-    <h2 class="title" lang-ko>PC에서는 여러 대를 한 번에</h2>
-    <h2 class="title" lang-en>On a PC, many computers at once</h2>
-    <h2 class="title" lang-ja>PC では複数台を一度に</h2>
-    <h2 class="title" lang-zh>在电脑上同时管理多台</h2>
-    <p class="lead" lang-ko>폰과 같은 보관함을 쓰는 Windows용 Deskify. 원격 데스크톱과 터미널 여러 개를 한 창에서 다룹니다.</p>
-    <p class="lead" lang-en>Deskify for Windows shares the phone's vault and puts many remote desktops and terminals in one window.</p>
-    <p class="lead" lang-ja>スマホと同じ保管庫を共有する Windows 版 Deskify。複数のリモート デスクトップやターミナルをひとつのウィンドウでまとめて操作できます。</p>
-    <p class="lead" lang-zh>与手机共用同一个保管库的 Windows 版 Deskify。可在同一个窗口内同时操作多个远程桌面和终端。</p>
+  <section class="statement" id="features">
+    <p class="eyebrow reveal"><span lang-ko>기능</span><span lang-en>Features</span><span lang-ja>機能</span><span lang-zh>功能</span></p>
+    <h2 class="display reveal">
+      <span lang-ko>작은 화면에서도 편하게,<br>큰 화면에서는 PC처럼.</span>
+      <span lang-en>Comfortable on a phone.<br>A real PC on a big screen.</span>
+      <span lang-ja>小さな画面でも快適に、<br>大画面では PC のように。</span>
+      <span lang-zh>小屏幕舒适顺手，<br>大屏幕宛如电脑。</span>
+    </h2>
+    <p class="lead reveal">
+      <span lang-ko>터치로 쓰기 좋게 다듬은 원격 데스크톱과 터미널. 모니터와 키보드를 연결하면 단축키까지 PC로 보냅니다.</span>
+      <span lang-en>Remote desktop and terminal shaped for touch. Plug in a monitor and keyboard and even the shortcuts go to the PC.</span>
+      <span lang-ja>タッチ操作に最適化されたリモート デスクトップとターミナル。モニターとキーボードを接続すれば、ショートカットキーまで PC にそのまま送信されます。</span>
+      <span lang-zh>为触控操作精心优化的远程桌面与终端。连接显示器和键盘，连快捷键也能直接发送到电脑。</span>
+    </p>
+  </section>
 
-    <div class="grid">
-      <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 3v18M3 12h18"/></svg></div>
-        <h3 lang-ko>분할 화면 · 동시 입력</h3><h3 lang-en>Split view · type into all</h3><h3 lang-ja>画面分割 · 同時入力</h3><h3 lang-zh>分屏视图 · 同步输入</h3>
-        <p lang-ko>원격 데스크톱과 터미널을 최대 16개까지 한 화면에 놓고, 한 번 친 키를 모든 PC와 서버에 똑같이 보냅니다.</p>
-        <p lang-en>Up to 16 remote desktops and terminals side by side, and one keystroke typed into all of them at once.</p>
-        <p lang-ja>最大 16 個のリモート デスクトップやターミナルをひとつの画面に並べ、1 回のキー入力をすべての PC やサーバーへ同時に送信できます。</p>
-        <p lang-zh>在同一屏幕上最多平铺 16 个远程桌面与终端，一次按键即可同时发送至所有电脑和服务器。</p>
+  <section class="tour">
+    <h2 class="sr-only"><span lang-ko>주요 기능</span><span lang-en>Main features</span><span lang-ja>主な機能</span><span lang-zh>主要功能</span></h2>
+    <div class="tour-stage" aria-hidden="true">
+      <div class="tour-frame">
+        <div class="dev phone tour-phone" data-for="0 1">
+          <div class="screen">
+            <img class="tour-shot only-ko" data-step="0" src="img/home/phone-vault-ko-600.webp" width="600" height="1333" alt="" loading="lazy" decoding="async">
+            <img class="tour-shot not-ko" data-step="0" src="img/home/phone-vault-en-600.webp" width="600" height="1333" alt="" loading="lazy" decoding="async">
+            <img class="tour-shot" data-step="1" src="img/home/phone-ssh-600.webp" width="600" height="1333" alt="" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <div class="dev tablet tour-tablet" data-for="2">
+          <div class="screen">
+            <img class="only-ko" src="img/home/tablet-ssh-ko-1600.webp" width="1600" height="1000" alt="" loading="lazy" decoding="async">
+            <img class="not-ko" src="img/home/tablet-ssh-en-1600.webp" width="1600" height="1000" alt="" loading="lazy" decoding="async">
+          </div>
+        </div>
+        <div class="dev monitor tour-monitor" data-for="3">
+          <div class="bezel"><div class="screen">
+            <picture class="only-ko"><source media="(prefers-color-scheme: dark)" srcset="img/home/pc-home-ko-light-2000.webp"><img src="img/home/pc-home-ko-light-2000.webp" width="2000" height="1250" alt="" loading="lazy" decoding="async"></picture>
+            <picture class="not-ko"><source media="(prefers-color-scheme: dark)" srcset="img/home/pc-home-en-light-2000.webp"><img src="img/home/pc-home-en-light-2000.webp" width="2000" height="1250" alt="" loading="lazy" decoding="async"></picture>
+          </div></div>
+          <div class="stand"></div>
+        </div>
       </div>
-      <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-        <h3 lang-ko>Deskify 원격</h3><h3 lang-en>Deskify Remote</h3><h3 lang-ja>Deskify リモート</h3><h3 lang-zh>Deskify 远程</h3>
-        <p lang-ko>앱이 원격 화면을 직접 그려 빠르고 자연스럽습니다. 한글, 클립보드, Win 키와 Alt+Tab까지 그대로.</p>
-        <p lang-en>The app draws the remote screen itself: fast and smooth, with Korean input, the clipboard, Win and Alt+Tab.</p>
-        <p lang-ja>アプリがリモート画面を直接描画するため、高速でスムーズ。IME による文字入力、クリップボード、Win キーや Alt+Tab までそのまま使えます。</p>
-        <p lang-zh>应用直接绘制远程画面，快速又流畅。输入法、剪贴板，乃至 Win 键和 Alt+Tab 都能照常使用。</p>
+    </div>
+
+    <div class="tour-steps">
+      <article class="step" data-step="0">
+        <figure class="step-fig dev phone" aria-hidden="true"><div class="screen">
+          <img class="only-ko" src="img/home/phone-vault-ko-600.webp" width="600" height="1333" alt="" loading="lazy" decoding="async">
+          <img class="not-ko" src="img/home/phone-vault-en-600.webp" width="600" height="1333" alt="" loading="lazy" decoding="async">
+        </div></figure>
+        <p class="step-no">01</p>
+        <h3><span lang-ko>원격 데스크톱 (RDP)</span><span lang-en>Remote Desktop (RDP)</span><span lang-ja>リモート デスクトップ (RDP)</span><span lang-zh>远程桌面 (RDP)</span></h3>
+        <p><span lang-ko>화면 크기에 맞춰 Windows 해상도와 글자 크기를 자동으로 맞춥니다. 소리, 클립보드, 파일도 함께.</span><span lang-en>Windows resolution and text size follow your screen. Sound, clipboard and files come along.</span><span lang-ja>画面サイズに合わせて Windows の解像度と文字サイズを自動調整します。音声、クリップボード、ファイルもそのまま利用できます。</span><span lang-zh>根据屏幕尺寸自动调整 Windows 分辨率与文字大小。声音、剪贴板和文件也一并支持。</span></p>
+        <p class="aside"><span lang-ko>저장한 컴퓨터는 보관함에서 켜짐·꺼짐이 바로 보이고, 탭 한 번으로 접속합니다.</span><span lang-en>Saved computers wait in the vault, showing which are on; one tap connects.</span><span lang-ja>保存したコンピューターは保管庫で電源の状態が一目で分かり、ワンタップで接続できます。</span><span lang-zh>保存的电脑都在保管库中，开关机状态一目了然，轻点即可连接。</span></p>
+      </article>
+
+      <article class="step" data-step="1">
+        <figure class="step-fig dev phone" aria-hidden="true"><div class="screen">
+          <img src="img/home/phone-ssh-600.webp" width="600" height="1333" alt="" loading="lazy" decoding="async">
+        </div></figure>
+        <p class="step-no">02</p>
+        <h3><span lang-ko>SSH 터미널</span><span lang-en>SSH terminal</span><span lang-ja>SSH ターミナル</span><span lang-zh>SSH 终端</span></h3>
+        <p><span lang-ko>명령어를 몰라도 됩니다. 한글로 찾는 명령어 도움말, 손가락으로 고르는 파일 관리(SFTP), 포트 포워딩까지 터미널 하나에 담았습니다.</span><span lang-en>No need to remember commands. Searchable command help, file management with a tap (SFTP) and port forwarding, all in one terminal.</span><span lang-ja>コマンドを覚えていなくても大丈夫です。検索できるコマンドヘルプ、タップで操作するファイル管理 (SFTP)、ポートフォワーディングまで、ひとつのターミナルにまとめました。</span><span lang-zh>不用记命令。可搜索的命令帮助、点一下就能操作的文件管理 (SFTP) 和端口转发，全都集中在一个终端里。</span></p>
+        <p class="aside"><span lang-ko>키 인증과 점프 호스트를 지원하고, 연결이 끊겨도 서버의 작업은 그대로 이어지게 할 수 있습니다.</span><span lang-en>Key auth and jump hosts are supported, and your work can keep running on the server even if the connection drops.</span><span lang-ja>鍵認証と踏み台サーバーに対応し、接続が切れてもサーバー側の作業をそのまま続けられます。</span><span lang-zh>支持密钥认证和跳板服务器，即使连接断开，服务器上的任务也能继续运行。</span></p>
+      </article>
+
+      <article class="step" data-step="2">
+        <figure class="step-fig dev tablet" aria-hidden="true"><div class="screen">
+          <img class="only-ko" src="img/home/tablet-ssh-ko-960.webp" width="960" height="600" alt="" loading="lazy" decoding="async">
+          <img class="not-ko" src="img/home/tablet-ssh-en-960.webp" width="960" height="600" alt="" loading="lazy" decoding="async">
+        </div></figure>
+        <p class="step-no">03</p>
+        <h3><span lang-ko>태블릿 · 데스크톱 모드 (DeX)</span><span lang-en>Tablets · Desktop mode (DeX)</span><span lang-ja>タブレット · デスクトップモード (DeX)</span><span lang-zh>平板 · 桌面模式 (DeX)</span></h3>
+        <p><span lang-ko>큰 화면에서는 컴퓨터 목록과 세션을 나란히 놓습니다. 모니터에 연결하면 모니터에 맞는 해상도로, Win 키와 Alt+Tab 같은 단축키도 PC로 보냅니다.</span><span lang-en>On a big screen your computers and the session sit side by side. On a monitor it uses the monitor’s resolution, and shortcuts like Win and Alt+Tab go to the PC.</span><span lang-ja>大画面ではコンピューター一覧とセッションを並べて表示します。モニターに接続すれば、そのモニターに合わせた解像度に。Win キーや Alt+Tab などのショートカットキーも PC に送信します。</span><span lang-zh>在大屏幕上，电脑列表与会话并排显示。连接到显示器时，会自动适配显示器分辨率，Win 键和 Alt+Tab 等快捷键也能直接发送到电脑。</span></p>
+        <p class="aside"><span lang-ko>실물 키보드, 게임패드, S펜 버튼도 원격 PC에서 그대로 씁니다.</span><span lang-en>Physical keyboards, gamepads and S Pen buttons work on the PC too.</span><span lang-ja>物理キーボードやゲームパッド、S ペンのボタンも、リモート PC でそのまま使えます。</span><span lang-zh>实体键盘、手柄以及 S Pen 按键也能直接在远程电脑上使用。</span></p>
+      </article>
+
+      <article class="step" data-step="3">
+        <figure class="step-fig dev monitor" aria-hidden="true"><div class="bezel"><div class="screen">
+          <picture class="only-ko"><source media="(prefers-color-scheme: dark)" srcset="img/home/pc-home-ko-light-1200.webp"><img src="img/home/pc-home-ko-light-1200.webp" width="1200" height="750" alt="" loading="lazy" decoding="async"></picture>
+          <picture class="not-ko"><source media="(prefers-color-scheme: dark)" srcset="img/home/pc-home-en-light-1200.webp"><img src="img/home/pc-home-en-light-1200.webp" width="1200" height="750" alt="" loading="lazy" decoding="async"></picture>
+        </div></div><div class="stand"></div></figure>
+        <p class="step-no">04</p>
+        <h3><span lang-ko>같은 보관함, PC에서도</span><span lang-en>The same vault, on a PC</span><span lang-ja>同じ保管庫を PC でも</span><span lang-zh>同一保管库，电脑上也能用</span></h3>
+        <p><span lang-ko>폰과 같은 보관함을 쓰는 Windows용 Deskify. 원격 데스크톱과 터미널 여러 개를 한 창에서 다룹니다.</span><span lang-en>Deskify for Windows shares the phone's vault and puts many remote desktops and terminals in one window.</span><span lang-ja>スマホと同じ保管庫を共有する Windows 版 Deskify。複数のリモート デスクトップやターミナルをひとつのウィンドウでまとめて操作できます。</span><span lang-zh>与手机共用同一个保管库的 Windows 版 Deskify。可在同一个窗口内同时操作多个远程桌面和终端。</span></p>
+        <p class="aside"><span lang-ko>저장한 컴퓨터, 포워딩, 매크로가 같은 구글 계정의 기기끼리 몇 초 안에 맞춰집니다.</span><span lang-en>Saved computers, forwards and macros stay the same on every device with your Google account, within seconds.</span><span lang-ja>保存したコンピューター、ポートフォワーディング、マクロが、同じ Google アカウントの端末間で数秒のうちに同期されます。</span><span lang-zh>保存的电脑、端口转发和宏可在登录同一 Google 账号的设备间数秒内保持同步。</span></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="more">
+    <h2 class="title reveal"><span lang-ko>필요한 것은 모두.</span><span lang-en>Everything you reach for.</span><span lang-ja>必要なものは、すべて。</span><span lang-zh>所需功能，一应俱全。</span></h2>
+    <div class="bento">
+      <div class="tile wide companion reveal">
+        <div class="tile-art" aria-hidden="true">
+          <svg viewBox="0 0 240 120"><rect x="6" y="14" width="150" height="96" rx="12" class="a"/><rect x="16" y="24" width="130" height="76" rx="5" class="b"/><rect x="176" y="22" width="52" height="92" rx="11" class="a"/><rect x="182" y="30" width="40" height="66" rx="5" class="c"/><circle cx="202" cy="62" r="7" class="ring"/><path d="M160 62h12" class="link"/></svg>
+        </div>
+        <h3><span lang-ko>보조 기기</span><span lang-en>Companion devices</span><span lang-ja>サブ端末</span><span lang-zh>辅助设备</span></h3>
+        <p><span lang-ko>남는 폰이나 태블릿을 트랙패드, 키보드, 그림 태블릿, 두 번째 화면으로. 같은 Wi-Fi에서 바로 연결됩니다.</span><span lang-en>Turn a spare phone or tablet into a trackpad, keyboard, drawing tablet or second screen over the same Wi-Fi.</span><span lang-ja>余っているスマホやタブレットを、トラックパッド、キーボード、ペンタブレット、セカンドディスプレイとして活用。同じ Wi-Fi ならすぐに接続できます。</span><span lang-zh>把闲置的手机或平板变成触控板、键盘、数位板或副屏。在同一 Wi-Fi 下即可快速连接。</span></p>
+        <a class="more-link" href="help.html#companion"><span lang-ko>사용 방법</span><span lang-en>How to use</span><span lang-ja>使い方</span><span lang-zh>使用方法</span> <span aria-hidden="true">›</span></a>
       </div>
-      <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
-        <h3 lang-ko>폰과 함께</h3><h3 lang-en>Together with your phone</h3><h3 lang-ja>スマホと一緒に</h3><h3 lang-zh>与手机协同</h3>
-        <p lang-ko>폰과 같은 보관함, 파일·글 주고받기. 폰을 원격 PC의 두 번째 모니터로 쓸 수도 있습니다.</p>
-        <p lang-en>The same vault as your phone, files and text back and forth, even your phone as a second monitor of the remote PC.</p>
-        <p lang-ja>スマホと同じ保管庫、ファイルやテキストの送受信。スマホをリモート PC のセカンドモニターとして使うこともできます。</p>
-        <p lang-zh>与手机共享同一个保管库，随时互传文件和文本。甚至能把手机当作远程电脑的副屏来使用。</p>
+      <div class="tile reveal">
+        <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2v10M18.4 6.6a9 9 0 1 1-12.8 0"/></svg></div>
+        <h3><span lang-ko>PC 켜고 끄기</span><span lang-en>Wake and power</span><span lang-ja>PC の起動と終了</span><span lang-zh>电脑开关机</span></h3>
+        <p><span lang-ko>Wake-on-LAN으로 원격에서 PC를 켜고, 끝나면 종료나 재시작까지.</span><span lang-en>Wake a PC with Wake-on-LAN, then shut it down or restart when you’re done.</span><span lang-ja>Wake-on-LAN で離れた場所から PC を起動し、作業が終わったらシャットダウンや再起動まで。</span><span lang-zh>通过 Wake-on-LAN 远程唤醒电脑，用完后还可以关机或重启。</span></p>
       </div>
-      <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 17 6-6-6-6M12 19h8"/></svg></div>
-        <h3 lang-ko>SSH 터미널 · AI 도우미</h3><h3 lang-en>SSH terminal · AI helper</h3><h3 lang-ja>SSH ターミナル · AI アシスタント</h3><h3 lang-zh>SSH 终端 · AI 助手</h3>
-        <p lang-ko>테마, 파일(SFTP), 포트 포워딩. 하고 싶은 일을 말하면 AI가 명령을 찾아 실행까지 돕습니다.</p>
-        <p lang-en>Themes, files over SFTP, port forwarding, and an AI that finds the command for what you want and runs it.</p>
-        <p lang-ja>テーマ、ファイル (SFTP)、ポートフォワーディング。やりたいことを伝えるだけで、AI がコマンドを探して実行までサポートします。</p>
-        <p lang-zh>主题、文件 (SFTP)、端口转发。只要说明想做的事，AI 就会找出命令并协助执行。</p>
+      <div class="tile reveal">
+        <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M17 3l4 4-4 4M3 7h18M7 21l-4-4 4-4M21 17H3"/></svg></div>
+        <h3><span lang-ko>포트 포워딩 · 게이트웨이</span><span lang-en>Port forwarding · Gateway</span><span lang-ja>ポートフォワーディング · ゲートウェイ</span><span lang-zh>端口转发 · 网关</span></h3>
+        <p><span lang-ko>SSH 터널로 집이나 사무실 안쪽 서비스에 접속하고, 회사 RD 게이트웨이도 지원합니다.</span><span lang-en>Reach services inside home or office through SSH tunnels, and connect through a company RD Gateway.</span><span lang-ja>SSH トンネルで自宅やオフィスの社内サービスに接続でき、会社の RD ゲートウェイにも対応しています。</span><span lang-zh>通过 SSH 隧道访问家中或办公室内部的服务，同时还支持公司的 RD 网关。</span></p>
       </div>
-      <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><rect x="12" y="12" width="7" height="5" rx="1"/></svg></div>
-        <h3 lang-ko>떼어내기 · PIP</h3><h3 lang-en>Pop out · picture in picture</h3><h3 lang-ja>ポップアウト · PIP</h3><h3 lang-zh>独立窗口 · 画中画 (PIP)</h3>
-        <p lang-ko>탭을 따로 창으로 떼어내거나, 작게 화면 위에 띄워 두고 다른 일을 하면서 지켜봅니다.</p>
-        <p lang-en>Take a tab out into its own window, or keep it small on top while you do something else.</p>
-        <p lang-ja>タブを別のウィンドウとして切り離したり、画面上に小さく表示して他の作業をしながら確認できます。</p>
-        <p lang-zh>可以将标签页分离为独立窗口，或缩小悬浮在屏幕上方，在进行其他工作的同时随时查看。</p>
+      <div class="tile reveal">
+        <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4M7 8l3 3-3 3"/></svg></div>
+        <h3>VNC</h3>
+        <p><span lang-ko>원격 데스크톱이 없는 Windows Home이나 Mac, 리눅스 데스크톱은 VNC로. 해상도 맞춤과 한글 클립보드를 지원합니다.</span><span lang-en>No Remote Desktop on Windows Home, a Mac or a Linux desktop? Use VNC, with fit-to-screen and a clipboard that keeps every language.</span><span lang-ja>リモート デスクトップのない Windows Home や Mac、Linux デスクトップには VNC で。画面に合わせた解像度と、日本語も使えるクリップボードに対応しています。</span><span lang-zh>没有远程桌面的 Windows Home、Mac 或 Linux 桌面可以使用 VNC。支持适配屏幕分辨率，剪贴板也能正常处理中文。</span></p>
       </div>
-      <div class="card">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="11" height="9" rx="1.5"/><rect x="12" y="5" width="11" height="9" rx="1.5"/><path d="M6 18h12"/></svg></div>
-        <h3 lang-ko>모니터 여러 대</h3><h3 lang-en>Every monitor</h3><h3 lang-ja>マルチモニター</h3><h3 lang-zh>多显示器</h3>
-        <p lang-ko>내 모니터를 모두 원격 PC의 모니터로. 원격 PC가 모니터 여러 대를 그대로 씁니다.</p>
-        <p lang-en>All your monitors become the remote PC's monitors, each one its own.</p>
-        <p lang-ja>手元のモニターすべてをリモート PC のモニターに。リモート PC でも複数のモニターをそのまま利用できます。</p>
-        <p lang-zh>你的所有显示器都成为远程电脑的显示器，每台各自独立。</p>
+      <div class="tile reveal">
+        <div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 16.6A5 5 0 0 0 18 7h-1.3A8 8 0 1 0 4 15.3"/><path d="M8 17l4 4 4-4M12 12v9"/></svg></div>
+        <h3><span lang-ko>클라우드 동기화</span><span lang-en>Cloud sync</span><span lang-ja>クラウド同期</span><span lang-zh>云同步</span></h3>
+        <p><span lang-ko>저장한 컴퓨터, 포워딩, 매크로가 같은 구글 계정의 기기끼리 몇 초 안에 맞춰집니다. 암호화해서 저장합니다.</span><span lang-en>Saved computers, forwards and macros stay the same on every device with your Google account, within seconds. Stored encrypted.</span><span lang-ja>保存したコンピューター、ポートフォワーディング、マクロが、同じ Google アカウントの端末間で数秒のうちに同期されます。暗号化して保存されます。</span><span lang-zh>保存的电脑、端口转发和宏可在登录同一 Google 账号的设备间数秒内保持同步。所有数据均加密存储。</span></p>
+      </div>
+      <div class="tile wide macro reveal">
+        <div class="keys" aria-hidden="true"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>Del</kbd><kbd class="g">▶ Macro</kbd><kbd>Win</kbd><kbd>Alt</kbd><kbd>Tab</kbd></div>
+        <h3><span lang-ko>매크로 · 키 조합</span><span lang-en>Macros · Key combos</span><span lang-ja>マクロ · キーの組み合わせ</span><span lang-zh>宏 · 按键组合</span></h3>
+        <p><span lang-ko>자주 하는 입력을 녹화해 한 번에. 실물 키보드, 게임패드, S펜 버튼도 원격 PC에서 그대로 씁니다.</span><span lang-en>Record what you type often and replay it in one tap. Physical keyboards, gamepads and S Pen buttons work on the PC too.</span><span lang-ja>よく使う入力を記録してワンタップで実行。物理キーボードやゲームパッド、S ペンのボタンも、リモート PC でそのまま使えます。</span><span lang-zh>录制常用输入并一键执行。实体键盘、手柄以及 S Pen 按键也能直接在远程电脑上使用。</span></p>
       </div>
     </div>
   </section>
 
-  <section id="plans">
-    <p class="eyebrow"><span lang-ko>요금</span><span lang-en>Plans</span><span lang-ja>料金プラン</span><span lang-zh>价格</span></p>
-    <h2 class="title" lang-ko>기본은 무료, 더 필요하면 Pro</h2>
-    <h2 class="title" lang-en>Free to start, Pro when you need more</h2>
-    <h2 class="title" lang-ja>基本は無料、さらに必要なら Pro</h2>
-    <h2 class="title" lang-zh>基础功能免费，按需升级 Pro</h2>
-    <p class="lead" lang-ko>구글 계정으로 Pro를 7일 동안 무료로 써 볼 수 있습니다. Pro는 월 구독, 연 구독, 평생 이용권 중에서 고릅니다.</p>
-    <p class="lead" lang-en>Try Pro free for 7 days with a Google account, then choose monthly, yearly or a lifetime purchase.</p>
-    <p class="lead" lang-ja>Google アカウントで Pro を 7 日間無料でお試しいただけます。Pro は月額購読、年額購読、買い切りからお選びいただけます。</p>
-    <p class="lead" lang-zh>使用 Google 账号可免费试用 Pro 7 天。Pro 可选择月付订阅、年付订阅或终身版。</p>
-    <div class="plans">
-      <div class="plan">
-        <h3 lang-ko>무료</h3><h3 lang-en>Free</h3><h3 lang-ja>無料</h3><h3 lang-zh>免费</h3>
-        <p class="note" lang-ko>광고가 표시됩니다</p><p class="note" lang-en>With ads</p><p class="note" lang-ja>広告が表示されます</p><p class="note" lang-zh>包含广告</p>
+  <section class="win" id="windows">
+    <div class="win-head">
+      <p class="eyebrow reveal"><span lang-ko>Windows용 Deskify · 준비 중</span><span lang-en>Deskify for Windows · coming soon</span><span lang-ja>Windows 版 Deskify · 準備中</span><span lang-zh>Windows 版 Deskify · 即将推出</span></p>
+      <h2 class="display reveal"><span lang-ko>PC에서는<br>여러 대를 한 번에.</span><span lang-en>On a PC,<br>many computers at once.</span><span lang-ja>PC では、<br>複数台を一度に。</span><span lang-zh>在电脑上，<br>同时管理多台。</span></h2>
+    </div>
+    <div class="win-shot" aria-hidden="true">
+      <div class="win-window">
+        <picture class="only-ko"><source srcset="img/home/pc-home-ko-light-1200.webp 1200w, img/home/pc-home-ko-light-2000.webp 2000w" sizes="(min-width: 1200px) 1100px, 94vw"><img src="img/home/pc-home-ko-light-1200.webp" width="1200" height="750" alt="" loading="lazy" decoding="async"></picture>
+        <picture class="not-ko"><source srcset="img/home/pc-home-en-light-1200.webp 1200w, img/home/pc-home-en-light-2000.webp 2000w" sizes="(min-width: 1200px) 1100px, 94vw"><img src="img/home/pc-home-en-light-1200.webp" width="1200" height="750" alt="" loading="lazy" decoding="async"></picture>
+      </div>
+    </div>
+    <div class="win-grid">
+      <div class="wi reveal"><h3><span lang-ko>분할 화면 · 동시 입력</span><span lang-en>Split view · type into all</span><span lang-ja>画面分割 · 同時入力</span><span lang-zh>分屏视图 · 同步输入</span></h3><p><span lang-ko>원격 데스크톱과 터미널을 최대 16개까지 한 화면에 놓고, 한 번 친 키를 모든 PC와 서버에 똑같이 보냅니다.</span><span lang-en>Up to 16 remote desktops and terminals side by side, and one keystroke typed into all of them at once.</span><span lang-ja>最大 16 個のリモート デスクトップやターミナルをひとつの画面に並べ、1 回のキー入力をすべての PC やサーバーへ同時に送信できます。</span><span lang-zh>在同一屏幕上最多平铺 16 个远程桌面与终端，一次按键即可同时发送至所有电脑和服务器。</span></p></div>
+      <div class="wi reveal"><h3><span lang-ko>Deskify 원격</span><span lang-en>Deskify Remote</span><span lang-ja>Deskify リモート</span><span lang-zh>Deskify 远程</span></h3><p><span lang-ko>앱이 원격 화면을 직접 그려 빠르고 자연스럽습니다. 한글, 클립보드, Win 키와 Alt+Tab까지 그대로.</span><span lang-en>The app draws the remote screen itself: fast and smooth, with Korean input, the clipboard, Win and Alt+Tab.</span><span lang-ja>アプリがリモート画面を直接描画するため、高速でスムーズ。IME による文字入力、クリップボード、Win キーや Alt+Tab までそのまま使えます。</span><span lang-zh>应用直接绘制远程画面，快速又流畅。输入法、剪贴板，乃至 Win 键和 Alt+Tab 都能照常使用。</span></p></div>
+      <div class="wi reveal"><h3><span lang-ko>폰과 함께</span><span lang-en>Together with your phone</span><span lang-ja>スマホと一緒に</span><span lang-zh>与手机协同</span></h3><p><span lang-ko>폰과 같은 보관함, 파일·글 주고받기. 폰을 원격 PC의 두 번째 모니터로 쓸 수도 있습니다.</span><span lang-en>The same vault as your phone, files and text back and forth, even your phone as a second monitor of the remote PC.</span><span lang-ja>スマホと同じ保管庫、ファイルやテキストの送受信。スマホをリモート PC のセカンドモニターとして使うこともできます。</span><span lang-zh>与手机共享同一个保管库，随时互传文件和文本。甚至能把手机当作远程电脑的副屏来使用。</span></p></div>
+      <div class="wi reveal"><h3><span lang-ko>SSH 터미널 · AI 도우미</span><span lang-en>SSH terminal · AI helper</span><span lang-ja>SSH ターミナル · AI アシスタント</span><span lang-zh>SSH 终端 · AI 助手</span></h3><p><span lang-ko>테마, 파일(SFTP), 포트 포워딩. 하고 싶은 일을 말하면 AI가 명령을 찾아 실행까지 돕습니다.</span><span lang-en>Themes, files over SFTP, port forwarding, and an AI that finds the command for what you want and runs it.</span><span lang-ja>テーマ、ファイル (SFTP)、ポートフォワーディング。やりたいことを伝えるだけで、AI がコマンドを探して実行までサポートします。</span><span lang-zh>主题、文件 (SFTP)、端口转发。只要说明想做的事，AI 就会找出命令并协助执行。</span></p></div>
+      <div class="wi reveal"><h3><span lang-ko>떼어내기 · PIP</span><span lang-en>Pop out · picture in picture</span><span lang-ja>ポップアウト · PIP</span><span lang-zh>独立窗口 · 画中画 (PIP)</span></h3><p><span lang-ko>탭을 따로 창으로 떼어내거나, 작게 화면 위에 띄워 두고 다른 일을 하면서 지켜봅니다.</span><span lang-en>Take a tab out into its own window, or keep it small on top while you do something else.</span><span lang-ja>タブを別のウィンドウとして切り離したり、画面上に小さく表示して他の作業をしながら確認できます。</span><span lang-zh>可以将标签页分离为独立窗口，或缩小悬浮在屏幕上方，在进行其他工作的同时随时查看。</span></p></div>
+      <div class="wi reveal"><h3><span lang-ko>모니터 여러 대</span><span lang-en>Every monitor</span><span lang-ja>マルチモニター</span><span lang-zh>多显示器</span></h3><p><span lang-ko>내 모니터를 모두 원격 PC의 모니터로. 원격 PC가 모니터 여러 대를 그대로 씁니다.</span><span lang-en>All your monitors become the remote PC's monitors, each one its own.</span><span lang-ja>手元のモニターすべてをリモート PC のモニターに。リモート PC でも複数のモニターをそのまま利用できます。</span><span lang-zh>你的所有显示器都成为远程电脑的显示器，每台各自独立。</span></p></div>
+    </div>
+  </section>
+
+  <section class="web" id="web">
+    <p class="eyebrow reveal"><span lang-ko>웹에서 쓰기 · 베타</span><span lang-en>Use on the web · Beta</span><span lang-ja>Web で使う · ベータ</span><span lang-zh>在网页上使用 · 测试版</span></p>
+    <h2 class="display reveal"><span lang-ko>설치 없이, 브라우저에서.</span><span lang-en>Nothing to install.<br>Just a browser.</span><span lang-ja>インストール不要、<br>ブラウザーで。</span><span lang-zh>无需安装，<br>浏览器即可。</span></h2>
+    <div class="web-cards">
+      <a class="wc reveal" href="remote.html">
+        <span class="tag sub"><span lang-ko>구독</span><span lang-en>Subscription</span><span lang-ja>サブスク</span><span lang-zh>订阅</span></span>
+        <svg class="wc-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        <h3><span lang-ko>웹 원격</span><span lang-en>Web remote</span><span lang-ja>Web リモート</span><span lang-zh>网页远程</span></h3>
+        <p><span lang-ko>집 PC 화면을 그대로 보고 조작합니다.</span><span lang-en>See your home PC's screen as it is and control it.</span><span lang-ja>自宅の PC 画面をそのまま見て操作します。</span><span lang-zh>原样查看并操作家中电脑的屏幕。</span></p>
+        <span class="wc-go"><span lang-ko>웹 원격 열기</span><span lang-en>Open web remote</span><span lang-ja>Web リモートを開く</span><span lang-zh>打开网页远程</span> ›</span>
+      </a>
+      <a class="wc reveal" href="app.html">
+        <span class="tag sub"><span lang-ko>구독</span><span lang-en>Subscription</span><span lang-ja>サブスク</span><span lang-zh>订阅</span></span>
+        <svg class="wc-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        <h3><span lang-ko>웹판</span><span lang-en>Web Deskify</span><span lang-ja>Web 版 Deskify</span><span lang-zh>网页版 Deskify</span></h3>
+        <p><span lang-ko>집 PC를 거쳐 보관함의 RDP·SSH·VNC를 엽니다.</span><span lang-en>Open the RDP, SSH and VNC computers in your vault, through your home PC.</span><span lang-ja>自宅の PC を経由して保管庫の RDP・SSH・VNC を開きます。</span><span lang-zh>通过家中电脑打开保管库中的 RDP·SSH·VNC。</span></p>
+        <span class="wc-go"><span lang-ko>웹판 열기</span><span lang-en>Open web Deskify</span><span lang-ja>Web 版 Deskify を開く</span><span lang-zh>打开网页版 Deskify</span> ›</span>
+      </a>
+      <a class="wc reveal" href="support.html">
+        <span class="tag free"><span lang-ko>도움 받기 무료</span><span lang-en>Getting help is free</span><span lang-ja>サポートを受けるのは無料</span><span lang-zh>接受协助免费</span></span>
+        <svg class="wc-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M5.6 5.6l3.9 3.9M14.5 14.5l3.9 3.9M18.4 5.6l-3.9 3.9M9.5 14.5l-3.9 3.9"/></svg>
+        <h3><span lang-ko>원격 지원</span><span lang-en>Remote support</span><span lang-ja>リモートサポート</span><span lang-zh>远程协助</span></h3>
+        <p><span lang-ko>번호로 다른 사람의 PC를 돕거나, 도움을 받습니다.</span><span lang-en>Help someone else's PC with a code, or get help with yours.</span><span lang-ja>番号で他の人の PC をサポートしたり、サポートを受けたりします。</span><span lang-zh>使用号码协助他人的电脑，或获取协助。</span></p>
+        <span class="wc-go"><span lang-ko>원격 지원 열기</span><span lang-en>Open remote support</span><span lang-ja>リモートサポートを開く</span><span lang-zh>打开远程协助</span> ›</span>
+      </a>
+    </div>
+    <p class="web-note reveal"><span lang-ko>웹 원격·웹판은 PC에 Deskify가 있어야 합니다. 원격 지원에서 도움 받는 사람은 계정 없이 무료입니다.</span><span lang-en>Web remote and web Deskify need Deskify on the PC. Getting help through remote support is free, with no account.</span><span lang-ja>Web リモートと Web 版 Deskify には PC 側の Deskify が必要です。リモートサポートでサポートを受ける側は、アカウント不要・無料です。</span><span lang-zh>网页远程与网页版 Deskify 需要电脑上安装 Deskify。通过远程协助接受协助的一方免费，无需账号。</span></p>
+  </section>
+
+  <section class="safe">
+    <p class="eyebrow reveal"><span lang-ko>안전</span><span lang-en>Privacy</span><span lang-ja>安全性</span><span lang-zh>安全</span></p>
+    <h2 class="display reveal"><span lang-ko>내 컴퓨터 정보는<br>내 기기에.</span><span lang-en>Your computers<br>stay on your device.</span><span lang-ja>コンピューターの情報は<br>お手元の端末だけに。</span><span lang-zh>电脑信息<br>仅保留在你的设备上。</span></h2>
+    <div class="safe-grid">
+      <div class="sf reveal">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+        <h3><span lang-ko>암호화해서 보관</span><span lang-en>Kept encrypted</span><span lang-ja>暗号化して保管</span><span lang-zh>加密保存</span></h3>
+        <p><span lang-ko>비밀번호와 SSH 키는 기기 안에서 암호화해 보관합니다. 동기화를 켜면 계정 전용 키로 암호화해 저장하고, 같은 계정으로 로그인한 내 기기끼리만 맞춥니다.</span><span lang-en>Passwords and SSH keys are encrypted on the device. With sync on, they are stored encrypted with a key made for your account and kept the same only across devices signed in to it.</span><span lang-ja>パスワードや SSH 鍵は端末内で暗号化して保管されます。同期をオンにすると、アカウント専用の鍵で暗号化して保存され、同じアカウントでログインした自分の端末間でのみ同期されます。</span><span lang-zh>密码和 SSH 密钥均在设备本地加密保存。开启同步后，将使用账号专属密钥加密存储，且仅在你登录了同一账号的设备之间保持同步。</span></p>
+      </div>
+      <div class="sf reveal">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="7" height="12" rx="1.5"/><rect x="15" y="4" width="7" height="13" rx="1.5"/><path d="M9 11h6"/></svg>
+        <h3><span lang-ko>PC와 직접 연결</span><span lang-en>Straight to your PC</span><span lang-ja>PC と直接接続</span><span lang-zh>与电脑直接连接</span></h3>
+        <p><span lang-ko>화면과 입력은 접속한 컴퓨터와만 주고받습니다. Deskify 서버를 거치지 않습니다.</span><span lang-en>Screen and input go only between you and the computer you connect to, never through Deskify servers.</span><span lang-ja>画面や入力情報は接続先のコンピューターとの間でのみやり取りされます。Deskify のサーバーを経由することはありません。</span><span lang-zh>屏幕画面与输入操作仅在所连接的电脑之间传输，绝不经过 Deskify 服务器。</span></p>
+      </div>
+      <div class="sf reveal">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg>
+        <h3><span lang-ko>필요한 것만</span><span lang-en>Only what’s needed</span><span lang-ja>必要な情報だけ</span><span lang-zh>仅保留必要信息</span></h3>
+        <p><span lang-ko>무엇을 언제 저장하는지는 <a href="privacy.html">개인정보처리방침</a>에 모두 적어 두었습니다.</span><span lang-en>Everything we store, and when, is in the <a href="privacy.html#en">privacy policy</a>.</span><span lang-ja>何をいつ保存するかについては、すべて<a href="privacy.html#en">プライバシーポリシー</a>に明記しています。</span><span lang-zh>我们在<a href="privacy.html#en">隐私政策</a>中完整说明了存储的内容与时机。</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="plans" id="plans">
+    <p class="eyebrow reveal"><span lang-ko>요금</span><span lang-en>Plans</span><span lang-ja>料金プラン</span><span lang-zh>价格</span></p>
+    <h2 class="display reveal"><span lang-ko>기본은 무료,<br>더 필요하면 Pro.</span><span lang-en>Free to start.<br>Pro when you need more.</span><span lang-ja>基本は無料、<br>さらに必要なら Pro。</span><span lang-zh>基础功能免费，<br>按需升级 Pro。</span></h2>
+    <p class="lead reveal"><span lang-ko>구글 계정으로 Pro를 7일 동안 무료로 써 볼 수 있습니다. Pro는 월 구독, 연 구독, 평생 이용권 중에서 고릅니다.</span><span lang-en>Try Pro free for 7 days with a Google account, then choose monthly, yearly or a lifetime purchase.</span><span lang-ja>Google アカウントで Pro を 7 日間無料でお試しいただけます。Pro は月額購読、年額購読、買い切りからお選びいただけます。</span><span lang-zh>使用 Google 账号可免费试用 Pro 7 天。Pro 可选择月付订阅、年付订阅或终身版。</span></p>
+    <div class="plan-row">
+      <div class="plan reveal">
+        <h3><span lang-ko>무료</span><span lang-en>Free</span><span lang-ja>無料</span><span lang-zh>免费</span></h3>
+        <p class="note"><span lang-ko>광고가 표시됩니다</span><span lang-en>With ads</span><span lang-ja>広告が表示されます</span><span lang-zh>包含广告</span></p>
         <ul>
           <li><span lang-ko>RDP · SSH 연결 (컴퓨터 3대 저장, 한 번에 1대 접속)</span><span lang-en>RDP and SSH (3 saved computers, one session at a time)</span><span lang-ja>RDP · SSH 接続 (コンピューター 3 台保存、一度に 1 台接続)</span><span lang-zh>RDP · SSH 连接（保存 3 台电脑，同时仅限连接 1 台）</span></li>
           <li><span lang-ko>포트 포워딩 · RD 게이트웨이</span><span lang-en>Port forwarding and RD Gateway</span><span lang-ja>ポートフォワーディング · RD ゲートウェイ</span><span lang-zh>端口转发 · RD 网关</span></li>
@@ -228,9 +309,9 @@
           <li><span lang-ko>광고를 보고 일부 Pro 기능을 잠시 열기</span><span lang-en>Open some Pro features for a while by watching an ad</span><span lang-ja>広告を視聴して一部の Pro 機能を一定時間アンロック</span><span lang-zh>观看广告即可限时解锁部分 Pro 功能</span></li>
         </ul>
       </div>
-      <div class="plan pro">
+      <div class="plan pro reveal">
         <h3>Pro</h3>
-        <p class="note" lang-ko>광고 없이 모든 기능</p><p class="note" lang-en>Everything, no ads</p><p class="note" lang-ja>広告なしですべての機能を利用可能</p><p class="note" lang-zh>畅享所有功能，无广告</p>
+        <p class="note"><span lang-ko>광고 없이 모든 기능</span><span lang-en>Everything, no ads</span><span lang-ja>広告なしですべての機能を利用可能</span><span lang-zh>畅享所有功能，无广告</span></p>
         <ul>
           <li><span lang-ko>광고 없음</span><span lang-en>No ads</span><span lang-ja>広告なし</span><span lang-zh>无广告</span></li>
           <li><span lang-ko>컴퓨터 수 제한 없음</span><span lang-en>Unlimited computers</span><span lang-ja>コンピューター台数無制限</span><span lang-zh>电脑数量无限制</span></li>
@@ -243,59 +324,26 @@
     </div>
   </section>
 
-  <section>
-    <p class="eyebrow"><span lang-ko>안전</span><span lang-en>Privacy</span><span lang-ja>安全性</span><span lang-zh>安全</span></p>
-    <h2 class="title" lang-ko>내 컴퓨터 정보는 내 기기에</h2>
-    <h2 class="title" lang-en>Your computers stay on your device</h2>
-    <h2 class="title" lang-ja>コンピューターの情報はお手元の端末だけに</h2>
-    <h2 class="title" lang-zh>电脑信息仅保留在你的设备上</h2>
-    <div class="safe">
-      <div class="card">
-        <h3 lang-ko>암호화해서 보관</h3><h3 lang-en>Kept encrypted</h3><h3 lang-ja>暗号化して保管</h3><h3 lang-zh>加密保存</h3>
-        <p lang-ko>비밀번호와 SSH 키는 기기 안에서 암호화해 보관합니다. 동기화를 켜면 계정 전용 키로 암호화해 저장하고, 같은 계정으로 로그인한 내 기기끼리만 맞춥니다.</p>
-        <p lang-en>Passwords and SSH keys are encrypted on the device. With sync on, they are stored encrypted with a key made for your account and kept the same only across devices signed in to it.</p>
-        <p lang-ja>パスワードや SSH 鍵は端末内で暗号化して保管されます。同期をオンにすると、アカウント専用の鍵で暗号化して保存され、同じアカウントでログインした自分の端末間でのみ同期されます。</p>
-        <p lang-zh>密码和 SSH 密钥均在设备本地加密保存。开启同步后，将使用账号专属密钥加密存储，且仅在你登录了同一账号的设备之间保持同步。</p>
-      </div>
-      <div class="card">
-        <h3 lang-ko>PC와 직접 연결</h3><h3 lang-en>Straight to your PC</h3><h3 lang-ja>PC と直接接続</h3><h3 lang-zh>与电脑直接连接</h3>
-        <p lang-ko>화면과 입력은 접속한 컴퓨터와만 주고받습니다. Deskify 서버를 거치지 않습니다.</p>
-        <p lang-en>Screen and input go only between you and the computer you connect to, never through Deskify servers.</p>
-        <p lang-ja>画面や入力情報は接続先のコンピューターとの間でのみやり取りされます。Deskify のサーバーを経由することはありません。</p>
-        <p lang-zh>屏幕画面与输入操作仅在所连接的电脑之间传输，绝不经过 Deskify 服务器。</p>
-      </div>
-      <div class="card">
-        <h3 lang-ko>필요한 것만</h3><h3 lang-en>Only what’s needed</h3><h3 lang-ja>必要な情報だけ</h3><h3 lang-zh>仅保留必要信息</h3>
-        <p lang-ko>무엇을 언제 저장하는지는 <a href="privacy.html">개인정보처리방침</a>에 모두 적어 두었습니다.</p>
-        <p lang-en>Everything we store, and when, is in the <a href="privacy.html#en">privacy policy</a>.</p>
-        <p lang-ja>何をいつ保存するかについては、すべて<a href="privacy.html#en">プライバシーポリシー</a>に明記しています。</p>
-        <p lang-zh>我们在<a href="privacy.html#en">隐私政策</a>中完整说明了存储的内容与时机。</p>
-      </div>
+  <section class="closing">
+    <img class="closing-logo reveal" src="icon.png" alt="" width="72" height="72" loading="lazy">
+    <h2 class="display reveal"><span lang-ko>내 컴퓨터를, 어디서나.</span><span lang-en>Your computers, anywhere.</span><span lang-ja>あなたのコンピューターを、どこからでも。</span><span lang-zh>随时随地，使用你的电脑。</span></h2>
+    <div class="ctas center reveal">
+      <a class="btn-primary" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span><span lang-ja>ベータ</span><span lang-zh>测试版</span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="btn-ghost" href="mailto:support.deskify@gmail.com"><span lang-ko>문의하기</span><span lang-en>Contact</span><span lang-ja>お問い合わせ</span><span lang-zh>联系我们</span></a>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
+<footer class="foot">
+  <div class="foot-in">
     <span>© 2026 Deskify</span>
     <a href="privacy.html"><span lang-ko>개인정보처리방침</span><span lang-en>Privacy policy</span><span lang-ja>プライバシーポリシー</span><span lang-zh>隐私政策</span></a>
     <a href="terms.html"><span lang-ko>이용약관</span><span lang-en>Terms of use</span><span lang-ja>利用規約</span><span lang-zh>使用条款</span></a>
     <a href="help.html"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
     <a href="web.html"><span lang-ko>웹에서 쓰기 (베타)</span><span lang-en>Use on the web (beta)</span><span lang-ja>Web で使う (ベータ)</span><span lang-zh>在网页上使用 (测试版)</span></a>
     <a href="refund.html"><span lang-ko>환불 정책</span><span lang-en>Refund policy</span><span lang-ja>返金ポリシー</span><span lang-zh>退款政策</span></a>
-    <a class="sp" href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a>
+    <a class="mail" href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a>
   </div>
 </footer>
-
-<script>
-  // The language menu (한국어 / English / 日本語 / 简体中文); the choice is remembered.
-  (function () {
-    var titles = { ko: "Deskify · 원격 데스크톱 · SSH", en: "Deskify · Remote Desktop · SSH", ja: "Deskify · リモート デスクトップ · SSH", zh: "Deskify · 远程桌面 · SSH" };
-    var m = document.getElementById("lang"), root = document.documentElement;
-    function apply(l) { root.setAttribute("data-lang", l); root.lang = l === "zh" ? "zh-CN" : l; m.value = l; if (titles[l]) document.title = titles[l]; }
-    m.addEventListener("change", function () { try { localStorage.setItem("lang", m.value); } catch (e) {} apply(m.value); });
-    apply(root.getAttribute("data-lang"));
-  })();
-</script>
 </body>
 </html>
