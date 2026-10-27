@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-BpacsUhZ4Feg5Wf1FNtuAWNPqApcEZKbbOVVHH6e6Og=' 'self' https://www.gstatic.com/firebasejs/ https://apis.google.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: blob:; connect-src 'self' blob: https://deskify-api.kim290.workers.dev https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com http://127.0.0.1:* http://localhost:*; frame-src https://deskify-8bd6f.firebaseapp.com https://accounts.google.com https://apis.google.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-Pw7Nugx+qfkp2elf+g9OVnS64JgWBv9kcEJUMwD+kBk=' 'self' https://www.gstatic.com/firebasejs/ https://apis.google.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: blob:; connect-src 'self' blob: https://deskify-api.kim290.workers.dev https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com http://127.0.0.1:* http://localhost:*; frame-src https://deskify-8bd6f.firebaseapp.com https://accounts.google.com https://apis.google.com; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light dark">
@@ -19,6 +19,8 @@
     if (q) lang = q[1].toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en';
     document.documentElement.setAttribute('data-lang', lang);
     document.documentElement.lang = lang;
+    // An invitation link of the old form (support.html#c=<code>): the person getting help has their own page now.
+    if (/^#c=\d{9}$/.test(location.hash)) location.replace('gethelp.html' + (q ? '?lang=' + lang : '') + location.hash);
   })();
 </script>
 <style>
@@ -52,6 +54,16 @@
   .files li a { color: var(--accent); font-weight: 600; }
   .sessbar { flex-wrap: wrap; max-width: calc(100vw - 32px); justify-content: center; }
   .toast { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); z-index: 9; background: #222; color: #fff; padding: 10px 14px; border-radius: 10px; }
+  .gh-link { display: block; text-decoration: none; color: var(--text); border-color: var(--accent); font-size: 18px; font-weight: 700; }
+  .gh-link:hover { background: var(--card-hi); text-decoration: none; }
+  .gh-link small { display: block; margin-top: 6px; font-size: 13px; font-weight: 500; color: var(--dim); }
+  .want { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 12px; }
+  .want label { display: flex; gap: 8px; align-items: flex-start; border: 1px solid var(--line); border-radius: 10px; padding: 10px; cursor: pointer; font-size: 14px; line-height: 1.4; }
+  .want label:has(input:checked) { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  .want small { display: block; color: var(--dim); font-size: 12px; }
+  /* 가리키기 (view only): where this side's click points, briefly. */
+  .ping { position: fixed; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; border: 3px solid #ff4d4f; pointer-events: none; z-index: 7; animation: ping 1.2s ease-out forwards; }
+  @keyframes ping { from { transform: scale(.4); opacity: 1; } to { transform: scale(1.6); opacity: 0; } }
   [hidden] { display: none !important; }
 </style>
 </head>
@@ -75,18 +87,16 @@
   <section id="gate" hidden>
     <div class="card">
       <h1 data-ko="원격 지원" data-en="Remote support">원격 지원</h1>
-      <p data-ko="다른 사람의 Windows PC를 번호 하나로 도와줍니다. 도우미(돕는 사람)는 Deskify Pro 계정으로 로그인합니다." data-en="Help someone else's Windows PC with a single number. The helper signs in with a Deskify Pro account.">다른 사람의 Windows PC를 번호 하나로 도와줍니다.</p>
+      <p data-ko="다른 사람의 PC를 번호 하나로 도와줍니다. 돕는 사람은 구독(Pro 또는 클라우드 구독) 계정으로 로그인합니다." data-en="Help someone else's PC with a single number. The helper signs in with an account that has a subscription (Pro or Cloud).">다른 사람의 PC를 번호 하나로 도와줍니다.</p>
       <button id="btnSignIn" class="btn" data-ko="구글로 로그인" data-en="Sign in with Google">구글로 로그인</button>
       <div id="gateMsg" class="msg"></div>
-    </div>
-    <div class="card">
-      <h2 data-ko="도움을 받는 분이라면" data-en="If you are the one getting help">도움을 받는 분이라면</h2>
-      <p data-ko="설치나 로그인 없이 'Deskify 도움 받기'를 내려받아 실행한 뒤, 화면에 뜬 번호를 도우미에게 불러 주시거나 도우미가 준 번호를 입력하면 됩니다. 연결 전에 PC에서 '보기만 허용 / 조작까지 허용 / 거절'을 직접 고릅니다." data-en="With no install and no sign-in, download and run 'Get help with Deskify', then read the number on screen to your helper, or type the number they give you. Before anything connects, you choose 'view only / allow control / decline' on your own PC.">설치나 로그인 없이 'Deskify 도움 받기'를 내려받아 실행한 뒤, 번호를 주고받으면 됩니다.</p>
-      <span class="btn sec" id="dlSupport" aria-disabled="true" style="opacity:.6;cursor:default" data-ko="Deskify 도움 받기 · 정식 출시 때 제공" data-en="Get help with Deskify · coming at launch">Deskify 도움 받기 · 정식 출시 때 제공</span>
-      <p class="muted" data-ko="압축을 풀고 Deskify.exe를 실행합니다(Windows 10·11). Deskify PC판이 이미 있으면 트레이 메뉴나 홈의 '도움 받기'를 누르면 됩니다." data-en="Unzip it and run Deskify.exe (Windows 10/11). Already have Deskify for Windows? Use 'Get help' in its tray menu or home screen.">압축을 풀고 Deskify.exe를 실행합니다.</p>
       <p class="muted"><a href="help.html#support" data-ko="원격 지원 도움말" data-en="Remote support help">원격 지원 도움말</a></p>
-      <p class="muted" data-ko="연결 중에는 PC 위에 '원격 지원 중' 띠가 떠 있고, 언제든 끝낼 수 있습니다. 세션이 끝나면 아무것도 남지 않습니다." data-en="While connected a bar says 'Remote support in progress' and you can end it any time. Nothing is left behind afterwards.">연결 중에는 PC 위에 띠가 떠 있고, 언제든 끝낼 수 있습니다.</p>
     </div>
+    <!-- The person getting help has their own page (no sign-in): one prominent way there. -->
+    <a class="card gh-link" href="gethelp.html">
+      <span data-ko="도움 받는 분은 여기 →" data-en="Getting help? Start here →">도움 받는 분은 여기 →</span>
+      <small data-ko="계정 없이 무료 · 설치 없이 화면만 보여 줄 수도 있습니다" data-en="Free, no account · you can even just show your screen without installing anything">계정 없이 무료 · 설치 없이 화면만 보여 줄 수도 있습니다</small>
+    </a>
   </section>
 
   <!-- The helper: type the supported person's number, or make one for them. -->
@@ -102,7 +112,12 @@
     </div>
     <div class="card">
       <h2 data-ko="또는 내 번호를 알려주기" data-en="Or give them your number">또는 내 번호를 알려주기</h2>
-      <p data-ko="도움 받는 분이 'Deskify 도움 받기'에서 번호를 입력하기 어려우면, 대신 내가 번호를 만들어 불러 줄 수 있습니다." data-en="If it's easier for the other person, make a number here and read it to them to type.">대신 내가 번호를 만들어 불러 줄 수 있습니다.</p>
+      <p data-ko="내 번호를 만들어 불러 주거나 링크로 보냅니다. 받는 분은 프로그램으로 열거나, 설치 없이 브라우저에서 화면만 보여 줄 수 있습니다." data-en="Make a number and read it out or send it as a link. They open it with the tool, or just show their screen in the browser without installing anything.">내 번호를 만들어 불러 주거나 링크로 보냅니다.</p>
+      <!-- 조작 요청 / 화면만 요청: kept with the code; the invitation page puts the matching way first. -->
+      <div class="want" role="radiogroup">
+        <label><input type="radio" name="want" value="control" checked><span><span data-ko="조작 요청" data-en="Ask to control">조작 요청</span><small data-ko="화면을 보고 마우스·키보드로 도와줍니다" data-en="See the screen and use the mouse and keys">화면을 보고 마우스·키보드로 도와줍니다</small></span></label>
+        <label><input type="radio" name="want" value="view"><span><span data-ko="화면만 요청" data-en="Ask to view only">화면만 요청</span><small data-ko="설치 없이 브라우저 화면 공유를 먼저 권합니다" data-en="Suggests showing the screen in the browser, no install">설치 없이 브라우저 화면 공유를 먼저 권합니다</small></span></label>
+      </div>
       <button id="btnMake" class="btn sec" data-ko="번호 만들기" data-en="Make a number">번호 만들기</button>
     </div>
     <p class="muted"><span id="who"></span> · <a href="#" id="btnSignOut" data-ko="로그아웃" data-en="Sign out">로그아웃</a></p>
@@ -120,31 +135,7 @@
         <button id="btnMakeNew" class="btn sec" data-ko="새 번호" data-en="New code">새 번호</button>
         <button id="btnMakeCancel" class="btn sec" data-ko="취소" data-en="Cancel">취소</button>
       </div>
-      <p class="muted" data-ko="링크를 카카오톡·문자로 보내면, 받는 분이 PC에서 열어 프로그램을 받고 번호로 바로 연결할 수 있습니다. 링크는 번호와 함께 10분 뒤 끝납니다." data-en="Send the link by chat or text: they open it on their PC, get the tool and connect with the code. The link ends with the code, in 10 minutes.">링크를 카카오톡·문자로 보내면 받는 분이 PC에서 열어 바로 연결할 수 있습니다.</p>
-    </div>
-  </section>
-
-  <!-- A helper's link (support.html#c=<code>), opened by the person who needs help: no sign-in. -->
-  <section id="invite" hidden>
-    <div class="card">
-      <h1 id="invTitle">원격 지원 요청</h1>
-      <div id="invCode" class="code">…</div>
-      <p id="invLeft" class="muted" style="text-align:center"></p>
-      <div id="invWin">
-        <span class="btn" id="invDl" aria-disabled="true" style="opacity:.6;cursor:default" data-ko="도움 받기 프로그램 · 정식 출시 때 제공" data-en="Help tool · coming at launch">도움 받기 프로그램 · 정식 출시 때 제공</span>
-        <ol class="muted" style="line-height:1.7;padding-left:20px">
-          <li data-ko="받은 파일의 압축을 풀고 Deskify.exe를 실행합니다(설치·로그인 없음)." data-en="Unzip the download and run Deskify.exe (no install, no sign-in).">받은 파일의 압축을 풀고 Deskify.exe를 실행합니다.</li>
-          <li data-ko="창에서 '복사한 번호로 연결'을 누릅니다. 없으면 위 번호를 입력합니다." data-en="Press 'Connect with the copied code' in its window, or type the code above.">창에서 '복사한 번호로 연결'을 누릅니다.</li>
-          <li data-ko="허락 창에서 '보기만 허용' 또는 '조작까지 허용'을 고릅니다. 언제든 '끝내기'로 끝낼 수 있습니다." data-en="In the prompt choose 'View only' or 'Allow control'. 'End' stops it any time.">허락 창에서 '보기만 허용' 또는 '조작까지 허용'을 고릅니다.</li>
-        </ol>
-        <div class="row"><button id="invCopy" class="btn sec" data-ko="번호 복사" data-en="Copy the code">번호 복사</button></div>
-        <p class="muted" data-ko="Deskify PC판이 이미 있으면 트레이 메뉴나 홈의 '도움 받기'를 누르십시오. 모르는 사람이 보낸 링크라면 열지 마십시오." data-en="Already have Deskify for Windows? Use 'Get help' in its tray menu or home screen. Don't use a link from someone you don't know.">Deskify PC판이 이미 있으면 '도움 받기'를 누르십시오.</p>
-      </div>
-      <div id="invMobile" hidden>
-        <p data-ko="이 기능은 Windows PC에서 엽니다 · PC에서 이 링크를 열어 주십시오" data-en="This opens on a Windows PC · please open this link on your PC">이 기능은 Windows PC에서 엽니다 · PC에서 이 링크를 열어 주십시오</p>
-        <div class="row"><button id="invLink" class="btn" data-ko="링크 복사" data-en="Copy link">링크 복사</button></div>
-      </div>
-      <div id="invMsg" class="msg"></div>
+      <p class="muted" data-ko="링크를 카카오톡·문자로 보내면, 받는 분이 PC에서 열어 바로 연결할 수 있습니다. 링크는 번호와 함께 10분 뒤 끝납니다." data-en="Send the link by chat or text: they open it on their PC and connect right away. The link ends with the code, in 10 minutes.">링크를 카카오톡·문자로 보내면 받는 분이 PC에서 열어 바로 연결할 수 있습니다.</p>
     </div>
   </section>
 
@@ -194,6 +185,6 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="stream.min.js?v=7b1fece255"></script>
-<script src="support.min.js?v=f80836f265"></script>
+<script src="support.min.js?v=7263f58eb7"></script>
 </body>
 </html>

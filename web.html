@@ -67,6 +67,12 @@
   .wh-cta { margin-top: auto; padding-top: 20px; display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--accent-hi); font-weight: 600; font-size: 14px; }
   .wh-cta svg { transition: transform .12s; }
   .wh-card:hover .wh-cta svg { transform: translateX(3px); }
+  .wh-two { position: relative; z-index: 1; margin-top: auto; padding-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .wh-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 12px; border-radius: 12px; font-weight: 600; font-size: 14px; background: var(--accent); color: #fff; }
+  .wh-btn:hover { text-decoration: none; background: var(--accent-hi); }
+  .wh-btn.sec { background: var(--ghost); color: var(--text); border: 1px solid var(--ghost-line); }
+  .wh-btn.sec:hover { background: var(--ghost-hi); }
+  .wh-btn svg { width: 15px; height: 15px; }
   .wh-note { text-align: center; color: var(--dim); font-size: 13px; margin: 28px auto 0; max-width: 640px; line-height: 1.7; }
   .wh-note a { color: var(--accent-hi); }
   @media (max-width: 960px) {
@@ -153,11 +159,14 @@
         <b><span lang-ko>필요한 것</span><span lang-en>You need</span></b>
         <ul>
           <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span class="wh-who"><span lang-ko>돕는 사람</span><span lang-en>Helping</span></span> · <span lang-ko>구독 (Pro 또는 클라우드 구독)</span><span lang-en>a subscription (Pro or Cloud)</span></span></li>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span class="wh-who"><span lang-ko>도움 받는 사람</span><span lang-en>Getting help</span></span> · <span lang-ko>무료, 설치·로그인 없음 (Windows)</span><span lang-en>free, no install or account (Windows)</span></span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span class="wh-who"><span lang-ko>도움 받는 사람</span><span lang-en>Getting help</span></span> · <span lang-ko>무료, 계정 없음 (설치 없이 화면만 보여 주기도 됩니다)</span><span lang-en>free, no account (or just show the screen, nothing to install)</span></span></li>
         </ul>
-        <span class="wh-dl" aria-disabled="true" style="opacity:.6"><svg aria-hidden="true"><use href="#i-download"/></svg><span lang-ko>Deskify 도움 받기 · 정식 출시 때 제공</span><span lang-en>Get help with Deskify · coming at launch</span></span>
       </div>
-      <div class="wh-cta" aria-hidden="true"><span><span lang-ko>원격 지원 열기</span><span lang-en>Open remote support</span></span><svg><use href="#i-arrow"/></svg></div>
+      <!-- Two ways in: the helper's page and the page for the person getting help (above the card's own link). -->
+      <div class="wh-two">
+        <a class="wh-btn" href="support.html"><span lang-ko>돕기</span><span lang-en>Help</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="wh-btn sec" href="gethelp.html"><span lang-ko>도움 받기</span><span lang-en>Get help</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      </div>
     </article>
   </div>
 

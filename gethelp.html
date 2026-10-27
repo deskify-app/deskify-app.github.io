@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-MU+4TteRc+72nxwbeMslz9D/7d0QbO6h1cinKLDc0xY=' 'self'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: blob:; media-src 'self' blob: mediastream:; connect-src 'self' https://deskify-api.kim290.workers.dev http://127.0.0.1:* http://localhost:*; frame-src deskify-support:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<meta name="referrer" content="no-referrer">
+<title>Deskify 도움 받기</title>
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="remote.min.css?v=01f3a17d5d">
+<link rel="stylesheet" href="gethelp.min.css?v=f90d981489">
+<script>
+  (function () {
+    var saved = null; try { saved = localStorage.getItem('lang'); } catch (e) {}
+    var lang = saved || ((navigator.language || '').toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en');
+    var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
+    if (q) lang = q[1].toLowerCase().indexOf('ko') === 0 ? 'ko' : 'en';
+    document.documentElement.setAttribute('data-lang', lang);
+    document.documentElement.lang = lang;
+  })();
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-logo" viewBox="480 520 970 900"><path style="fill:var(--mark)" fill-rule="evenodd" d="M531,560 L961,560 C1271,560,1401,760,1401,966 C1401,1172,1271,1372,961,1372 L531,1372 ZM693,722 L956,722 C1131,722,1233,830,1233,966 C1233,1102,1131,1210,956,1210 L693,1210 Z"/><circle cx="771" cy="800" r="21" fill="#2eb872"/><circle cx="833" cy="800" r="21" fill="#2eb872"/><circle cx="895" cy="800" r="21" fill="#2eb872"/></symbol>
+  <symbol id="i-open" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 14v4.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-screen" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 20h7M12 16v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="10" r="2.2" fill="currentColor"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5.5c0 4.3-3 7.9-7 9.5-4-1.6-7-5.2-7-9.5V6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.8 12l2.2 2.2 4.4-4.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</defs></svg>
+
+<header class="rm-top">
+  <a class="rm-brand" href="./"><svg class="rm-logo" aria-hidden="true"><use href="#i-logo"/></svg><b>Deskify</b><span class="rm-tag"><span lang-ko>도움 받기</span><span lang-en>Get help</span></span></a>
+  <div class="rm-top-r">
+    <a class="rm-pill" href="help.html#support"><span lang-ko>도움말</span><span lang-en>Help</span></a>
+    <button class="rm-pill" id="btnLang" type="button">English</button>
+  </div>
+</header>
+
+<main class="gh-main">
+  <!-- ===== The first screen: who asked, the code, three ways to get help ===== -->
+  <section id="start">
+    <div class="gh-hero">
+      <svg class="gh-logo" aria-hidden="true"><use href="#i-logo"/></svg>
+      <div class="gh-brand">Deskify <span lang-ko>원격 지원</span><span lang-en>Remote support</span></div>
+      <h1 id="reqTitle" hidden></h1>
+      <p id="reqWho" class="gh-who" hidden><span lang-ko>이름은 도우미가 직접 정한 것입니다 · 아는 사람일 때만 계속하십시오. 은행·경찰·관공서는 원격 지원을 요구하지 않습니다.</span><span lang-en>The name is one the helper chose · Continue only if you know them. Banks, police and government offices don't ask for remote access.</span></p>
+    </div>
+
+    <div class="gh-code-box">
+      <div class="gh-code-label"><span lang-ko>도우미 번호</span><span lang-en>Helper's code</span></div>
+      <div id="codeShow" class="gh-code" hidden></div>
+      <input id="codeIn" class="gh-code-in" type="tel" inputmode="numeric" autocomplete="off" maxlength="13" placeholder="000 000 000" aria-label="9자리 번호">
+      <div id="codeLeft" class="gh-left"></div>
+      <div id="codeMsg" class="gh-msg" role="status"></div>
+    </div>
+
+    <div id="ways" class="gh-ways">
+      <!-- ① The installed tool opens by its link (deskify-support://join/<code>); off until the installer ships. -->
+      <article id="wayOpen" class="gh-way" hidden>
+        <div class="gh-way-n">1</div>
+        <div class="gh-way-b">
+          <h2><span lang-ko>도움 받기 열기</span><span lang-en>Open Get help</span></h2>
+          <p><span lang-ko>설치한 'Deskify 도움 받기'를 이 번호로 엽니다.</span><span lang-en>Opens the installed "Deskify Get help" with this code.</span></p>
+          <button id="btnOpen" class="gh-btn" type="button"><svg aria-hidden="true"><use href="#i-open"/></svg><span lang-ko>도움 받기 열기</span><span lang-en>Open Get help</span></button>
+          <p id="openHint" class="gh-hint" hidden><span lang-ko>열리지 않으면 아래 '프로그램 받기'로 받으십시오.</span><span lang-en>Nothing opened? Get the program below.</span></p>
+        </div>
+      </article>
+
+      <!-- ② The installer (Windows); "정식 출시 때 제공" until launch. -->
+      <article id="wayGet" class="gh-way">
+        <div class="gh-way-n" data-n="get">2</div>
+        <div class="gh-way-b">
+          <h2><span lang-ko>프로그램 받기</span><span lang-en>Get the program</span> <small class="gh-os">Windows</small></h2>
+          <p><span lang-ko>'Deskify 도움 받기'를 받아 실행합니다. 도우미가 허락을 받아 화면을 보고 도울 수 있습니다.</span><span lang-en>Download and run "Deskify Get help". With your permission, the helper can see and help with your screen.</span></p>
+          <div class="gh-two">
+            <a id="btnRun" class="gh-btn" href="#" aria-disabled="true"><svg aria-hidden="true"><use href="#i-download"/></svg><span><span lang-ko>설치 없이 실행</span><span lang-en>Run without installing</span></span></a>
+            <a id="btnGet" class="gh-btn sec sm2" href="#" aria-disabled="true"><span><span lang-ko>설치하기 · 다음부터 링크로 바로 열림</span><span lang-en>Install · links open it from then on</span></span></a>
+          </div>
+          <ul class="gh-which">
+            <li><b><span lang-ko>설치 없이 실행:</span><span lang-en>Run without installing:</span></b> <span lang-ko>한 번만 도움받을 때 · 다음엔 받은 파일을 다시 눌러 실행합니다</span><span lang-en>for getting help once · next time, open the downloaded file again</span></li>
+            <li><b><span lang-ko>설치하기:</span><span lang-en>Install:</span></b> <span lang-ko>자주 도움받는 가족이라면 · 다음부터 링크만 누르면 바로 열립니다</span><span lang-en>for family who get help often · from then on, a link opens it right away</span></li>
+          </ul>
+          <p id="getSoon" class="gh-soon"><span lang-ko>정식 출시 때 제공</span><span lang-en>Coming at launch</span></p>
+          <p id="getOther" class="gh-hint" hidden><span lang-ko>이 프로그램은 Windows PC용입니다. 다른 기기에서는 아래 '화면만 보여 주기'를 쓰거나, PC에서 이 링크를 여십시오.</span><span lang-en>This program is for Windows PCs. On other devices use "Just show my screen" below, or open this link on your PC.</span></p>
+        </div>
+      </article>
+
+      <!-- ③ No install: this browser shows the screen (view only). -->
+      <article id="wayShare" class="gh-way">
+        <div class="gh-way-n" data-n="share">3</div>
+        <div class="gh-way-b">
+          <h2><span lang-ko>설치 없이 화면만 보여 주기</span><span lang-en>Just show my screen, no install</span></h2>
+          <p><span lang-ko>이 브라우저에서 바로 화면을 보여 줍니다. 도우미는 보기만 하고 조작할 수 없습니다 (Windows·Mac의 Chrome·Edge·Safari).</span><span lang-en>Shows your screen from this browser right away. The helper can only look, not control (Chrome, Edge or Safari on Windows or Mac).</span></p>
+          <button id="btnShare" class="gh-btn" type="button"><svg aria-hidden="true"><use href="#i-screen"/></svg><span lang-ko>화면만 보여 주기</span><span lang-en>Show my screen</span></button>
+          <p id="shareNo" class="gh-hint" hidden></p>
+        </div>
+      </article>
+    </div>
+
+    <p class="gh-safe"><svg aria-hidden="true"><use href="#i-shield"/></svg><span><span lang-ko>허락 없이는 조작할 수 없습니다 · 언제든 [끝내기]로 멈출 수 있습니다</span><span lang-en>Nobody can control your PC without your permission · You can stop any time with [End]</span></span></p>
+    <p class="gh-scam"><span lang-ko>모르는 사람이 전화로 번호를 알려 달라고 하면 절대 알려 주지 마십시오.</span><span lang-en>If a stranger calls and asks for the code, never give it.</span></p>
+  </section>
+
+  <!-- ===== ③ before the browser's picker: pick the entire screen ===== -->
+  <section id="prep" hidden>
+    <div class="gh-card">
+      <h1><span lang-ko>공유할 화면을 고를 때 '전체 화면'을 고르십시오</span><span lang-en>When asked what to share, pick "Entire screen"</span></h1>
+      <!-- A sketch of the browser's picker: tabs, a window, the entire screen (chosen). -->
+      <svg class="gh-pick" viewBox="0 0 320 150" role="img" aria-label="전체 화면 선택">
+        <rect x="1" y="1" width="318" height="148" rx="12" class="pk-frame"/>
+        <rect x="16" y="14" width="84" height="22" rx="6" class="pk-tab"/><text x="58" y="29" class="pk-t">Tab</text>
+        <rect x="118" y="14" width="84" height="22" rx="6" class="pk-tab"/><text x="160" y="29" class="pk-t">Window</text>
+        <rect x="220" y="14" width="84" height="22" rx="6" class="pk-on"/><text x="262" y="29" class="pk-t on">Screen</text>
+        <rect x="200" y="48" width="104" height="66" rx="8" class="pk-sel"/>
+        <rect x="212" y="58" width="80" height="46" rx="4" class="pk-scr"/>
+        <rect x="16" y="48" width="170" height="66" rx="8" class="pk-dim"/>
+        <rect x="236" y="122" width="68" height="18" rx="6" class="pk-go"/><text x="270" y="135" class="pk-t on">OK</text>
+      </svg>
+      <p class="gh-small"><span lang-ko>탭이나 창 하나만 고르면 그 탭(창)만 보입니다. 화면이 여러 개면 도우미에게 보여 줄 화면을 고르십시오.</span><span lang-en>If you pick a tab or a window, only that tab (window) is shown. With several screens, pick the one to show.</span></p>
+      <p id="macLine" class="gh-small gh-mac" hidden><span lang-ko>Mac: 처음 한 번은 시스템 설정 → 개인정보 보호 및 보안 → 화면 기록에서 브라우저를 허용해야 합니다.</span><span lang-en>Mac: the first time, allow your browser in System Settings → Privacy &amp; Security → Screen Recording.</span></p>
+      <p class="gh-small"><span lang-ko>도우미는 화면을 보기만 합니다. 마우스·키보드·클립보드·파일은 전달되지 않습니다.</span><span lang-en>The helper only sees the screen. No mouse, keys, clipboard or files go through.</span></p>
+      <div class="gh-row">
+        <button id="btnStart" class="gh-btn" type="button"><span lang-ko>화면 공유 시작</span><span lang-en>Start sharing</span></button>
+        <button id="btnPrepBack" class="gh-btn sec" type="button"><span lang-ko>취소</span><span lang-en>Cancel</span></button>
+      </div>
+      <div id="prepMsg" class="gh-msg" role="status"></div>
+    </div>
+  </section>
+
+  <!-- ===== ③ sharing: the code (when this side made it), the state, the preview ===== -->
+  <section id="share" hidden>
+    <div class="gh-card">
+      <div id="myCodeBox" hidden>
+        <div class="gh-code-label"><span lang-ko>이 번호를 도우미에게 불러 주십시오</span><span lang-en>Read this code to your helper</span></div>
+        <div id="myCode" class="gh-code"></div>
+        <div id="myLeft" class="gh-left"></div>
+      </div>
+      <p id="shareState" class="gh-state"></p>
+      <div id="surfaceNote" class="gh-note" hidden>
+        <span><span lang-ko>지금은 탭(창)만 공유 중입니다 · 바탕화면 전체를 보여 주려면 다시 공유해 '전체 화면'을 고르십시오</span><span lang-en>Only a tab (window) is shared now · To show the whole desktop, share again and pick "Entire screen"</span></span>
+        <button id="btnReshare" class="gh-btn sec" type="button"><span lang-ko>다시 공유</span><span lang-en>Share again</span></button>
+      </div>
+      <div class="gh-preview" id="preview">
+        <video id="local" muted playsinline autoplay></video>
+        <div id="pointLayer" class="gh-points" aria-hidden="true"></div>
+      </div>
+      <p class="gh-small"><span lang-ko>도우미가 가리키는 곳은 위 미리 보기에만 표시됩니다(실제 바탕화면에는 그려지지 않습니다).</span><span lang-en>Where the helper points shows on the preview above only (it isn't drawn on your actual desktop).</span></p>
+      <div class="gh-row"><button id="btnEnd2" class="gh-btn red" type="button"><span lang-ko>끝내기</span><span lang-en>End</span></button></div>
+    </div>
+  </section>
+
+  <!-- ===== over ===== -->
+  <section id="over" hidden>
+    <div class="gh-card">
+      <h1 id="overTitle"></h1>
+      <p id="overMsg"></p>
+      <div class="gh-row"><a class="gh-btn" href="gethelp.html" id="btnAgain"><span lang-ko>처음으로</span><span lang-en>Start over</span></a></div>
+    </div>
+  </section>
+</main>
+
+<!-- While sharing: always on top of the page. -->
+<div id="liveBar" class="gh-live" hidden role="status">
+  <span class="gh-dot" aria-hidden="true"></span>
+  <span id="liveText"><span lang-ko>화면 공유 중</span><span lang-en>Sharing your screen</span></span>
+  <button id="btnEnd" class="gh-btn red sm" type="button"><span lang-ko>끝내기</span><span lang-en>End</span></button>
+</div>
+
+<!-- After the download starts: the browser's download button is up and to the right. -->
+<div id="dlArrow" class="gh-dl-arrow" hidden role="status"><svg aria-hidden="true"><use href="#i-arrow-up"/></svg><span><span lang-ko>브라우저 오른쪽 위 다운로드 표시를 눌러 실행하세요</span><span lang-en>Click the download icon at the top right of your browser to run it</span></span></div>
+
+<div id="toast" class="gh-toast" hidden></div>
+
+<script src="gethelp.min.js?v=5a2d324da5"></script>
+</body>
+</html>
