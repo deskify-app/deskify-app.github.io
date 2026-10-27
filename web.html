@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
 <title>Deskify 웹에서 쓰기</title>
-<meta name="description" content="설치 없이 브라우저에서 Deskify를 씁니다: 내 PC 화면 보기(웹 원격), 내 컴퓨터·서버 열기(웹 Deskify), 원격 지원.">
+<meta name="description" content="설치 없이 브라우저에서 Deskify를 씁니다: 웹 Deskify(내 PC 화면 보기, 보관함 컴퓨터 열기)와 원격 지원.">
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="remote.min.css?v=b829e9c79e">
@@ -26,7 +26,7 @@
   })();
 </script>
 <style>
-  /* 웹에서 쓰기: the start page for the three web pages (remote.html, app.html, support.html). The PC app's look from
+  /* 웹에서 쓰기: the start page for 웹 Deskify (app.html: its PC picker opens this PC's screen, remote.html, or the vault) and 원격 지원 (support.html, gethelp.html). The PC app's look from
      remote.css (tokens, title bar, buttons); only this page's own layout here. No script beyond the language button. */
   a.rm-pill:hover { text-decoration: none; }
   .wh-main { max-width: 1120px; margin: 0 auto; padding: 44px 16px 56px; }
@@ -34,7 +34,12 @@
   .wh-head h1 { font-size: 30px; line-height: 1.3; margin: 16px 0 8px; letter-spacing: -.5px; text-wrap: balance; }
   .wh-head .rm-lead { margin: 0; color: var(--dim); opacity: 1; }
   .wh-beta { display: inline-block; vertical-align: middle; font-size: 12px; font-weight: 600; letter-spacing: 0; color: var(--accent-hi); background: color-mix(in srgb, var(--accent) 12%, transparent); border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); border-radius: 999px; padding: 1px 9px; margin-left: 6px; position: relative; top: -3px; }
-  .wh-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .wh-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; max-width: 900px; margin: 0 auto; }
+  .wh-acts { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 10px; }
+  .wh-acts li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; line-height: 1.5; }
+  .wh-acts li svg { flex: none; width: 18px; height: 18px; margin-top: 2px; color: var(--accent-hi); stroke-width: 1.8; }
+  .wh-acts b { display: block; font-weight: 600; }
+  .wh-acts li > span > span { color: var(--dim); }
   .wh-card {
     position: relative; display: flex; flex-direction: column; min-width: 0; background: var(--card); border: 1px solid var(--line);
     border-radius: 20px; padding: 26px 24px 22px; box-shadow: var(--shadow); transition: border-color .12s, transform .12s;
@@ -121,33 +126,21 @@
     <article class="wh-card">
       <span class="wh-tag sub"><span lang-ko>구독</span><span lang-en>Subscription</span><span lang-ja>サブスク</span><span lang-zh>订阅</span></span>
       <div class="wh-ic wh-blue"><svg aria-hidden="true"><use href="#i-monitor"/></svg></div>
-      <h2><a class="wh-go" href="remote.html"><span lang-ko>내 PC 화면 보기</span><span lang-en>See my PC's screen</span><span lang-ja>自分の PC の画面を見る</span><span lang-zh>查看我的电脑屏幕</span></a></h2>
-      <p class="wh-kind"><span lang-ko>웹 원격</span><span lang-en>Web remote</span><span lang-ja>Web リモート</span><span lang-zh>网页远程</span></p>
-      <p class="wh-desc"><span lang-ko>집 PC 화면을 그대로 보고 조작합니다.</span><span lang-en>See your home PC's screen as it is and control it.</span><span lang-ja>自宅の PC 画面をそのまま見て操作します。</span><span lang-zh>原样查看并操作家中电脑的屏幕。</span></p>
+      <h2><a class="wh-go" href="app.html"><span lang-ko>웹 Deskify</span><span lang-en>Web Deskify</span><span lang-ja>Web 版 Deskify</span><span lang-zh>网页版 Deskify</span></a></h2>
+      <p class="wh-kind"><span lang-ko>내 PC · 보관함의 컴퓨터</span><span lang-en>My PC · the computers in my vault</span><span lang-ja>自分の PC · 保管庫のコンピューター</span><span lang-zh>我的电脑 · 保管库中的电脑</span></p>
+      <p class="wh-desc"><span lang-ko>내 PC를 고른 뒤 둘 중 하나를 엽니다.</span><span lang-en>Pick your PC, then open one of two things.</span><span lang-ja>自分の PC を選んでから、次のどちらかを開きます。</span><span lang-zh>选择你的电脑后，打开以下其中一项。</span></p>
+      <ul class="wh-acts">
+        <li><svg aria-hidden="true"><use href="#i-monitor"/></svg><span><b><span lang-ko>이 PC 화면</span><span lang-en>This PC's screen</span><span lang-ja>この PC の画面</span><span lang-zh>此电脑屏幕</span></b><span lang-ko>PC 화면을 그대로 보고 조작합니다.</span><span lang-en>See the PC's screen as it is and control it.</span><span lang-ja>PC の画面をそのまま見て操作します。</span><span lang-zh>原样查看并操作电脑屏幕。</span></span></li>
+        <li><svg aria-hidden="true"><use href="#i-server"/></svg><span><b><span lang-ko>보관함 컴퓨터 열기</span><span lang-en>Open vault computers</span><span lang-ja>保管庫のコンピューターを開く</span><span lang-zh>打开保管库电脑</span></b><span lang-ko>PC를 거쳐 보관함의 RDP·SSH·VNC를 엽니다.</span><span lang-en>Open your vault's RDP, SSH and VNC computers through the PC.</span><span lang-ja>PC を経由して保管庫の RDP・SSH・VNC を開きます。</span><span lang-zh>通过电脑打开保管库中的 RDP·SSH·VNC。</span></span></li>
+      </ul>
       <div class="wh-need">
         <b><span lang-ko>필요한 것</span><span lang-en>You need</span><span lang-ja>必要なもの</span><span lang-zh>所需条件</span></b>
         <ul>
           <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span lang-ko>PC에 Deskify</span><span lang-en>Deskify on the PC</span><span lang-ja>PC に Deskify</span><span lang-zh>电脑端 Deskify</span></span></li>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span lang-ko>PC 설정에서 "화면 공유 원격 허용" 켜기</span><span lang-en>"Allow screen sharing" turned on in the PC's settings</span><span lang-ja>PC の設定で「画面共有リモートを許可」をオンにする</span><span lang-zh>在电脑设置中开启“允许屏幕共享远程”</span></span></li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span lang-ko>PC 설정에서 쓰려는 것 켜기: "화면 공유 원격 허용"(이 PC 화면), "웹 Deskify에서 보관함 컴퓨터 열기"(보관함)</span><span lang-en>What you'll use turned on in the PC's settings: "Allow screen sharing" (this PC's screen), "Open vault computers from Web Deskify" (vault)</span><span lang-ja>PC の設定で使うものをオンにする:「画面共有リモートを許可」(この PC の画面)、「Web 版 Deskify で保管庫のコンピューターを開く」(保管庫)</span><span lang-zh>在电脑设置中开启要使用的功能：“允许屏幕共享远程”（此电脑屏幕）、“在网页版 Deskify 中打开保管库电脑”（保管库）</span></span></li>
         </ul>
       </div>
-      <div class="wh-cta" aria-hidden="true"><span><span lang-ko>웹 원격 열기</span><span lang-en>Open web remote</span><span lang-ja>Web リモートを開く</span><span lang-zh>打开网页远程</span></span><svg><use href="#i-arrow"/></svg></div>
-    </article>
-
-    <article class="wh-card">
-      <span class="wh-tag sub"><span lang-ko>구독</span><span lang-en>Subscription</span><span lang-ja>サブスク</span><span lang-zh>订阅</span></span>
-      <div class="wh-ic wh-violet"><svg aria-hidden="true"><use href="#i-server"/></svg></div>
-      <h2><a class="wh-go" href="app.html"><span lang-ko>내 컴퓨터·서버 열기</span><span lang-en>Open my computers and servers</span><span lang-ja>自分のコンピューター・サーバーを開く</span><span lang-zh>打开我的电脑·服务器</span></a></h2>
-      <p class="wh-kind"><span lang-ko>웹 Deskify</span><span lang-en>Web Deskify</span><span lang-ja>Web 版 Deskify</span><span lang-zh>网页版 Deskify</span></p>
-      <p class="wh-desc"><span lang-ko>집 PC를 거쳐 보관함의 RDP·SSH·VNC를 엽니다.</span><span lang-en>Open the RDP, SSH and VNC computers in your vault, through your home PC.</span><span lang-ja>自宅の PC を経由して保管庫の RDP・SSH・VNC を開きます。</span><span lang-zh>通过家中电脑打开保管库中的 RDP·SSH·VNC。</span></p>
-      <div class="wh-need">
-        <b><span lang-ko>필요한 것</span><span lang-en>You need</span><span lang-ja>必要なもの</span><span lang-zh>所需条件</span></b>
-        <ul>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span lang-ko>PC에 Deskify</span><span lang-en>Deskify on the PC</span><span lang-ja>PC に Deskify</span><span lang-zh>电脑端 Deskify</span></span></li>
-          <li><svg aria-hidden="true"><use href="#i-check"/></svg><span><span lang-ko>PC 설정에서 "웹에서 내 컴퓨터 목록·원격 쓰기" 켜기</span><span lang-en>"Computer list and remote access from the web" turned on in the PC's settings</span><span lang-ja>PC の設定で「Web からコンピューター一覧・リモートを使う」をオンにする</span><span lang-zh>在电脑设置中开启“从网页使用电脑列表和远程”</span></span></li>
-        </ul>
-      </div>
-      <div class="wh-cta" aria-hidden="true"><span><span lang-ko>웹 Deskify 열기</span><span lang-en>Open web Deskify</span><span lang-ja>Web 版 Deskify を開く</span><span lang-zh>打开网页版 Deskify</span></span><svg><use href="#i-arrow"/></svg></div>
+      <div class="wh-cta" aria-hidden="true"><span><span lang-ko>웹 Deskify 열기</span><span lang-en>Open Web Deskify</span><span lang-ja>Web 版 Deskify を開く</span><span lang-zh>打开网页版 Deskify</span></span><svg><use href="#i-arrow"/></svg></div>
     </article>
 
     <article class="wh-card">
@@ -171,10 +164,10 @@
   </div>
 
   <p class="wh-note">
-    <span lang-ko>구글로 한 번 로그인하면 같은 브라우저에서 세 페이지 모두 로그인된 채로 열립니다. 최신 Chrome·Edge·Safari에서 씁니다. <a href="help.html#web">자세한 도움말</a></span>
-    <span lang-en>Sign in with Google once and all three pages open signed in, in the same browser. Use a current Chrome, Edge or Safari. <a href="help.html#web">Help</a></span>
-    <span lang-ja>Google で一度ログインすれば、同じブラウザーで 3 つのページすべてがログインした状態で開きます。最新の Chrome・Edge・Safari でご利用いただけます。<a href="help.html#web">詳しいヘルプ</a></span>
-    <span lang-zh>使用 Google 登录一次，即可在同一浏览器中以登录状态打开全部三个页面。请在最新版本的 Chrome·Edge·Safari 中使用。<a href="help.html#web">详细帮助</a></span>
+    <span lang-ko>구글로 한 번 로그인하면 같은 브라우저에서 웹 Deskify와 원격 지원 모두 로그인된 채로 열립니다. 최신 Chrome·Edge·Safari에서 씁니다. <a href="help.html#web">자세한 도움말</a></span>
+    <span lang-en>Sign in with Google once and both Web Deskify and remote support open signed in, in the same browser. Use a current Chrome, Edge or Safari. <a href="help.html#web">Help</a></span>
+    <span lang-ja>Google で一度ログインすれば、同じブラウザーで Web 版 Deskify とリモートサポートの両方がログインした状態で開きます。最新の Chrome・Edge・Safari でご利用いただけます。<a href="help.html#web">詳しいヘルプ</a></span>
+    <span lang-zh>使用 Google 登录一次，即可在同一浏览器中以登录状态打开网页版 Deskify 和远程协助。请在最新版本的 Chrome·Edge·Safari 中使用。<a href="help.html#web">详细帮助</a></span>
   </p>
 </main>
 
