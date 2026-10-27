@@ -50,7 +50,7 @@
     <a class="btn primary" id="openApp" href="#" hidden>Deskify 앱에서 열기</a>
     <a class="btn" href="https://play.google.com/store/apps/details?id=kr.co.sdh.deskify">Google Play에서 Deskify 받기</a>
   </div>
-  <p class="note">컴퓨터에서 이 페이지를 열었다면 <a href="remote.html">deskify-app.github.io/remote.html</a>을 여십시오.</p>
+  <p class="note">컴퓨터에서 이 페이지를 열었다면 <a href="remote.html">deskify-app.com/remote.html</a>을 여십시오.</p>
   </div>
   <div lang-en>
   <h1>Scan this QR with the Deskify app</h1>
@@ -59,7 +59,7 @@
     <a class="btn primary" id="openAppEn" href="#" hidden>Open in the Deskify app</a>
     <a class="btn" href="https://play.google.com/store/apps/details?id=kr.co.sdh.deskify">Get Deskify on Google Play</a>
   </div>
-  <p class="note">Opened this on a computer? Go to <a href="remote.html">deskify-app.github.io/remote.html</a>.</p>
+  <p class="note">Opened this on a computer? Go to <a href="remote.html">deskify-app.com/remote.html</a>.</p>
   </div>
   <div lang-ja>
   <h1>この QR は Deskify アプリでスキャンしてください</h1>
@@ -68,7 +68,7 @@
     <a class="btn primary" id="openAppJa" href="#" hidden>Deskify アプリで開く</a>
     <a class="btn" href="https://play.google.com/store/apps/details?id=kr.co.sdh.deskify">Google Play で Deskify を入手</a>
   </div>
-  <p class="note">コンピューターでこのページを開いた場合は、<a href="remote.html">deskify-app.github.io/remote.html</a>を開いてください。</p>
+  <p class="note">コンピューターでこのページを開いた場合は、<a href="remote.html">deskify-app.com/remote.html</a>を開いてください。</p>
   </div>
   <div lang-zh>
   <h1>请使用 Deskify 应用扫描此二维码</h1>
@@ -77,7 +77,7 @@
     <a class="btn primary" id="openAppZh" href="#" hidden>在 Deskify 应用中打开</a>
     <a class="btn" href="https://play.google.com/store/apps/details?id=kr.co.sdh.deskify">在 Google Play 获取 Deskify</a>
   </div>
-  <p class="note">如果在电脑上打开了此页面，请访问 <a href="remote.html">deskify-app.github.io/remote.html</a>。</p>
+  <p class="note">如果在电脑上打开了此页面，请访问 <a href="remote.html">deskify-app.com/remote.html</a>。</p>
   </div>
 </main>
 <script>
@@ -87,6 +87,7 @@
     var m = /[#&?]pair=([A-Za-z0-9_-]{16,32})/.exec(location.hash + location.search);
     if (!m || !/Android/i.test(navigator.userAgent)) return;
     var back = encodeURIComponent('https://play.google.com/store/apps/details?id=kr.co.sdh.deskify');
+    // The old host on purpose: installs from before the domain move only know that one; newer ones know both.
     var url = 'intent://deskify-app.github.io/pair?pair=' + m[1] + '#Intent;scheme=https;package=kr.co.sdh.deskify;S.browser_fallback_url=' + back + ';end';
     ['openApp', 'openAppEn', 'openAppJa', 'openAppZh'].forEach(function (id) { var a = document.getElementById(id); a.href = url; a.hidden = false; });
   })();
