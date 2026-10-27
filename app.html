@@ -28,10 +28,6 @@
 </script>
 </head>
 <body>
-<!-- 웹판 Deskify: the Deskify app in a browser. The user's own Deskify PC is the gateway (a browser can't speak SSH):
-     sign in (Google or a QR from the phone app), pick the PC, and its vault shows here without any password; a server
-     opens in a tab, the PC connecting with what it keeps (D:\deskify\docs\Deskify-웹원격-설계.md §웹판 Deskify).
-     Everything is in app.js; the look is the PC app's (remote.css for the shared parts, app.css for the vault and tabs). -->
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
@@ -86,7 +82,6 @@
 </header>
 
 <main class="rm-main" id="main">
-  <!-- Sign in: a QR the phone app scans (this browser let in "this once", the PC picked), or Google. -->
   <section id="gate" class="rm-card rm-card-wide rm-center" hidden>
     <svg class="rm-logo-big" aria-hidden="true"><use href="#i-logo"/></svg>
     <h1><span lang-ko>브라우저에서 쓰는 Deskify</span><span lang-en>Deskify in your browser</span></h1>
@@ -136,7 +131,6 @@
     <div class="rm-actions"><button id="askAgain" class="rm-btn rm-primary" type="button" hidden><svg><use href="#i-refresh"/></svg><span lang-ko>다시 요청</span><span lang-en>Ask again</span></button></div>
   </section>
 
-  <!-- Which PC is the gateway: the account's PCs as the PC app's cards. -->
   <section id="pcs" class="rm-home" hidden>
     <h1 id="hello" class="rm-hello"></h1>
     <div id="pcsInfo" class="rm-banner" hidden></div>
@@ -168,7 +162,6 @@
   </section>
 </main>
 
-<!-- The app: the vault on the left (the PC app's vault panel), the open servers as tabs on the right. -->
 <div id="app" class="ap" hidden>
   <aside class="ap-side" id="side">
     <div class="ap-side-top">
@@ -228,7 +221,6 @@
   </section>
 </div>
 
-<!-- A password typed for one connection (never kept). -->
 <div id="ask" class="ap-modal" hidden>
   <form class="rm-card ap-ask" id="askForm" autocomplete="off">
     <div class="rm-head"><span class="rm-mark"><svg><use href="#i-key"/></svg></span>
@@ -254,6 +246,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-web-links@0.11.0/lib/addon-web-links.js"></script>
 <script src="qrcode.min.js?v=0d9b5dc921"></script>
 <script src="stream.min.js?v=7b1fece255"></script>
-<script src="app.min.js?v=37bd1bc4ea"></script>
+<script src="app.min.js?v=5f83a22285"></script>
 </body>
 </html>

@@ -26,12 +26,7 @@
 </script>
 </head>
 <body>
-<!-- 웹 원격: the user's own Deskify PC from this browser (D:\deskify\docs\Deskify-웹원격-설계.md). The browser signs in with
-     the Google account, joins it as a device the account's phone or PC must allow, then dials the PC over WebRTC
-     (direct first; a relay only when no direct path exists). Everything is in remote.js; the look follows the PC app
-     (windows/Deskify.Avalonia/UI/Ui.cs: its colours, Pretendard, cards, the session toolbar). -->
 
-<!-- Icons (stroke, 24 × 24), used as <svg><use href="#i-…"/></svg>. -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="i-logo" viewBox="480 520 970 900"><path style="fill:var(--mark)" fill-rule="evenodd" d="M531,560 L961,560 C1271,560,1401,760,1401,966 C1401,1172,1271,1372,961,1372 L531,1372 ZM693,722 L956,722 C1131,722,1233,830,1233,966 C1233,1102,1131,1210,956,1210 L693,1210 Z"/><circle cx="771" cy="800" r="21" fill="#2eb872"/><circle cx="833" cy="800" r="21" fill="#2eb872"/><circle cx="895" cy="800" r="21" fill="#2eb872"/></symbol>
@@ -75,8 +70,6 @@
 </header>
 
 <main class="rm-main" id="main">
-  <!-- Sign in: the PC app's sign-in card (logo, title, words, one button, what it means). -->
-  <!-- Sign in: a QR the phone app scans first (it lets this browser in "this once" and picks the PC); Google below. -->
   <section id="gate" class="rm-card rm-card-wide rm-center" hidden>
     <svg class="rm-logo-big" aria-hidden="true"><use href="#i-logo"/></svg>
     <h1><span lang-ko>브라우저로 내 PC 원격</span><span lang-en>Your PC, from a browser</span></h1>
@@ -108,7 +101,6 @@
     <p class="rm-agree"><span lang-ko>로그인하면 <a href="terms.html">이용약관</a>과 <a href="privacy.html">개인정보처리방침</a>에 동의하는 것으로 봅니다.</span><span lang-en>By signing in you agree to the <a href="terms.html">Terms</a> and the <a href="privacy.html">Privacy Policy</a>.</span></p>
   </section>
 
-  <!-- Waiting to be let in: the PC app's waiting card (amber, a lock), with the request's countdown. -->
   <section id="wait" class="rm-card" hidden>
     <div class="rm-head">
       <span class="rm-mark rm-amber"><svg><use href="#i-shield"/></svg></span>
@@ -127,7 +119,6 @@
     <div class="rm-actions"><button id="askAgain" class="rm-btn rm-primary" type="button" hidden><svg><use href="#i-refresh"/></svg><span lang-ko>다시 요청</span><span lang-en>Ask again</span></button></div>
   </section>
 
-  <!-- Home: the account's PCs as the PC app's 최근 연결 cards. -->
   <section id="pcs" class="rm-home" hidden>
     <h1 id="hello" class="rm-hello"></h1>
     <div id="pcsInfo" class="rm-banner" hidden></div>
@@ -160,7 +151,6 @@
 </main>
 
 <div id="session" class="rm-session" hidden>
-  <!-- The session toolbar: the PC app's RDP tab toolbar on a desktop browser; on a phone a floating tab that folds. -->
   <div id="bar" class="rm-bar">
     <button id="barFold" class="rm-fold" type="button" data-tip-ko="도구 막대" data-tip-en="Toolbar"><svg class="rm-logo-s" aria-hidden="true"><use href="#i-logo"/></svg><svg class="rm-fold-ch"><use href="#i-down"/></svg></button>
     <div class="rm-bar-l">
@@ -186,7 +176,6 @@
       <span class="rm-gap"></span>
       <button id="btnHang" class="rm-tool rm-hang" type="button" data-tip-ko="끊기" data-tip-en="Disconnect"><svg><use href="#i-hang"/></svg><span class="rm-tool-t"><span lang-ko>끊기</span><span lang-en>Disconnect</span></span></button>
     </div>
-    <!-- The choices behind the menus (remote.js reads and sets them; the menus are drawn from them). -->
     <div class="rm-choices" aria-hidden="true">
       <select id="quality" tabindex="-1">
         <option value="auto" data-ko="자동" data-en="Auto" data-sub-ko="네트워크에 맞춤" data-sub-en="Fits the network">자동</option>
@@ -227,6 +216,6 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="qrcode.min.js?v=0d9b5dc921"></script>
 <script src="stream.min.js?v=7b1fece255"></script>
-<script src="remote.min.js?v=972fbbd552"></script>
+<script src="remote.min.js?v=d6dddac68e"></script>
 </body>
 </html>
