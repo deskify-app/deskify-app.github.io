@@ -17,8 +17,12 @@
   root.lang = lang === "zh" ? "zh-CN" : lang;
   root.classList.add("js");
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  // The pinned sequence only with motion allowed; otherwise the six scenes stand one under another.
-  if (!reduce) root.classList.add("motion");
+  // Desktop (mouse / trackpad): the pinned sequence with motion allowed, else the six scenes stand one under another.
+  // Touch screens: six ordinary full-screen scenes (html.scenes, pure CSS with native mandatory snap) — a fast flick
+  // can never stop on a half-switched pinned scene.
+  var fine = !!(window.matchMedia && matchMedia("(hover: hover) and (pointer: fine)").matches);
+  if (!fine) root.classList.add("scenes");
+  else if (!reduce) root.classList.add("motion");
 
   var titles = { ko: "Deskify · 원격 데스크톱 · SSH", en: "Deskify · Remote Desktop · SSH", ja: "Deskify · リモート デスクトップ · SSH", zh: "Deskify · 远程桌面 · SSH" };
 
@@ -30,7 +34,7 @@
 
     var bar = document.querySelector(".nav");
     var hero = document.querySelector(".hero2");
-    var track = document.querySelector(".seq-track");
+    var track = root.classList.contains("motion") ? document.querySelector(".seq-track") : null;
     var scenes = track ? track.querySelectorAll("[data-scene]") : [];
     var count = track ? track.querySelectorAll(".sq-cap").length : 0;
     var ticks = track ? track.querySelectorAll(".sq-ticks i") : [];
@@ -77,8 +81,7 @@
     }
     function ask() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
     // JS paging only with a mouse / trackpad (fine pointer that can hover) and motion allowed; touch screens keep
-    // native scrolling with the CSS proximity snap
-    var fine = window.matchMedia && matchMedia("(hover: hover) and (pointer: fine)").matches;
+    // native scrolling with the CSS mandatory snap (html.scenes)
     var pager = reduce || !fine ? null : makePager(ask);
     if (track) show(0);
     frame();

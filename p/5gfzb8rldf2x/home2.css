@@ -425,15 +425,44 @@ html:not(.motion) .seq-track { scroll-snap-align: start; }
 /* ---- fourth pass: JS paging on desktops with a mouse / trackpad (home2.js adds html.paging unless reduced motion);
    CSS snap stays the no-JS fallback ---- */
 html.paging { scroll-snap-type: none; }
-/* touch screens: native scrolling with a gentle proximity snap — only the one-screen stops (first screen, statement,
-   the six scenes, closing) attract; the tall sections have no snap point and scroll freely */
-@media (hover: none), (pointer: coarse) {
-  html { scroll-snap-type: y proximity; }
-  .more, .win, .web, .safe, .plans, html:not(.motion) .seq-track { scroll-snap-align: none; }
-  .hero2, .seq-intro, .closing, .motion .sq-snaps i { scroll-snap-align: start; scroll-snap-stop: normal; }
-  /* the very bottom is a snap point too, or the closing's pull would keep the footer out of reach */
-  .foot { scroll-snap-align: end; scroll-snap-stop: normal; }
-}
+/* ---- touch screens (html.scenes, set by home2.js when there is no fine pointer): no pinned sequence and no JS
+   scrolling. The six scenes are ordinary full screens (100svh each: device on top, words under it, its own step
+   bar), and the page snaps natively and crisply (mandatory + stop: always) on every one-screen stop. The tall
+   sections also snap at their start; a snap area taller than the screen scrolls freely inside (CSS Scroll Snap),
+   so they stay fully readable. svh sizing: the URL bar showing or hiding moves nothing. ---- */
+html.scenes { scroll-snap-type: y mandatory; }
+html.scenes .hero2, html.scenes .seq-intro, html.scenes .closing { scroll-snap-align: start; scroll-snap-stop: always; }
+html.scenes .more, html.scenes .win, html.scenes .web, html.scenes .safe, html.scenes .plans { scroll-snap-align: start; scroll-snap-stop: normal; }
+html.scenes .seq-track { scroll-snap-align: none; }
+html.scenes .foot { scroll-snap-align: end; }
+/* one snap marker per scene, exactly one small screen apart */
+html.scenes .sq-snaps { display: grid; grid-template-rows: repeat(6, 100vh); grid-template-rows: repeat(6, 100svh); position: absolute; inset: 0; pointer-events: none; }
+html.scenes .sq-snaps i { scroll-snap-align: start; scroll-snap-stop: always; }
+/* each scene = a device row and a words row that add up to one small screen */
+html.scenes { --cap: clamp(240px, 42svh, 420px); }
+html.scenes .seq-sticky { grid-template-rows: repeat(6, calc(100svh - var(--cap)) var(--cap)); padding: 0; gap: 0; }
+html.scenes .sq-dev { grid-column: 1; align-self: end; justify-self: center; margin: 0; position: relative; }
+html.scenes .sq-dev.phone { height: calc(100svh - var(--cap) - 76px); width: auto; aspect-ratio: 1080 / 2400; }
+html.scenes .sq-dev.phone .screen { height: 100%; }
+html.scenes .sq-dev.tablet, html.scenes .sq-dev.monitor, html.scenes .sq-dev.browser, html.scenes .sq-dev.pair {
+  width: min(100%, 900px, calc((100svh - var(--cap) - 84px) * 1.55)); }
+html.scenes .sq-cap { grid-column: 1; align-self: stretch; position: relative; width: 100%; max-width: 640px; margin: 0 auto;
+  padding: 22px 0 46px; text-align: left; overflow: hidden; }
+html.scenes .sq-cap::after { content: ""; position: absolute; left: 50%; bottom: 18px; translate: -50% 0; width: 198px; height: 3px;
+  background: linear-gradient(90deg, #f5f5f7 calc(var(--k) * 34px - 6px), rgba(255, 255, 255, .18) 0);
+  -webkit-mask: repeating-linear-gradient(90deg, #000 0 28px, transparent 28px 34px); mask: repeating-linear-gradient(90deg, #000 0 28px, transparent 28px 34px); }
+html.scenes .sq-ticks { display: none; }
+html.scenes [data-scene="0"].sq-dev { grid-row: 1; } html.scenes .sq-cap[data-scene="0"] { grid-row: 2; --k: 1; }
+html.scenes [data-scene="1"].sq-dev { grid-row: 3; } html.scenes .sq-cap[data-scene="1"] { grid-row: 4; --k: 2; }
+html.scenes [data-scene="2"].sq-dev { grid-row: 5; } html.scenes .sq-cap[data-scene="2"] { grid-row: 6; --k: 3; }
+html.scenes [data-scene="3"].sq-dev { grid-row: 7; } html.scenes .sq-cap[data-scene="3"] { grid-row: 8; --k: 4; }
+html.scenes [data-scene="4"].sq-dev { grid-row: 9; } html.scenes .sq-cap[data-scene="4"] { grid-row: 10; --k: 5; }
+html.scenes [data-scene="5"].sq-dev { grid-row: 11; } html.scenes .sq-cap[data-scene="5"] { grid-row: 12; --k: 6; }
+/* the still-mode spacing is not used here */
+html.scenes .seq-sticky { padding-bottom: 0; }
+@media (min-width: 700px) { html.scenes .sq-cap { text-align: center; } }
+/* short phones: the words get a little more of the screen, the device a little less */
+@media (max-height: 700px) { html.scenes { --cap: 47svh; } html.scenes .sq-cap { padding: 16px 0 40px; } }
 .pager-dots { display: none; }
 @media (min-width: 900px) and (hover: hover) and (pointer: fine) {
   html.paging .pager-dots { display: flex; flex-direction: column; position: fixed; right: 12px; top: 50%; translate: 0 -50%; z-index: 40; mix-blend-mode: difference; }
