@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@xterm/xterm@5.5.0/css/xterm.css">
 <link rel="stylesheet" href="remote.min.css?v=e97312b5be">
-<link rel="stylesheet" href="app.min.css?v=be995ae9eb">
+<link rel="stylesheet" href="app.min.css?v=50ca03739e">
 <script>
   (function () {
     // Language: ?lang= from the apps (their UI language) for this visit, else #en, else the visitor's last choice,
@@ -68,6 +68,8 @@
     <symbol id="i-newfolder" viewBox="0 0 24 24"><path d="M3.5 7.5A1.5 1.5 0 0 1 5 6h4l2 2h8a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 19 19H5a1.5 1.5 0 0 1-1.5-1.5z"/><path d="M12 11v5M9.5 13.5h5"/></symbol>
     <symbol id="i-kbd" viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"/><path d="M6.5 9.5h.01M10 9.5h.01M13.5 9.5h.01M17 9.5h.01M6.5 12.5h.01M17 12.5h.01M8.5 15.5h7"/></symbol>
     <symbol id="i-clip" viewBox="0 0 24 24"><path d="M9 3.5h6v3H9z"/><path d="M8 5H6.5a1.5 1.5 0 0 0-1.5 1.5v13A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5v-13A1.5 1.5 0 0 0 17.5 5H16"/></symbol>
+    <symbol id="i-win" viewBox="0 0 24 24"><path d="M4 5.5l7-1v7H4zM13 4.2l7-1.2v8.5h-7zM4 12.5h7v7l-7-1zM13 12.5h7V21l-7-1.2z"/></symbol>
+    <symbol id="i-mouse" viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="6"/><path d="M12 7v4"/></symbol>
     <symbol id="i-list" viewBox="0 0 24 24"><path d="M8 7h12M8 12h12M8 17h12M4 7h.01M4 12h.01M4 17h.01"/></symbol>
   </defs>
 </svg>
@@ -111,7 +113,7 @@
     <ul class="rm-feats">
       <li><svg><use href="#i-key"/></svg><span lang-ko>비밀번호와 키는 브라우저로 오지 않습니다. 내 PC가 저장된 정보로 접속합니다</span><span lang-en>Passwords and keys never come to the browser: your PC connects with what it keeps</span><span lang-ja>パスワードや鍵はブラウザーに送信されません。PC が保存された情報で接続します</span><span lang-zh>密码和密钥不会发送到浏览器。你的电脑将使用已保存的信息进行连接</span></li>
       <li><svg><use href="#i-shield"/></svg><span lang-ko>이 계정의 폰이나 PC가 허용한 브라우저만 들어옵니다. QR로 들어온 브라우저는 이 페이지를 닫으면 빠집니다</span><span lang-en>Only browsers your phone or PC allows get in. One let in by QR is gone when this page closes</span><span lang-ja>このアカウントのスマホや PC が許可したブラウザーのみアクセスできます。QR で接続したブラウザーはこのページを閉じると解除されます</span><span lang-zh>仅允许此账号的手机或电脑所授权的浏览器访问。通过二维码访问的浏览器在此页面关闭后将退出</span></li>
-      <li><svg><use href="#i-monitor"/></svg><span lang-ko>PC의 설정 → 모바일 기기 → 화면 공유 원격에서 쓰려는 것을 켭니다: "화면 공유 원격 허용"(이 PC 화면), "웹 Deskify에서 보관함 컴퓨터 열기"(보관함) (구독)</span><span lang-en>Turn on what you'll use in the PC's Settings → Mobile devices → Screen sharing: "Allow screen sharing" (this PC's screen), "Open vault computers from Web Deskify" (vault) (subscription)</span><span lang-ja>PC の設定 → モバイル端末 → 画面共有リモートで使うものをオンにします:「画面共有リモートを許可」(この PC の画面)、「Web 版 Deskify で保管庫のコンピューターを開く」(保管庫) (購読)</span><span lang-zh>在电脑的设置 → 移动设备 → 屏幕共享远程中开启要使用的功能：“允许屏幕共享远程”（此电脑屏幕）、“在网页版 Deskify 中打开保管库电脑”（保管库）(订阅)</span></li>
+      <li><svg><use href="#i-monitor"/></svg><span lang-ko>PC의 설정 → 모바일 기기 → 화면 공유 원격에서 쓰려는 것을 켭니다: "화면 공유 원격 허용"(이 PC 화면 보기), "웹 Deskify의 보관함에서 접속 허용"(보관함에서 접속) (구독)</span><span lang-en>Turn on what you'll use in the PC's Settings → Mobile devices → Screen sharing: "Allow screen sharing" (View this PC's screen), "Allow Connect from vault in Web Deskify" (Connect from vault) (subscription)</span><span lang-ja>PC の設定 → モバイル端末 → 画面共有リモートで使うものをオンにします:「画面共有リモートを許可」(この PC の画面を見る)、「Web 版 Deskify の『保管庫から接続』を許可」(保管庫から接続) (購読)</span><span lang-zh>在电脑的设置 → 移动设备 → 屏幕共享远程中开启要使用的功能：“允许屏幕共享远程”（查看此电脑屏幕）、“允许网页版 Deskify 的‘从保管库连接’”（从保管库连接）(订阅)</span></li>
     </ul>
     <p class="rm-agree"><span lang-ko>로그인하면 <a href="terms.html">이용약관</a>과 <a href="privacy.html">개인정보처리방침</a>에 동의하는 것으로 봅니다.</span><span lang-en>By signing in you agree to the <a href="terms.html">Terms</a> and the <a href="privacy.html">Privacy Policy</a>.</span><span lang-ja>ログインすると、<a href="terms.html">利用規約</a>および<a href="privacy.html">プライバシーポリシー</a>に同意したものとみなされます。</span><span lang-zh>登录即表示你同意<a href="terms.html">服务条款</a>和<a href="privacy.html">隐私政策</a>。</span></p>
   </section>
@@ -143,7 +145,7 @@
       <span><span lang-ko>내 PC</span><span lang-en>My PCs</span><span lang-ja>自分の PC</span><span lang-zh>我的电脑</span></span>
       <button id="reload" class="rm-icon" type="button" data-tip-ko="새로 고침" data-tip-en="Refresh" data-tip-ja="更新" data-tip-zh="刷新"><svg><use href="#i-refresh"/></svg></button>
     </div>
-    <p class="ap-pcs-lead"><span lang-ko><b>이 PC 화면</b>은 PC 화면을 그대로 보고 조작하고, <b>보관함 컴퓨터 열기</b>는 그 PC를 거쳐 보관함의 RDP·SSH·VNC를 엽니다.</span><span lang-en><b>This PC's screen</b> shows the PC's screen as it is to control; <b>Open vault computers</b> opens your vault's RDP, SSH and VNC through that PC.</span><span lang-ja><b>この PC の画面</b>は PC の画面をそのまま見て操作し、<b>保管庫のコンピューターを開く</b>はその PC を経由して保管庫の RDP・SSH・VNC を開きます。</span><span lang-zh><b>此电脑屏幕</b>可原样查看并操作电脑屏幕；<b>打开保管库电脑</b>可通过该电脑打开保管库中的 RDP·SSH·VNC。</span></p>
+    <p class="ap-pcs-lead"><span lang-ko><b>이 PC 화면 보기</b>는 PC 화면을 그대로 보고 조작하고, <b>보관함에서 접속</b>은 이 PC를 거쳐 보관함의 서버·컴퓨터에 접속합니다.</span><span lang-en><b>View this PC's screen</b> shows the PC's screen as it is to control; <b>Connect from vault</b> connects through this PC to the servers and computers in your vault.</span><span lang-ja><b>この PC の画面を見る</b>は PC の画面をそのまま見て操作し、<b>保管庫から接続</b>はこの PC を経由して保管庫のサーバー・コンピューターに接続します。</span><span lang-zh><b>查看此电脑屏幕</b>可原样查看并操作电脑屏幕；<b>从保管库连接</b>可通过此电脑连接保管库中的服务器和电脑。</span></p>
     <div id="pcList" class="rm-grid"></div>
     <p id="pcsMsg" class="rm-err"></p>
     <div class="rm-banner rm-banner-soft" id="onceNote" hidden><svg><use href="#i-info"/></svg><span><span lang-ko>이 브라우저는 "이번만 허용"으로 들어왔습니다. 이 페이지를 닫거나 12시간이 지나면 다시 허용받아야 합니다.</span><span lang-en>This browser was allowed just this once: once this page closes, or after 12 hours, it must be allowed again.</span><span lang-ja>このブラウザーは「今回のみ許可」でアクセスしています。このページを閉じるか、12 時間が経過すると、再度許可が必要になります。</span><span lang-zh>此浏览器通过“仅允许本次”访问。关闭此页面或超过 12 小时后，需要重新获取允许。</span></span></div>
@@ -188,13 +190,13 @@
       <span id="pathChip" class="rm-chip" hidden></span>
       <span id="relayBadge" class="rm-chip rm-chip-amber" hidden></span>
       <span class="ap-grow"></span>
-      <button id="btnLang2" class="rm-icon" type="button" aria-label="Language"><span class="ap-lang">A</span></button>
+      <select class="rm-pill lang-menu ap-lang-sel" id="lang2" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
       <button id="btnHang" class="rm-icon ap-hang" type="button" data-tip-ko="PC 연결 끊기" data-tip-en="Disconnect from the PC" data-tip-ja="PC の接続を切断" data-tip-zh="断开电脑连接"><svg><use href="#i-hang"/></svg></button>
     </div>
   </aside>
   <section class="ap-work" id="work">
     <div class="ap-tabs" id="tabsRow">
-      <button id="btnBack" class="rm-tool ap-back" type="button" data-tip-ko="보관함" data-tip-en="Vault" data-tip-ja="保管庫" data-tip-zh="保管库"><svg><use href="#i-list"/></svg></button>
+      <button id="btnBack" class="rm-tool ap-back" type="button" data-tip-ko="보관함 보이기·숨기기" data-tip-en="Show or hide the vault" data-tip-ja="保管庫の表示・非表示" data-tip-zh="显示或隐藏保管库"><svg><use href="#i-list"/></svg></button>
       <div class="ap-tablist" id="tabs" role="tablist"></div>
     </div>
     <div class="ap-bar" id="bar" hidden>
@@ -203,6 +205,8 @@
       <span class="ap-grow"></span>
       <button id="btnFiles" class="rm-tool" type="button" data-tip-ko="파일 (SFTP)" data-tip-en="Files (SFTP)" data-tip-ja="ファイル (SFTP)" data-tip-zh="文件 (SFTP)" aria-pressed="false"><svg><use href="#i-folder"/></svg><span class="rm-tool-t"><span lang-ko>파일</span><span lang-en>Files</span><span lang-ja>ファイル</span><span lang-zh>文件</span></span></button>
       <button id="btnCad" class="rm-tool" type="button" data-tip-ko="Ctrl+Alt+Del 보내기" data-tip-en="Send Ctrl+Alt+Del" data-tip-ja="Ctrl+Alt+Del を送信" data-tip-zh="发送 Ctrl+Alt+Del" hidden><svg><use href="#i-key"/></svg><span class="rm-tool-t">Ctrl+Alt+Del</span></button>
+      <button id="btnSKeys" class="rm-tool" type="button" data-tip-ko="특수 키 (Win·Alt+Tab·Ctrl+Alt+Del…)" data-tip-en="Special keys (Win, Alt+Tab, Ctrl+Alt+Del…)" data-tip-ja="特殊キー (Win・Alt+Tab・Ctrl+Alt+Del…)" data-tip-zh="特殊键 (Win、Alt+Tab、Ctrl+Alt+Del…)" aria-pressed="false" hidden><svg><use href="#i-win"/></svg></button>
+      <button id="btnLock" class="rm-tool" type="button" data-tip-ko="마우스 고정 (Esc로 풀기)" data-tip-en="Lock the mouse (Esc to release)" data-tip-ja="マウスを固定 (Esc で解除)" data-tip-zh="锁定鼠标 (按 Esc 解除)" hidden><svg><use href="#i-mouse"/></svg></button>
       <button id="btnKbd" class="rm-tool" type="button" data-tip-ko="화면 키보드" data-tip-en="On-screen keyboard" data-tip-ja="スクリーン キーボード" data-tip-zh="屏幕键盘" hidden><svg><use href="#i-kbd"/></svg></button>
       <button id="btnClipGet" class="rm-tool" type="button" data-tip-ko="원격 클립보드 가져오기" data-tip-en="Get the remote clipboard" data-tip-ja="リモートのクリップボードを取得" data-tip-zh="获取远程剪贴板" hidden><svg><use href="#i-download"/></svg></button>
       <button id="btnPaste" class="rm-tool" type="button" data-tip-ko="붙여넣기" data-tip-en="Paste" data-tip-ja="貼り付け" data-tip-zh="粘贴"><svg><use href="#i-clip"/></svg></button>
@@ -211,12 +215,20 @@
       <button id="btnRe" class="rm-tool" type="button" data-tip-ko="다시 연결" data-tip-en="Reconnect" data-tip-ja="再接続" data-tip-zh="重新连接"><svg><use href="#i-refresh"/></svg></button>
       <button id="btnFull" class="rm-tool" type="button" data-tip-ko="전체 화면" data-tip-en="Full screen" data-tip-ja="全画面表示" data-tip-zh="全屏"><svg><use href="#i-full"/></svg></button>
     </div>
+    <button id="fsHandle" class="ap-fs-handle" type="button" data-tip-ko="탭과 도구 막대 보이기" data-tip-en="Show the tabs and toolbar" data-tip-ja="タブとツールバーを表示" data-tip-zh="显示标签页和工具栏"><svg><use href="#i-down"/></svg></button>
     <div class="ap-panes" id="panes">
       <div class="ap-welcome" id="welcome">
         <svg class="rm-logo-big" aria-hidden="true"><use href="#i-logo"/></svg>
         <h2><span lang-ko>보관함에서 서버를 고르십시오</span><span lang-en>Pick a server from the vault</span><span lang-ja>保管庫からサーバーを選択してください</span><span lang-zh>请从保管库中选择服务器</span></h2>
         <p class="rm-sub" id="welcomeSub"></p>
       </div>
+    </div>
+    <div class="ap-keys ap-skeys" id="skeys" hidden>
+      <button type="button" data-s="win" data-tip-ko="Windows 키" data-tip-en="Windows key" data-tip-ja="Windows キー" data-tip-zh="Windows 键">Win</button><button type="button" data-s="alttab" data-tip-ko="Alt+Tab (계속 누르면 다음 창)" data-tip-en="Alt+Tab (tap again for the next window)" data-tip-ja="Alt+Tab (続けて押すと次のウィンドウ)" data-tip-zh="Alt+Tab (继续按切换到下一个窗口)">Alt+Tab</button><button type="button" data-s="cad">Ctrl+Alt+Del</button><button type="button" data-s="esc">Esc</button><button type="button" data-s="tab">Tab</button>
+      <span class="sep"></span>
+      <button type="button" data-s="ctrl" class="mod">Ctrl</button><button type="button" data-s="alt" class="mod">Alt</button><button type="button" data-s="shift" class="mod">Shift</button><button type="button" data-s="meta" class="mod">Win</button>
+      <span class="sep"></span>
+      <button type="button" data-s="altf4">Alt+F4</button><button type="button" data-s="taskmgr" data-tip-ko="작업 관리자 (Ctrl+Shift+Esc)" data-tip-en="Task Manager (Ctrl+Shift+Esc)" data-tip-ja="タスク マネージャー (Ctrl+Shift+Esc)" data-tip-zh="任务管理器 (Ctrl+Shift+Esc)">Ctrl+Shift+Esc</button><button type="button" data-s="windd">Win+D</button><button type="button" data-s="del">Del</button><button type="button" data-s="prtsc">PrtSc</button><button type="button" data-s="f11">F11</button>
     </div>
     <div class="ap-keys" id="keys" hidden>
       <button type="button" data-k="esc">Esc</button><button type="button" data-k="tab">Tab</button>
@@ -252,6 +264,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-web-links@0.11.0/lib/addon-web-links.js"></script>
 <script src="qrcode.min.js?v=4c794aa9ad"></script>
 <script src="stream.min.js?v=557ab8602c"></script>
-<script src="app.min.js?v=574a86a1e4"></script>
+<script src="app.min.js?v=a8003e45fd"></script>
 </body>
 </html>
