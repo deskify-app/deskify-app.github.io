@@ -2,47 +2,14 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Deskify Pro · 구매 / Buy</title>
 <meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title data-title-ko="Deskify Pro · 구매" data-title-en="Deskify Pro · Buy" data-title-ja="Deskify Pro · 購入" data-title-zh="Deskify Pro · 购买">Deskify Pro · 구매 / Buy</title>
 <link rel="icon" href="icon.png">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="style.css?v=7">
-<style>
-  .buy { max-width: 720px; margin: 0 auto; }
-  .acct { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1px solid var(--line, #2a3242); border-radius: 14px; margin: 18px 0; }
-  .acct img { width: 36px; height: 36px; border-radius: 50%; }
-  .acct .who { flex: 1; min-width: 0; }
-  .acct .who b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .acct .who small { opacity: .7; }
-  .plans2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 18px 0; }
-  .plan2 { border: 1px solid var(--line, #2a3242); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 8px; }
-  .plan2 h3 { margin: 0; font-size: 1.05rem; }
-  .plan2 .price { font-size: 1.5rem; font-weight: 700; }
-  .plan2 .price small { font-size: .85rem; font-weight: 400; opacity: .7; }
-  .plan2 ul { margin: 0; padding-left: 18px; opacity: .85; font-size: .92rem; }
-  .plan2 button, .acct button { margin-top: auto; padding: 11px 14px; border-radius: 12px; border: 0; background: #3b6fe0; color: #fff; font-weight: 600; cursor: pointer; font-size: .95rem; }
-  .plan2 button[disabled] { opacity: .45; cursor: default; }
-  .plan2 .have { font-size: .9rem; color: #2eb872; font-weight: 600; }
-  .note { opacity: .75; font-size: .9rem; }
-  .hidden { display: none !important; }
-  .err { color: #e5484d; }
-  .ok { color: #2eb872; font-weight: 600; }
-</style>
+<link rel="stylesheet" href="site2.css?v=d950d6d379">
+<script src="site2.js?v=32c009fbbd"></script>
 <script>
-  (function () {
-    // Language: ?lang= from the apps (their UI language) for this visit, else #en, else the visitor's last choice,
-    // else the browser's first supported language (ko, en, ja, zh: any Chinese reads 简体中文), else English.
-    var pick = function (s) { s = String(s || "").toLowerCase(); return /^(ko|en|ja|zh)/.test(s) ? s.slice(0, 2) : ""; };
-    var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
-    var lang = q ? pick(q[1]) : location.hash === "#en" ? "en" : "";
-    if (!lang) { try { lang = pick(localStorage.getItem("lang")); } catch (e) {} }
-    var nav = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
-    for (var i = 0; !lang && i < nav.length; i++) lang = pick(nav[i]);
-    lang = lang || "en";
-    document.documentElement.setAttribute("data-lang", lang);
-    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
-  })();
   // Filled by scripts/paddle_setup.py after the prices exist (sandbox first, then live).
   var PADDLE = {
     env: "live",
@@ -52,30 +19,34 @@
   var FIREBASE = { apiKey: "AIzaSyDo0c609Q7a_pLybp9SgHcLoa6-3zAZ8xs", authDomain: "deskify-8bd6f.firebaseapp.com", projectId: "deskify-8bd6f", appId: "1:247125407711:web:762b38f33f61a9d7ac766a" };
 </script>
 </head>
-<body>
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="./"><img src="icon.png" alt="" width="30" height="30">Deskify</a>
-    <nav>
-      <a href="refund.html"><span lang-ko>환불</span><span lang-en>Refunds</span><span lang-ja>返金</span><span lang-zh>退款</span></a>
-      <a class="hide-sm" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span><span lang-ja>ベータ</span><span lang-zh>测试版</span></span></a>
-      <a href="privacy.html"><span lang-ko>개인정보</span><span lang-en>Privacy</span><span lang-ja>プライバシー</span><span lang-zh>隐私</span></a>
-      <select class="lang lang-menu" id="lang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
+<body class="page-info page-buy">
+<a class="skip" href="#main"><span lang-ko>본문으로 건너뛰기</span><span lang-en>Skip to content</span><span lang-ja>本文へスキップ</span><span lang-zh>跳到正文</span></a>
+<header class="nav" id="top">
+  <div class="nav-in">
+    <a class="brand" href="./"><img src="icon.png" alt="" width="26" height="26">Deskify</a>
+    <nav class="links" aria-label="Main">
+      <a href="./#features"><span lang-ko>기능</span><span lang-en>Features</span><span lang-ja>機能</span><span lang-zh>功能</span></a>
+      <a href="./#windows">Windows</a>
+      <a href="./#web"><span lang-ko>웹</span><span lang-en>Web</span><span lang-ja>Web</span><span lang-zh>网页</span></a>
+      <a href="./#plans"><span lang-ko>요금</span><span lang-en>Plans</span><span lang-ja>料金プラン</span><span lang-zh>价格</span></a>
+      <a href="help.html"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
     </nav>
+    <select class="lang-menu" id="lang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
+    <a class="nav-cta" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span></a>
   </div>
 </header>
-<main class="wrap buy">
-  <h1 lang-ko>Deskify Pro</h1><h1 lang-en>Deskify Pro</h1><h1 lang-ja>Deskify Pro</h1><h1 lang-zh>Deskify Pro</h1>
+<main id="main" class="wrap buy">
+  <header class="page-hero"><h1 lang-ko>Deskify Pro</h1><h1 lang-en>Deskify Pro</h1><h1 lang-ja>Deskify Pro</h1><h1 lang-zh>Deskify Pro</h1>
   <p class="note" lang-ko>PC·폰·태블릿이 한 계정으로 함께 풀립니다. Deskify에 로그인한 것과 <strong>같은 구글 계정</strong>으로 로그인해 주세요.</p>
   <p class="note" lang-en>One account unlocks PC, phone and tablet together. Sign in with the <strong>same Google account</strong> you use in Deskify.</p>
   <p class="note" lang-ja>1 つのアカウントで PC・スマホ・タブレットのすべてで Pro が使えるようになります。Deskify にログインしたのと<strong>同じ Google アカウント</strong>でログインしてください。</p>
-  <p class="note" lang-zh>一个账号即可同时解锁电脑、手机和平板。请使用与 Deskify 登录时<strong>相同的 Google 账号</strong>登录。</p>
+  <p class="note" lang-zh>一个账号即可同时解锁电脑、手机和平板。请使用与 Deskify 登录时<strong>相同的 Google 账号</strong>登录。</p></header>
 
   <div class="acct" id="acct">
     <img id="photo" alt="" class="hidden">
     <div class="who"><b id="who"><span lang-ko>로그인하지 않았습니다</span><span lang-en>Not signed in</span><span lang-ja>ログインしていません</span><span lang-zh>未登录</span></b><small id="plan"></small></div>
     <button id="signin" type="button"><span lang-ko>Google로 로그인</span><span lang-en>Sign in with Google</span><span lang-ja>Google でログイン</span><span lang-zh>使用 Google 登录</span></button>
-    <button id="signout" type="button" class="hidden" style="background:#394357"><span lang-ko>로그아웃</span><span lang-en>Sign out</span><span lang-ja>ログアウト</span><span lang-zh>退出登录</span></button>
+    <button id="signout" type="button" class="hidden btn-subtle"><span lang-ko>로그아웃</span><span lang-en>Sign out</span><span lang-ja>ログアウト</span><span lang-zh>退出登录</span></button>
   </div>
   <p id="msg" class="note"></p>
 
@@ -123,7 +94,17 @@
   <p class="note" lang-ja>決済は販売代行業者（Merchant of Record）の Paddle が行い、付加価値税が含まれる場合があります。決済後 1 分以内にアプリ（PC・スマホとも）に反映されます。Google Play ですでにサブスク中の場合は、ここで購入する必要はありません。<strong>決済から 48 時間が過ぎ、Pro 機能を使い始めた後は返金できません。返金は 1 アカウントにつき 1 回までです。</strong> <a href="refund.html#en">返金ポリシー</a> · <a href="terms.html#en">利用規約</a></p>
   <p class="note" lang-zh>付款由销售代理商 Paddle 处理，可能会收取增值税（VAT）。付款后 1 分钟内即可在应用中生效（电脑·手机端均适用）。如果你已在 Google Play 订阅，则无需在此重复购买。<strong>付款超过 48 小时且已开始使用 Pro 功能后，将无法申请退款；每个账号仅限退款一次。</strong> <a href="refund.html#en">退款政策</a> · <a href="terms.html#en">使用条款</a></p>
 </main>
-
+<footer class="foot">
+  <div class="foot-in">
+    <span>© 2026 Deskify</span>
+    <a href="privacy.html"><span lang-ko>개인정보처리방침</span><span lang-en>Privacy policy</span><span lang-ja>プライバシーポリシー</span><span lang-zh>隐私政策</span></a>
+    <a href="terms.html"><span lang-ko>이용약관</span><span lang-en>Terms of use</span><span lang-ja>利用規約</span><span lang-zh>使用条款</span></a>
+    <a href="help.html"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
+    <a href="web.html"><span lang-ko>웹에서 쓰기 (베타)</span><span lang-en>Use on the web (beta)</span><span lang-ja>Web で使う (ベータ)</span><span lang-zh>在网页上使用 (测试版)</span></a>
+    <a href="refund.html"><span lang-ko>환불 정책</span><span lang-en>Refund policy</span><span lang-ja>返金ポリシー</span><span lang-zh>退款政策</span></a>
+    <a class="mail" href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a>
+  </div>
+</footer>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
 <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>

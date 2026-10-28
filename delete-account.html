@@ -2,37 +2,31 @@
 <html lang="ko" class="koen">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
 <title>Deskify 계정 삭제 · Delete your account</title>
 <link rel="icon" href="icon.png">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="style.css?v=7">
-<script>
-  (function () {
-    // Language: ?lang= from the apps (their UI language) for this visit, else the visitor's last choice,
-    // else the browser's first supported language (ko, en, ja, zh: any Chinese reads 简体中文), else English
-    // (a Korean reader sent to #en reads English).
-    var pick = function (s) { s = String(s || "").toLowerCase(); return /^(ko|en|ja|zh)/.test(s) ? s.slice(0, 2) : ""; };
-    var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
-    var lang = q ? pick(q[1]) : "";
-    if (!lang) { try { lang = pick(localStorage.getItem("lang")); } catch (e) {} }
-    var nav = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
-    for (var i = 0; !lang && i < nav.length; i++) lang = pick(nav[i]);
-    lang = lang || "en";
-    if (lang === "ko" && location.hash === "#en" && !q) lang = "en";
-    document.documentElement.setAttribute("data-lang", lang);
-    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
-  })();
-</script>
+<link rel="stylesheet" href="site2.css?v=d950d6d379">
+<script src="site2.js?v=32c009fbbd"></script>
 </head>
-<body>
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="./"><img src="icon.png" alt="" width="30" height="30">Deskify</a>
-    <nav><a href="./"><span class="ko-part">홈 · </span>Home</a><a href="#en">English</a></nav>
+<body class="page-doc">
+<a class="skip" href="#main"><span lang-ko>본문으로 건너뛰기</span><span lang-en>Skip to content</span><span lang-ja>本文へスキップ</span><span lang-zh>跳到正文</span></a>
+<header class="nav" id="top">
+  <div class="nav-in">
+    <a class="brand" href="./"><img src="icon.png" alt="" width="26" height="26">Deskify</a>
+    <nav class="links" aria-label="Main">
+      <a href="./#features"><span lang-ko>기능</span><span lang-en>Features</span><span lang-ja>機能</span><span lang-zh>功能</span></a>
+      <a href="./#windows">Windows</a>
+      <a href="./#web"><span lang-ko>웹</span><span lang-en>Web</span><span lang-ja>Web</span><span lang-zh>网页</span></a>
+      <a href="./#plans"><span lang-ko>요금</span><span lang-en>Plans</span><span lang-ja>料金プラン</span><span lang-zh>价格</span></a>
+      <a href="help.html"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
+    </nav>
+    <select class="lang-menu" id="lang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
+    <a class="nav-cta" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span></a>
   </div>
 </header>
-<main class="doc">
+<main id="main" class="doc">
 <p class="koen-note" lang-ja>この文書は韓国語と英語で提供しています（以下は英語版です）。</p><p class="koen-note" lang-zh>本文件提供韩文和英文版本（以下为英文版）。</p>
 <div class="ko-part">
 <h1>Deskify 계정과 데이터 삭제</h1>
@@ -96,5 +90,16 @@
 <h2>Delete data but keep the account</h2>
 <p>To delete only the cloud sync data, tap <b>My account → Delete cloud data</b> in the app (the account and purchases stay), or email the same address with the subject "Delete my Deskify sync data". Sync data of an account whose sync allowance has ended and that no device has used for 12 months is deleted automatically. Data stored on the device is removed when you uninstall the app or clear its data in App info.</p>
 </main>
+<footer class="foot">
+  <div class="foot-in">
+    <span>© 2026 Deskify</span>
+    <a href="privacy.html"><span lang-ko>개인정보처리방침</span><span lang-en>Privacy policy</span><span lang-ja>プライバシーポリシー</span><span lang-zh>隐私政策</span></a>
+    <a href="terms.html"><span lang-ko>이용약관</span><span lang-en>Terms of use</span><span lang-ja>利用規約</span><span lang-zh>使用条款</span></a>
+    <a href="help.html"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
+    <a href="web.html"><span lang-ko>웹에서 쓰기 (베타)</span><span lang-en>Use on the web (beta)</span><span lang-ja>Web で使う (ベータ)</span><span lang-zh>在网页上使用 (测试版)</span></a>
+    <a href="refund.html"><span lang-ko>환불 정책</span><span lang-en>Refund policy</span><span lang-ja>返金ポリシー</span><span lang-zh>退款政策</span></a>
+    <a class="mail" href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a>
+  </div>
+</footer>
 </body>
 </html>

@@ -2,66 +2,46 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Deskify · 도움말 / Help</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title data-title-ko="Deskify · 도움말" data-title-en="Deskify · Help" data-title-ja="Deskify · ヘルプ" data-title-zh="Deskify · 帮助">Deskify · 도움말 / Help</title>
 <link rel="icon" href="icon.png">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="style.css?v=7">
-<style>
-  details { border: 1px solid rgba(128,128,128,.25); border-radius: 12px; padding: 12px 16px; margin: 10px 0; }
-  details summary { cursor: pointer; font-weight: 600; }
-  details[open] summary { margin-bottom: 8px; }
-  details ol, details ul { margin: 6px 0 0 18px; padding: 0; }
-  .contact { margin-top: 28px; padding: 16px; border-radius: 12px; background: rgba(110,139,255,.10); }
-  .jump { margin: 0 0 18px; }
-  #web { scroll-margin-top: 72px; margin-top: 48px; padding-top: 8px; border-top: 1px solid var(--line); }
-  #web h2 { font-size: 1.5rem; margin: 24px 0 8px; }
-  #web h3 { font-size: 1.08rem; margin: 26px 0 6px; }
-  #web ol, #web ul { margin: 6px 0 0 20px; padding: 0; }
-  #web li { margin: 4px 0; }
-  #companion { scroll-margin-top: 72px; margin-top: 48px; padding-top: 8px; border-top: 1px solid var(--line); }
-  #companion h2 { font-size: 1.5rem; margin: 24px 0 8px; }
-  #companion h3 { font-size: 1.08rem; margin: 26px 0 6px; }
-  #companion ol, #companion ul { margin: 6px 0 0 20px; padding: 0; }
-  #companion li { margin: 4px 0; }
-  .roles { display: grid; gap: 10px; margin-top: 10px; }
-  .role { border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; background: var(--surface); }
-  .role b.t { display: block; }
-  .role .k { color: var(--muted); font-size: .88rem; }
-  .role p { margin: 4px 0 0; }
-  .tipbox { margin: 12px 0; padding: 12px 16px; border-radius: 12px; background: var(--green-soft); }
-</style>
-<script>
-  (function () {
-    // Language: ?lang= from the apps (their UI language) for this visit, else #en, else the visitor's last choice,
-    // else the browser's first supported language (ko, en, ja, zh: any Chinese reads 简体中文), else English.
-    var pick = function (s) { s = String(s || "").toLowerCase(); return /^(ko|en|ja|zh)/.test(s) ? s.slice(0, 2) : ""; };
-    var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
-    var lang = q ? pick(q[1]) : location.hash === "#en" ? "en" : "";
-    if (!lang) { try { lang = pick(localStorage.getItem("lang")); } catch (e) {} }
-    var nav = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
-    for (var i = 0; !lang && i < nav.length; i++) lang = pick(nav[i]);
-    lang = lang || "en";
-    document.documentElement.setAttribute("data-lang", lang);
-    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
-  })();
-</script>
+<link rel="stylesheet" href="site2.css?v=d950d6d379">
+<script src="site2.js?v=32c009fbbd"></script>
 </head>
-<body>
-<header class="top">
-  <div class="wrap">
-    <a class="brand" href="./"><img src="icon.png" alt="" width="30" height="30">Deskify</a>
-    <nav>
-      <a class="hide-sm" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span><span lang-ja>ベータ</span><span lang-zh>测试版</span></span></a>
-      <a href="privacy.html"><span lang-ko>개인정보</span><span lang-en>Privacy</span><span lang-ja>プライバシー</span><span lang-zh>隐私</span></a>
-      <a href="terms.html"><span lang-ko>약관</span><span lang-en>Terms</span><span lang-ja>利用規約</span><span lang-zh>服务条款</span></a>
-      <select class="lang lang-menu" id="lang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
+<body class="page-info page-help">
+<a class="skip" href="#main"><span lang-ko>본문으로 건너뛰기</span><span lang-en>Skip to content</span><span lang-ja>本文へスキップ</span><span lang-zh>跳到正文</span></a>
+<header class="nav" id="top">
+  <div class="nav-in">
+    <a class="brand" href="./"><img src="icon.png" alt="" width="26" height="26">Deskify</a>
+    <nav class="links" aria-label="Main">
+      <a href="./#features"><span lang-ko>기능</span><span lang-en>Features</span><span lang-ja>機能</span><span lang-zh>功能</span></a>
+      <a href="./#windows">Windows</a>
+      <a href="./#web"><span lang-ko>웹</span><span lang-en>Web</span><span lang-ja>Web</span><span lang-zh>网页</span></a>
+      <a href="./#plans"><span lang-ko>요금</span><span lang-en>Plans</span><span lang-ja>料金プラン</span><span lang-zh>价格</span></a>
+      <a href="help.html"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
     </nav>
+    <select class="lang-menu" id="lang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
+    <a class="nav-cta" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span></a>
   </div>
 </header>
-<main class="wrap doc">
-  <h1 lang-ko>도움말 · 자주 묻는 질문</h1><h1 lang-en>Help · FAQ</h1><h1 lang-ja>ヘルプ · よくある質問</h1><h1 lang-zh>帮助 · 常见问题</h1>
-  <p class="jump"><a href="#companion"><span lang-ko>📱 보조 기기 사용법 →</span><span lang-en>📱 Using companion devices →</span><span lang-ja>📱 サブ端末の使い方 →</span><span lang-zh>📱 辅助设备使用方法 →</span></a><br><a href="#web"><span lang-ko>🌐 웹에서 쓰기: 웹 Deskify (베타) →</span><span lang-en>🌐 Use on the web: Web Deskify (beta) →</span><span lang-ja>🌐 Web で使う: Web 版 Deskify (ベータ) →</span><span lang-zh>🌐 在网页上使用：网页版 Deskify (测试版) →</span></a><br><a href="#support"><span lang-ko>🤝 원격 지원 (다른 사람의 PC 돕기) →</span><span lang-en>🤝 Remote support (helping someone else's PC) →</span><span lang-ja>🤝 リモートサポート (他の人の PC をサポート) →</span><span lang-zh>🤝 远程协助 (协助他人的电脑) →</span></a></p>
+<main id="main" class="wrap doc">
+  <header class="page-hero"><h1 lang-ko>도움말 · 자주 묻는 질문</h1><h1 lang-en>Help · FAQ</h1><h1 lang-ja>ヘルプ · よくある質問</h1><h1 lang-zh>帮助 · 常见问题</h1>
+  <p class="jump">
+  <a href="#companion">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M12 18h.01"/></svg>
+    <span lang-ko>보조 기기 사용법</span><span lang-en>Using companion devices</span><span lang-ja>サブ端末の使い方</span><span lang-zh>辅助设备使用方法</span>
+  </a>
+  <a href="#web">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+    <span lang-ko>웹에서 쓰기: 웹 Deskify (베타)</span><span lang-en>Use on the web: Web Deskify (beta)</span><span lang-ja>Web で使う: Web 版 Deskify (ベータ)</span><span lang-zh>在网页上使用：网页版 Deskify (测试版)</span>
+  </a>
+  <a href="#support">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M5.6 5.6l3.9 3.9M14.5 14.5l3.9 3.9M18.4 5.6l-3.9 3.9M9.5 14.5l-3.9 3.9"/></svg>
+    <span lang-ko>원격 지원 (다른 사람의 PC 돕기)</span><span lang-en>Remote support (helping someone else's PC)</span><span lang-ja>リモートサポート (他の人の PC をサポート)</span><span lang-zh>远程协助 (协助他人的电脑)</span>
+  </a>
+</p></header>
 
   <details lang-ko><summary>Windows PC에 연결이 안 돼요</summary>
     <ol>
@@ -236,7 +216,7 @@
   <div id="web">
 
   <div lang-ko>
-    <h2>🌐 웹 Deskify <span class="beta">베타</span></h2>
+    <h2>웹 Deskify <span class="beta">베타</span></h2>
     <p>설치 없이 브라우저에서 내 PC를 씁니다. Deskify PC판이 켜져 있고 로그인된 PC에서 되며, <b>구독(Pro 구독 또는 클라우드 구독)</b>에서 씁니다(평생 이용권만으로는 쓰지 않습니다). 최신 브라우저(Chrome·Edge·Safari 등)에서 엽니다.</p>
     <p><b><a href="web.html">웹에서 쓰기</a></b>(deskify-app.com/web.html)에서 <b>웹 Deskify</b>와 <a href="#support">원격 지원</a> 가운데 하나를 고릅니다. 웹 Deskify(deskify-app.com/app.html)에서는 PC 목록의 PC마다 아래 두 가지를 고릅니다. 구글로 한 번 로그인하면 같은 브라우저의 다른 페이지에서도 로그인된 채로 열립니다.</p>
     <div class="roles">
@@ -264,7 +244,7 @@
   </div>
 
   <div lang-en>
-    <h2>🌐 Web Deskify <span class="beta">Beta</span></h2>
+    <h2>Web Deskify <span class="beta">Beta</span></h2>
     <p>Use your PC from a browser, nothing to install. It works with a PC where the Deskify PC app is running and signed in, and it comes with a <b>subscription (Pro or Cloud)</b> — not with the lifetime licence alone. Open it in a current browser (Chrome, Edge, Safari and others).</p>
     <p><b><a href="web.html">Use on the web</a></b> (deskify-app.com/web.html) is where you pick <b>Web Deskify</b> or <a href="#support">remote support</a>. In Web Deskify (deskify-app.com/app.html) each PC in the list offers the two things below. Sign in with Google once and the other pages open already signed in, in the same browser.</p>
     <div class="roles">
@@ -290,7 +270,7 @@
     </ul>
     <div class="tipbox">Each time it connects, a bar (with a disconnect button) appears at the top of the PC’s screen and your phone gets a notification. Never allow a QR code someone else sent you. Screen and input travel encrypted between the browser and the PC; only when no direct path exists do they go through a relay at data-saving quality (one hour a day per account).</div>
   </div><div lang-ja>
-    <h2>🌐 Web 版 Deskify <span class="beta">ベータ</span></h2>
+    <h2>Web 版 Deskify <span class="beta">ベータ</span></h2>
     <p>インストール不要で、ブラウザーから PC を使えます。Deskify PC 版が起動してログインしている PC で動作し、<b>サブスク（Pro 購読またはクラウド購読）</b>で利用できます（買い切りのみでは利用できません）。最新のブラウザー（Chrome、Edge、Safari など）で開いてください。</p>
     <p><b><a href="web.html">Web で使う</a></b> (deskify-app.com/web.html) で <b>Web 版 Deskify</b> または <a href="#support">リモートサポート</a> を選択します。Web 版 Deskify (deskify-app.com/app.html) では、PC 一覧の PC ごとに以下の 2 つから選びます。Google で一度ログインすれば、同じブラウザーの他のページもログインした状態で開きます。</p>
     <div class="roles">
@@ -316,7 +296,7 @@
     </ul>
     <div class="tipbox">接続するたびに PC 画面の上部にバー（切断ボタン）が表示され、スマホに通知が届きます。他の人が送信した QR コードは絶対に許可しないでください。画面と入力はブラウザーと PC の間で暗号化されて送受信され、直接接続できない場合のみデータ節約画質で中継サーバーを経由します（1 アカウントにつき 1 日 1 時間）。</div>
   </div><div lang-zh>
-    <h2>🌐 网页版 Deskify <span class="beta">测试版</span></h2>
+    <h2>网页版 Deskify <span class="beta">测试版</span></h2>
     <p>无需安装，即可在浏览器中使用你的电脑。适用于已运行并登录 Deskify 电脑版的电脑，包含在<b>订阅（Pro 订阅或云订阅）</b>中（仅凭终身版无法使用）。请在现代浏览器（Chrome、Edge、Safari 等）中打开。</p>
     <p>在 <b><a href="web.html">在网页上使用</a></b> (deskify-app.com/web.html) 中，可以选择<b>网页版 Deskify</b>或 <a href="#support">远程协助</a>。在网页版 Deskify (deskify-app.com/app.html) 中，电脑列表里的每台电脑都可以选择下方两项。使用 Google 登录一次后，在同一浏览器的其他页面中也会保持登录状态打开。</p>
     <div class="roles">
@@ -348,7 +328,7 @@
   <div id="support">
 
   <div lang-ko>
-    <h2>🤝 원격 지원</h2>
+    <h2>원격 지원</h2>
     <p>부모님·친구처럼 <b>다른 사람의 Windows PC</b>를 번호 하나로 도와줍니다. 돕는 사람(도우미)은 <b>구독(Pro 구독 또는 클라우드 구독)</b>이고, 도움 받는 사람은 <b>무료이며 설치·로그인이 필요 없습니다</b>.</p>
     <h3>도움 받는 분</h3>
     <ol>
@@ -369,7 +349,7 @@
   </div>
 
   <div lang-en>
-    <h2>🤝 Remote support</h2>
+    <h2>Remote support</h2>
     <p>Help <b>someone else's Windows PC</b> — a parent's, a friend's — with a single number. The helper needs <b>a subscription (Pro or Cloud)</b>; the person getting help pays nothing and <b>needs no install and no account</b>.</p>
     <h3>Getting help</h3>
     <ol>
@@ -388,7 +368,7 @@
     <p><b>Inviting by link</b>: after <b>Make a code</b>, the helper uses <b>Send a link / Copy link</b> to send it by chat or text. The other person opens it on their PC, gets the tool and presses <b>Connect with the copied code</b>. The link holds only the code and ends with it after 10 minutes. The person getting help must be on a Windows PC (opened on a phone, the page says to open it on the PC).</p>
     <div class="tipbox">If a stranger asks for your code or tells you to press "Allow", decline. Screen and input travel encrypted between the two devices and use the helper's relay (one hour a day) only when no direct path exists. Get help with Deskify installs and registers nothing.</div>
   </div><div lang-ja>
-    <h2>🤝 リモートサポート</h2>
+    <h2>リモートサポート</h2>
     <p>ご両親や友人のように、<b>他の人の Windows PC</b> を番号ひとつでサポートできます。サポートする人（ヘルパー）は<b>サブスク（Pro 購読またはクラウド購読）</b>が必要で、サポートを受ける方は<b>無料でインストールやアカウントも不要</b>です。</p>
     <h3>サポートを受ける方</h3>
     <ol>
@@ -407,7 +387,7 @@
     <p><b>リンクで招待</b>: サポートする人が <b>番号を作成</b> した後、<b>リンクを送信 / リンクをコピー</b> でチャットやメッセージにリンクを送信します。サポートを受ける方が PC でそのリンクを開き、ツールをダウンロードして <b>コピーしたコードで接続</b> をクリックします。リンクには番号のみが含まれ、番号と同様に 10 分後に終了します。サポートを受ける側は Windows PC である必要があります（スマホで開いた場合は PC で開くよう案内されます）。</p>
     <div class="tipbox">見知らぬ人から番号を求められたり、「許可」を押すよう言われたりした場合は拒否してください。画面と入力は 2 台の端末間で暗号化されて送受信され、直接接続できない場合のみサポートする側のアカウントの中継サーバーを経由します（1 日 1 時間）。「Deskify サポートを受ける」は何もインストールせず、登録もしません。</div>
   </div><div lang-zh>
-    <h2>🤝 远程协助</h2>
+    <h2>远程协助</h2>
     <p>只需一个号码，即可协助父母、朋友等<b>他人的 Windows PC</b>。协助者需要<b>订阅（Pro 订阅或云订阅）</b>；接受协助的一方完全<b>免费，且无需安装和账号</b>。</p>
     <h3>接受协助的一方</h3>
     <ol>
@@ -432,7 +412,7 @@
   <div id="companion">
 
   <div lang-ko>
-    <h2>📱 보조 기기</h2>
+    <h2>보조 기기</h2>
     <p>남는 폰이나 태블릿을 지금 작업하는 원격 세션의 트랙패드·키보드·두 번째 화면·그림 태블릿 같은 도구로 씁니다.</p>
     <p class="muted">원격 컴퓨터에는 <b>주 기기</b>(세션을 연 기기)만 접속합니다. <b>보조 기기</b>는 같은 Wi-Fi에서 주 기기와만 통신하고, 비밀번호는 보조 기기로 가지 않습니다.</p>
 
@@ -550,7 +530,7 @@
   </div>
 
   <div lang-en>
-    <h2>📱 Companion devices</h2>
+    <h2>Companion devices</h2>
     <p>Use a spare phone or tablet as a tool for the remote session you're working in: a trackpad, keyboard, second screen, drawing tablet and more.</p>
     <p class="muted">Only the <b>main device</b> (the one that opened the session) connects to the remote computer. The <b>companion</b> talks only to the main device over the same Wi-Fi, and no password ever goes to it.</p>
 
@@ -666,7 +646,7 @@
       <li>Files, the second shell and the AI helper keep working while the main device shows something else; input roles pause.</li>
     </ul>
   </div><div lang-ja>
-    <h2>📱 サブ端末</h2>
+    <h2>サブ端末</h2>
     <p>余っているスマホやタブレットを、作業中のリモートセッションのトラックパッド、キーボード、サブモニター、ペンタブレットなどのツールとして使います。</p>
     <p class="muted">リモートコンピューターには<b>メイン端末</b>（セッションを開いた端末）のみが接続します。<b>サブ端末</b>は同じ Wi-Fi 内でメイン端末とのみ通信し、パスワードがサブ端末に送信されることはありません。</p>
 
@@ -782,7 +762,7 @@
       <li>ファイル、2 つ目のシェル、AI アシスタントはメイン端末が他の画面を表示していても動作し続けますが、入力の役割は一時停止します。</li>
     </ul>
   </div><div lang-zh>
-    <h2>📱 辅助设备</h2>
+    <h2>辅助设备</h2>
     <p>将闲置的手机或平板用作当前正在操作的远程会话的工具：触控板、键盘、副显示器、绘图板等。</p>
     <p class="muted">只有<b>主设备</b>（打开会话的设备）会连接到远程电脑。<b>辅助设备</b>仅在同一 Wi-Fi 下与主设备通信，密码绝不会发送到辅助设备。</p>
 
@@ -907,15 +887,16 @@
     <p lang-zh><b>仍未解决？</b>请在应用中通过<b>设置 → 故障排除 → 联系我们</b>发送信息：将同时附带诊断报告，便于我们快速排查。邮箱：<a href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a></p>
   </div>
 </main>
-<script>
-  // The language menu (한국어 / English / 日本語 / 简体中文); the choice is remembered.
-  (function () {
-    var titles = { ko: "Deskify · 도움말", en: "Deskify · Help", ja: "Deskify · ヘルプ", zh: "Deskify · 帮助" };
-    var m = document.getElementById("lang"), root = document.documentElement;
-    function apply(l) { root.setAttribute("data-lang", l); root.lang = l === "zh" ? "zh-CN" : l; m.value = l; if (titles[l]) document.title = titles[l]; }
-    m.addEventListener("change", function () { try { localStorage.setItem("lang", m.value); } catch (e) {} apply(m.value); });
-    apply(root.getAttribute("data-lang"));
-  })();
-</script>
+<footer class="foot">
+  <div class="foot-in">
+    <span>© 2026 Deskify</span>
+    <a href="privacy.html"><span lang-ko>개인정보처리방침</span><span lang-en>Privacy policy</span><span lang-ja>プライバシーポリシー</span><span lang-zh>隐私政策</span></a>
+    <a href="terms.html"><span lang-ko>이용약관</span><span lang-en>Terms of use</span><span lang-ja>利用規約</span><span lang-zh>使用条款</span></a>
+    <a href="help.html"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
+    <a href="web.html"><span lang-ko>웹에서 쓰기 (베타)</span><span lang-en>Use on the web (beta)</span><span lang-ja>Web で使う (ベータ)</span><span lang-zh>在网页上使用 (测试版)</span></a>
+    <a href="refund.html"><span lang-ko>환불 정책</span><span lang-en>Refund policy</span><span lang-ja>返金ポリシー</span><span lang-zh>退款政策</span></a>
+    <a class="mail" href="mailto:support.deskify@gmail.com">support.deskify@gmail.com</a>
+  </div>
+</footer>
 </body>
 </html>
