@@ -498,6 +498,8 @@ html.scenes [data-scene="4"].sq-dev { grid-row: 9; } html.scenes .sq-cap[data-sc
 html.scenes [data-scene="5"].sq-dev { grid-row: 11; } html.scenes .sq-cap[data-scene="5"] { grid-row: 12; }
 @media (min-width: 700px) { html.scenes .sq-cap { text-align: center; } }
 @media (min-width: 761px) { html.scenes { --nav: 52px; } }
+/* a mouse / trackpad with reduced motion gets these scenes too, paged by home2.js: no CSS snap fighting the pager */
+html.paging.scenes { scroll-snap-type: none; }
 .pager-dots { display: none; }
 @media (min-width: 900px) and (hover: hover) and (pointer: fine) {
   html.paging .pager-dots { display: flex; flex-direction: column; position: fixed; right: 12px; top: 50%; translate: 0 -50%; z-index: 40; mix-blend-mode: difference; }

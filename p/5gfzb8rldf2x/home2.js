@@ -17,12 +17,12 @@
   root.lang = lang === "zh" ? "zh-CN" : lang;
   root.classList.add("js");
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  // Desktop (mouse / trackpad): the pinned sequence with motion allowed, else the six scenes stand one under another.
-  // Touch screens: six ordinary full-screen scenes (html.scenes, pure CSS with native mandatory snap) — a fast flick
-  // can never stop on a half-switched pinned scene.
+  // Mouse / trackpad (any window size): the pinned sequence with motion allowed; with reduced motion (often set by a
+  // remote-desktop session) the six ordinary full-screen scenes instead — both with the wheel/keyboard pager on top.
+  // Touch screens: the full-screen scenes (html.scenes, pure CSS with native mandatory snap), no JS scrolling.
   var fine = !!(window.matchMedia && matchMedia("(hover: hover) and (pointer: fine)").matches);
-  if (!fine) root.classList.add("scenes");
-  else if (!reduce) root.classList.add("motion");
+  if (!fine || reduce) root.classList.add("scenes");
+  else root.classList.add("motion");
 
   var titles = { ko: "Deskify · 원격 데스크톱 · SSH", en: "Deskify · Remote Desktop · SSH", ja: "Deskify · リモート デスクトップ · SSH", zh: "Deskify · 远程桌面 · SSH" };
 
@@ -82,7 +82,7 @@
     function ask() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
     // JS paging only with a mouse / trackpad (fine pointer that can hover) and motion allowed; touch screens keep
     // native scrolling with the CSS mandatory snap (html.scenes)
-    var pager = reduce || !fine ? null : makePager(ask);
+    var pager = fine ? makePager(ask, reduce) : null;
     if (track) show(0);
     // Touch scenes: the one fixed step bar follows the scene under the middle of the screen. Observation only — it
     // never scrolls and changes no layout (opacity and colours of the bar).
@@ -107,8 +107,9 @@
   // 650 ms ease-out scroll, then input stays locked until the gesture has died down (trackpad inertia never skips a
   // stop). Stops are the full-viewport sections and the six scenes; a section taller than the view scrolls freely
   // inside and pages on the next gesture once its edge is reached. CSS scroll-snap stays as the fallback without JS;
-  // html.paging switches it off so the two never fight. Reduced motion: no pager at all (normal scroll + CSS snap).
-  function makePager(ask) {
+  // html.paging switches it off so the two never fight. Reduced motion: the same paging, but every move is an instant
+  // jump (no animation); the gesture lock stays so a notch or a flick still turns exactly one page.
+  function makePager(ask, still) {
     root.classList.add("paging");
     var SEL = ".hero2, .seq-intro, .sq-snaps i, .more, .win, .web, .safe, .plans, .closing";
     var DUR = 650, QUIET = 200, THRESH = 24, animEnd = 0;
@@ -157,13 +158,14 @@
     function scrollTo(y) { try { window.scrollTo({ top: y, left: 0, behavior: "instant" }); } catch (e) { window.scrollTo(0, y); } }
 
     function animateTo(y, scene, dur, isPage) {
+      if (still) dur = 0;
       var from = window.scrollY;
       anim = { from: from, to: y, t0: now(), dur: dur, scene: scene, page: isPage };
       if (Math.abs(y - from) < 1) { anim = null; if (isPage) needQuiet = true; ask(); return; }
       var mine = anim;
       requestAnimationFrame(function step() {
         if (anim !== mine) return;
-        var t = Math.min(1, (now() - mine.t0) / mine.dur), e = 1 - Math.pow(1 - t, 3);
+        var t = mine.dur > 0 ? Math.min(1, (now() - mine.t0) / mine.dur) : 1, e = 1 - Math.pow(1 - t, 3);
         scrollTo(mine.from + (mine.to - mine.from) * e);
         if (t < 1) { requestAnimationFrame(step); return; }
         anim = null; animEnd = now();
