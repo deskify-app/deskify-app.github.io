@@ -76,14 +76,17 @@
       if (pager) pager.frame();
     }
     function ask() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
-    var pager = reduce ? null : makePager(ask);
+    // JS paging only with a mouse / trackpad (fine pointer that can hover) and motion allowed; touch screens keep
+    // native scrolling with the CSS proximity snap
+    var fine = window.matchMedia && matchMedia("(hover: hover) and (pointer: fine)").matches;
+    var pager = reduce || !fine ? null : makePager(ask);
     if (track) show(0);
     frame();
     window.addEventListener("scroll", ask, { passive: true });
     window.addEventListener("resize", ask);
   }
 
-  // Paging (fourth pass): one gesture = one stop. A wheel flick, a key press or a swipe turns exactly one page with a
+  // Paging (fourth pass, desktop only): one gesture = one stop. A wheel flick or a key press turns exactly one page with a
   // 650 ms ease-out scroll, then input stays locked until the gesture has died down (trackpad inertia never skips a
   // stop). Stops are the full-viewport sections and the six scenes; a section taller than the view scrolls freely
   // inside and pages on the next gesture once its edge is reached. CSS scroll-snap stays as the fallback without JS;
@@ -94,7 +97,7 @@
     var DUR = 650, QUIET = 160, THRESH = 36;
     var snaps = Array.prototype.slice.call(document.querySelectorAll(".sq-snaps i"));
     var stops = [], anim = null, needQuiet = false, lastWheel = 0, prevA = 0, lastDir = 0, acc = 0;
-    var touch = null, settleT = 0, dots = null, dotBtns = [];
+    var settleT = 0, dots = null, dotBtns = [];
     var now = function () { return window.performance ? performance.now() : Date.now(); };
 
     // Phones: the URL bar hides and shows while scrolling, changing innerHeight by ~56 px. The stops are sized in svh, so
@@ -226,65 +229,23 @@
       else page(dir);
     });
 
-    // Touch: the first move decides. Inside a tall section (moving inward) the browser scrolls natively with its own
-    // momentum and nothing is cancelled; that section becomes "home" and the momentum is stopped at its edge (the
-    // finger may pull past it, the release springs back to the edge), so a section is never skipped. Only a swipe
-    // that starts with the section already at its edge, or on a one-screen stop, is held and turns one page.
-    var home = -1;
-    window.addEventListener("touchstart", function (e) {
-      if (e.touches.length !== 1) { touch = null; return; }
-      touch = { y: e.touches[0].clientY, x: e.touches[0].clientX, t: now(), mode: "" };
-    }, { passive: true });
-    window.addEventListener("touchmove", function (e) {
-      if (!touch) return;
-      if (e.touches.length !== 1) { touch = null; return; }
-      var dy = touch.y - e.touches[0].clientY, dx = touch.x - e.touches[0].clientX;
-      if (!touch.mode) {
-        if (!dy && !dx) return;
-        if (anim && anim.page) touch.mode = "hold";
-        else if (Math.abs(dx) > Math.abs(dy) * 1.5) touch.mode = "native";
-        else {
-          if (anim) anim = null; // a touch stops a settle/free animation where it is
-          measure();
-          var y = window.scrollY, i = at(y);
-          if (i < 0) { touch.mode = "native"; home = nearest(y); }
-          else if (inside(stops[i], y, dy > 0 ? 1 : -1)) { touch.mode = "native"; home = i; }
-          else { touch.mode = "page"; home = -1; }
-        }
-      }
-      if (touch.mode !== "native" && e.cancelable) e.preventDefault();
-    }, { passive: false });
-    function touchEnd(e) {
-      var tc = touch; touch = null;
-      if (!tc || tc.mode !== "page" || (anim && anim.page)) { clampHome(true); scheduleSettle(); return; }
-      var p = e.changedTouches && e.changedTouches[0];
-      if (!p) return;
-      var dy = tc.y - p.clientY, dt = Math.max(1, now() - tc.t);
-      if (Math.abs(dy) > 40 || (Math.abs(dy) > 15 && Math.abs(dy) / dt > 0.3)) page(dy > 0 ? 1 : -1);
-    }
-    window.addEventListener("touchend", touchEnd, { passive: true });
-    window.addEventListener("touchcancel", function () { touch = null; }, { passive: true });
+    // Touch screens are not handled here at all: phones and tablets (coarse pointer) get no pager — native scrolling
+    // with CSS proximity snap (home2.css) — and a touch on a desktop with a mouse just scrolls natively too.
 
-    // Anything that leaves the page between stops (scrollbar drag, native momentum past an edge, a resize) settles on
-    // the nearest one — or on the stop holding the keyboard focus.
-    // Momentum after a native swipe: stopped at the home section's edge (an instant scroll cancels the fling). Right
-    // after the finger lifts past the edge, it springs back with a short animation instead.
-    function clampHome(release) {
-      if (home < 0 || anim || touch || !stops[home]) return;
-      var s = stops[home], y = window.scrollY;
-      var t = y > s.end + TOL ? s.end : y < s.top - TOL ? s.top : -1;
-      if (t < 0) return;
-      if (release) animateTo(t, -1, 300, false);
-      else scrollTo(t);
-    }
+    // Anything that leaves the page between stops (scrollbar drag, a resize) settles on the nearest one — or on the
+    // stop holding the keyboard focus. Never while a finger is on the screen (touch on a hybrid laptop).
+    var touching = false;
+    window.addEventListener("touchstart", function () { touching = true; anim = null; }, { passive: true });
+    var lastTouch = 0;
+    window.addEventListener("touchend", function () { touching = false; lastTouch = now(); }, { passive: true });
+    window.addEventListener("touchcancel", function () { touching = false; }, { passive: true });
     function settle() {
-      if (anim || touch) return;
+      if (anim || touching || now() - lastTouch < 1500) return; // native touch momentum is left alone
       measure();
-      var y = window.scrollY, h = home;
-      home = -1;
+      var y = window.scrollY;
       if (!stops.length || at(y) >= 0) return;
-      var k = h >= 0 && stops[h] ? h : nearest(y), f = document.activeElement;
-      if (h < 0 && f && f !== document.body) for (var i = 0; i < stops.length; i++) if (stops[i].el.contains(f)) { k = i; break; }
+      var k = nearest(y), f = document.activeElement;
+      if (f && f !== document.body) for (var i = 0; i < stops.length; i++) if (stops[i].el.contains(f)) { k = i; break; }
       var s = stops[k];
       animateTo(Math.max(s.top, Math.min(s.end, y)), s.scene, 380, false);
     }
@@ -342,7 +303,7 @@
         var y = window.scrollY, k = anim && anim.page ? at(anim.to) : at(y);
         if (k < 0) k = nearest(y);
         if (k !== cur) { if (dotBtns[cur]) dotBtns[cur].classList.remove("on"); if (dotBtns[k]) dotBtns[k].classList.add("on"); cur = k; }
-        if (!anim && !touch) { clampHome(false); scheduleSettle(); }
+        if (!anim && !touching) scheduleSettle();
       }
     };
   }

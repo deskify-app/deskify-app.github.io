@@ -422,8 +422,18 @@ html { scroll-snap-type: y mandatory; }
 /* still mode: the stacked scenes are one tall snap area (scrolls freely inside), so PageDown never jumps over them */
 html:not(.motion) .seq-track { scroll-snap-align: start; }
 
-/* ---- fourth pass: JS paging (home2.js adds html.paging unless reduced motion); CSS snap stays the no-JS fallback ---- */
+/* ---- fourth pass: JS paging on desktops with a mouse / trackpad (home2.js adds html.paging unless reduced motion);
+   CSS snap stays the no-JS fallback ---- */
 html.paging { scroll-snap-type: none; }
+/* touch screens: native scrolling with a gentle proximity snap — only the one-screen stops (first screen, statement,
+   the six scenes, closing) attract; the tall sections have no snap point and scroll freely */
+@media (hover: none), (pointer: coarse) {
+  html { scroll-snap-type: y proximity; }
+  .more, .win, .web, .safe, .plans, html:not(.motion) .seq-track { scroll-snap-align: none; }
+  .hero2, .seq-intro, .closing, .motion .sq-snaps i { scroll-snap-align: start; scroll-snap-stop: normal; }
+  /* the very bottom is a snap point too, or the closing's pull would keep the footer out of reach */
+  .foot { scroll-snap-align: end; scroll-snap-stop: normal; }
+}
 .pager-dots { display: none; }
 @media (min-width: 900px) and (hover: hover) and (pointer: fine) {
   html.paging .pager-dots { display: flex; flex-direction: column; position: fixed; right: 12px; top: 50%; translate: 0 -50%; z-index: 40; mix-blend-mode: difference; }
