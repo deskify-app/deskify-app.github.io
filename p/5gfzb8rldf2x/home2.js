@@ -84,6 +84,20 @@
     // native scrolling with the CSS mandatory snap (html.scenes)
     var pager = reduce || !fine ? null : makePager(ask);
     if (track) show(0);
+    // Touch scenes: the one fixed step bar follows the scene under the middle of the screen. Observation only — it
+    // never scrolls and changes no layout (opacity and colours of the bar).
+    var bar6 = root.classList.contains("scenes") && document.querySelector(".sq-ticks");
+    if (bar6 && "IntersectionObserver" in window) {
+      var marks = document.querySelectorAll(".sq-snaps i"), dashes = bar6.querySelectorAll("i"), inView = {};
+      var io = new IntersectionObserver(function (entries) {
+        for (var e = 0; e < entries.length; e++) inView[Array.prototype.indexOf.call(marks, entries[e].target)] = entries[e].isIntersecting;
+        var at = -1;
+        for (var k = 0; k < marks.length; k++) if (inView[k]) { at = k; break; }
+        bar6.classList.toggle("show", at >= 0);
+        for (var d = 0; d < dashes.length; d++) dashes[d].classList.toggle("on", d === at);
+      }, { rootMargin: "-50% 0px -50% 0px" });
+      for (var mk = 0; mk < marks.length; mk++) io.observe(marks[mk]);
+    }
     frame();
     window.addEventListener("scroll", ask, { passive: true });
     window.addEventListener("resize", ask);

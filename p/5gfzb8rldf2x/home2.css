@@ -426,25 +426,23 @@ html:not(.motion) .seq-track { scroll-snap-align: start; }
    CSS snap stays the no-JS fallback ---- */
 html.paging { scroll-snap-type: none; }
 /* ---- touch screens (html.scenes, set by home2.js when there is no fine pointer): no pinned sequence and no JS
-   scrolling. The six scenes are ordinary screens with ONE identical frame: a device box of fixed height (the device,
-   whatever its kind, is scaled to fit and centred in it), then number + title + text starting at the same y on every
-   scene, the step bar a small gap under the text; the frame is centred in the small viewport (svh) under the bar.
-   Browser bars: every snap area is exactly one SMALL viewport (svh) tall, never taller than the screen with the bars
-   shown (a taller area would let the page rest anywhere inside it, under the site's bar). When the bars hide, the
-   screen grows by X (~100-130 px): the frame and the step bar move down by a transform (dvh; no reflow, no re-snap),
-   and what shows under the scene is the next scene's empty dark top. Only the last scene is X taller, so the light
-   section after it never peeks in. Snap: mandatory + stop: always; the tall sections snap at their start and scroll
-   freely inside. Nothing here depends on JS or on resize. ---- */
+   scrolling. The six scenes are ordinary screens with ONE identical frame anchored at the top, just under the site's
+   bar: a device box of fixed height (sized in svh; the device, whatever its kind, is scaled to fit and centred in it),
+   then number + title + text starting at the same y on every scene. With the browser bars shown everything fits;
+   with them hidden the extra room is simply at the bottom. ONE fixed step bar (bottom of the visible screen, follows
+   both bar states by itself) is shown while a scene is on screen; home2.js only observes which scene that is
+   (IntersectionObserver: no scrolling, no layout). Every snap area is one small viewport (svh) tall, never taller than
+   the screen with the bars shown; only the last scene is X taller, so the light section after it never peeks in.
+   Snap: mandatory + stop: always; the tall sections snap at their start and scroll freely inside. ---- */
 html.scenes { scroll-snap-type: y mandatory;
   --nav: 60px;                                   /* the bar on phones */
   --D: clamp(200px, min(49svh, 100svh - 360px), 520px);  /* device box height, every scene */
   --G: 22px;                                     /* device box -> number */
   --C: clamp(205px, 27svh, 275px);               /* room reserved for number + title + text */
-  --B: calc(52px + env(safe-area-inset-bottom, 0px));  /* the step bar's own strip at the bottom of the small viewport */
-  --M: max(8px, calc((100svh - var(--nav) - var(--B) - var(--D) - var(--G) - var(--C)) / 2));  /* equal margins */
+  --B: calc(52px + env(safe-area-inset-bottom, 0px));  /* kept free at the bottom for the fixed step bar */
+  --M: clamp(12px, 3svh, 28px);                  /* the frame's top margin under the site's bar */
   --W: calc(100vw - 2 * max(16px, env(safe-area-inset-left)));                         /* width the device may use */
-  --X: 0px; --X: calc(100lvh - 100svh);          /* how much the screen grows when the browser bars hide */
-  --S: 0px; --S: calc((100dvh - 100svh) / 2); }   /* the frame's shift while they are hidden (0 with them shown) */
+  --X: 0px; --X: calc(100lvh - 100svh); }        /* how much the screen grows when the browser bars hide */
 html.scenes .hero2, html.scenes .seq-intro, html.scenes .closing { scroll-snap-align: start; scroll-snap-stop: always; }
 html.scenes .more, html.scenes .win, html.scenes .web, html.scenes .safe, html.scenes .plans { scroll-snap-align: start; scroll-snap-stop: always; }
 html.scenes .seq-track { scroll-snap-align: none; }
@@ -453,11 +451,10 @@ html.scenes .foot { scroll-snap-align: end; }
 /* one snap marker per scene: one small viewport tall, one scene apart */
 html.scenes .sq-snaps { display: grid; grid-template-rows: repeat(5, 100svh) calc(100svh + var(--X)); position: absolute; inset: 0; pointer-events: none; }
 html.scenes .sq-snaps i { height: 100svh; align-self: start; scroll-snap-align: start; scroll-snap-stop: always; }
-/* each scene: [bar + margin + device box] [gap + words + step bar strip]; the last one X taller */
+/* each scene: [site bar + margin + device box] [gap + words + free room]; the last one X taller */
 html.scenes .seq-sticky { --A: calc(var(--nav) + var(--M) + var(--D));
   grid-template-rows: repeat(5, var(--A) calc(100svh - var(--A))) var(--A) calc(100svh + var(--X) - var(--A));
   padding: 0; gap: 0; }
-html.scenes .sq-dev, html.scenes .sq-cap { translate: 0 var(--S); }
 html.scenes .sq-dev { grid-column: 1; align-self: end; justify-self: center; margin: 0; position: relative; }
 /* scaled to fit the box: a phone fills its height; wide devices take the width they can and sit centred in the box
    (R = the drawn frame's width / height) */
@@ -477,19 +474,18 @@ html.scenes .sq-cap h3 { font-size: clamp(1.35rem, min(6.2vw, 3.3svh), 2.1rem); 
 html.scenes .sq-cap p { font-size: clamp(.88rem, min(4.1vw, 2.05svh), 1.02rem); line-height: 1.5; }
 html.scenes .sq-cap p.aside { font-size: clamp(.84rem, min(3.9vw, 1.9svh), .96rem); margin-top: 10px; }
 html.scenes .sq-cap .more-link { margin-top: 12px; }
-/* the scene's own step bar: same place on every scene, 24 px above the bottom of the SMALL viewport (so a browser
-   toolbar never covers it), centred, in its own reserved strip; the current step bright, the others dim */
-html.scenes .sq-cap::after { content: ""; position: absolute; left: 50%; translate: -50% 0; width: 198px; height: 3px;
-  top: calc(100svh - var(--nav) - var(--M) - var(--D) - 27px - env(safe-area-inset-bottom, 0px) + var(--S));
-  background: linear-gradient(90deg, rgba(255, 255, 255, .18) calc((var(--k) - 1) * 34px), #f5f5f7 calc((var(--k) - 1) * 34px) calc(var(--k) * 34px), rgba(255, 255, 255, .18) calc(var(--k) * 34px));
-  -webkit-mask: repeating-linear-gradient(90deg, #000 0 28px, transparent 28px 34px); mask: repeating-linear-gradient(90deg, #000 0 28px, transparent 28px 34px); }
-html.scenes .sq-ticks { display: none; }
-html.scenes [data-scene="0"].sq-dev { grid-row: 1; } html.scenes .sq-cap[data-scene="0"] { grid-row: 2; --k: 1; }
-html.scenes [data-scene="1"].sq-dev { grid-row: 3; } html.scenes .sq-cap[data-scene="1"] { grid-row: 4; --k: 2; }
-html.scenes [data-scene="2"].sq-dev { grid-row: 5; } html.scenes .sq-cap[data-scene="2"] { grid-row: 6; --k: 3; }
-html.scenes [data-scene="3"].sq-dev { grid-row: 7; } html.scenes .sq-cap[data-scene="3"] { grid-row: 8; --k: 4; }
-html.scenes [data-scene="4"].sq-dev { grid-row: 9; } html.scenes .sq-cap[data-scene="4"] { grid-row: 10; --k: 5; }
-html.scenes [data-scene="5"].sq-dev { grid-row: 11; } html.scenes .sq-cap[data-scene="5"] { grid-row: 12; --k: 6; }
+/* the one step bar: fixed at the bottom of the visible screen, shown while a scene is on screen, current step bright */
+html.scenes .sq-ticks { display: flex; gap: 6px; position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  translate: -50% 0; z-index: 20; opacity: 0; visibility: hidden; transition: opacity .25s, visibility 0s .25s; pointer-events: none; }
+html.scenes .sq-ticks.show { opacity: 1; visibility: visible; transition: opacity .25s; }
+html.scenes .sq-ticks i { width: 28px; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, .18); transition: background-color .3s; }
+html.scenes .sq-ticks i.on { background: #f5f5f7; }
+html.scenes [data-scene="0"].sq-dev { grid-row: 1; } html.scenes .sq-cap[data-scene="0"] { grid-row: 2; }
+html.scenes [data-scene="1"].sq-dev { grid-row: 3; } html.scenes .sq-cap[data-scene="1"] { grid-row: 4; }
+html.scenes [data-scene="2"].sq-dev { grid-row: 5; } html.scenes .sq-cap[data-scene="2"] { grid-row: 6; }
+html.scenes [data-scene="3"].sq-dev { grid-row: 7; } html.scenes .sq-cap[data-scene="3"] { grid-row: 8; }
+html.scenes [data-scene="4"].sq-dev { grid-row: 9; } html.scenes .sq-cap[data-scene="4"] { grid-row: 10; }
+html.scenes [data-scene="5"].sq-dev { grid-row: 11; } html.scenes .sq-cap[data-scene="5"] { grid-row: 12; }
 @media (min-width: 700px) { html.scenes .sq-cap { text-align: center; } }
 @media (min-width: 761px) { html.scenes { --nav: 52px; } }
 .pager-dots { display: none; }
