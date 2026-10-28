@@ -3,5 +3,6 @@ Allow: /
 Disallow: /console.html
 Disallow: /pair.html
 Disallow: /testing.html
+Disallow: /p/
 
 Sitemap: https://deskify-app.com/sitemap.xml
