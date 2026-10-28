@@ -432,7 +432,11 @@ html.paging { scroll-snap-type: none; }
    with them hidden the extra room is simply at the bottom. ONE fixed step bar (bottom of the visible screen, follows
    both bar states by itself) is shown while a scene is on screen; home2.js only observes which scene that is
    (IntersectionObserver: no scrolling, no layout). Every snap area is one small viewport (svh) tall, never taller than
-   the screen with the bars shown; only the last scene is X taller, so the light section after it never peeks in.
+   the screen with the bars shown. Every one-screen stop (first screen, statement, each scene) is one LARGE viewport
+   (lvh) tall and one lvh apart, its content in the top svh: with the bars hidden the screen is exactly one stop and
+   nothing of the next stop shows; with them shown the stop's empty bottom strip is just off-screen. The snap target
+   is a separate marker at the top of each stop, exactly one svh tall (never oversized, so the page can't rest inside
+   it).
    Snap: mandatory + stop: always; the tall sections snap at their start and scroll freely inside. ---- */
 html.scenes { scroll-snap-type: y mandatory;
   --nav: 60px;                                   /* the bar on phones */
@@ -442,18 +446,24 @@ html.scenes { scroll-snap-type: y mandatory;
   --B: calc(52px + env(safe-area-inset-bottom, 0px));  /* kept free at the bottom for the fixed step bar */
   --M: clamp(12px, 3svh, 28px);                  /* the frame's top margin under the site's bar */
   --W: calc(100vw - 2 * max(16px, env(safe-area-inset-left)));                         /* width the device may use */
-  --X: 0px; --X: calc(100lvh - 100svh); }        /* how much the screen grows when the browser bars hide */
-html.scenes .hero2, html.scenes .seq-intro, html.scenes .closing { scroll-snap-align: start; scroll-snap-stop: always; }
+  --X: 0px; --X: calc(100lvh - 100svh);          /* how much the screen grows when the browser bars hide */
+  --L: 100vh; --L: 100lvh; }                      /* one stop */
+html.scenes .closing { scroll-snap-align: start; scroll-snap-stop: always; }
+/* first screen and statement: one lvh tall, content kept in the top svh, snapped by their 100svh marker */
+.stop-mark { display: none; }
+html.scenes .stop-mark { display: block; position: absolute; top: 0; left: 0; width: 1px; height: 100svh; pointer-events: none;
+  scroll-snap-align: start; scroll-snap-stop: always; }
+html.scenes .hero2 { position: relative; height: var(--L); padding-bottom: calc(clamp(10px, 2.6vh, 32px) + var(--X)); scroll-snap-align: none; }
+html.scenes .seq-intro { position: relative; min-height: var(--L); padding-bottom: calc(40px + var(--X)); scroll-snap-align: none; }
 html.scenes .more, html.scenes .win, html.scenes .web, html.scenes .safe, html.scenes .plans { scroll-snap-align: start; scroll-snap-stop: always; }
 html.scenes .seq-track { scroll-snap-align: none; }
 html.scenes .foot { scroll-snap-align: end; }
-/* the first screen and the statement stay one small viewport (base rules), so they are never oversized snap areas */
-/* one snap marker per scene: one small viewport tall, one scene apart */
-html.scenes .sq-snaps { display: grid; grid-template-rows: repeat(5, 100svh) calc(100svh + var(--X)); position: absolute; inset: 0; pointer-events: none; }
+/* one snap marker per scene: one small viewport tall, one stop (lvh) apart */
+html.scenes .sq-snaps { display: grid; grid-template-rows: repeat(6, var(--L)); position: absolute; inset: 0; pointer-events: none; }
 html.scenes .sq-snaps i { height: 100svh; align-self: start; scroll-snap-align: start; scroll-snap-stop: always; }
-/* each scene: [site bar + margin + device box] [gap + words + free room]; the last one X taller */
+/* each scene (one lvh): [site bar + margin + device box] [gap + words + free room + the bar-hide strip] */
 html.scenes .seq-sticky { --A: calc(var(--nav) + var(--M) + var(--D));
-  grid-template-rows: repeat(5, var(--A) calc(100svh - var(--A))) var(--A) calc(100svh + var(--X) - var(--A));
+  grid-template-rows: repeat(6, var(--A) calc(var(--L) - var(--A)));
   padding: 0; gap: 0; }
 html.scenes .sq-dev { grid-column: 1; align-self: end; justify-self: center; margin: 0; position: relative; }
 /* scaled to fit the box: a phone fills its height; wide devices take the width they can and sit centred in the box
