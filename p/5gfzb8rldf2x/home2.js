@@ -111,7 +111,7 @@
   function makePager(ask) {
     root.classList.add("paging");
     var SEL = ".hero2, .seq-intro, .sq-snaps i, .more, .win, .web, .safe, .plans, .closing";
-    var DUR = 650, QUIET = 160, THRESH = 36;
+    var DUR = 650, QUIET = 200, THRESH = 24, animEnd = 0;
     var snaps = Array.prototype.slice.call(document.querySelectorAll(".sq-snaps i"));
     var stops = [], anim = null, needQuiet = false, lastWheel = 0, prevA = 0, lastDir = 0, acc = 0;
     var settleT = 0, dots = null, dotBtns = [];
@@ -166,7 +166,7 @@
         var t = Math.min(1, (now() - mine.t0) / mine.dur), e = 1 - Math.pow(1 - t, 3);
         scrollTo(mine.from + (mine.to - mine.from) * e);
         if (t < 1) { requestAnimationFrame(step); return; }
-        anim = null;
+        anim = null; animEnd = now();
         if (mine.page) needQuiet = true;
         ask();
       });
@@ -205,21 +205,34 @@
 
     window.addEventListener("wheel", function (e) {
       if (e.ctrlKey || e.defaultPrevented) return;
-      var d = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? window.innerHeight : 1);
+      // line mode (some remote-desktop / RDP clients and Firefox send deltaMode 1): ~40 px per line
+      var d = e.deltaY * (e.deltaMode === 1 ? 40 : e.deltaMode === 2 ? window.innerHeight : 1);
       if (!d || Math.abs(e.deltaX) > Math.abs(d) || innerScroll(e.target, d)) return;
       var t = now(), gap = t - lastWheel, a = Math.abs(d), dir = d > 0 ? 1 : -1;
       var rising = a > prevA * 2 + 6, flip = dir !== lastDir;
+      // a mouse-wheel notch (also through RDP): line mode, or a legacy wheelDelta in whole 120 steps with a real pixel
+      // step; trackpad inertia comes every ~16 ms with decaying deltas and never passes the gap test below
+      var notch = e.deltaMode === 1 || (a >= 50 && e.wheelDeltaY && e.wheelDeltaY % 120 === 0);
       lastWheel = t; prevA = a; lastDir = dir;
       e.preventDefault();
       if (anim && anim.page) return;
       // after a page turn (or an edge stop) the rest of the gesture is swallowed: a pause, a new flick (deltas rising
-      // again instead of decaying) or the other direction starts the next gesture
-      if (needQuiet) { if (gap > QUIET || rising || flip) needQuiet = false; else return; }
+      // again instead of decaying) or the other direction starts the next gesture — and so does every new wheel notch
+      // once the turn is over (one notch = one stop, however fast or oddly timed the notches arrive)
+      if (needQuiet) {
+        if (gap > QUIET || rising || flip || (notch && gap > 60 && t - animEnd > 80)) needQuiet = false;
+        else return;
+      }
       if (gap > QUIET || flip) acc = 0;
       measure();
       var y = anim ? anim.to : window.scrollY, s = stops[at(y)];
-      if (inside(s, y, dir)) { if (freeBy(d, s, false)) needQuiet = true; acc = 0; return; }
-      acc += d;
+      if (inside(s, y, dir)) {
+        // inside a tall section a notch moves a good part of the window (not 100 px), so it never takes ages to pass
+        if (freeBy(notch ? dir * Math.max(a, window.innerHeight * 0.6) : d, s, notch)) needQuiet = true;
+        acc = 0; return;
+      }
+      if (notch) acc = dir * THRESH;
+      else acc += d;
       if (Math.abs(acc) < THRESH) return;
       acc = 0;
       page(dir);

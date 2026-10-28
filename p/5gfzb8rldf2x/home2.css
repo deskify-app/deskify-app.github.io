@@ -533,3 +533,16 @@ html.scenes [data-scene="5"].sq-dev { grid-row: 11; } html.scenes .sq-cap[data-s
   .hero2 .ctas > .btn-primary { order: -1; flex: 1 1 100%; }
   .hero2 .ctas > .store { flex: 1 1 0; min-width: 0; justify-content: center; padding-left: 10px; padding-right: 12px; }
 }
+
+/* ---- short desktop windows (a remote session, a small laptop): the features grid stays one stop down to ~560 px ---- */
+@media (min-width: 900px) and (max-height: 820px) {
+  .more { padding-top: calc(52px + clamp(10px, 2.4vh, 24px)); padding-bottom: clamp(12px, 2.6vh, 28px); }
+  .more .title { font-size: clamp(1.8rem, 6vh, 3rem); margin-bottom: clamp(12px, 2.6vh, 28px); }
+  .bento { gap: clamp(10px, 1.8vh, 18px); }
+  .tile { padding: clamp(14px, 2.6vh, 28px) clamp(18px, 2.2vw, 30px); border-radius: 22px; }
+  .tile .ic { margin-bottom: clamp(6px, 1.4vh, 14px); }
+  .tile .ic svg { width: clamp(22px, 3.6vh, 30px); height: clamp(22px, 3.6vh, 30px); }
+  .tile h3 { font-size: clamp(1.02rem, 2.9vh, 1.4rem); margin-bottom: 6px; }
+  .tile p { font-size: clamp(.84rem, 2.3vh, .98rem); line-height: 1.45; }
+  .tile .keys { margin-bottom: clamp(6px, 1.4vh, 14px); gap: 6px; }
+}
