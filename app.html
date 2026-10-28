@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-jTFzZMSsi22zad7BpcRx0i6xQPfAaz3Wt52wRU07OAE=' 'self' https://www.gstatic.com/firebasejs/ https://apis.google.com https://cdn.jsdelivr.net/npm/@xterm/; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: blob:; connect-src 'self' blob: https://deskify-api.kim290.workers.dev https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com http://127.0.0.1:* http://localhost:*; frame-src https://deskify-8bd6f.firebaseapp.com https://accounts.google.com https://apis.google.com; object-src 'none'; base-uri 'self'; form-action 'self'">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light dark">
 <title>웹 Deskify</title>
@@ -44,6 +44,10 @@
     <symbol id="i-file" viewBox="0 0 24 24"><path d="M7 3.5h6.5L18 8v12a.5.5 0 0 1-.5.5h-10A1.5 1.5 0 0 1 6 19V5a1.5 1.5 0 0 1 1-1.5z"/><path d="M13 3.5V8h5"/></symbol>
     <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4M7.5 8.5L12 4l4.5 4.5M5 14v4.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V14"/></symbol>
     <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.5L12 15l4.5-4.5M5 14v4.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V14"/></symbol>
+    <symbol id="i-clip-in" viewBox="0 0 24 24"><path d="M9 3.5h6v3H9z"/><path d="M8 5H6.5A1.5 1.5 0 0 0 5 6.5v13A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5v-13A1.5 1.5 0 0 0 17.5 5H16"/><path d="M12 9.5v7M9 13.5l3 3 3-3"/></symbol>
+    <symbol id="i-clip-out" viewBox="0 0 24 24"><path d="M9 3.5h6v3H9z"/><path d="M8 5H6.5A1.5 1.5 0 0 0 5 6.5v13A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5v-13A1.5 1.5 0 0 0 17.5 5H16"/><path d="M12 16.5v-7M9 12.5l3-3 3 3"/></symbol>
+    <symbol id="i-mouse2" viewBox="0 0 24 24"><rect x="6.5" y="3" width="11" height="18" rx="5.5"/><path d="M12 7v3.5"/></symbol>
+    <symbol id="i-touch" viewBox="0 0 24 24"><path d="M9.5 12.5V5.5a1.5 1.5 0 0 1 3 0v6m0-1a1.5 1.5 0 0 1 3 0v1m0-.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-.6a5 5 0 0 1-4-2l-2.7-3.7a1.4 1.4 0 0 1 2.2-1.7l1.6 1.9"/></symbol>
     <symbol id="i-hang" viewBox="0 0 24 24"><path d="M12 3.5v8M6.6 6.6a7.5 7.5 0 1 0 10.8 0"/></symbol>
     <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4v4.5H15"/></symbol>
     <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
@@ -209,8 +213,9 @@
       <button id="btnSKeys" class="rm-tool" type="button" data-tip-ko="특수 키 (Win·Alt+Tab·Ctrl+Alt+Del…)" data-tip-en="Special keys (Win, Alt+Tab, Ctrl+Alt+Del…)" data-tip-ja="特殊キー (Win・Alt+Tab・Ctrl+Alt+Del…)" data-tip-zh="特殊键 (Win、Alt+Tab、Ctrl+Alt+Del…)" aria-pressed="false" hidden><svg><use href="#i-win"/></svg></button>
       <button id="btnLock" class="rm-tool" type="button" data-tip-ko="마우스 고정 (Esc로 풀기)" data-tip-en="Lock the mouse (Esc to release)" data-tip-ja="マウスを固定 (Esc で解除)" data-tip-zh="锁定鼠标 (按 Esc 解除)" hidden><svg><use href="#i-mouse"/></svg></button>
       <button id="btnKbd" class="rm-tool" type="button" data-tip-ko="화면 키보드" data-tip-en="On-screen keyboard" data-tip-ja="スクリーン キーボード" data-tip-zh="屏幕键盘" hidden><svg><use href="#i-kbd"/></svg></button>
-      <button id="btnClipGet" class="rm-tool" type="button" data-tip-ko="원격 클립보드 가져오기" data-tip-en="Get the remote clipboard" data-tip-ja="リモートのクリップボードを取得" data-tip-zh="获取远程剪贴板" hidden><svg><use href="#i-download"/></svg></button>
-      <button id="btnPaste" class="rm-tool" type="button" data-tip-ko="붙여넣기" data-tip-en="Paste" data-tip-ja="貼り付け" data-tip-zh="粘贴"><svg><use href="#i-clip"/></svg></button>
+      <button id="btnPad" class="rm-tool" type="button" data-tip-ko="입력: 마우스 (누르면 터치로)" data-tip-en="Input: mouse (tap for touch)" data-tip-ja="入力: マウス (タップでタッチに)" data-tip-zh="输入: 鼠标 (点按切换为触摸)" aria-pressed="true" hidden><svg class="on"><use href="#i-mouse2"/></svg><svg class="off"><use href="#i-touch"/></svg></button>
+      <button id="btnClipGet" class="rm-tool" type="button" data-tip-ko="원격 컴퓨터에서 복사한 글을 이 기기로 가져오기" data-tip-en="Bring text copied on the remote computer to this device" data-tip-ja="リモートでコピーした文字をこの端末へ取り込む" data-tip-zh="将远程电脑上复制的文字取到本设备" hidden><svg><use href="#i-clip-in"/></svg></button>
+      <button id="btnPaste" class="rm-tool" type="button" data-tip-ko="이 기기에서 복사한 글을 원격에 붙여넣기" data-tip-en="Paste text copied on this device into the remote" data-tip-ja="この端末でコピーした文字をリモートに貼り付け" data-tip-zh="将本设备上复制的文字粘贴到远程"><svg><use href="#i-clip-out"/></svg></button>
       <button id="btnSmaller" class="rm-tool" type="button" data-tip-ko="글자 작게" data-tip-en="Smaller text" data-tip-ja="文字を小さく" data-tip-zh="缩小文字"><svg><use href="#i-minus"/></svg></button>
       <button id="btnBigger" class="rm-tool" type="button" data-tip-ko="글자 크게" data-tip-en="Larger text" data-tip-ja="文字を大きく" data-tip-zh="放大文字"><svg><use href="#i-plus"/></svg></button>
       <button id="btnRe" class="rm-tool" type="button" data-tip-ko="다시 연결" data-tip-en="Reconnect" data-tip-ja="再接続" data-tip-zh="重新连接"><svg><use href="#i-refresh"/></svg></button>
@@ -264,7 +269,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-unicode11@0.8.0/lib/addon-unicode11.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@xterm/addon-web-links@0.11.0/lib/addon-web-links.js"></script>
 <script src="qrcode.min.js?v=4c794aa9ad"></script>
-<script src="stream.min.js?v=557ab8602c"></script>
-<script src="app.min.js?v=069d5fd2b9"></script>
+<script src="stream.min.js?v=93d0dfdf1b"></script>
+<script src="app.min.js?v=d6829ef0e7"></script>
 </body>
 </html>
