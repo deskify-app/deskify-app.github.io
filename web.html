@@ -70,8 +70,11 @@
   .wh-need li .wh-who { font-weight: 600; white-space: nowrap; }
   .wh-dl { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 13px; font-weight: 600; }
   .wh-dl svg { width: 15px; height: 15px; }
-  .wh-cta { margin-top: auto; padding-top: 20px; display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--accent-hi); font-weight: 600; font-size: 14px; }
-  .wh-cta svg { transition: transform .12s; }
+  /* The card's own way in, drawn as the other card's 돕기 button (a link line beside two buttons looked unfinished on a PC). */
+  .wh-card > :has(+ .wh-cta) { margin-bottom: 20px; }
+  .wh-cta { margin-top: auto; border: 1px solid transparent; display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 12px; border-radius: 12px; background: var(--accent); color: #fff; font-weight: 600; font-size: 14px; }
+  .wh-card:hover .wh-cta { background: var(--accent-hi); }
+  .wh-cta svg { width: 15px; height: 15px; transition: transform .12s; }
   .wh-card:hover .wh-cta svg { transform: translateX(3px); }
   .wh-two { position: relative; z-index: 1; margin-top: auto; padding-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .wh-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 12px; border-radius: 12px; font-weight: 600; font-size: 14px; background: var(--accent); color: #fff; }

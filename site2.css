@@ -814,7 +814,14 @@ main.doc .roles p, main.doc .role p { margin: 6px 0 0; }
 .page-buy .plan2 .price { font-size: clamp(2rem, 3.6vw, 2.8rem); letter-spacing: -.045em; }
 .page-buy .plan2 ul { font-size: .98rem; margin-top: 8px; }
 .page-buy .plan2 button { padding: 14px 20px; font-size: 1rem; }
-.page-buy main > .note { max-width: 70ch; }
+.page-buy main > .note { max-width: none; }
+/* the price's "/ 월", "/ 년 (2개월 무료)" kept apart: the big number's tight tracking squeezed their spaces away */
+.page-buy .plan2 .price small { letter-spacing: 0; margin-left: 4px; }
+/* buy is a page to act on: a shorter band on a PC so the plans are in the first screen (the same band, less air) */
+@media (min-width: 761px) {
+  .page-buy .page-hero { padding-top: calc(52px + clamp(36px, 4vw, 56px)); padding-bottom: clamp(36px, 4vw, 52px); margin-bottom: clamp(32px, 4vw, 48px); }
+  body.page-buy .buy .page-hero h1 { font-size: clamp(2.6rem, 4.6vw, 4rem); margin-bottom: 14px; }
+}
 
 /* testing: roomier step cards */
 .page-testing main.doc { max-width: 860px; }
