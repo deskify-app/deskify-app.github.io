@@ -852,3 +852,12 @@ main.doc .roles p, main.doc .role p { margin: 6px 0 0; }
   .page-hero { padding-top: calc(60px + clamp(24px, 5vh, 56px)); }
   .page-info .page-hero h1, .page-info main.doc .page-hero h1, .page-info .buy .page-hero h1 { font-size: clamp(2rem, min(10.5vw, 6vh), 3rem); }
 }
+
+/* 도움말 on a phone: the menu is hidden there, so a round "?" beside the language (11-01: help was only in the footer). */
+.nav-help { display: none; }
+@media (max-width: 760px) {
+  .nav-help { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; flex: none;
+    margin-left: auto; border-radius: 50%; background: var(--chip); color: var(--fg); font-weight: 700; font-size: .95rem; }
+  .nav-help:hover { text-decoration: none; }
+  .nav-help + .lang-menu { margin-left: 0; }
+}
