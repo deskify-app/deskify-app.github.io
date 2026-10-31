@@ -861,3 +861,4 @@ main.doc .roles p, main.doc .role p { margin: 6px 0 0; }
   .nav-help:hover { text-decoration: none; }
   .nav-help + .lang-menu { margin-left: 0; }
 }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
