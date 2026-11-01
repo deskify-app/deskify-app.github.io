@@ -45,7 +45,7 @@
 <li><a href="#connect-windows" data-a="connect-windows"><span lang-ko>Windows PC에 연결이 안 돼요</span><span lang-en>I can't connect to my Windows PC</span><span lang-ja>Windows PC に接続できません</span><span lang-zh>无法连接到 Windows PC</span></a></li>
 <li><a href="#lock-screen-input" data-a="lock-screen-input"><span lang-ko>잠금 화면(PIN)에서 키보드·마우스가 안 될 때</span><span lang-en>Keys and clicks don't work on the lock screen (PIN)</span><span lang-ja>ロック画面 (PIN) でキーボード・マウスが効かないとき</span><span lang-zh>在锁屏 (PIN) 界面键盘和鼠标无效</span></a></li>
 <li><a href="#connect-outside" data-a="connect-outside"><span lang-ko>집 밖에서 접속하려면</span><span lang-en>Connecting from outside</span><span lang-ja>外出先から接続するには</span><span lang-zh>在外连接</span></a></li>
-<li><a href="#windows-home" data-a="windows-home"><span lang-ko>Windows Home이라 원격 데스크톱이 없어요</span><span lang-en>My PC runs Windows Home (no Remote Desktop)</span><span lang-ja>Windows Home のためリモート デスクトップがありません</span><span lang-zh>电脑是 Windows Home 版（没有远程桌面）</span></a></li>
+<li><a href="#windows-home" data-a="windows-home"><span lang-ko>Windows Home이라 원격 데스크톱이 없습니다</span><span lang-en>My PC runs Windows Home (no Remote Desktop)</span><span lang-ja>Windows Home のためリモート デスクトップがありません</span><span lang-zh>电脑是 Windows Home 版（没有远程桌面）</span></a></li>
 <li><a href="#web-sign-in" data-a="web-sign-in"><span lang-ko>웹 Deskify · 브라우저에서 로그인 (QR · 기기 승인)</span><span lang-en>Web Deskify · signing in from a browser (QR · device approval)</span><span lang-ja>Web 版 Deskify · ブラウザーからログイン (QR・端末の承認)</span><span lang-zh>网页版 Deskify · 在浏览器中登录 (二维码 · 设备批准)</span></a></li>
     </ol>
     <h2 class="hc-sec"><span lang-ko>주제</span><span lang-en>Topics</span><span lang-ja>トピック</span><span lang-zh>主题</span></h2>
@@ -274,20 +274,35 @@
     </details>
   </article>
   <article class="hc-a" id="windows-home" data-cats="connect" data-updated="2026-10-29">
-    <details lang-ko><summary>Windows Home이라 원격 데스크톱이 없어요</summary>
-      <p>Windows Home은 원격 데스크톱(RDP)으로 접속받을 수 없습니다. 그 PC에 <b>Deskify(Windows용)</b>를 설치하고 같은 구글 계정으로 로그인하면, Deskify를 거쳐 PC 화면을 그대로 보고 조작할 수 있습니다.</p><ol><li>폰 Deskify의 <b>내 기기</b>에서 그 PC를 누르고 <b>보관함에 추가</b>를 고릅니다.</li><li>이제 보관함 카드를 누르면 바로 연결됩니다. 카드에는 RDP 대신 <b>Deskify</b>와 베타 표시가 보입니다.</li><li>이미 RDP로 저장해 둔 컴퓨터라면, RDP가 응답하지 않을 때 나오는 <b>Deskify로 연결</b>을 누르세요.</li></ol><p>RDP가 실제로 연결되는 PC는 그대로 RDP로 연결합니다. Deskify를 거치는 연결은 지금 모니터 화면을 그대로 공유하는 방식이라, PC 앞의 화면과 같은 화면을 보게 됩니다(구독 혜택 · 베타). PC 화면이 잠겨 있으면 PC Deskify의 <b>잠금 화면에서도 쓰기</b>를 켜 두세요.</p><p>Deskify를 설치할 수 없다면 <b>VNC</b>도 쓸 수 있습니다: PC에 TightVNC나 UltraVNC 같은 VNC 서버를 설치하고 비밀번호를 정한 뒤, 컴퓨터 추가 → <b>VNC</b>로 추가합니다.</p>
+    <details lang-ko><summary>Windows Home이라 원격 데스크톱이 없습니다</summary>
+      <p>Windows Home은 원격 데스크톱(RDP)으로 접속받을 수 없습니다. 그 PC에 <b>Deskify(Windows용)</b>를 설치하고 같은 구글 계정으로 로그인하면, Deskify를 거쳐 PC 화면을 그대로 보고 조작할 수 있습니다.</p>
+      <ol><li>폰 Deskify의 <b>내 기기</b>에서 그 PC를 누르고 <b>보관함에 추가</b>를 고릅니다.</li><li>이제 보관함 카드를 누르면 바로 연결됩니다. 카드에는 RDP 대신 <b>Deskify</b>와 베타 표시가 보입니다.</li><li>이미 RDP로 저장해 둔 컴퓨터라면, RDP가 응답하지 않을 때 나오는 <b>Deskify로 연결</b>을 누르세요.</li></ol>
+      <p>RDP가 실제로 연결되는 PC는 그대로 RDP로 연결합니다.</p>
+      <p>Deskify를 거치는 연결은 지금 모니터 화면을 그대로 공유하는 방식이라, PC 앞의 화면과 같은 화면을 보게 됩니다(구독 혜택 · 베타).</p>
+      <p>PC 화면이 잠겨 있으면 PC Deskify의 <b>잠금 화면에서도 쓰기</b>를 켜 두세요.</p>
+      <p>Deskify를 설치할 수 없다면 <b>VNC</b>도 쓸 수 있습니다: PC에 TightVNC나 UltraVNC 같은 VNC 서버를 설치하고 비밀번호를 정한 뒤, 컴퓨터 추가 → <b>VNC</b>로 추가합니다.</p>
       <p class="hc-link"><a href="#windows-home">이 글 링크</a></p>
     </details>
     <details lang-en><summary>My PC runs Windows Home (no Remote Desktop)</summary>
-      <p>Windows Home can't accept Remote Desktop (RDP) connections. Install <b>Deskify for Windows</b> on that PC and sign in with the same Google account: you can then see and control its screen through Deskify.</p><ol><li>In the phone's <b>My devices</b>, tap that PC and choose <b>Add to vault</b>.</li><li>Tap its vault card to connect. The card shows <b>Deskify</b> instead of RDP, with a beta mark.</li><li>Already saved as RDP? When RDP doesn't answer, tap <b>Connect through Deskify</b>.</li></ol><p>A PC whose RDP really connects keeps connecting by RDP. Through Deskify you share the monitor's own screen, the same one in front of the PC (a subscription perk, beta). If the PC is locked, turn on <b>Also on the lock screen</b> in Deskify on the PC.</p><p>Can't install Deskify? <b>VNC</b> works too: install a VNC server such as TightVNC or UltraVNC, set a password, then add the computer as <b>VNC</b>.</p>
+      <p>Windows Home can't accept Remote Desktop (RDP) connections. Install <b>Deskify for Windows</b> on that PC and sign in with the same Google account: you can then see and control its screen through Deskify.</p>
+      <ol><li>In the phone's <b>My devices</b>, tap that PC and choose <b>Add to vault</b>.</li><li>Tap its vault card to connect. The card shows <b>Deskify</b> instead of RDP, with a beta mark.</li><li>Already saved as RDP? When RDP doesn't answer, tap <b>Connect through Deskify</b>.</li></ol>
+      <p>A PC whose RDP really connects keeps connecting by RDP. Through Deskify you share the monitor's own screen, the same one in front of the PC (a subscription perk, beta). If the PC is locked, turn on <b>Also on the lock screen</b> in Deskify on the PC.</p>
+      <p>Can't install Deskify? <b>VNC</b> works too: install a VNC server such as TightVNC or UltraVNC, set a password, then add the computer as <b>VNC</b>.</p>
       <p class="hc-link"><a href="#windows-home">Link to this article</a></p>
     </details>
     <details lang-ja><summary>Windows Home のためリモート デスクトップがありません</summary>
-      <p>Windows Home はリモート デスクトップ（RDP）接続を受け付けられません。その PC に <b>Deskify（Windows 版）</b>をインストールして同じ Google アカウントでログインすれば、Deskify 経由で PC の画面をそのまま見て操作できます。</p><ol><li>スマホの Deskify の<b>マイデバイス</b>でその PC をタップし、<b>保管庫に追加</b>を選びます。</li><li>保管庫のカードをタップするとすぐに接続します。カードには RDP の代わりに <b>Deskify</b> とベータ表示が出ます。</li><li>すでに RDP で保存している場合は、RDP が応答しないときに表示される <b>Deskify で接続</b>をタップします。</li></ol><p>RDP が実際につながる PC はそのまま RDP で接続します。Deskify 経由の接続はモニターの画面をそのまま共有する方式なので、PC の前と同じ画面を見ることになります（サブスクリプション特典・ベータ）。PC がロックされているときは、PC の Deskify で<b>ロック画面でも使う</b>をオンにしてください。</p><p>Deskify をインストールできない場合は <b>VNC</b> も使えます: TightVNC や UltraVNC などの VNC サーバーをインストールしてパスワードを設定し、<b>VNC</b>として追加します。</p>
+      <p>Windows Home はリモート デスクトップ（RDP）接続を受け付けられません。その PC に <b>Deskify（Windows 版）</b>をインストールして同じ Google アカウントでログインすれば、Deskify 経由で PC の画面をそのまま見て操作できます。</p>
+      <ol><li>スマホの Deskify の<b>マイデバイス</b>でその PC をタップし、<b>保管庫に追加</b>を選びます。</li><li>保管庫のカードをタップするとすぐに接続します。カードには RDP の代わりに <b>Deskify</b> とベータ表示が出ます。</li><li>すでに RDP で保存している場合は、RDP が応答しないときに表示される <b>Deskify で接続</b>をタップします。</li></ol>
+      <p>RDP が実際につながる PC はそのまま RDP で接続します。Deskify 経由の接続はモニターの画面をそのまま共有する方式なので、PC の前と同じ画面を見ることになります（サブスクリプション特典・ベータ）。</p>
+      <p>PC がロックされているときは、PC の Deskify で<b>ロック画面でも使う</b>をオンにしてください。</p>
+      <p>Deskify をインストールできない場合は <b>VNC</b> も使えます: TightVNC や UltraVNC などの VNC サーバーをインストールしてパスワードを設定し、<b>VNC</b>として追加します。</p>
       <p class="hc-link"><a href="#windows-home">この記事へのリンク</a></p>
     </details>
     <details lang-zh><summary>电脑是 Windows Home 版（没有远程桌面）</summary>
-      <p>Windows 家庭版无法接收远程桌面（RDP）连接。在那台电脑上安装 <b>Deskify（Windows 版）</b>并用同一个 Google 账号登录后，就能经由 Deskify 直接查看并操作电脑画面。</p><ol><li>在手机 Deskify 的<b>我的设备</b>中点那台电脑，选择<b>添加到保管库</b>。</li><li>之后点保管库卡片即可直接连接。卡片上显示 <b>Deskify</b>（而不是 RDP）和测试版标记。</li><li>已经按 RDP 保存过？RDP 无响应时点<b>通过 Deskify 连接</b>。</li></ol><p>RDP 能正常连接的电脑会继续用 RDP。经由 Deskify 的连接会直接共享显示器上的画面，与电脑前看到的相同（订阅权益 · 测试版）。电脑锁屏时，请在电脑 Deskify 中打开<b>锁屏时也可使用</b>。</p><p>无法安装 Deskify 时也可以用 <b>VNC</b>：安装 TightVNC 或 UltraVNC 等 VNC 服务器并设置密码，然后按 <b>VNC</b> 添加。</p>
+      <p>Windows 家庭版无法接收远程桌面（RDP）连接。在那台电脑上安装 <b>Deskify（Windows 版）</b>并用同一个 Google 账号登录后，就能经由 Deskify 直接查看并操作电脑画面。</p>
+      <ol><li>在手机 Deskify 的<b>我的设备</b>中点那台电脑，选择<b>添加到保管库</b>。</li><li>之后点保管库卡片即可直接连接。卡片上显示 <b>Deskify</b>（而不是 RDP）和测试版标记。</li><li>已经按 RDP 保存过？RDP 无响应时点<b>通过 Deskify 连接</b>。</li></ol>
+      <p>RDP 能正常连接的电脑会继续用 RDP。经由 Deskify 的连接会直接共享显示器上的画面，与电脑前看到的相同（订阅权益 · 测试版）。电脑锁屏时，请在电脑 Deskify 中打开<b>锁屏时也可使用</b>。</p>
+      <p>无法安装 Deskify 时也可以用 <b>VNC</b>：安装 TightVNC 或 UltraVNC 等 VNC 服务器并设置密码，然后按 <b>VNC</b> 添加。</p>
       <p class="hc-link"><a href="#windows-home">本文链接</a></p>
     </details>
   </article>
@@ -350,7 +365,7 @@
     </details>
   </article>
   <article class="hc-a" id="edge-gestures" data-cats="connect" data-updated="2026-11-01">
-    <details lang-ko><summary>화면 가장자리를 밀면 뒤로 가기·홈으로 나가요</summary>
+    <details lang-ko><summary>화면 가장자리를 밀면 뒤로 가기·홈으로 나갑니다</summary>
       <p>Good Lock의 <b>한손 조작+</b> 같은 제스처 앱은 다른 앱보다 먼저 손가락을 가로챕니다. 그래서 Deskify가 막을 수 없습니다.</p>
       <p>원격 화면에서 Windows 작업 표시줄이나 가장자리 동작을 쓰려면 그 앱에서 Deskify를 빼 주세요.</p>
       <ol>
@@ -818,8 +833,12 @@
   <article class="hc-a" id="web-overview" data-cats="web" data-updated="2026-10-10">
     <details lang-ko><summary>웹 Deskify란 (브라우저에서 내 PC 쓰기)</summary>
       <p class="beta-note"><span class="beta-pill">베타</span> 구독 혜택 · 아직 다듬는 중입니다.</p>
-      <p>설치 없이 브라우저에서 내 PC를 씁니다. Deskify PC판이 켜져 있고 로그인된 PC에서 되며, <b>구독(Pro 구독 또는 클라우드 구독)</b>에서 씁니다(평생 이용권만으로는 쓰지 않습니다). 최신 브라우저(Chrome·Edge·Safari 등)에서 엽니다.</p>
-      <p><b><a href="web.html">웹에서 쓰기</a></b>(deskify-app.com/web.html)에서 <b>웹 Deskify</b>와 <a href="#support-overview">원격 지원</a> 가운데 하나를 고릅니다. 웹 Deskify(deskify-app.com/app.html)에서는 PC 목록의 PC마다 아래 두 가지를 고릅니다. 구글로 한 번 로그인하면 같은 브라우저의 다른 페이지에서도 로그인된 채로 열립니다.</p>
+      <p>설치 없이 브라우저에서 내 PC를 씁니다.</p>
+      <p>Deskify PC판이 켜져 있고 로그인된 PC에서 되며, <b>구독(Pro 구독 또는 클라우드 구독)</b>에서 씁니다(평생 이용권만으로는 쓰지 않습니다).</p>
+      <p>최신 브라우저(Chrome·Edge·Safari 등)에서 엽니다.</p>
+      <p><b><a href="web.html">웹에서 쓰기</a></b>(deskify-app.com/web.html)에서 <b>웹 Deskify</b>와 <a href="#support-overview">원격 지원</a> 가운데 하나를 고릅니다.</p>
+      <p>웹 Deskify(deskify-app.com/app.html)에서는 PC 목록의 PC마다 아래 두 가지를 고릅니다.</p>
+      <p>구글로 한 번 로그인하면 같은 브라우저의 다른 페이지에서도 로그인된 채로 열립니다.</p>
       <div class="roles">
         <div class="role"><b class="t"><a href="app.html">이 PC 화면 보기</a></b><span class="k">웹 Deskify</span>
           <p>브라우저에서 내 PC의 실제 화면을 보고 마우스·키보드로 조작합니다. 원격 데스크톱(RDP)이 없는 Windows Home PC도 됩니다. 소리, 클립보드, 파일 보내기도 됩니다.</p></div>
@@ -847,7 +866,9 @@
     <details lang-ja><summary>Web 版 Deskify とは (ブラウザーで自分の PC を使う)</summary>
       <p class="beta-note"><span class="beta-pill">ベータ</span> サブスク特典 · まだ改良中です。</p>
       <p>インストール不要で、ブラウザーから PC を使えます。Deskify PC 版が起動してログインしている PC で動作し、<b>サブスク（Pro 購読またはクラウド購読）</b>で利用できます（買い切りのみでは利用できません）。最新のブラウザー（Chrome、Edge、Safari など）で開いてください。</p>
-      <p><b><a href="web.html">Web で使う</a></b> (deskify-app.com/web.html) で <b>Web 版 Deskify</b> または <a href="#support-overview">リモートサポート</a> を選択します。Web 版 Deskify (deskify-app.com/app.html) では、PC 一覧の PC ごとに以下の 2 つから選びます。Google で一度ログインすれば、同じブラウザーの他のページもログインした状態で開きます。</p>
+      <p><b><a href="web.html">Web で使う</a></b> (deskify-app.com/web.html) で <b>Web 版 Deskify</b> または <a href="#support-overview">リモートサポート</a> を選択します。</p>
+      <p>Web 版 Deskify (deskify-app.com/app.html) では、PC 一覧の PC ごとに以下の 2 つから選びます。</p>
+      <p>Google で一度ログインすれば、同じブラウザーの他のページもログインした状態で開きます。</p>
       <div class="roles">
         <div class="role"><b class="t"><a href="app.html">この PC の画面を見る</a></b><span class="k">Web 版 Deskify</span>
           <p>ブラウザーで PC の実際の画面を表示し、マウスやキーボードで操作します。リモート デスクトップ (RDP) のない Windows Home PC でも動作します。音声、クリップボード、ファイル送信にも対応しています。</p></div>
@@ -861,7 +882,9 @@
     <details lang-zh><summary>什么是网页版 Deskify (在浏览器中使用自己的电脑)</summary>
       <p class="beta-note"><span class="beta-pill">测试版</span> 订阅权益 · 仍在完善中。</p>
       <p>无需安装，即可在浏览器中使用你的电脑。适用于已运行并登录 Deskify 电脑版的电脑，包含在<b>订阅（Pro 订阅或云订阅）</b>中（仅凭终身版无法使用）。请在现代浏览器（Chrome、Edge、Safari 等）中打开。</p>
-      <p>在 <b><a href="web.html">在网页上使用</a></b> (deskify-app.com/web.html) 中，可以选择<b>网页版 Deskify</b>或 <a href="#support-overview">远程协助</a>。在网页版 Deskify (deskify-app.com/app.html) 中，电脑列表里的每台电脑都可以选择下方两项。使用 Google 登录一次后，在同一浏览器的其他页面中也会保持登录状态打开。</p>
+      <p>在 <b><a href="web.html">在网页上使用</a></b> (deskify-app.com/web.html) 中，可以选择<b>网页版 Deskify</b>或 <a href="#support-overview">远程协助</a>。</p>
+      <p>在网页版 Deskify (deskify-app.com/app.html) 中，电脑列表里的每台电脑都可以选择下方两项。</p>
+      <p>使用 Google 登录一次后，在同一浏览器的其他页面中也会保持登录状态打开。</p>
       <div class="roles">
         <div class="role"><b class="t"><a href="app.html">查看此电脑屏幕</a></b><span class="k">网页版 Deskify</span>
           <p>在浏览器中查看电脑的实际屏幕，并使用鼠标和键盘进行控制。没有远程桌面 (RDP) 的 Windows Home PC 也能使用。声音、剪贴板和文件发送也一并支持。</p></div>
@@ -1460,7 +1483,8 @@
   </article>
   <article class="hc-a" id="companion-paused" data-cats="companion trouble" data-updated="2026-10-10">
     <details lang-ko><summary>키나 터치가 들어가지 않고 "잠시 멈췄습니다"가 보입니다</summary>
-      <p>키보드·보조 모니터·그림 타블렛·커스텀 덱 같은 입력 역할은 주 기기가 그 세션을 화면에 띄우고 있을 때만 동작합니다. 보이지 않는 PC에 잘못 입력되지 않게 막는 것입니다. 주 기기에서 그 세션을 열면 이어집니다. 주 기기의 앱 잠금이 걸려 있을 때도 멈춥니다.</p>
+      <p>키보드·보조 모니터·그림 타블렛·커스텀 덱 같은 입력 역할은 주 기기가 그 세션을 화면에 띄우고 있을 때만 동작합니다. 보이지 않는 PC에 잘못 입력되지 않게 막는 것입니다.</p>
+      <p>주 기기에서 그 세션을 열면 이어집니다. 주 기기의 앱 잠금이 걸려 있을 때도 멈춥니다.</p>
       <p class="hc-link"><a href="#companion-paused">이 글 링크</a></p>
     </details>
     <details lang-en><summary>Keys or touches do nothing and it says "Paused"</summary>
@@ -1468,7 +1492,8 @@
       <p class="hc-link"><a href="#companion-paused">Link to this article</a></p>
     </details>
     <details lang-ja><summary>キーやタッチが効かず「一時停止中」と表示されます</summary>
-      <p>キーボード、サブモニター、ペンタブレット、カスタムデッキなどの入力役割は、メイン端末の画面にそのセッションが表示されている間のみ動作します。画面が見えていない PC に誤入力されるのを防ぐためです。メイン端末でそのセッションを表示すると再開されます。また、メイン端末でアプリのロックがかかっている間も一時停止します。</p>
+      <p>キーボード、サブモニター、ペンタブレット、カスタムデッキなどの入力役割は、メイン端末の画面にそのセッションが表示されている間のみ動作します。画面が見えていない PC に誤入力されるのを防ぐためです。</p>
+      <p>メイン端末でそのセッションを表示すると再開されます。また、メイン端末でアプリのロックがかかっている間も一時停止します。</p>
       <p class="hc-link"><a href="#companion-paused">この記事へのリンク</a></p>
     </details>
     <details lang-zh><summary>按键或触控无效，并显示“已暂停”</summary>
@@ -1636,7 +1661,8 @@
         <li><b>폰·태블릿</b>: Deskify 앱 <b>설정 → 기기 → 원격 지원</b>.</li>
         <li><b>PC</b>: Deskify PC판 홈의 <b>다른 PC 돕기</b> (웹 페이지가 열립니다).</li>
       </ul>
-      <p><b>링크로 부르기</b>: 도우미가 <b>번호 만들기</b> 뒤 <b>링크 보내기·링크 복사</b>로 카카오톡·문자에 링크를 보내면, 받는 분이 PC에서 열어 프로그램을 받고 <b>복사한 번호로 연결</b>을 누르면 됩니다. 링크에는 번호만 들어 있고 번호와 함께 10분 뒤 끝납니다. 도움 받는 쪽은 Windows PC만 됩니다(폰에서 열면 PC에서 열라고 안내합니다).</p>
+      <p><b>링크로 부르기</b>: 도우미가 <b>번호 만들기</b> 뒤 <b>링크 보내기·링크 복사</b>로 카카오톡·문자에 링크를 보내면, 받는 분이 PC에서 열어 프로그램을 받고 <b>복사한 번호로 연결</b>을 누르면 됩니다.</p>
+      <p>링크에는 번호만 들어 있고 번호와 함께 10분 뒤 끝납니다. 도움 받는 쪽은 Windows PC만 됩니다(폰에서 열면 PC에서 열라고 안내합니다).</p>
       <div class="tipbox">모르는 사람이 번호를 달라고 하거나 "허용"을 누르라고 하면 거절하십시오. 화면과 입력은 두 기기 사이에서 암호화되어 오가며, 직접 연결이 안 될 때만 도우미 계정의 중계(하루 1시간)를 거칩니다. 도움 받기 프로그램은 아무것도 설치하거나 등록하지 않습니다.</div>
       <p class="hc-link"><a href="#support-helping">이 글 링크</a></p>
     </details>
@@ -1646,7 +1672,8 @@
         <li><b>Phone/tablet</b>: in the Deskify app, <b>Settings → Devices → Remote support</b>.</li>
         <li><b>PC</b>: <b>Help another PC</b> on the Deskify PC app's home (opens the web page).</li>
       </ul>
-      <p><b>Inviting by link</b>: after <b>Make a code</b>, the helper uses <b>Send a link / Copy link</b> to send it by chat or text. The other person opens it on their PC, gets the tool and presses <b>Connect with the copied code</b>. The link holds only the code and ends with it after 10 minutes. The person getting help must be on a Windows PC (opened on a phone, the page says to open it on the PC).</p>
+      <p><b>Inviting by link</b>: after <b>Make a code</b>, the helper uses <b>Send a link / Copy link</b> to send it by chat or text. The other person opens it on their PC, gets the tool and presses <b>Connect with the copied code</b>.</p>
+      <p>The link holds only the code and ends with it after 10 minutes. The person getting help must be on a Windows PC (opened on a phone, the page says to open it on the PC).</p>
       <div class="tipbox">If a stranger asks for your code or tells you to press "Allow", decline. Screen and input travel encrypted between the two devices and use the helper's relay (one hour a day) only when no direct path exists. Get help with Deskify installs and registers nothing.</div>
       <p class="hc-link"><a href="#support-helping">Link to this article</a></p>
     </details>
@@ -1656,7 +1683,9 @@
         <li><b>スマホ・タブレット</b>: Deskify アプリの <b>設定 → 端末 → リモートサポート</b>。</li>
         <li><b>PC</b>: Deskify PC 版ホームの <b>他の PC をサポート</b>（Web ページが開きます）。</li>
       </ul>
-      <p><b>リンクで招待</b>: サポートする人が <b>番号を作成</b> した後、<b>リンクを送信 / リンクをコピー</b> でチャットやメッセージにリンクを送信します。サポートを受ける方が PC でそのリンクを開き、ツールをダウンロードして <b>コピーしたコードで接続</b> をクリックします。リンクには番号のみが含まれ、番号と同様に 10 分後に終了します。サポートを受ける側は Windows PC である必要があります（スマホで開いた場合は PC で開くよう案内されます）。</p>
+      <p><b>リンクで招待</b>: サポートする人が <b>番号を作成</b> した後、<b>リンクを送信 / リンクをコピー</b> でチャットやメッセージにリンクを送信します。</p>
+      <p>サポートを受ける方が PC でそのリンクを開き、ツールをダウンロードして <b>コピーしたコードで接続</b> をクリックします。リンクには番号のみが含まれ、番号と同様に 10 分後に終了します。</p>
+      <p>サポートを受ける側は Windows PC である必要があります（スマホで開いた場合は PC で開くよう案内されます）。</p>
       <div class="tipbox">見知らぬ人から番号を求められたり、「許可」を押すよう言われたりした場合は拒否してください。画面と入力は 2 台の端末間で暗号化されて送受信され、直接接続できない場合のみサポートする側のアカウントの中継サーバーを経由します（1 日 1 時間）。「Deskify サポートを受ける」は何もインストールせず、登録もしません。</div>
       <p class="hc-link"><a href="#support-helping">この記事へのリンク</a></p>
     </details>
@@ -1666,7 +1695,8 @@
         <li><b>手机/平板</b>：在 Deskify 应用中，前往<b>设置 → 设备 → 远程协助</b>。</li>
         <li><b>电脑</b>：在 Deskify 电脑版主页中点击<b>协助其他电脑</b>（将打开网页）。</li>
       </ul>
-      <p><b>通过链接邀请</b>：协助者点击<b>生成号码</b>后，通过<b>发送链接 / 复制链接</b>将链接通过聊天软件或短信发送。对方在电脑上打开该链接，下载工具后点击<b>用复制的号码连接</b>即可。链接中仅包含号码，并在 10 分钟后随号码一同失效。接受协助的一方必须使用 Windows PC（若在手机上打开，页面会提示在电脑上打开）。</p>
+      <p><b>通过链接邀请</b>：协助者点击<b>生成号码</b>后，通过<b>发送链接 / 复制链接</b>将链接通过聊天软件或短信发送。对方在电脑上打开该链接，下载工具后点击<b>用复制的号码连接</b>即可。</p>
+      <p>链接中仅包含号码，并在 10 分钟后随号码一同失效。接受协助的一方必须使用 Windows PC（若在手机上打开，页面会提示在电脑上打开）。</p>
       <div class="tipbox">若有陌生人索要你的号码或让你点击“允许”，请予以拒绝。屏幕和输入在两台设备之间加密传输，仅在无法直接连接时才会使用协助者账号的中继服务（每天 1 小时）。“Deskify 获取协助”不会安装或注册任何内容。</div>
       <p class="hc-link"><a href="#support-helping">本文链接</a></p>
     </details>
@@ -1735,7 +1765,8 @@
   </article>
   <article class="hc-a" id="cancel-refund" data-cats="plans" data-updated="2026-10-10">
     <details lang-ko><summary>구독 해지·환불</summary>
-      <p>Google Play에서 결제했다면 <b>Play 스토어 → 결제 및 정기 결제</b>에서 해지합니다. 웹에서 결제했다면 Paddle 영수증 이메일의 링크에서 해지·환불을 요청합니다(<a href="refund.html">환불 정책</a>). 해지해도 저장한 컴퓨터·키·OTP는 지워지지 않고, Pro 기능만 잠깁니다.</p>
+      <p>Google Play에서 결제했다면 <b>Play 스토어 → 결제 및 정기 결제</b>에서 해지합니다.</p>
+      <p>웹에서 결제했다면 Paddle 영수증 이메일의 링크에서 해지·환불을 요청합니다(<a href="refund.html">환불 정책</a>). 해지해도 저장한 컴퓨터·키·OTP는 지워지지 않고, Pro 기능만 잠깁니다.</p>
       <p class="hc-link"><a href="#cancel-refund">이 글 링크</a></p>
     </details>
     <details lang-en><summary>Cancelling and refunds</summary>
@@ -1743,11 +1774,13 @@
       <p class="hc-link"><a href="#cancel-refund">Link to this article</a></p>
     </details>
     <details lang-ja><summary>解約・返金</summary>
-      <p>Google Play で購入した場合: <b>Play ストア → お支払いと定期購入</b>から解約します。Web で購入した場合: Paddle の領収書メールにあるリンクから解約・返金をリクエストします (<a href="refund.html">返金ポリシー</a>)。解約しても保存したコンピューター、キー、OTP コードは削除されず、Pro 機能のみがロックされます。</p>
+      <p>Google Play で購入した場合: <b>Play ストア → お支払いと定期購入</b>から解約します。Web で購入した場合: Paddle の領収書メールにあるリンクから解約・返金をリクエストします (<a href="refund.html">返金ポリシー</a>)。</p>
+      <p>解約しても保存したコンピューター、キー、OTP コードは削除されず、Pro 機能のみがロックされます。</p>
       <p class="hc-link"><a href="#cancel-refund">この記事へのリンク</a></p>
     </details>
     <details lang-zh><summary>取消订阅与退款</summary>
-      <p>在 Google Play 购买：在 <b>Play 商店 → 付款和订阅</b>中取消。在网页上购买：请使用 Paddle 收据邮件中的链接申请退订或退款（<a href="refund.html">退款政策</a>）。取消订阅不会删除任何内容：你保存的电脑、密钥和 OTP 验证码都会保留，仅锁定 Pro 功能。</p>
+      <p>在 Google Play 购买：在 <b>Play 商店 → 付款和订阅</b>中取消。在网页上购买：请使用 Paddle 收据邮件中的链接申请退订或退款（<a href="refund.html">退款政策</a>）。</p>
+      <p>取消订阅不会删除任何内容：你保存的电脑、密钥和 OTP 验证码都会保留，仅锁定 Pro 功能。</p>
       <p class="hc-link"><a href="#cancel-refund">本文链接</a></p>
     </details>
   </article>
@@ -1756,10 +1789,10 @@
 
   <div class="contact hc-contact">
     <div class="hc-contact-t">
-    <p lang-ko><b>해결이 안 되면</b> 앱의 <b>설정 → 문제 해결 → 문의하기</b>로 보내 주세요. 진단 보고서가 함께 첨부되어 빨리 확인할 수 있습니다.</p>
-    <p lang-en><b>Still stuck?</b> Use <b>Settings → Troubleshooting → Contact us</b> in the app: a diagnostic report goes with it so we can look quickly.</p>
-    <p lang-ja><b>解決しない場合</b>は、アプリの<b>設定 → トラブルシューティング → お問い合わせ</b>からご連絡ください。診断レポートが添付されるため、迅速に確認できます。</p>
-    <p lang-zh><b>仍未解决？</b>请在应用中通过<b>设置 → 故障排除 → 联系我们</b>发送信息：将同时附带诊断报告，便于我们快速排查。</p>
+    <p lang-ko><b>해결이 안 되면</b> 앱의 <b>설정 → 문제 해결 → 문의하기</b>로 보내 주세요.</p>
+    <p lang-en><b>Still stuck?</b> Use <b>Settings → Troubleshooting → Contact us</b> in the app.</p>
+    <p lang-ja><b>解決しない場合</b>は、アプリの<b>設定 → トラブルシューティング → お問い合わせ</b>からご連絡ください。</p>
+    <p lang-zh><b>仍未解决？</b>请在应用中通过<b>设置 → 故障排除 → 联系我们</b>发送信息。</p>
     </div>
     <a class="hc-mail" href="mailto:support.deskify@gmail.com"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span><small><span lang-ko>메일로 문의</span><span lang-en>E-mail us</span><span lang-ja>メールで問い合わせ</span><span lang-zh>邮件联系</span></small>support.deskify@gmail.com</span></a>
   </div>
