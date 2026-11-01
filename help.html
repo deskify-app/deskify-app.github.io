@@ -9,8 +9,8 @@
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="site2.css?v=713e8544b4">
 <script src="site2.js?v=32c009fbbd"></script>
-<link rel="stylesheet" href="help.min.css?v=2f8b0ae6cd">
-<script src="help.min.js?v=e74bd6dfc3" defer></script>
+<link rel="stylesheet" href="help.min.css?v=7b99acedf4">
+<script src="help.min.js?v=9d7e33768c" defer></script>
 </head>
 <body class="page-info page-help">
 <a class="skip" href="#main"><span lang-ko>본문으로 건너뛰기</span><span lang-en>Skip to content</span><span lang-ja>本文へスキップ</span><span lang-zh>跳到正文</span></a>
@@ -133,24 +133,24 @@
       <h3>1. PC 준비</h3>
       <ul>
         <li><b>유선 랜</b>으로 연결하세요. 대부분의 PC는 Wi-Fi로는 꺼진 상태에서 켜지지 않습니다.</li>
-        <li><p><b>BIOS(UEFI)</b>: 부팅할 때 Del 또는 F2로 들어가 'Wake on LAN', 'Power On By PCI-E', 'Resume by LAN' 같은 항목을 Enabled로 합니다.</p><p>'ErP'/'EuP' 절전 항목이 있으면 Disabled로 합니다(켜져 있으면 꺼진 동안 랜 카드 전원이 끊깁니다).</p></li>
-        <li><p><b>랜 카드 드라이버</b>: 장치 관리자 → 네트워크 어댑터 → 이더넷 어댑터 → 속성.</p><p>전원 관리 탭에서 '이 장치를 사용하여 컴퓨터의 대기 모드를 해제할 수 있음'과 '매직 패킷에서만 …'을 체크하고, 고급 탭에서 'Wake on Magic Packet'(매직 패킷으로 깨우기)을 사용으로 합니다.</p><p>'Shutdown Wake-On-Lan'처럼 꺼진 상태(S5)에서 깨우는 항목이 있으면 그것도 켭니다.</p></li>
+        <li><b>BIOS(UEFI)</b>: 부팅할 때 Del 또는 F2로 들어가 'Wake on LAN', 'Power On By PCI-E', 'Resume by LAN' 같은 항목을 Enabled로 합니다. 'ErP'/'EuP' 절전 항목이 있으면 Disabled로 합니다(켜져 있으면 꺼진 동안 랜 카드 전원이 끊깁니다).</li>
+        <li><b>랜 카드 드라이버</b>: 장치 관리자 → 네트워크 어댑터 → 이더넷 어댑터 → 속성. 전원 관리 탭에서 '이 장치를 사용하여 컴퓨터의 대기 모드를 해제할 수 있음'과 '매직 패킷에서만 …'을 체크하고, 고급 탭에서 'Wake on Magic Packet'(매직 패킷으로 깨우기)을 사용으로 합니다. 'Shutdown Wake-On-Lan'처럼 꺼진 상태(S5)에서 깨우는 항목이 있으면 그것도 켭니다.</li>
         <li><b>빠른 시작 끄기</b>: 제어판 → 전원 옵션 → 전원 단추 작동 설정 → '현재 사용할 수 없는 설정 변경' → '빠른 시작 켜기' 해제. 절전 상태에서만 깨운다면 건너뛰어도 됩니다.</li>
       </ul>
       <h3>2. MAC 주소 넣기</h3>
       <ul>
-        <li><p>PC에서 명령 프롬프트(cmd)를 열고 <code>getmac /v</code>를 입력합니다.</p><p>'이더넷'(유선) 줄의 '물리적 주소'(예: 1A-2B-3C-4D-5E-6F)가 MAC 주소입니다.</p><p><code>ipconfig /all</code>의 '물리적 주소'도 같습니다.</p></li>
+        <li>PC에서 명령 프롬프트(cmd)를 열고 <code>getmac /v</code>를 입력합니다. '이더넷'(유선) 줄의 '물리적 주소'(예: 1A-2B-3C-4D-5E-6F)가 MAC 주소입니다. <code>ipconfig /all</code>의 '물리적 주소'도 같습니다.</li>
         <li>Deskify 보관함에서 그 PC를 편집 → <b>Wake-on-LAN (원격으로 PC 켜기)</b> → <b>MAC 주소</b>에 적습니다. '접속할 때 먼저 켜기 신호 보내기'를 켜 두면 접속할 때마다 먼저 깨웁니다.</li>
       </ul>
       <h3>3. 집(같은 Wi-Fi)에서</h3>
       <ul>
         <li>추가 설정이 필요 없습니다. 보관함에서 그 PC의 ⋮ → <b>PC 켜기 (Wake-on-LAN)</b>를 누르세요.</li>
-        <li><p>Deskify는 신호를 세 번씩 보냅니다.</p><p>받는 곳은 전체 브로드캐스트(255.255.255.255)와, PC 주소가 사설 주소(192.168.x.x 등)면 그 대역의 브로드캐스트(예: 192.168.0.255)입니다.</p><p>255.255.255.255를 막는 공유기가 있어서 대역 브로드캐스트도 함께 보냅니다.</p></li>
+        <li>Deskify는 신호를 세 번씩 보냅니다. 받는 곳은 전체 브로드캐스트(255.255.255.255)와, PC 주소가 사설 주소(192.168.x.x 등)면 그 대역의 브로드캐스트(예: 192.168.0.255)입니다. 255.255.255.255를 막는 공유기가 있어서 대역 브로드캐스트도 함께 보냅니다.</li>
       </ul>
       <h3>4. 밖에서</h3>
       <ul>
         <li><b>집에 Deskify PC판이 켜져 있는 다른 PC가 있으면</b>(같은 계정): 밖에서 켜기를 누르면 그 PC가 집 네트워크에서 대신 신호를 보냅니다. 공유기 설정이 필요 없습니다.</li>
-        <li><p><b>공유기 포트 포워드</b>: 공유기에서 UDP 포트(기본 9번, 편집 화면에서 바꾼 포트가 있으면 그 번호)를 PC로 포워딩합니다.</p><p>ipTIME은 관리도구 → 고급 설정 → NAT/라우터 관리 → 포트포워드 설정에 있습니다.</p><p>공유기 메뉴 이름은 기종마다 다를 수 있습니다.</p><p>PC 주소가 DDNS 이름(예: myhome.iptime.org)이나 공인 IP면 Deskify가 그 주소로도 보냅니다.</p></li>
+        <li><b>공유기 포트 포워드</b>: 공유기에서 UDP 포트(기본 9번, 편집 화면에서 바꾼 포트가 있으면 그 번호)를 PC로 포워딩합니다. ipTIME은 관리도구 → 고급 설정 → NAT/라우터 관리 → 포트포워드 설정에 있습니다. 공유기 메뉴 이름은 기종마다 다를 수 있습니다. PC 주소가 DDNS 이름(예: myhome.iptime.org)이나 공인 IP면 Deskify가 그 주소로도 보냅니다.</li>
         <li><b>공유기의 원격 WOL 기능</b>: ipTIME 등은 공유기 자체에 'WOL 기능'이 있어 공유기 관리 화면에서 PC를 깨울 수 있습니다.</li>
         <li><b>보낼 주소 (선택)</b>: 여기에 주소(공유기의 DDNS 이름, 공인 IP 또는 대역 브로드캐스트)를 적으면 Deskify는 그 주소로만 보냅니다. 같은 Wi-Fi에서만 쓴다면 비워 두세요.</li>
       </ul>
@@ -160,7 +160,7 @@
         <li>PC를 끈 뒤에도 랜 포트의 불이 켜져 있는지 보세요. 꺼져 있으면 BIOS의 ErP/EuP와 S5 깨우기 항목을 다시 확인합니다.</li>
         <li>완전히 끈 상태에서만 안 되면 빠른 시작을 끄세요. 절전 상태에서 먼저 시험해 보면 원인을 좁힐 수 있습니다.</li>
         <li>멀티탭 스위치를 끄거나 전원이 끊긴 뒤에는 대부분 켜지지 않습니다. BIOS에 'AC 전원 복구 후 켜기' 같은 항목이 있는지 보세요.</li>
-        <li><p>밖에서만 안 되면: 포트 포워드의 프로토콜이 UDP인지, 포트 번호가 편집 화면의 포트와 같은지, DDNS 주소가 맞는지 확인하세요.</p><p>일부 공유기는 꺼진 PC(주소 정보가 사라진 PC)로는 전달하지 않습니다.</p><p>그럴 때는 공유기의 WOL 기능이나 집의 다른 Deskify PC를 쓰세요.</p></li>
+        <li>밖에서만 안 되면: 포트 포워드의 프로토콜이 UDP인지, 포트 번호가 편집 화면의 포트와 같은지, DDNS 주소가 맞는지 확인하세요. 일부 공유기는 꺼진 PC(주소 정보가 사라진 PC)로는 전달하지 않습니다. 그럴 때는 공유기의 WOL 기능이나 집의 다른 Deskify PC를 쓰세요.</li>
       </ul>
       <p class="hc-link"><a href="#wake-on-lan">이 글 링크</a></p>
     </details>
@@ -170,7 +170,7 @@
       <ul>
         <li>Use a <b>wired</b> connection. Most PCs can't be woken over Wi-Fi once off.</li>
         <li><b>BIOS (UEFI)</b>: press Del or F2 at boot and set items like 'Wake on LAN', 'Power On By PCI-E' or 'Resume by LAN' to Enabled. Set 'ErP'/'EuP' power saving to Disabled if present (it cuts the network card's power while off).</li>
-        <li><p><b>Network card driver</b>: Device Manager → Network adapters → your Ethernet adapter → Properties.</p><p>On Power Management tick 'Allow this device to wake the computer' and 'Only allow a magic packet …'; on Advanced set 'Wake on Magic Packet' to Enabled.</p><p>If there is an item for waking from shutdown (S5), such as 'Shutdown Wake-On-Lan', enable it too.</p></li>
+        <li><b>Network card driver</b>: Device Manager → Network adapters → your Ethernet adapter → Properties. On Power Management tick 'Allow this device to wake the computer' and 'Only allow a magic packet …'; on Advanced set 'Wake on Magic Packet' to Enabled. If there is an item for waking from shutdown (S5), such as 'Shutdown Wake-On-Lan', enable it too.</li>
         <li><b>Turn off Fast Startup</b>: Control Panel → Power Options → Choose what the power buttons do → 'Change settings that are currently unavailable' → untick 'Turn on fast startup'. Skip this if you only wake from sleep.</li>
       </ul>
       <h3>2. Enter the MAC address</h3>
@@ -186,7 +186,7 @@
       <h3>4. From outside</h3>
       <ul>
         <li><b>Another PC at home running Deskify for Windows</b> (same account): when you tap wake from outside, that PC sends the signal on the home network for you. No router setup.</li>
-        <li><p><b>Router port forward</b>: forward the UDP port (9 by default, or the port you set in the editor) to the PC.</p><p>On ipTIME it is under Admin → Advanced → NAT/Router → Port forwarding; menu names differ by router model.</p><p>When the PC's address is a DDNS name (e.g. myhome.iptime.org) or a public IP, Deskify also sends there.</p></li>
+        <li><b>Router port forward</b>: forward the UDP port (9 by default, or the port you set in the editor) to the PC. On ipTIME it is under Admin → Advanced → NAT/Router → Port forwarding; menu names differ by router model. When the PC's address is a DDNS name (e.g. myhome.iptime.org) or a public IP, Deskify also sends there.</li>
         <li><b>The router's own WOL</b>: routers such as ipTIME have a WOL feature that wakes the PC from the router's admin page.</li>
         <li><b>Send to (optional)</b>: with an address here (the router's DDNS name, a public IP or a range broadcast), Deskify sends only there. Leave it empty if you only wake on the same Wi-Fi.</li>
       </ul>
@@ -196,7 +196,7 @@
         <li>See whether the network port's light stays on after shutdown. If not, recheck ErP/EuP and the S5 wake item in the BIOS.</li>
         <li>If only a full shutdown fails, turn off Fast Startup. Testing from sleep first narrows it down.</li>
         <li>After the power strip is switched off or power is cut, most PCs won't wake. Look for a BIOS item like 'Power on after AC loss'.</li>
-        <li><p>If only outside fails: check the forward is UDP, the port matches the editor's, and the DDNS address is right.</p><p>Some routers don't pass packets to a PC that is off (its address entry expired); then use the router's WOL feature or another Deskify PC at home.</p></li>
+        <li>If only outside fails: check the forward is UDP, the port matches the editor's, and the DDNS address is right. Some routers don't pass packets to a PC that is off (its address entry expired); then use the router's WOL feature or another Deskify PC at home.</li>
       </ul>
       <p class="hc-link"><a href="#wake-on-lan">Link to this article</a></p>
     </details>
@@ -205,24 +205,24 @@
       <h3>1. PC の準備</h3>
       <ul>
         <li><b>有線 LAN</b> で接続してください。ほとんどの PC は電源オフの状態から Wi-Fi では起動しません。</li>
-        <li><p><b>BIOS (UEFI)</b>: 起動時に Del または F2 で入り、'Wake on LAN'、'Power On By PCI-E'、'Resume by LAN' などを Enabled にします。</p><p>'ErP'/'EuP' の省電力項目があれば Disabled にします (有効だと電源オフ中に LAN カードの電源が切れます)。</p></li>
-        <li><p><b>LAN カードのドライバー</b>: デバイス マネージャー → ネットワーク アダプター → イーサネット アダプター → プロパティ。</p><p>電源の管理タブで「このデバイスで、コンピューターのスタンバイ状態を解除できるようにする」と「Magic Packet でのみ…」にチェックし、詳細設定タブで 'Wake on Magic Packet' を有効にします。</p><p>'Shutdown Wake-On-Lan' のように電源オフ (S5) から起こす項目があれば、それも有効にします。</p></li>
+        <li><b>BIOS (UEFI)</b>: 起動時に Del または F2 で入り、'Wake on LAN'、'Power On By PCI-E'、'Resume by LAN' などを Enabled にします。'ErP'/'EuP' の省電力項目があれば Disabled にします (有効だと電源オフ中に LAN カードの電源が切れます)。</li>
+        <li><b>LAN カードのドライバー</b>: デバイス マネージャー → ネットワーク アダプター → イーサネット アダプター → プロパティ。電源の管理タブで「このデバイスで、コンピューターのスタンバイ状態を解除できるようにする」と「Magic Packet でのみ…」にチェックし、詳細設定タブで 'Wake on Magic Packet' を有効にします。'Shutdown Wake-On-Lan' のように電源オフ (S5) から起こす項目があれば、それも有効にします。</li>
         <li><b>高速スタートアップを切る</b>: コントロール パネル → 電源オプション → 電源ボタンの動作の選択 → 「現在利用可能ではない設定を変更します」→「高速スタートアップを有効にする」のチェックを外します。スリープからだけ起こすなら不要です。</li>
       </ul>
       <h3>2. MAC アドレスを入力</h3>
       <ul>
-        <li><p>PC でコマンド プロンプトを開き <code>getmac /v</code> と入力します。</p><p>「イーサネット」(有線) 行の「物理アドレス」(例: 1A-2B-3C-4D-5E-6F) が MAC アドレスです。</p><p><code>ipconfig /all</code> の「物理アドレス」も同じです。</p></li>
+        <li>PC でコマンド プロンプトを開き <code>getmac /v</code> と入力します。「イーサネット」(有線) 行の「物理アドレス」(例: 1A-2B-3C-4D-5E-6F) が MAC アドレスです。<code>ipconfig /all</code> の「物理アドレス」も同じです。</li>
         <li>Deskify の保管庫でその PC を編集 → <b>Wake-on-LAN</b> → <b>MAC アドレス</b> に入力します。「接続前に起動信号を送る」をオンにすると、接続のたびに先に起こします。</li>
       </ul>
       <h3>3. 自宅 (同じ Wi-Fi) で</h3>
       <ul>
         <li>追加設定は不要です。保管庫でその PC の ⋮ →<b>起動 (Wake-on-LAN)</b> をタップします。</li>
-        <li><p>Deskify は信号を 3 回ずつ送ります。</p><p>宛先は全体ブロードキャスト (255.255.255.255) と、PC のアドレスがプライベート (192.168.x.x など) ならその範囲のブロードキャスト (例: 192.168.0.255) です。</p><p>255.255.255.255 を遮るルーターがあるため、範囲のブロードキャストにも送ります。</p></li>
+        <li>Deskify は信号を 3 回ずつ送ります。宛先は全体ブロードキャスト (255.255.255.255) と、PC のアドレスがプライベート (192.168.x.x など) ならその範囲のブロードキャスト (例: 192.168.0.255) です。255.255.255.255 を遮るルーターがあるため、範囲のブロードキャストにも送ります。</li>
       </ul>
       <h3>4. 外出先から</h3>
       <ul>
         <li><b>自宅に Deskify PC 版が動いている別の PC がある場合</b> (同じアカウント): 外から起動すると、その PC が自宅のネットワークで代わりに信号を送ります。ルーターの設定は不要です。</li>
-        <li><p><b>ルーターのポート転送</b>: ルーターで UDP ポート (既定は 9、編集画面で変えたポートがあればその番号) を PC に転送します。</p><p>ipTIME では 管理ツール → 詳細設定 → NAT/ルーター管理 → ポートフォワード設定 にあります。</p><p>メニュー名は機種によって異なる場合があります。</p><p>PC のアドレスが DDNS 名 (例: myhome.iptime.org) やグローバル IP なら、Deskify はそのアドレスにも送ります。</p></li>
+        <li><b>ルーターのポート転送</b>: ルーターで UDP ポート (既定は 9、編集画面で変えたポートがあればその番号) を PC に転送します。ipTIME では 管理ツール → 詳細設定 → NAT/ルーター管理 → ポートフォワード設定 にあります。メニュー名は機種によって異なる場合があります。PC のアドレスが DDNS 名 (例: myhome.iptime.org) やグローバル IP なら、Deskify はそのアドレスにも送ります。</li>
         <li><b>ルーター自体の WOL 機能</b>: ipTIME などはルーターに WOL 機能があり、ルーターの管理画面から PC を起こせます。</li>
         <li><b>送信先 (任意)</b>: ここにアドレス (ルーターの DDNS 名、グローバル IP、範囲のブロードキャスト) を入れると、Deskify はそこにだけ送ります。同じ Wi-Fi でだけ使うなら空欄にしてください。</li>
       </ul>
@@ -232,7 +232,7 @@
         <li>電源オフ後も LAN ポートのランプが点いているか見てください。消えていれば BIOS の ErP/EuP と S5 からの起動項目を確認します。</li>
         <li>完全な電源オフからだけ失敗するなら高速スタートアップを切ってください。まずスリープから試すと原因を絞れます。</li>
         <li>電源タップのスイッチを切ったり停電した後は、ほとんど起動しません。BIOS に「AC 電源復旧後に起動」のような項目があるか見てください。</li>
-        <li><p>外からだけ失敗するなら: 転送が UDP か、ポート番号が編集画面と同じか、DDNS アドレスが正しいか確認してください。</p><p>電源オフの PC (アドレス情報が消えた PC) には転送しないルーターもあります。</p><p>その場合はルーターの WOL 機能か、自宅の別の Deskify PC を使ってください。</p></li>
+        <li>外からだけ失敗するなら: 転送が UDP か、ポート番号が編集画面と同じか、DDNS アドレスが正しいか確認してください。電源オフの PC (アドレス情報が消えた PC) には転送しないルーターもあります。その場合はルーターの WOL 機能か、自宅の別の Deskify PC を使ってください。</li>
       </ul>
       <p class="hc-link"><a href="#wake-on-lan">この記事へのリンク</a></p>
     </details>
@@ -241,13 +241,13 @@
       <h3>1. 准备电脑</h3>
       <ul>
         <li>请使用<b>有线网络</b>。大多数电脑关机后无法通过 Wi-Fi 唤醒。</li>
-        <li><p><b>BIOS (UEFI)</b>：开机时按 Del 或 F2 进入，把 'Wake on LAN'、'Power On By PCI-E'、'Resume by LAN' 等项设为 Enabled。</p><p>如有 'ErP'/'EuP' 节能项，设为 Disabled（开启时关机期间会切断网卡电源）。</p></li>
-        <li><p><b>网卡驱动</b>：设备管理器 → 网络适配器 → 以太网适配器 → 属性。</p><p>在“电源管理”中勾选“允许此设备唤醒计算机”和“只允许幻数据包唤醒计算机”，在“高级”中把 'Wake on Magic Packet' 设为启用。</p><p>如有 'Shutdown Wake-On-Lan' 这类从关机状态 (S5) 唤醒的项，也请启用。</p></li>
+        <li><b>BIOS (UEFI)</b>：开机时按 Del 或 F2 进入，把 'Wake on LAN'、'Power On By PCI-E'、'Resume by LAN' 等项设为 Enabled。如有 'ErP'/'EuP' 节能项，设为 Disabled（开启时关机期间会切断网卡电源）。</li>
+        <li><b>网卡驱动</b>：设备管理器 → 网络适配器 → 以太网适配器 → 属性。在“电源管理”中勾选“允许此设备唤醒计算机”和“只允许幻数据包唤醒计算机”，在“高级”中把 'Wake on Magic Packet' 设为启用。如有 'Shutdown Wake-On-Lan' 这类从关机状态 (S5) 唤醒的项，也请启用。</li>
         <li><b>关闭快速启动</b>：控制面板 → 电源选项 → 选择电源按钮的功能 → “更改当前不可用的设置” → 取消“启用快速启动”。只从睡眠唤醒时可跳过。</li>
       </ul>
       <h3>2. 填写 MAC 地址</h3>
       <ul>
-        <li><p>在电脑上打开命令提示符，输入 <code>getmac /v</code>。</p><p>“以太网”（有线）一行的“物理地址”（例：1A-2B-3C-4D-5E-6F）就是 MAC 地址；<code>ipconfig /all</code> 中的“物理地址”相同。</p></li>
+        <li>在电脑上打开命令提示符，输入 <code>getmac /v</code>。“以太网”（有线）一行的“物理地址”（例：1A-2B-3C-4D-5E-6F）就是 MAC 地址；<code>ipconfig /all</code> 中的“物理地址”相同。</li>
         <li>在 Deskify 保管库中编辑该电脑 → <b>Wake-on-LAN</b> → 填入 <b>MAC 地址</b>。打开“连接前先发送唤醒信号”后，每次连接前都会先唤醒。</li>
       </ul>
       <h3>3. 在家（同一 Wi-Fi）</h3>
@@ -258,7 +258,7 @@
       <h3>4. 在外面</h3>
       <ul>
         <li><b>家里有另一台运行 Deskify 电脑版的电脑</b>（同一账号）：在外面点开机时，那台电脑会在家庭网络中代为发送信号。无需设置路由器。</li>
-        <li><p><b>路由器端口转发</b>：在路由器中把 UDP 端口（默认 9，若在编辑页改过则用该端口）转发到电脑。</p><p>路由器菜单名称因型号而异。</p><p>若电脑地址是 DDNS 名称（例：myhome.iptime.org）或公网 IP，Deskify 也会发往该地址。</p></li>
+        <li><b>路由器端口转发</b>：在路由器中把 UDP 端口（默认 9，若在编辑页改过则用该端口）转发到电脑。路由器菜单名称因型号而异。若电脑地址是 DDNS 名称（例：myhome.iptime.org）或公网 IP，Deskify 也会发往该地址。</li>
         <li><b>路由器自带的 WOL 功能</b>：ipTIME 等路由器自带 WOL 功能，可在路由器管理页面唤醒电脑。</li>
         <li><b>发送到（可选）</b>：在这里填写地址（路由器的 DDNS 名称、公网 IP 或网段广播）后，Deskify 只发往该地址。只在同一 Wi-Fi 中使用时请留空。</li>
       </ul>
@@ -268,7 +268,7 @@
         <li>关机后网口指示灯是否仍亮。不亮时请再检查 BIOS 的 ErP/EuP 和 S5 唤醒项。</li>
         <li>只有完全关机后无法唤醒时，请关闭快速启动。先从睡眠状态测试可缩小原因。</li>
         <li>关掉插线板开关或断电后，大多数电脑无法唤醒。可查看 BIOS 中是否有“来电自动开机”之类的选项。</li>
-        <li><p>只有在外面不行时：确认转发协议是 UDP、端口与编辑页一致、DDNS 地址正确。</p><p>有些路由器不会转发到已关机（地址记录已过期）的电脑，此时请用路由器的 WOL 功能或家里的另一台 Deskify 电脑。</p></li>
+        <li>只有在外面不行时：确认转发协议是 UDP、端口与编辑页一致、DDNS 地址正确。有些路由器不会转发到已关机（地址记录已过期）的电脑，此时请用路由器的 WOL 功能或家里的另一台 Deskify 电脑。</li>
       </ul>
       <p class="hc-link"><a href="#wake-on-lan">本文链接</a></p>
     </details>
@@ -321,19 +321,35 @@
   </article>
   <article class="hc-a" id="connect-mac" data-cats="connect" data-updated="2026-10-10">
     <details lang-ko><summary>Mac에 연결하려면</summary>
-      <p>Mac에서 <b>시스템 설정 → 일반 → 공유 → 화면 공유</b>를 켭니다. Deskify에서 컴퓨터 추가 → <b>VNC</b>, 운영체제 Mac을 고르고 Mac의 사용자 이름과 비밀번호를 넣습니다.</p>
+      <ol>
+        <li>Mac에서 <b>시스템 설정 → 일반 → 공유 → 화면 공유</b>를 켭니다.</li>
+        <li>Deskify에서 컴퓨터 추가 → <b>VNC</b>를 고르고, 운영체제는 Mac을 고릅니다.</li>
+        <li>Mac의 사용자 이름과 비밀번호를 넣습니다.</li>
+      </ol>
       <p class="hc-link"><a href="#connect-mac">이 글 링크</a></p>
     </details>
     <details lang-en><summary>Connecting to a Mac</summary>
-      <p>On the Mac, turn on <b>System Settings → General → Sharing → Screen Sharing</b>. In Deskify add a computer as <b>VNC</b>, pick Mac, and enter the Mac's user name and password.</p>
+      <ol>
+        <li>On the Mac, turn on <b>System Settings → General → Sharing → Screen Sharing</b>.</li>
+        <li>In Deskify, add a computer as <b>VNC</b> and pick Mac as the system.</li>
+        <li>Enter the Mac's user name and password.</li>
+      </ol>
       <p class="hc-link"><a href="#connect-mac">Link to this article</a></p>
     </details>
     <details lang-ja><summary>Mac に接続するには</summary>
-      <p>Mac で<b>システム設定 → 一般 → 共有 → 画面共有</b>をオンにします。Deskify でコンピューターを追加 → <b>VNC</b>を選択し、OS に Mac を選んで、Mac のユーザー名とパスワードを入力します。</p>
+      <ol>
+        <li>Mac で<b>システム設定 → 一般 → 共有 → 画面共有</b>をオンにします。</li>
+        <li>Deskify でコンピューターを追加 → <b>VNC</b>を選択し、OS に Mac を選びます。</li>
+        <li>Mac のユーザー名とパスワードを入力します。</li>
+      </ol>
       <p class="hc-link"><a href="#connect-mac">この記事へのリンク</a></p>
     </details>
     <details lang-zh><summary>连接到 Mac</summary>
-      <p>在 Mac 上开启<b>系统设置 → 通用 → 共享 → 屏幕共享</b>。在 Deskify 中选择添加电脑 → <b>VNC</b>，操作系统选择 Mac，并输入 Mac 的用户名和密码。</p>
+      <ol>
+        <li>在 Mac 上开启<b>系统设置 → 通用 → 共享 → 屏幕共享</b>。</li>
+        <li>在 Deskify 中选择添加电脑 → <b>VNC</b>，操作系统选择 Mac。</li>
+        <li>输入 Mac 的用户名和密码。</li>
+      </ol>
       <p class="hc-link"><a href="#connect-mac">本文链接</a></p>
     </details>
   </article>
@@ -361,19 +377,33 @@
   </article>
   <article class="hc-a" id="typing-ime" data-cats="connect" data-updated="2026-10-10">
     <details lang-ko><summary>한글 입력은 어떻게 하나요</summary>
-      <p>원격 PC의 한/영 전환을 그대로 씁니다. 실물 키보드는 한/영 키, 화면 키보드는 자판 위 키 막대의 한/영 키를 누르세요. 글자는 원격 PC의 입력기가 조합합니다.</p>
+      <p>원격 PC의 한/영 전환을 그대로 씁니다.</p>
+      <ul>
+        <li>실물 키보드: <b>한/영</b> 키를 누릅니다.</li>
+        <li>화면 키보드: 자판 위 키 막대의 <b>한/영</b> 키를 누릅니다.</li>
+      </ul>
+      <p>글자는 원격 PC의 입력기가 조합합니다.</p>
       <p class="hc-link"><a href="#typing-ime">이 글 링크</a></p>
     </details>
     <details lang-en><summary>Typing Korean (or another IME)</summary>
-      <p>Use the remote PC's own input switching: the Han/Eng key on a keyboard, or the key bar above the on-screen keyboard. The remote PC's IME composes the characters.</p>
+      <p>Use the remote PC's own input switching.</p>
+      <ul>
+        <li>Physical keyboard: press the <b>Han/Eng</b> key.</li>
+        <li>On-screen keyboard: press <b>Han/Eng</b> on the key bar above it.</li>
+      </ul>
+      <p>The remote PC's IME composes the characters.</p>
       <p class="hc-link"><a href="#typing-ime">Link to this article</a></p>
     </details>
     <details lang-ja><summary>日本語などの入力 (IME)</summary>
-      <p>リモート PC 側の入力切り替えをそのまま使います。文字の変換はリモート PC の IME が行います。韓国語入力の 한/영 キーは、画面キーボード上部のキーバーにもあります。</p>
+      <p>リモート PC 側の入力切り替えをそのまま使います。</p>
+      <p>文字の変換はリモート PC の IME が行います。</p>
+      <p>韓国語入力の <b>한/영</b> キーは、画面キーボード上部のキーバーにもあります。</p>
       <p class="hc-link"><a href="#typing-ime">この記事へのリンク</a></p>
     </details>
     <details lang-zh><summary>输入中文等（输入法）</summary>
-      <p>直接使用远程电脑自己的输入法切换，文字由远程电脑的输入法组字。韩文输入的 한/영 键也在屏幕键盘上方的按键栏中。</p>
+      <p>直接使用远程电脑自己的输入法切换。</p>
+      <p>文字由远程电脑的输入法组字。</p>
+      <p>韩文输入的 <b>한/영</b> 键也在屏幕键盘上方的按键栏中。</p>
       <p class="hc-link"><a href="#typing-ime">本文链接</a></p>
     </details>
   </article>
@@ -458,7 +488,7 @@
         <li>PC의 Deskify에서 <b>설정 → 모바일 기기 → 화면 공유 원격 (Pro)</b>의 <b>"잠금 화면에서도 쓰기 (서비스 설치)"</b>를 켭니다. 관리자 권한을 한 번 묻습니다.</li>
         <li>그다음부터는 잠금 화면에서도 PIN을 입력하고 클릭할 수 있습니다.</li>
       </ol>
-      <p>이 설정을 쓰는 기능: 웹 Deskify의 <b>이 PC 화면 보기</b>, 폰 Deskify의 <b>내 기기 → 화면 스트리밍</b>(🎮 내 PC 스트리밍), 앱에서 여는 화면 공유.</p>
+      <p>이 설정을 쓰는 기능: 웹 Deskify의 <b>이 PC 화면 보기</b>, 폰 Deskify의 <b>내 기기 → 화면 스트리밍</b>(내 PC 스트리밍), 앱에서 여는 화면 공유.</p>
       <ul>
         <li>PC 앱을 업데이트한 뒤 잠금 화면에서 다시 안 되면 이 설정을 한 번 껐다 켭니다.</li>
         <li>화면 스트리밍에서 폰 키보드로 친 글자는 잠금 화면에서 숫자·영문 키로 보냅니다. 잠금 화면에는 한글 입력기가 없습니다.</li>
@@ -472,7 +502,7 @@
         <li>In Deskify on the PC, turn on <b>"Also on the lock screen (installs a service)"</b> under <b>Settings → Mobile devices → Screen sharing (Pro)</b>. Windows asks for administrator rights once.</li>
         <li>From then on you can type the PIN and click on the lock screen.</li>
       </ol>
-      <p>Features that use this setting: <b>View this PC's screen</b> in Web Deskify, <b>My devices → Stream its screen</b> (🎮 Stream my PC) in the phone app, and screen sharing opened from the app.</p>
+      <p>Features that use this setting: <b>View this PC's screen</b> in Web Deskify, <b>My devices → Stream its screen</b> (Stream my PC) in the phone app, and screen sharing opened from the app.</p>
       <ul>
         <li>If it stops working on the lock screen after a PC app update, turn the setting off and on once.</li>
         <li>In screen streaming, what you type on the phone keyboard is sent as digit and letter keys on the lock screen (it has no IME).</li>
@@ -486,7 +516,7 @@
         <li>PC の Deskify で<b>設定 → モバイル端末 → 画面共有リモート (Pro)</b> の<b>「ロック画面でも使う (サービスをインストール)」</b>をオンにします。管理者権限を一度求められます。</li>
         <li>以後はロック画面でも PIN の入力やクリックができます。</li>
       </ol>
-      <p>この設定を使う機能: Web 版 Deskify の<b>この PC の画面を見る</b>、スマホ版 Deskify の<b>マイデバイス → 画面ストリーミング</b> (🎮 自分の PC をストリーミング)、アプリから開く画面共有。</p>
+      <p>この設定を使う機能: Web 版 Deskify の<b>この PC の画面を見る</b>、スマホ版 Deskify の<b>マイデバイス → 画面ストリーミング</b> (自分の PC をストリーミング)、アプリから開く画面共有。</p>
       <ul>
         <li>PC アプリの更新後にロック画面で効かなくなったら、この設定を一度オフにしてからオンにします。</li>
         <li>画面ストリーミングでスマホのキーボードで入力した文字は、ロック画面では数字・英字のキーとして送ります (ロック画面には IME がありません)。</li>
@@ -500,7 +530,7 @@
         <li>在电脑上的 Deskify 中，打开<b>设置 → 移动设备 → 屏幕共享远程 (Pro)</b> 里的<b>“锁屏时也可使用 (安装服务)”</b>。会请求一次管理员权限。</li>
         <li>之后即可在锁屏界面输入 PIN 和点击。</li>
       </ol>
-      <p>使用此设置的功能：网页版 Deskify 的<b>查看此电脑屏幕</b>、手机版 Deskify 的<b>我的设备 → 画面串流</b>（🎮 串流我的 PC），以及从应用打开的屏幕共享。</p>
+      <p>使用此设置的功能：网页版 Deskify 的<b>查看此电脑屏幕</b>、手机版 Deskify 的<b>我的设备 → 画面串流</b>（串流我的 PC），以及从应用打开的屏幕共享。</p>
       <ul>
         <li>更新电脑版后如果锁屏界面又无法输入，请将此设置关闭再打开一次。</li>
         <li>屏幕串流中用手机键盘输入的文字，在锁屏界面会以数字和字母按键发送（锁屏界面没有输入法）。</li>
@@ -548,7 +578,7 @@
   </article>
   <article class="hc-a" id="file-notices" data-cats="files" data-updated="2026-10-29">
     <details lang-ko><summary>파일 알림에 나오는 내용</summary>
-      <p>파일을 보내거나 받고 나면 알림이 뜨고, 폰과 PC의 <b>알림 센터</b>(🔔)에 7일 동안 남습니다.</p>
+      <p>파일을 보내거나 받고 나면 알림이 뜨고, 폰과 PC의 <b>알림 센터</b>에 7일 동안 남습니다.</p>
       <ul>
         <li><b>제목</b>: 어느 기기와 몇 개를 주고받았는지 (예: "Galaxy S24에서 파일 3개를 받았습니다")</li>
         <li><b>내용</b>: 파일 이름 3개까지와 나머지 개수, 전체 용량 (예: IMG_0001.jpg · 보고서.pdf · a.zip 외 2개 · 12.3 MB)</li>
@@ -559,7 +589,7 @@
       <p class="hc-link"><a href="#file-notices">이 글 링크</a></p>
     </details>
     <details lang-en><summary>What file notifications show</summary>
-      <p>After you send or receive files a notification appears, and it stays in the <b>notification center</b> (🔔) on the phone and the PC for 7 days.</p>
+      <p>After you send or receive files a notification appears, and it stays in the <b>notification center</b> on the phone and the PC for 7 days.</p>
       <ul>
         <li><b>Title</b>: which device and how many files (e.g. "Received 3 files from Galaxy S24")</li>
         <li><b>Text</b>: up to three file names, how many more, and the total size (e.g. IMG_0001.jpg · report.pdf · a.zip and 2 more · 12.3 MB)</li>
@@ -570,7 +600,7 @@
       <p class="hc-link"><a href="#file-notices">Link to this article</a></p>
     </details>
     <details lang-ja><summary>ファイル通知に表示される内容</summary>
-      <p>ファイルを送受信すると通知が表示され、スマホと PC の<b>通知センター</b> (🔔) に 7 日間残ります。</p>
+      <p>ファイルを送受信すると通知が表示され、スマホと PC の<b>通知センター</b> に 7 日間残ります。</p>
       <ul>
         <li><b>タイトル</b>: どの端末と何個やり取りしたか (例:「Galaxy S24 からファイルを 3 個受信しました」)</li>
         <li><b>内容</b>: ファイル名 3 個までと残りの個数、合計サイズ (例: IMG_0001.jpg · 報告書.pdf · a.zip ほか 2 個 · 12.3 MB)</li>
@@ -581,7 +611,7 @@
       <p class="hc-link"><a href="#file-notices">この記事へのリンク</a></p>
     </details>
     <details lang-zh><summary>文件通知显示的内容</summary>
-      <p>发送或接收文件后会显示通知，并在手机和电脑的<b>通知中心</b>（🔔）中保留 7 天。</p>
+      <p>发送或接收文件后会显示通知，并在手机和电脑的<b>通知中心</b>中保留 7 天。</p>
       <ul>
         <li><b>标题</b>：与哪台设备传输了几个文件（例如“从 Galaxy S24 收到 3 个文件”）</li>
         <li><b>内容</b>：最多 3 个文件名、其余数量和总大小（例如 IMG_0001.jpg · 报告.pdf · a.zip 等另外 2 个 · 12.3 MB）</li>
@@ -601,16 +631,16 @@
         <li>아래의 <b>업로드</b>로 지금 보고 있는 PC 폴더에 올리고, <b>새 폴더</b>로 폴더를 만듭니다.</li>
       </ol>
       <ul>
-        <li><p>폰이 볼 수 있는 폴더는 PC에서 정합니다: PC의 Deskify → <b>설정 → 모바일 기기 → 내 PC 파일</b>.</p><p>처음에는 사용자 폴더(C:\Users\이름)만 열려 있고, 폴더를 더 넣거나 기능을 끌 수 있습니다.</p></li>
-        <li><p>폴더 대신 <b>드라이브 추가</b>로 드라이브 전체(예: D:\)를 열거나, <b>모든 드라이브</b>를 켜서 지금 있는 드라이브와 나중에 꽂는 USB까지 열 수 있습니다(네트워크 드라이브는 하나씩 추가할 때만).</p><p>드라이브를 열면 한 번 더 확인하고, 설정에 경고가 표시됩니다.</p><p>그래도 Windows·Program Files·AppData·휴지통·System Volume Information 같은 곳은 열리지 않습니다.</p></li>
+        <li>폰이 볼 수 있는 폴더는 PC에서 정합니다: PC의 Deskify → <b>설정 → 모바일 기기 → 내 PC 파일</b>. 처음에는 사용자 폴더(C:\Users\이름)만 열려 있고, 폴더를 더 넣거나 기능을 끌 수 있습니다.</li>
+        <li>폴더 대신 <b>드라이브 추가</b>로 드라이브 전체(예: D:\)를 열거나, <b>모든 드라이브</b>를 켜서 지금 있는 드라이브와 나중에 꽂는 USB까지 열 수 있습니다(네트워크 드라이브는 하나씩 추가할 때만). 드라이브를 열면 한 번 더 확인하고, 설정에 경고가 표시됩니다. 그래도 Windows·Program Files·AppData·휴지통·System Volume Information 같은 곳은 열리지 않습니다.</li>
         <li>Windows·Program Files 같은 시스템 폴더, AppData, 점(.)으로 시작하는 폴더는 설정과 상관없이 열리지 않습니다.</li>
         <li>지운 파일은 PC의 <b>휴지통</b>으로 갑니다. PC에서 되살릴 수 있습니다.</li>
         <li>같은 Wi-Fi에서는 직접 주고받고, 밖에서는 파일 보내기와 같은 길로 연결됩니다. 밖에서 받고 올린 양은 인터넷 전송 한도에 들어갑니다.</li>
         <li>폰이 처음 PC 파일을 열면 PC의 알림 센터에 기록이 남습니다.</li>
         <li>"PC의 Deskify를 업데이트하면 쓸 수 있습니다"가 뜨면 PC 앱을 최신으로 바꿔 주세요.</li>
-        <li><p><b>모든 드라이브</b>를 켜면 전에 추가한 폴더는 따로 열리는 대신 <b>바로가기</b>가 됩니다.</p><p>폰 첫 화면에 '드라이브' 아래 '바로가기'로 보이고, 누르면 그 폴더로 바로 들어갑니다.</p><p>필요 없으면 설정의 <b>바로가기 숨기기</b>로 감출 수 있습니다.</p><p>모든 드라이브를 끄면 다시 그 폴더들만 열립니다.</p></li>
-        <li><p><b>즐겨찾기</b>: 폴더를 열고 위쪽 별을 누르면 첫 화면 맨 위 '즐겨찾기'에 들어가 바로 열 수 있습니다(이 폰에만 저장).</p><p>PC가 더 이상 보여 주지 않는 폴더는 흐리게 '열 수 없음'으로 보이고, 길게 눌러 뺄 수 있습니다.</p><p>PC의 '모바일 기기 파일' 창에서도 폴더를 오른쪽 클릭해 즐겨찾기에 넣을 수 있습니다.</p></li>
-        <li><p><b>찾기</b>: 돋보기를 누르고 입력하면 지금 폴더에서 바로 찾습니다(이 폴더에서 찾기).</p><p><b>하위 폴더까지 찾기</b>를 누르면 PC가 그 폴더 아래를 모두 찾아 결과마다 위치를 보여 줍니다(최대 500개, 12단계, 약 8초).</p><p>폴더는 누르면 열리고 파일은 받습니다. PC에서 폰의 폴더를 찾을 때도 같습니다.</p></li>
+        <li><b>모든 드라이브</b>를 켜면 전에 추가한 폴더는 따로 열리는 대신 <b>바로가기</b>가 됩니다. 폰 첫 화면에 '드라이브' 아래 '바로가기'로 보이고, 누르면 그 폴더로 바로 들어갑니다. 필요 없으면 설정의 <b>바로가기 숨기기</b>로 감출 수 있습니다. 모든 드라이브를 끄면 다시 그 폴더들만 열립니다.</li>
+        <li><b>즐겨찾기</b>: 폴더를 열고 위쪽 별을 누르면 첫 화면 맨 위 '즐겨찾기'에 들어가 바로 열 수 있습니다(이 폰에만 저장). PC가 더 이상 보여 주지 않는 폴더는 흐리게 '열 수 없음'으로 보이고, 길게 눌러 뺄 수 있습니다. PC의 '모바일 기기 파일' 창에서도 폴더를 오른쪽 클릭해 즐겨찾기에 넣을 수 있습니다.</li>
+        <li><b>찾기</b>: 돋보기를 누르고 입력하면 지금 폴더에서 바로 찾습니다(이 폴더에서 찾기). <b>하위 폴더까지 찾기</b>를 누르면 PC가 그 폴더 아래를 모두 찾아 결과마다 위치를 보여 줍니다(최대 500개, 12단계, 약 8초). 폴더는 누르면 열리고 파일은 받습니다. PC에서 폰의 폴더를 찾을 때도 같습니다.</li>
       </ul>
       <p class="hc-link"><a href="#pc-files">이 글 링크</a></p>
     </details>
@@ -623,15 +653,15 @@
       </ol>
       <ul>
         <li>The PC decides which folders the phone may see: Deskify on the PC → <b>Settings → Mobile devices → My PC files</b>. At first only your user folder (C:\Users\name) is open; you can add folders or turn the feature off.</li>
-        <li><p>Instead of folders you can open a whole drive with <b>Add drive</b> (e.g.</p><p>D:\), or turn on <b>All drives</b> for every local drive now and any USB drive plugged in later (network drives only when added one by one).</p><p>Opening a drive asks once more and shows a warning in the settings; Windows, Program Files, AppData, the Recycle Bin and System Volume Information still stay closed.</p></li>
+        <li>Instead of folders you can open a whole drive with <b>Add drive</b> (e.g. D:\), or turn on <b>All drives</b> for every local drive now and any USB drive plugged in later (network drives only when added one by one). Opening a drive asks once more and shows a warning in the settings; Windows, Program Files, AppData, the Recycle Bin and System Volume Information still stay closed.</li>
         <li>System folders such as Windows and Program Files, AppData and folders starting with a dot never open, whatever the setting.</li>
         <li>Deleted files go to the PC's <b>Recycle Bin</b>, where you can restore them.</li>
         <li>On the same Wi-Fi files go directly; away from home they take the same path as sending files, and what you download or upload counts toward the internet transfer allowance.</li>
         <li>The first time a phone opens the PC's files, the PC's notification center records it.</li>
         <li>If you see "Update Deskify on the PC to use this", update the PC app.</li>
-        <li><p>With <b>All drives</b> on, folders added before become <b>shortcuts</b> instead of separate roots: the phone's first screen lists them under 'Shortcuts' below 'Drives', and tapping one goes straight there.</p><p>Hide them with <b>Hide shortcuts</b> in the settings. Turning All drives off opens only those folders again.</p></li>
-        <li><p><b>Favorites</b>: open a folder and tap the star at the top to pin it under 'Favorites' at the top of the first screen (saved on this phone).</p><p>A folder the PC no longer shares is dimmed as 'Can't open'; long-press to remove it.</p><p>In the PC's device-files window, right-click a folder to add it to favorites too.</p></li>
-        <li><p><b>Find</b>: tap the magnifier and type to narrow the current folder at once (Find in this folder).</p><p><b>Search subfolders too</b> has the PC search everything under that folder and shows where each result is (up to 500 results, 12 levels, about 8 seconds).</p><p>Tap a folder to open it, a file to download it.</p><p>Searching the phone's folders from the PC works the same way.</p></li>
+        <li>With <b>All drives</b> on, folders added before become <b>shortcuts</b> instead of separate roots: the phone's first screen lists them under 'Shortcuts' below 'Drives', and tapping one goes straight there. Hide them with <b>Hide shortcuts</b> in the settings. Turning All drives off opens only those folders again.</li>
+        <li><b>Favorites</b>: open a folder and tap the star at the top to pin it under 'Favorites' at the top of the first screen (saved on this phone). A folder the PC no longer shares is dimmed as 'Can't open'; long-press to remove it. In the PC's device-files window, right-click a folder to add it to favorites too.</li>
+        <li><b>Find</b>: tap the magnifier and type to narrow the current folder at once (Find in this folder). <b>Search subfolders too</b> has the PC search everything under that folder and shows where each result is (up to 500 results, 12 levels, about 8 seconds). Tap a folder to open it, a file to download it. Searching the phone's folders from the PC works the same way.</li>
       </ul>
       <p class="hc-link"><a href="#pc-files">Link to this article</a></p>
     </details>
@@ -645,15 +675,15 @@
       </ol>
       <ul>
         <li>スマホが見られるフォルダーは PC で決めます: PC の Deskify → <b>設定 → モバイル端末 → マイ PC のファイル</b>。最初はユーザーフォルダー（C:\Users\名前）だけが開いていて、フォルダーの追加や機能のオフができます。</li>
-        <li><p>フォルダーの代わりに <b>ドライブを追加</b> でドライブ全体（例: D:\）を開いたり、<b>すべてのドライブ</b> をオンにして今あるドライブと後で挿す USB まで開けます（ネットワーク ドライブは個別に追加したときだけ）。</p><p>ドライブを開くときはもう一度確認し、設定に警告が表示されます。</p><p>それでも Windows・Program Files・AppData・ごみ箱・System Volume Information などは開けません。</p></li>
+        <li>フォルダーの代わりに <b>ドライブを追加</b> でドライブ全体（例: D:\）を開いたり、<b>すべてのドライブ</b> をオンにして今あるドライブと後で挿す USB まで開けます（ネットワーク ドライブは個別に追加したときだけ）。ドライブを開くときはもう一度確認し、設定に警告が表示されます。それでも Windows・Program Files・AppData・ごみ箱・System Volume Information などは開けません。</li>
         <li>Windows・Program Files などのシステムフォルダー、AppData、ドット（.）で始まるフォルダーは設定に関係なく開けません。</li>
         <li>削除したファイルは PC の<b>ごみ箱</b>に移り、PC で元に戻せます。</li>
         <li>同じ Wi-Fi では直接、外出先ではファイル送信と同じ経路でつながります。外で受け取り・アップロードした量はインターネット転送の上限に含まれます。</li>
         <li>スマホが初めて PC のファイルを開くと、PC の通知センターに記録が残ります。</li>
         <li>「PC の Deskify を更新すると使えます」と出たら、PC アプリを最新にしてください。</li>
-        <li><p><b>すべてのドライブ</b> をオンにすると、前に追加したフォルダーは個別に開く代わりに <b>ショートカット</b> になります。</p><p>スマホの最初の画面で「ドライブ」の下に「ショートカット」として表示され、タップするとそのフォルダーへ直接入れます。</p><p>不要なら設定の <b>ショートカットを隠す</b> で隠せます。</p><p>すべてのドライブをオフにすると、またそのフォルダーだけが開きます。</p></li>
-        <li><p><b>お気に入り</b>: フォルダーを開いて上の星をタップすると、最初の画面の一番上の「お気に入り」に入り、すぐ開けます (このスマホにのみ保存)。</p><p>PC が共有しなくなったフォルダーは薄く「開けません」と表示され、長押しで外せます。</p><p>PC の機器ファイル画面でもフォルダーを右クリックしてお気に入りに追加できます。</p></li>
-        <li><p><b>探す</b>: 虫眼鏡をタップして入力すると、今のフォルダーをすぐ絞り込みます (このフォルダーで探す)。</p><p><b>サブフォルダーまで探す</b> を押すと PC がそのフォルダーの下をすべて探し、結果ごとに場所を表示します (最大 500 件、12 階層、約 8 秒)。</p><p>フォルダーはタップで開き、ファイルは受け取ります。PC からスマホのフォルダーを探すときも同じです。</p></li>
+        <li><b>すべてのドライブ</b> をオンにすると、前に追加したフォルダーは個別に開く代わりに <b>ショートカット</b> になります。スマホの最初の画面で「ドライブ」の下に「ショートカット」として表示され、タップするとそのフォルダーへ直接入れます。不要なら設定の <b>ショートカットを隠す</b> で隠せます。すべてのドライブをオフにすると、またそのフォルダーだけが開きます。</li>
+        <li><b>お気に入り</b>: フォルダーを開いて上の星をタップすると、最初の画面の一番上の「お気に入り」に入り、すぐ開けます (このスマホにのみ保存)。PC が共有しなくなったフォルダーは薄く「開けません」と表示され、長押しで外せます。PC の機器ファイル画面でもフォルダーを右クリックしてお気に入りに追加できます。</li>
+        <li><b>探す</b>: 虫眼鏡をタップして入力すると、今のフォルダーをすぐ絞り込みます (このフォルダーで探す)。<b>サブフォルダーまで探す</b> を押すと PC がそのフォルダーの下をすべて探し、結果ごとに場所を表示します (最大 500 件、12 階層、約 8 秒)。フォルダーはタップで開き、ファイルは受け取ります。PC からスマホのフォルダーを探すときも同じです。</li>
       </ul>
       <p class="hc-link"><a href="#pc-files">この記事へのリンク</a></p>
     </details>
@@ -666,15 +696,15 @@
       </ol>
       <ul>
         <li>手机能看到哪些文件夹由电脑决定：电脑上的 Deskify → <b>设置 → 移动设备 → 我的电脑文件</b>。一开始只开放用户文件夹（C:\Users\用户名），可以添加文件夹或关闭此功能。</li>
-        <li><p>除了文件夹，也可以用<b>添加驱动器</b>开放整个驱动器（如 D:\），或打开<b>所有驱动器</b>，包括现在的驱动器和以后插入的 U 盘（网络驱动器只有单独添加时才开放）。</p><p>开放驱动器时会再确认一次，并在设置中显示警告；Windows、Program Files、AppData、回收站和 System Volume Information 仍然无法打开。</p></li>
+        <li>除了文件夹，也可以用<b>添加驱动器</b>开放整个驱动器（如 D:\），或打开<b>所有驱动器</b>，包括现在的驱动器和以后插入的 U 盘（网络驱动器只有单独添加时才开放）。开放驱动器时会再确认一次，并在设置中显示警告；Windows、Program Files、AppData、回收站和 System Volume Information 仍然无法打开。</li>
         <li>Windows、Program Files 等系统文件夹、AppData 以及以点（.）开头的文件夹，无论如何设置都不会打开。</li>
         <li>删除的文件会进入电脑的 <b>回收站</b>，可在电脑上恢复。</li>
         <li>同一 Wi-Fi 下直接传输，在外面则走与发送文件相同的路径，在外面下载和上传的量计入互联网传输额度。</li>
         <li>手机第一次打开电脑文件时，电脑的通知中心会留下记录。</li>
         <li>如果出现“请更新电脑上的 Deskify 后使用”，请把电脑应用更新到最新版本。</li>
-        <li><p>打开<b>所有驱动器</b>后，之前添加的文件夹不再单独开放，而是变成<b>快捷方式</b>：手机首页在“驱动器”下方的“快捷方式”中显示，点按即可直接进入。</p><p>不需要时可在设置中勾选<b>隐藏快捷方式</b>。关闭所有驱动器后，又只开放这些文件夹。</p></li>
-        <li><p><b>收藏</b>：打开文件夹后点顶部的星标，即可加入首页最上方的“收藏”并直接打开（仅保存在此手机）。</p><p>电脑不再共享的文件夹会变暗并显示“无法打开”，长按可移除。</p><p>在电脑的设备文件窗口中也可右键文件夹加入收藏。</p></li>
-        <li><p><b>查找</b>：点放大镜并输入，会立即筛选当前文件夹（在此文件夹中查找）。</p><p>点<b>连同子文件夹查找</b>，电脑会搜索该文件夹下的全部内容并显示每个结果的位置（最多 500 个、12 层、约 8 秒）。</p><p>点文件夹打开，点文件下载。从电脑查找手机的文件夹也一样。</p></li>
+        <li>打开<b>所有驱动器</b>后，之前添加的文件夹不再单独开放，而是变成<b>快捷方式</b>：手机首页在“驱动器”下方的“快捷方式”中显示，点按即可直接进入。不需要时可在设置中勾选<b>隐藏快捷方式</b>。关闭所有驱动器后，又只开放这些文件夹。</li>
+        <li><b>收藏</b>：打开文件夹后点顶部的星标，即可加入首页最上方的“收藏”并直接打开（仅保存在此手机）。电脑不再共享的文件夹会变暗并显示“无法打开”，长按可移除。在电脑的设备文件窗口中也可右键文件夹加入收藏。</li>
+        <li><b>查找</b>：点放大镜并输入，会立即筛选当前文件夹（在此文件夹中查找）。点<b>连同子文件夹查找</b>，电脑会搜索该文件夹下的全部内容并显示每个结果的位置（最多 500 个、12 层、约 8 秒）。点文件夹打开，点文件下载。从电脑查找手机的文件夹也一样。</li>
       </ul>
       <p class="hc-link"><a href="#pc-files">本文链接</a></p>
     </details>
@@ -934,7 +964,7 @@
     <details lang-ko><summary>웹 Deskify · PC에서 켜기</summary>
       <ol>
         <li>Deskify PC판에 로그인합니다.</li>
-        <li><p><b>설정 → 모바일 기기 → 화면 공유 원격 (Pro)</b>에서 이 PC 화면 보기는 <b>"화면 공유 원격 허용 (브라우저·Deskify 앱)"</b>을, 보관함에서 접속은 <b>"웹 Deskify의 보관함에서 접속 허용"</b>을 켭니다.</p><p>필요한 것만 켜면 됩니다. 처음에는 둘 다 꺼져 있습니다.</p></li>
+        <li><b>설정 → 모바일 기기 → 화면 공유 원격 (Pro)</b>에서 이 PC 화면 보기는 <b>"화면 공유 원격 허용 (브라우저·Deskify 앱)"</b>을, 보관함에서 접속은 <b>"웹 Deskify의 보관함에서 접속 허용"</b>을 켭니다. 필요한 것만 켜면 됩니다. 처음에는 둘 다 꺼져 있습니다.</li>
         <li>(선택) 잠금 화면·로그인 화면에서도 쓰려면 같은 곳의 <b>"잠금 화면에서도 쓰기 (서비스 설치)"</b>를 켭니다. 관리자 권한을 한 번 묻습니다.</li>
       </ol>
       <p class="hc-link"><a href="#web-turn-on">이 글 링크</a></p>
@@ -942,7 +972,7 @@
     <details lang-en><summary>Web Deskify · turning it on at the PC</summary>
       <ol>
         <li>Sign in to the Deskify PC app.</li>
-        <li><p>In <b>Settings → Mobile devices → Screen sharing (Pro)</b>, turn on <b>“Allow screen sharing (browser · Deskify app)”</b> for View this PC’s screen and <b>“Allow Connect from vault in Web Deskify”</b> for Connect from vault.</p><p>Turn on only what you need; both start off.</p></li>
+        <li>In <b>Settings → Mobile devices → Screen sharing (Pro)</b>, turn on <b>“Allow screen sharing (browser · Deskify app)”</b> for View this PC’s screen and <b>“Allow Connect from vault in Web Deskify”</b> for Connect from vault. Turn on only what you need; both start off.</li>
         <li>(Optional) To use it at the lock and sign-in screens too, turn on <b>“Also on the lock screen (installs a service)”</b> there. It asks for administrator rights once.</li>
       </ol>
       <p class="hc-link"><a href="#web-turn-on">Link to this article</a></p>
@@ -950,7 +980,7 @@
     <details lang-ja><summary>Web 版 Deskify · PC で有効にする</summary>
       <ol>
         <li>Deskify PC 版にログインします。</li>
-        <li><p><b>設定 → モバイル端末 → 画面共有リモート (Pro)</b> で、この PC の画面を見るには<b>「画面共有リモートを許可 (ブラウザー・Deskify アプリ)」</b>を、保管庫から接続には<b>「Web 版 Deskify の『保管庫から接続』を許可」</b>をオンにします。</p><p>必要なものだけオンにしてください。初期状態では両方ともオフになっています。</p></li>
+        <li><b>設定 → モバイル端末 → 画面共有リモート (Pro)</b> で、この PC の画面を見るには<b>「画面共有リモートを許可 (ブラウザー・Deskify アプリ)」</b>を、保管庫から接続には<b>「Web 版 Deskify の『保管庫から接続』を許可」</b>をオンにします。必要なものだけオンにしてください。初期状態では両方ともオフになっています。</li>
         <li>（任意）ロック画面やサインイン画面でも使用する場合は、同じ場所の<b>「ロック画面でも使う (サービスをインストール)」</b>をオンにします。管理者権限の確認が一度表示されます。</li>
       </ol>
       <p class="hc-link"><a href="#web-turn-on">この記事へのリンク</a></p>
@@ -958,7 +988,7 @@
     <details lang-zh><summary>网页版 Deskify · 在电脑上开启</summary>
       <ol>
         <li>登录 Deskify 电脑版。</li>
-        <li><p>在<b>设置 → 移动设备 → 屏幕共享远程 (Pro)</b>中，针对查看此电脑屏幕开启<b>“允许屏幕共享远程 (浏览器·Deskify 应用)”</b>，针对从保管库连接开启<b>“允许网页版 Deskify 的‘从保管库连接’”</b>。</p><p>只需开启所需项即可；初始状态下两者均为关闭。</p></li>
+        <li>在<b>设置 → 移动设备 → 屏幕共享远程 (Pro)</b>中，针对查看此电脑屏幕开启<b>“允许屏幕共享远程 (浏览器·Deskify 应用)”</b>，针对从保管库连接开启<b>“允许网页版 Deskify 的‘从保管库连接’”</b>。只需开启所需项即可；初始状态下两者均为关闭。</li>
         <li>（可选）若要在锁定屏幕和登录屏幕上也使用，请在同一位置开启<b>“锁屏时也可使用 (安装服务)”</b>。系统会提示授予一次管理员权限。</li>
       </ol>
       <p class="hc-link"><a href="#web-turn-on">本文链接</a></p>
@@ -967,7 +997,7 @@
   <article class="hc-a" id="web-sign-in" data-cats="web account" data-updated="2026-10-10">
     <details lang-ko><summary>웹 Deskify · 브라우저에서 로그인 (QR · 기기 승인)</summary>
       <ul>
-        <li><p><b>QR (공용 컴퓨터에 권장)</b>: 페이지에 뜬 QR을 폰 Deskify 보관함 위쪽의 <b>QR 단추</b>로 비춥니다.</p><p>브라우저 종류와 접속 위치를 확인한 뒤 PC를 고르고 허용합니다.</p><p>QR을 비출 수 없으면 페이지의 코드를 폰에 입력합니다.</p><p>이렇게 들어온 브라우저는 페이지를 닫거나 12시간이 지나면 계정에서 자동으로 빠집니다.</p></li>
+        <li><b>QR (공용 컴퓨터에 권장)</b>: 페이지에 뜬 QR을 폰 Deskify 보관함 위쪽의 <b>QR 단추</b>로 비춥니다. 브라우저 종류와 접속 위치를 확인한 뒤 PC를 고르고 허용합니다. QR을 비출 수 없으면 페이지의 코드를 폰에 입력합니다. 이렇게 들어온 브라우저는 페이지를 닫거나 12시간이 지나면 계정에서 자동으로 빠집니다.</li>
         <li><b>구글 계정</b>: 앱과 같은 구글 계정으로 로그인하면 이미 쓰는 폰이나 PC에 허용 창이 뜹니다. <b>허용</b>하면 기기 목록에 남고, <b>이번만 허용</b>하면 페이지를 닫을 때 빠집니다.</li>
       </ul>
       <div class="tipbox">연결될 때마다 PC 화면 위쪽에 띠(끊기 단추)가 뜨고 폰에 알림이 갑니다. 다른 사람이 보낸 QR은 허용하지 마십시오. 화면과 입력은 브라우저와 PC 사이에서 암호화되어 오가며, 직접 연결이 안 될 때만 데이터 절약 화질로 중계를 거칩니다(계정당 하루 1시간).</div>
@@ -975,7 +1005,7 @@
     </details>
     <details lang-en><summary>Web Deskify · signing in from a browser (QR · device approval)</summary>
       <ul>
-        <li><p><b>QR (best on a shared computer)</b>: scan the QR code on the page with the <b>QR button</b> at the top of the Deskify vault on your phone.</p><p>Check the browser and its location, pick the PC and allow it.</p><p>If you can’t scan, type the page’s code on the phone instead.</p><p>A browser let in this way leaves the account by itself when its page closes or after 12 hours.</p></li>
+        <li><b>QR (best on a shared computer)</b>: scan the QR code on the page with the <b>QR button</b> at the top of the Deskify vault on your phone. Check the browser and its location, pick the PC and allow it. If you can’t scan, type the page’s code on the phone instead. A browser let in this way leaves the account by itself when its page closes or after 12 hours.</li>
         <li><b>Google account</b>: sign in with the same Google account as the app and an approval prompt appears on a phone or PC you already use. <b>Allow</b> keeps it in the device list; <b>Allow just this once</b> removes it when the page closes.</li>
       </ul>
       <div class="tipbox">Each time it connects, a bar (with a disconnect button) appears at the top of the PC’s screen and your phone gets a notification. Never allow a QR code someone else sent you. Screen and input travel encrypted between the browser and the PC; only when no direct path exists do they go through a relay at data-saving quality (one hour a day per account).</div>
@@ -983,7 +1013,7 @@
     </details>
     <details lang-ja><summary>Web 版 Deskify · ブラウザーからログイン (QR・端末の承認)</summary>
       <ul>
-        <li><p><b>QR（共有コンピューターに推奨）</b>: ページに表示された QR コードをスマホの Deskify 保管庫上部にある <b>QR ボタン</b> で読み取ります。</p><p>ブラウザーの種類と接続場所を確認し、PC を選択して許可します。</p><p>スキャンできない場合は、ページのコードをスマホに入力します。</p><p>この方法で接続したブラウザーは、ページを閉じるか 12 時間が経過すると自動的にアカウントから解除されます。</p></li>
+        <li><b>QR（共有コンピューターに推奨）</b>: ページに表示された QR コードをスマホの Deskify 保管庫上部にある <b>QR ボタン</b> で読み取ります。ブラウザーの種類と接続場所を確認し、PC を選択して許可します。スキャンできない場合は、ページのコードをスマホに入力します。この方法で接続したブラウザーは、ページを閉じるか 12 時間が経過すると自動的にアカウントから解除されます。</li>
         <li><b>Google アカウント</b>: アプリと同じ Google アカウントでログインすると、既にお使いのスマホや PC に確認画面が表示されます。<b>許可</b> すると端末一覧に残り、<b>今回のみ許可</b> するとページを閉じたときに解除されます。</li>
       </ul>
       <div class="tipbox">接続するたびに PC 画面の上部にバー（切断ボタン）が表示され、スマホに通知が届きます。他の人が送信した QR コードは絶対に許可しないでください。画面と入力はブラウザーと PC の間で暗号化されて送受信され、直接接続できない場合のみデータ節約画質で中継サーバーを経由します（1 アカウントにつき 1 日 1 時間）。</div>
@@ -991,7 +1021,7 @@
     </details>
     <details lang-zh><summary>网页版 Deskify · 在浏览器中登录 (二维码 · 设备批准)</summary>
       <ul>
-        <li><p><b>二维码（推荐在公用电脑上使用）</b>：使用手机上 Deskify 保管库顶部的 <b>二维码按钮</b> 扫描页面上的二维码。</p><p>确认浏览器类型和连接位置后，选择电脑并允许。</p><p>如果无法扫描，可以在手机上输入页面上的代码。</p><p>以此方式进入的浏览器会在页面关闭或 12 小时后自动从账号中退出。</p></li>
+        <li><b>二维码（推荐在公用电脑上使用）</b>：使用手机上 Deskify 保管库顶部的 <b>二维码按钮</b> 扫描页面上的二维码。确认浏览器类型和连接位置后，选择电脑并允许。如果无法扫描，可以在手机上输入页面上的代码。以此方式进入的浏览器会在页面关闭或 12 小时后自动从账号中退出。</li>
         <li><b>Google 账号</b>：使用与应用相同的 Google 账号登录，你已在使用的手机或电脑上就会弹出允许提示。选择<b>允许</b>会将其保留在设备列表中；选择<b>仅允许本次</b>则会在页面关闭时将其移除。</li>
       </ul>
       <div class="tipbox">每次连接时，电脑屏幕顶部都会显示一个横条（带有断开按钮），手机也会收到通知。切勿允许他人发给你的二维码。屏幕和输入在浏览器与电脑之间加密传输；仅在无法直接连接时，才会以省流量画质通过中继服务器传输（每个账号每天 1 小时）。</div>
@@ -1029,7 +1059,7 @@
         <li>두 기기가 <b>같은 Wi-Fi</b>(같은 공유기)에 있어야 합니다.</li>
         <li>두 기기 모두 <b>Deskify</b>가 설치되어 있어야 합니다.</li>
         <li>주 기기는 폰·태블릿의 Deskify, 또는 <b>Deskify PC판</b>(Windows)입니다. 주 기기에서 원격 컴퓨터에 <b>연결된 세션</b>이 있어야 역할을 고를 수 있습니다.</li>
-        <li><p>보조 기기 허용은 <b>주 기기 쪽 Pro 기능</b>입니다.</p><p>구독(7일 체험 포함)은 2대, 평생권은 1대까지 붙습니다.</p><p>무료판은 설정 → Pro에서 광고를 보면 3시간 동안 1대를 쓸 수 있습니다.</p><p>보조 기기 쪽은 무료로 됩니다.</p></li>
+        <li>보조 기기 허용은 <b>주 기기 쪽 Pro 기능</b>입니다. 구독(7일 체험 포함)은 2대, 평생권은 1대까지 붙습니다. 무료판은 설정 → Pro에서 광고를 보면 3시간 동안 1대를 쓸 수 있습니다. 보조 기기 쪽은 무료로 됩니다.</li>
         <li>두 기기가 <b>같은 Deskify 계정</b>으로 로그인되어 있어야 합니다. 다른 계정의 기기는 목록에 보이지 않습니다.</li>
       </ul>
       <p class="hc-link"><a href="#companion-requirements">이 글 링크</a></p>
@@ -1039,7 +1069,7 @@
         <li>Both devices on the <b>same Wi-Fi</b> (the same router).</li>
         <li><b>Deskify</b> installed on both.</li>
         <li>The main device is Deskify on a phone or tablet, or <b>Deskify for Windows</b>. It needs a <b>connected session</b> to a remote computer before you can pick a role.</li>
-        <li><p>Allowing companions is a <b>Pro feature of the main device</b>: two at once with the subscription (and the 7-day trial), one with the lifetime licence.</p><p>On the free edition, watching an ad in Settings → Pro opens one for 3 hours.</p><p>The companion itself needs nothing.</p></li>
+        <li>Allowing companions is a <b>Pro feature of the main device</b>: two at once with the subscription (and the 7-day trial), one with the lifetime licence. On the free edition, watching an ad in Settings → Pro opens one for 3 hours. The companion itself needs nothing.</li>
         <li>Both devices must be signed in to <b>the same Deskify account</b>. Devices on another account don't show up.</li>
       </ul>
       <p class="hc-link"><a href="#companion-requirements">Link to this article</a></p>
@@ -1049,7 +1079,7 @@
         <li>両方の端末が<b>同じ Wi-Fi</b>（同じルーター）に接続されている必要があります。</li>
         <li>両方の端末に <b>Deskify</b> がインストールされている必要があります。</li>
         <li>メイン端末はスマホ・タブレットの Deskify、または <b>Deskify PC 版</b>（Windows）です。役割を選択するには、メイン端末でリモートコンピューターに<b>接続されたセッション</b>がある必要があります。</li>
-        <li><p>サブ端末の許可は<b>メイン端末側の Pro 機能</b>です。</p><p>サブスク（7 日間の無料トライアルを含む）では同時に 2 台、買い切りでは 1 台まで接続できます。</p><p>無料版では、設定 → Pro で広告を見ると 3 時間 1 台利用できます。サブ端末側は無料で利用できます。</p></li>
+        <li>サブ端末の許可は<b>メイン端末側の Pro 機能</b>です。サブスク（7 日間の無料トライアルを含む）では同時に 2 台、買い切りでは 1 台まで接続できます。無料版では、設定 → Pro で広告を見ると 3 時間 1 台利用できます。サブ端末側は無料で利用できます。</li>
         <li>両方の端末が<b>同じ Deskify アカウント</b>でログインしている必要があります。別アカウントの端末は一覧に表示されません。</li>
       </ul>
       <p class="hc-link"><a href="#companion-requirements">この記事へのリンク</a></p>
@@ -1059,7 +1089,7 @@
         <li>两台设备处于<b>同一 Wi-Fi</b>（同一路由器）下。</li>
         <li>两台设备均已安装 <b>Deskify</b>。</li>
         <li>主设备可以是手机/平板上的 Deskify，也可以是 <b>Deskify 电脑版</b>（Windows）。主设备上需要有已连接到远程电脑的<b>活动会话</b>，才能选择角色。</li>
-        <li><p>允许辅助设备是<b>主设备侧的 Pro 功能</b>：订阅（含 7 天免费试用）可同时连接 2 台，终身版可连接 1 台。</p><p>免费版在“设置 → Pro”中观看广告即可使用 1 台 3 小时。</p><p>辅助设备本身完全免费。</p></li>
+        <li>允许辅助设备是<b>主设备侧的 Pro 功能</b>：订阅（含 7 天免费试用）可同时连接 2 台，终身版可连接 1 台。免费版在“设置 → Pro”中观看广告即可使用 1 台 3 小时。辅助设备本身完全免费。</li>
         <li>两台设备必须登录<b>同一个 Deskify 账号</b>。其他账号的设备不会出现在列表中。</li>
       </ul>
       <p class="hc-link"><a href="#companion-requirements">本文链接</a></p>
@@ -1122,35 +1152,35 @@
   <article class="hc-a" id="companion-roles" data-cats="companion" data-updated="2026-10-10">
     <details lang-ko><summary>보조 기기 · 역할</summary>
       <div class="roles">
-        <div class="role"><b class="t">⌨️ 키보드 · 트랙패드</b><span class="k">RDP · SSH</span>
+        <div class="role"><b class="t">키보드 · 트랙패드</b><span class="k">RDP · SSH</span>
           <p>태블릿 화면을 가리지 않고 폰으로 포인터와 키를 다룹니다.</p>
           <p>한 손가락: 이동, 탭: 클릭, 두 손가락: 스크롤, 두 손가락 탭: 우클릭, 길게: 드래그.</p>
           <p>아래 키 줄과 단축키 버튼으로 입력합니다.</p>
           <p>SSH에서는 화면의 프로그램(vim, tmux 등)이 마우스를 받으면 트랙패드가 됩니다.</p></div>
-        <div class="role"><b class="t">🖥️ 보조 모니터</b><span class="k">RDP</span>
+        <div class="role"><b class="t">보조 모니터</b><span class="k">RDP</span>
           <p>원격 Windows에 폰 크기의 모니터가 하나 더 생깁니다.</p>
           <p>창을 끌어다 폰 쪽으로 옮기면 됩니다.</p>
           <p>탭: 클릭, 끌기: 스크롤, 길게: 우클릭.</p>
           <p>뒤로 가기를 누르면 도구와 키 줄이 나타나고, 모니터 위치(오른쪽·왼쪽·아래·위)와 배율, "이 화면 크기로 모니터 다시 맞추기"를 고를 수 있습니다.</p></div>
-        <div class="role"><b class="t">✏️ 그림 타블렛</b><span class="k">RDP</span>
+        <div class="role"><b class="t">그림 타블렛</b><span class="k">RDP</span>
           <p>폰·태블릿의 펜으로 원격 PC에 그립니다.</p>
           <p>필압·펜 버튼·지우개가 Windows 펜 입력으로 갑니다.</p>
           <p>원격 데스크톱 전체가 패드에 대응하고, 패드에 데스크톱 축소 화면을 띄우거나 끌 수 있습니다.</p>
           <p>펜이 없으면 손가락으로도 그립니다.</p></div>
-        <div class="role"><b class="t">🖌️ 브러시 패드</b><span class="k">RDP</span>
+        <div class="role"><b class="t">브러시 패드</b><span class="k">RDP</span>
           <p>실행 취소·브러시 크기·지우개·화면 이동 같은 그림 프로그램 단축키를 큰 버튼으로 누릅니다. 버튼 순서를 바꾸거나 숨기고, 키 조합을 추가할 수 있습니다.</p></div>
-        <div class="role"><b class="t">🔲 커스텀 덱</b><span class="k">RDP · SSH · PC판의 "이 PC"</span>
+        <div class="role"><b class="t">커스텀 덱</b><span class="k">RDP · SSH · PC판의 "이 PC"</span>
           <p>내가 만든 큰 버튼 하나로 단축키·문장·명령·프로그램 실행을 한 번에 보냅니다.</p>
           <p>여러 단계를 묶거나 폴더로 정리할 수 있고, PC판이 주 기기면 OBS 조작과 앞에 있는 프로그램에 맞춘 페이지 전환도 됩니다.</p></div>
-        <div class="role"><b class="t">💡 세션 도우미</b><span class="k">SSH</span>
+        <div class="role"><b class="t">세션 도우미</b><span class="k">SSH</span>
           <p>명령어 도움말과 결과 보기를 폰에 띄웁니다. 고른 명령은 주 기기의 터미널로 들어갑니다.</p></div>
-        <div class="role"><b class="t">📂 파일</b><span class="k">SSH</span>
+        <div class="role"><b class="t">파일</b><span class="k">SSH</span>
           <p>서버 폴더를 폰에서 봅니다. "터미널 따라가기"를 켜면 터미널의 cd를 따라갑니다. 누른 경로를 프롬프트에 넣거나 그 폴더로 cd할 수 있습니다.</p></div>
-        <div class="role"><b class="t">🖥 두 번째 셸</b><span class="k">SSH</span>
+        <div class="role"><b class="t">두 번째 셸</b><span class="k">SSH</span>
           <p>같은 SSH 연결에 셸을 하나 더 열어 폰에 보여 줍니다. 로그를 보면서 다른 명령을 칠 때 씁니다.</p></div>
-        <div class="role"><b class="t">✨ AI 도우미</b><span class="k">SSH</span>
+        <div class="role"><b class="t">AI 도우미</b><span class="k">SSH</span>
           <p>터미널은 주 기기에 두고, 폰에서 AI에게 부탁합니다. 명령은 주 기기 터미널에서 실행됩니다. 주 기기의 설정 → 실험실에 Claude·Gemini 키가 있어야 합니다(키는 주 기기에만 있습니다).</p></div>
-        <div class="role"><b class="t">🎮 PC 화면 스트리밍 (시험)</b><span class="k">PC판의 "이 PC"</span>
+        <div class="role"><b class="t">PC 화면 스트리밍 (시험)</b><span class="k">PC판의 "이 PC"</span>
           <p>Deskify PC판이 깔린 PC의 화면을 그래픽카드로 압축해 폰에서 보고, 폰 터치로 마우스를 움직입니다.</p></div>
       </div>
       <p class="muted">PC판이 주 기기일 때는 보조 모니터·커스텀 덱·PC 화면 스트리밍만 고를 수 있습니다.</p>
@@ -1158,33 +1188,33 @@
     </details>
     <details lang-en><summary>Companion devices · Roles</summary>
       <div class="roles">
-        <div class="role"><b class="t">⌨️ Keyboard · trackpad</b><span class="k">RDP · SSH</span>
+        <div class="role"><b class="t">Keyboard · trackpad</b><span class="k">RDP · SSH</span>
           <p>Move the pointer and type from the phone without covering the tablet.</p>
           <p>One finger: move, tap: click, two fingers: scroll, two-finger tap: right-click, hold: drag.</p>
           <p>Type with the key bar and shortcut buttons.</p>
           <p>Over SSH it becomes a trackpad when the program on screen (vim, tmux…) takes the mouse.</p></div>
-        <div class="role"><b class="t">🖥️ Second screen</b><span class="k">RDP</span>
+        <div class="role"><b class="t">Second screen</b><span class="k">RDP</span>
           <p>Windows gets one more monitor the size of the phone; drag windows over to it.</p>
           <p>Tap: click, drag: scroll, hold: right-click.</p>
           <p>Press Back for the tools and key bar: the monitor's side (right, left, below, above), its scale, and "Resize the monitor to this screen".</p></div>
-        <div class="role"><b class="t">✏️ Drawing tablet</b><span class="k">RDP</span>
+        <div class="role"><b class="t">Drawing tablet</b><span class="k">RDP</span>
           <p>Draw on the remote PC with the device's pen.</p>
           <p>Pressure, the pen button and the eraser arrive as Windows pen input.</p>
           <p>The whole desktop maps to the pad, with a small picture of it on the pad (or a plain pad).</p>
           <p>Without a pen, fingers draw.</p></div>
-        <div class="role"><b class="t">🖌️ Brush pad</b><span class="k">RDP</span>
+        <div class="role"><b class="t">Brush pad</b><span class="k">RDP</span>
           <p>Drawing-program shortcuts as big buttons: undo, brush size, eraser, pan. Reorder or hide them and add your own key combinations.</p></div>
-        <div class="role"><b class="t">🔲 Custom Deck</b><span class="k">RDP · SSH · "This PC" on the PC app</span>
+        <div class="role"><b class="t">Custom Deck</b><span class="k">RDP · SSH · "This PC" on the PC app</span>
           <p>One big button of your own sends a shortcut, text, a command or starts a program. Chain steps or group buttons in folders. With the PC app as the main device it also drives OBS and turns to the page of the program in front.</p></div>
-        <div class="role"><b class="t">💡 Session helper</b><span class="k">SSH</span>
+        <div class="role"><b class="t">Session helper</b><span class="k">SSH</span>
           <p>Command help and the result view on the phone; the command you pick goes into the main device's terminal.</p></div>
-        <div class="role"><b class="t">📂 Files</b><span class="k">SSH</span>
+        <div class="role"><b class="t">Files</b><span class="k">SSH</span>
           <p>The server's folders on the phone. "Follow terminal" tracks the terminal's cd. Insert a path at the prompt or cd there.</p></div>
-        <div class="role"><b class="t">🖥 Second shell</b><span class="k">SSH</span>
+        <div class="role"><b class="t">Second shell</b><span class="k">SSH</span>
           <p>Another shell on the same SSH connection, shown on the phone: watch a log while you type elsewhere.</p></div>
-        <div class="role"><b class="t">✨ AI helper</b><span class="k">SSH</span>
+        <div class="role"><b class="t">AI helper</b><span class="k">SSH</span>
           <p>Keep the terminal on the main device and ask the AI from the phone; commands run in the main device's terminal. Needs a Claude or Gemini key in the main device's Settings → Labs (the key stays there).</p></div>
-        <div class="role"><b class="t">🎮 PC screen streaming (beta)</b><span class="k">"This PC" on the PC app</span>
+        <div class="role"><b class="t">PC screen streaming (beta)</b><span class="k">"This PC" on the PC app</span>
           <p>The screen of the PC running Deskify for Windows, compressed by its graphics card, on the phone; touches move its mouse.</p></div>
       </div>
       <p class="muted">With the PC app as the main device, only Second screen, Custom Deck and PC screen streaming are offered.</p>
@@ -1192,36 +1222,36 @@
     </details>
     <details lang-ja><summary>サブ端末 · 役割</summary>
       <div class="roles">
-        <div class="role"><b class="t">⌨️ キーボード · トラックパッド</b><span class="k">RDP · SSH</span>
+        <div class="role"><b class="t">キーボード · トラックパッド</b><span class="k">RDP · SSH</span>
           <p>タブレットの画面を遮ることなく、スマホでポインターの操作やキー入力を行えます。</p>
           <p>1 本指：移動、タップ：クリック、2 本指：スクロール、2 本指タップ：右クリック、長押し：ドラッグ。</p>
           <p>キーバーやショートカットボタンで入力します。</p>
           <p>SSH では画面上のプログラム（vim、tmux など）がマウスを受け付けるとトラックパッドになります。</p></div>
-        <div class="role"><b class="t">🖥️ サブモニター</b><span class="k">RDP</span>
+        <div class="role"><b class="t">サブモニター</b><span class="k">RDP</span>
           <p>リモートの Windows にスマホサイズのモニターがもう 1 台追加され、ウィンドウをドラッグして移動できます。</p>
           <p>タップ：クリック、ドラッグ：スクロール、長押し：右クリック。</p>
           <p>「戻る」を押すとツールやキーバーが表示され、モニターの位置（右・左・下・上）や倍率、「この画面サイズに合わせてモニターを再調整」を選択できます。</p></div>
-        <div class="role"><b class="t">✏️ ペンタブレット</b><span class="k">RDP</span>
+        <div class="role"><b class="t">ペンタブレット</b><span class="k">RDP</span>
           <p>端末のペンを使ってリモート PC に描画できます。</p>
           <p>筆圧、ペンボタン、消しゴムは Windows のペン入力として送信されます。</p>
           <p>デスクトップ全体がパッドに対応し、パッド上にデスクトップの縮小画面を表示したり非表示にしたりできます。</p>
           <p>ペンがない場合は指でも描けます。</p></div>
-        <div class="role"><b class="t">🖌️ ブラシパッド</b><span class="k">RDP</span>
+        <div class="role"><b class="t">ブラシパッド</b><span class="k">RDP</span>
           <p>元に戻す、ブラシサイズ、消しゴム、画面移動などのお絵描きソフトのショートカットを大きなボタンで操作できます。ボタンの並べ替えや非表示、独自のキーの組み合わせの追加も可能です。</p></div>
-        <div class="role"><b class="t">🔲 カスタムデッキ</b><span class="k">RDP · SSH · PC 版の「この PC」</span>
+        <div class="role"><b class="t">カスタムデッキ</b><span class="k">RDP · SSH · PC 版の「この PC」</span>
           <p>自作した大きなボタン 1 つで、ショートカット、定型文、コマンドの送信やプログラムの起動を一括で行えます。</p>
           <p>複数のステップを組み合わせたりフォルダーで整理したりできるほか、PC 版がメイン端末の場合は OBS の操作や最前面のプログラムに応じたページ切り替えも行えます。</p></div>
-        <div class="role"><b class="t">💡 セッションヘルパー</b><span class="k">SSH</span>
+        <div class="role"><b class="t">セッションヘルパー</b><span class="k">SSH</span>
           <p>コマンドのヘルプや実行結果をスマホに表示します。選択したコマンドはメイン端末のターミナルに入力されます。</p></div>
-        <div class="role"><b class="t">📂 ファイル</b><span class="k">SSH</span>
+        <div class="role"><b class="t">ファイル</b><span class="k">SSH</span>
           <p>サーバーのフォルダーをスマホで閲覧できます。「ターミナルに追従」をオンにすると、ターミナルの cd に連動します。タップしたパスをプロンプトに入力したり、そのフォルダーへ cd したりできます。</p></div>
-        <div class="role"><b class="t">🖥 2 つ目のシェル</b><span class="k">SSH</span>
+        <div class="role"><b class="t">2 つ目のシェル</b><span class="k">SSH</span>
           <p>同じ SSH 接続上でもう 1 つのシェルを開いてスマホに表示します。ログを確認しながら別のコマンドを入力したいときに便利です。</p></div>
-        <div class="role"><b class="t">✨ AI アシスタント</b><span class="k">SSH</span>
+        <div class="role"><b class="t">AI アシスタント</b><span class="k">SSH</span>
           <p>ターミナルはメイン端末に置いたまま、スマホから AI に指示を出せます。</p>
           <p>コマンドはメイン端末のターミナルで実行されます。</p>
           <p>メイン端末の設定 → Labs に Claude または Gemini の API キーが必要です（キーはメイン端末にのみ保存されます）。</p></div>
-        <div class="role"><b class="t">🎮 PC 画面ストリーミング (試験)</b><span class="k">PC 版の「この PC」</span>
+        <div class="role"><b class="t">PC 画面ストリーミング (試験)</b><span class="k">PC 版の「この PC」</span>
           <p>Deskify PC 版がインストールされた PC の画面をグラフィックカードで圧縮してスマホに表示し、スマホのタッチ操作でマウスを動かせます。</p></div>
       </div>
       <p class="muted">PC 版がメイン端末の場合、サブモニター、カスタムデッキ、PC 画面ストリーミングのみ選択できます。</p>
@@ -1229,33 +1259,33 @@
     </details>
     <details lang-zh><summary>辅助设备 · 角色</summary>
       <div class="roles">
-        <div class="role"><b class="t">⌨️ 键盘 · 触控板</b><span class="k">RDP · SSH</span>
+        <div class="role"><b class="t">键盘 · 触控板</b><span class="k">RDP · SSH</span>
           <p>无需遮挡平板屏幕，即可在手机上移动指针和输入文字。</p>
           <p>单指：移动，点按：点击，双指：滚动，双指点按：右键，长按：拖拽。</p>
           <p>通过按键栏和快捷键按钮进行输入。</p>
           <p>在 SSH 下，当屏幕上的程序（vim、tmux 等）捕获鼠标时，便会作为触控板使用。</p></div>
-        <div class="role"><b class="t">🖥️ 副显示器</b><span class="k">RDP</span>
+        <div class="role"><b class="t">副显示器</b><span class="k">RDP</span>
           <p>远程 Windows 会新增一台手机大小的显示器，可直接将窗口拖动到手机屏幕上。</p>
           <p>点按：点击，拖动：滚动，长按：右键。</p>
           <p>按返回键可调出工具和按键栏：选择显示器位置（右侧、左侧、下方、上方）、缩放比例以及“按此屏幕尺寸重新调整显示器”。</p></div>
-        <div class="role"><b class="t">✏️ 绘图板</b><span class="k">RDP</span>
+        <div class="role"><b class="t">绘图板</b><span class="k">RDP</span>
           <p>使用设备的手写笔在远程电脑上作画。</p>
           <p>压感、笔按键和橡皮擦均作为 Windows 触控笔输入传递。</p>
           <p>整个桌面映射到数位板上，可以在板上显示桌面的缩略图（也可以关闭）。</p>
           <p>没有手写笔时，用手指也可以绘制。</p></div>
-        <div class="role"><b class="t">🖌️ 画笔面板</b><span class="k">RDP</span>
+        <div class="role"><b class="t">画笔面板</b><span class="k">RDP</span>
           <p>以大按钮的形式操作绘图软件的快捷键：撤销、画笔大小、橡皮擦、画布平移等。可以调整按钮顺序、隐藏按钮，或添加自定义按键组合。</p></div>
-        <div class="role"><b class="t">🔲 自定义按键板</b><span class="k">RDP · SSH · 电脑版中的“此电脑”</span>
+        <div class="role"><b class="t">自定义按键板</b><span class="k">RDP · SSH · 电脑版中的“此电脑”</span>
           <p>只需自定义一个大按钮，即可一键发送快捷键、文本、命令或启动程序。支持组合多步操作或用文件夹整理；如果电脑版为主设备，还能控制 OBS 并根据当前前台程序自动切换页面。</p></div>
-        <div class="role"><b class="t">💡 会话助手</b><span class="k">SSH</span>
+        <div class="role"><b class="t">会话助手</b><span class="k">SSH</span>
           <p>在手机上显示命令帮助和执行结果查看；选中的命令会自动输入到主设备的终端中。</p></div>
-        <div class="role"><b class="t">📂 文件</b><span class="k">SSH</span>
+        <div class="role"><b class="t">文件</b><span class="k">SSH</span>
           <p>在手机上浏览服务器文件夹。开启“跟随终端”可同步跟踪终端中的 cd 命令。可将点击的路径插入到提示符处，或直接 cd 到该目录。</p></div>
-        <div class="role"><b class="t">🖥 第二个 Shell</b><span class="k">SSH</span>
+        <div class="role"><b class="t">第二个 Shell</b><span class="k">SSH</span>
           <p>在同一个 SSH 连接中多打开一个 Shell 并显示在手机上：可以一边查看日志，一边在别处输入命令。</p></div>
-        <div class="role"><b class="t">✨ AI 助手</b><span class="k">SSH</span>
+        <div class="role"><b class="t">AI 助手</b><span class="k">SSH</span>
           <p>终端保留在主设备上，从手机向 AI 发出请求；命令会在主设备终端中执行。需要在主设备的“设置 → 实验室”中配置 Claude 或 Gemini 密钥（密钥仅保留在主设备上）。</p></div>
-        <div class="role"><b class="t">🎮 电脑屏幕串流（测试）</b><span class="k">电脑版中的“此电脑”</span>
+        <div class="role"><b class="t">电脑屏幕串流（测试）</b><span class="k">电脑版中的“此电脑”</span>
           <p>将安装了 Deskify 电脑版的电脑屏幕通过显卡压缩后在手机上显示，并通过手机触控操作鼠标。</p></div>
       </div>
       <p class="muted">当电脑版作为主设备时，仅可选择副显示器、自定义按键板和电脑屏幕串流。</p>
@@ -1265,16 +1295,16 @@
   <article class="hc-a" id="stream-touch-mouse" data-cats="companion web" data-updated="2026-11-01">
     <details lang-ko><summary>화면 스트리밍: 터치·마우스 모드와 화면 채우기</summary>
       <p class="beta-note"><span class="beta-pill">베타</span> 구독 혜택 · 아직 다듬는 중입니다.</p>
-      <p>폰 Deskify의 <b>내 기기 → 화면 스트리밍</b>(🎮 내 PC 스트리밍)과 웹 Deskify의 <b>이 PC 화면 보기</b>에는 두 가지 조작 방식이 있습니다. 도구 막대의 단추로 바꿉니다.</p>
+      <p>폰 Deskify의 <b>내 기기 → 화면 스트리밍</b>(내 PC 스트리밍)과 웹 Deskify의 <b>이 PC 화면 보기</b>에는 두 가지 조작 방식이 있습니다. 도구 막대의 단추로 바꿉니다.</p>
       <ul>
         <li><b>마우스</b>(폰 기본): 손가락을 밀어 포인터를 옮기고, 탭하면 포인터 자리를 클릭합니다. 길게 누르면 오른쪽 단추, 길게 누른 채 밀면 끌기입니다.</li>
-        <li><p><b>터치</b>: 손가락이 닿은 곳을 바로 누릅니다.</p><p>폰 앱에서는 손가락이 Windows 터치로 전달되어(PC Deskify 최신판) 포인터가 튀지 않고, 앱 안에서 두 손가락 확대·스크롤과 Windows의 세 손가락 제스처(작업 보기, 앱 전환)를 그대로 씁니다.</p></li>
+        <li><b>터치</b>: 손가락이 닿은 곳을 바로 누릅니다. 폰 앱에서는 손가락이 Windows 터치로 전달되어(PC Deskify 최신판) 포인터가 튀지 않고, 앱 안에서 두 손가락 확대·스크롤과 Windows의 세 손가락 제스처(작업 보기, 앱 전환)를 그대로 씁니다.</li>
       </ul>
       <ul>
         <li>두 손가락을 벌리면 확대되고, 확대된 화면은 두 손가락으로 옮깁니다. 확대하지 않았을 때 두 손가락으로 밀면 휠입니다.</li>
         <li>입력칸을 누르면(PC의 포인터가 I자로 바뀌면) 키보드가 열립니다.</li>
         <li><b>메뉴</b>(화질·표시·키): 도구 막대의 ⋮ 단추나 PC 이름으로 엽니다. 마우스 모드에서는 세 손가락 탭으로도 열리고, 메뉴의 <b>메뉴 열기</b>에서 "위에서 쓸어내리기"를 켤 수 있습니다.</li>
-        <li><p><b>마우스·키보드 커버 트랙패드</b>: 마우스를 화면 위로 움직이면 PC용으로 고정됩니다(Ctrl+Alt나 뒤로로 풀기).</p><p>트랙패드는 노트북처럼 한 손가락 이동, 두 손가락 스크롤, 탭 클릭(두 손가락 탭은 오른쪽 단추)입니다.</p></li>
+        <li><b>마우스·키보드 커버 트랙패드</b>: 마우스를 화면 위로 움직이면 PC용으로 고정됩니다(Ctrl+Alt나 뒤로로 풀기). 트랙패드는 노트북처럼 한 손가락 이동, 두 손가락 스크롤, 탭 클릭(두 손가락 탭은 오른쪽 단추)입니다.</li>
         <li>폰에서 직접 끝내면(X) PC의 가상 모니터가 바로 꺼지고 PC 모니터로 돌아옵니다. 연결이 잠깐 끊긴 경우에만 1분 동안 남겨 두어 다시 연결이 빠릅니다.</li>
         <li><b>화면 채우기</b>: PC 모니터는 비율(대개 16:9)이 정해져 있어 폰(약 20:9)에서는 양옆에 띠가 생깁니다. 화면 채우기를 켜면 띠 없이 꽉 채우고 가장자리가 조금 잘립니다.</li>
       </ul>
@@ -1283,16 +1313,16 @@
     </details>
     <details lang-en><summary>Screen streaming: touch / mouse mode and Fill</summary>
       <p class="beta-note"><span class="beta-pill">Beta</span> A subscription perk · still being polished.</p>
-      <p><b>My devices → Stream its screen</b> (🎮 Stream my PC) in the phone app and <b>View this PC's screen</b> in Web Deskify have two ways to control the PC. Switch with the toolbar button.</p>
+      <p><b>My devices → Stream its screen</b> (Stream my PC) in the phone app and <b>View this PC's screen</b> in Web Deskify have two ways to control the PC. Switch with the toolbar button.</p>
       <ul>
         <li><b>Mouse</b> (the default on phones): slide your finger to move the pointer, tap to click where it is. Hold for the right button, hold and slide to drag.</li>
-        <li><p><b>Touch</b>: your finger clicks right where it touches.</p><p>In the phone app your fingers reach Windows as touch (with the latest PC Deskify): the pointer doesn't jump, and apps get two-finger zoom and scrolling and Windows' three-finger gestures (Task View, switching apps).</p></li>
+        <li><b>Touch</b>: your finger clicks right where it touches. In the phone app your fingers reach Windows as touch (with the latest PC Deskify): the pointer doesn't jump, and apps get two-finger zoom and scrolling and Windows' three-finger gestures (Task View, switching apps).</li>
       </ul>
       <ul>
         <li>Spread two fingers to zoom in; move a zoomed picture with two fingers. Without zoom, a two-finger slide scrolls (the wheel).</li>
         <li>Tapping a text field (the PC's pointer turns into an I-beam) opens the keyboard.</li>
         <li><b>The menu</b> (quality, display, keys): the ⋮ button or the PC's name on the toolbar. In mouse mode a three-finger tap opens it too, and <b>Opening this menu</b> in it can turn on a swipe down from the top.</li>
-        <li><p><b>A mouse or a keyboard cover's touchpad</b>: moving a mouse over the picture holds it for the PC (Ctrl+Alt or Back lets it go).</p><p>The touchpad works as a laptop's: one finger moves, two fingers scroll, a tap clicks (two fingers: the right button).</p></li>
+        <li><b>A mouse or a keyboard cover's touchpad</b>: moving a mouse over the picture holds it for the PC (Ctrl+Alt or Back lets it go). The touchpad works as a laptop's: one finger moves, two fingers scroll, a tap clicks (two fingers: the right button).</li>
         <li>Ending on the phone (X) turns the PC's virtual monitor off at once and its own monitors come back. Only when the line drops is it kept for a minute, so reconnecting is quick.</li>
         <li><b>Fill</b>: a PC monitor has a fixed shape (usually 16:9), so a phone (about 20:9) shows bands on both sides. With Fill on, the picture fills the screen and its edges are cropped a little.</li>
       </ul>
@@ -1301,16 +1331,16 @@
     </details>
     <details lang-ja><summary>画面ストリーミング: タッチ・マウスモードと「画面を埋める」</summary>
       <p class="beta-note"><span class="beta-pill">ベータ</span> サブスク特典 · まだ改良中です。</p>
-      <p>スマホ版 Deskify の<b>マイデバイス → 画面ストリーミング</b> (🎮 自分の PC をストリーミング) と Web 版 Deskify の<b>この PC の画面を見る</b>には、2 つの操作方法があります。ツールバーのボタンで切り替えます。</p>
+      <p>スマホ版 Deskify の<b>マイデバイス → 画面ストリーミング</b> (自分の PC をストリーミング) と Web 版 Deskify の<b>この PC の画面を見る</b>には、2 つの操作方法があります。ツールバーのボタンで切り替えます。</p>
       <ul>
         <li><b>マウス</b> (スマホの既定): 指を滑らせてポインターを動かし、タップでポインターの位置をクリックします。長押しで右ボタン、長押ししたまま滑らせるとドラッグです。</li>
-        <li><p><b>タッチ</b>: 指が触れた場所をそのまま押します。</p><p>スマホアプリでは指の操作が Windows のタッチとして届き (最新の PC 版 Deskify)、ポインターが飛ばず、アプリ内の 2 本指ズーム・スクロールや Windows の 3 本指ジェスチャー (タスクビュー、アプリ切り替え) がそのまま使えます。</p></li>
+        <li><b>タッチ</b>: 指が触れた場所をそのまま押します。スマホアプリでは指の操作が Windows のタッチとして届き (最新の PC 版 Deskify)、ポインターが飛ばず、アプリ内の 2 本指ズーム・スクロールや Windows の 3 本指ジェスチャー (タスクビュー、アプリ切り替え) がそのまま使えます。</li>
       </ul>
       <ul>
         <li>2 本指で広げると拡大し、拡大した画面は 2 本指で移動します。拡大していないときは 2 本指で滑らせるとホイールです。</li>
         <li>入力欄をタップすると (PC のポインターが I 字に変わると) キーボードが開きます。</li>
         <li><b>メニュー</b> (画質・表示・キー): ツールバーの ⋮ ボタンか PC 名で開きます。マウスモードでは 3 本指タップでも開き、メニューの<b>メニューの開き方</b>で「上からスワイプ」をオンにできます。</li>
-        <li><p><b>マウス・キーボードカバーのタッチパッド</b>: マウスを画面の上で動かすと PC 用に固定されます (Ctrl+Alt か「戻る」で解除)。</p><p>タッチパッドはノート PC と同じく 1 本指で移動、2 本指でスクロール、タップでクリック (2 本指タップは右ボタン) です。</p></li>
+        <li><b>マウス・キーボードカバーのタッチパッド</b>: マウスを画面の上で動かすと PC 用に固定されます (Ctrl+Alt か「戻る」で解除)。タッチパッドはノート PC と同じく 1 本指で移動、2 本指でスクロール、タップでクリック (2 本指タップは右ボタン) です。</li>
         <li>スマホで終了 (X) すると PC の仮想モニターはすぐにオフになり、PC のモニターに戻ります。接続が一時的に切れたときだけ 1 分間残し、再接続を速くします。</li>
         <li><b>画面を埋める</b>: PC のモニターは比率 (通常 16:9) が決まっているため、スマホ (約 20:9) では左右に帯が出ます。オンにすると帯なしで画面いっぱいに表示し、端が少し切れます。</li>
       </ul>
@@ -1319,10 +1349,10 @@
     </details>
     <details lang-zh><summary>屏幕串流：触摸 / 鼠标模式与填满屏幕</summary>
       <p class="beta-note"><span class="beta-pill">测试版</span> 订阅权益 · 仍在完善中。</p>
-      <p>手机版 Deskify 的<b>我的设备 → 画面串流</b>（🎮 串流我的 PC）和网页版 Deskify 的<b>查看此电脑屏幕</b>有两种操作方式，可用工具栏按钮切换。</p>
+      <p>手机版 Deskify 的<b>我的设备 → 画面串流</b>（串流我的 PC）和网页版 Deskify 的<b>查看此电脑屏幕</b>有两种操作方式，可用工具栏按钮切换。</p>
       <ul>
         <li><b>鼠标</b>（手机默认）：滑动手指移动指针，轻点即在指针位置点击。长按为右键，长按后滑动为拖动。</li>
-        <li><p><b>触摸</b>：手指触碰的位置直接点击。</p><p>在手机应用中，手指操作会作为 Windows 触摸传入（需最新版电脑 Deskify）：指针不会跳动，应用内可直接使用双指缩放、滚动以及 Windows 的三指手势（任务视图、切换应用）。</p></li>
+        <li><b>触摸</b>：手指触碰的位置直接点击。在手机应用中，手指操作会作为 Windows 触摸传入（需最新版电脑 Deskify）：指针不会跳动，应用内可直接使用双指缩放、滚动以及 Windows 的三指手势（任务视图、切换应用）。</li>
       </ul>
       <ul>
         <li>双指张开可放大，放大后用双指移动画面。未放大时双指滑动为滚轮。</li>
@@ -1341,7 +1371,7 @@
       <ul>
         <li><b>폰에서</b>: 위쪽 띠의 역할 이름(⇄)을 누르면 다른 역할로 바꿉니다. ←는 세션에서 나가고(연결은 유지), 보관함 카드의 연결 끊기로 완전히 끊습니다.</li>
         <li><b>주 기기에서</b>: 세션 화면의 <b>⋮ → 보조 기기</b>에서 연결된 폰마다 역할을 정해 줄 수 있습니다. 보조 모니터 위치도 여기서 바꿉니다.</li>
-        <li><p><b>세션 넘기기</b>: 주 기기의 ⋮ → 보조 기기에서 세션을 폰으로 넘기거나, 폰의 역할 목록 아래 "세션 가져오기"로 가져옵니다.</p><p>비밀번호는 넘어가지 않아 받는 기기의 보관함 정보나 로그인 창을 씁니다.</p><p>(PC판은 넘기기를 하지 않습니다.)</p></li>
+        <li><b>세션 넘기기</b>: 주 기기의 ⋮ → 보조 기기에서 세션을 폰으로 넘기거나, 폰의 역할 목록 아래 "세션 가져오기"로 가져옵니다. 비밀번호는 넘어가지 않아 받는 기기의 보관함 정보나 로그인 창을 씁니다. (PC판은 넘기기를 하지 않습니다.)</li>
       </ul>
       <p class="hc-link"><a href="#companion-switch">이 글 링크</a></p>
     </details>
@@ -1349,7 +1379,7 @@
       <ul>
         <li><b>On the phone</b>: tap the role name (⇄) in the strip at the top to switch. ← leaves the session (the link stays); disconnect from the vault card to end it.</li>
         <li><b>On the main device</b>: the session's <b>⋮ → Companion devices</b> gives each connected phone a role and sets the second monitor's side.</li>
-        <li><p><b>Handing over</b>: send the session to the phone from ⋮ → Companion devices, or take it with "Take the session over" under the phone's role list.</p><p>No password moves: the receiving device uses its own vault or a sign-in prompt.</p><p>(The PC app doesn't hand sessions over.)</p></li>
+        <li><b>Handing over</b>: send the session to the phone from ⋮ → Companion devices, or take it with "Take the session over" under the phone's role list. No password moves: the receiving device uses its own vault or a sign-in prompt. (The PC app doesn't hand sessions over.)</li>
       </ul>
       <p class="hc-link"><a href="#companion-switch">Link to this article</a></p>
     </details>
@@ -1357,7 +1387,7 @@
       <ul>
         <li><b>スマホ側</b>：上部バーの役割名（⇄）をタップすると別の役割に切り替わります。← でセッションから退出（接続は維持）し、完全に終了するには保管庫カードの「切断」をタップします。</li>
         <li><b>メイン端末側</b>：セッション画面の <b>⋮ → サブ端末</b> で、接続されているスマホごとに役割を設定できます。サブモニターの位置もここで変更します。</li>
-        <li><p><b>セッションの引き継ぎ</b>：メイン端末の ⋮ → サブ端末 からセッションをスマホに引き継ぐか、スマホ側の役割一覧の下にある「セッションを引き継ぐ」で取得します。</p><p>パスワードは転送されないため、受け取り側の端末の保管庫情報またはログイン画面を使用します。</p><p>（PC 版では引き継ぎは行えません。）</p></li>
+        <li><b>セッションの引き継ぎ</b>：メイン端末の ⋮ → サブ端末 からセッションをスマホに引き継ぐか、スマホ側の役割一覧の下にある「セッションを引き継ぐ」で取得します。パスワードは転送されないため、受け取り側の端末の保管庫情報またはログイン画面を使用します。（PC 版では引き継ぎは行えません。）</li>
       </ul>
       <p class="hc-link"><a href="#companion-switch">この記事へのリンク</a></p>
     </details>
@@ -1365,7 +1395,7 @@
       <ul>
         <li><b>在手机上</b>：点击顶部栏中的角色名称（⇄）即可切换到其他角色。点击 ← 离开会话（连接仍会保持）；若要彻底断开，请在保管库卡片中点击断开连接。</li>
         <li><b>在主设备上</b>：在会话画面的 <b>⋮ → 辅助设备</b> 中，可以为每台已连接的手机指定角色，副显示器的位置也在此处更改。</li>
-        <li><p><b>移交会话</b>：在主设备的 ⋮ → 辅助设备 中将会话移交至手机，或通过手机角色列表下方的“接管会话”来获取。</p><p>密码不会被转移，接收设备将使用自身保管库中的凭据或显示登录窗口。</p><p>（电脑版不支持移交会话。）</p></li>
+        <li><b>移交会话</b>：在主设备的 ⋮ → 辅助设备 中将会话移交至手机，或通过手机角色列表下方的“接管会话”来获取。密码不会被转移，接收设备将使用自身保管库中的凭据或显示登录窗口。（电脑版不支持移交会话。）</li>
       </ul>
       <p class="hc-link"><a href="#companion-switch">本文链接</a></p>
     </details>
@@ -1374,7 +1404,7 @@
     <details lang-ko><summary>폰 목록에 주 기기가 보이지 않습니다</summary>
       <ul>
         <li>두 기기가 정말 같은 Wi-Fi인지 확인합니다. 한쪽이 모바일 데이터나 다른 공유기면 보이지 않습니다.</li>
-        <li><p><b>게스트 Wi-Fi</b>나 공유기의 <b>AP 격리(무선 기기 간 통신 차단)</b>가 켜져 있으면 기기끼리 서로 볼 수 없습니다.</p><p>일반 Wi-Fi를 쓰거나 공유기 설정에서 끕니다.</p><p>회사·카페 Wi-Fi는 대부분 막혀 있습니다.</p></li>
+        <li><b>게스트 Wi-Fi</b>나 공유기의 <b>AP 격리(무선 기기 간 통신 차단)</b>가 켜져 있으면 기기끼리 서로 볼 수 없습니다. 일반 Wi-Fi를 쓰거나 공유기 설정에서 끕니다. 회사·카페 Wi-Fi는 대부분 막혀 있습니다.</li>
         <li>폰이나 PC의 <b>VPN</b>을 끕니다. VPN은 같은 Wi-Fi의 기기를 찾는 신호를 막을 수 있습니다.</li>
         <li>주 기기에서 Deskify를 열어 두고 보조 기기 허용이 켜져 있는지 봅니다. 화면이 꺼져 절전 중인 기기는 응답하지 않습니다.</li>
         <li>Android 17은 두 기기 모두 <b>근처 기기</b> 권한이 필요합니다.</li>
@@ -1398,7 +1428,7 @@
     <details lang-ja><summary>スマホのリストにメイン端末が表示されません</summary>
       <ul>
         <li>両方の端末が本当に同じ Wi-Fi に接続されているか確認してください。片方がモバイルデータ通信や別のルーターの場合は検出されません。</li>
-        <li><p><b>ゲスト Wi-Fi</b> やルーターの <b>AP 分離（端末間通信の遮断）</b>が有効になっていると、端末同士がお互いを検出できません。</p><p>通常の Wi-Fi を使用するか、ルーターの設定で無効にしてください。</p><p>会社やカフェの Wi-Fi では基本的に遮断されています。</p></li>
+        <li><b>ゲスト Wi-Fi</b> やルーターの <b>AP 分離（端末間通信の遮断）</b>が有効になっていると、端末同士がお互いを検出できません。通常の Wi-Fi を使用するか、ルーターの設定で無効にしてください。会社やカフェの Wi-Fi では基本的に遮断されています。</li>
         <li>スマホや PC の <b>VPN</b> をオフにしてください。VPN が同じ Wi-Fi 内の端末検出シグナルを遮断することがあります。</li>
         <li>メイン端末で Deskify を開いたままにし、サブ端末の許可がオンになっているか確認してください。画面が消灯してスリープ中の端末は応答しません。</li>
         <li>Android 17 では両方の端末で<b>付近のデバイス</b>の権限が必要です。</li>
@@ -1410,7 +1440,7 @@
     <details lang-zh><summary>手机列表中未显示主设备</summary>
       <ul>
         <li>请确认两台设备是否确实处于同一 Wi-Fi 下；若有一方使用移动数据或其他路由器，将无法发现设备。</li>
-        <li><p><b>访客 Wi-Fi</b> 或路由器的 <b>AP 隔离（无线设备间通信拦截）</b>开启时，设备间将无法互相发现。</p><p>请使用常规 Wi-Fi 或在路由器设置中关闭该功能。</p><p>公司和咖啡店的 Wi-Fi 通常都会拦截此通信。</p></li>
+        <li><b>访客 Wi-Fi</b> 或路由器的 <b>AP 隔离（无线设备间通信拦截）</b>开启时，设备间将无法互相发现。请使用常规 Wi-Fi 或在路由器设置中关闭该功能。公司和咖啡店的 Wi-Fi 通常都会拦截此通信。</li>
         <li>请关闭手机和电脑上的 <b>VPN</b>；VPN 可能会拦截局域网内搜索设备的信号。</li>
         <li>请在主设备上保持 Deskify 打开，并确认已开启允许辅助设备。屏幕熄灭且处于休眠状态的设备不会响应。</li>
         <li>在 Android 17 上，两台设备均需要<b>附近设备</b>权限。</li>
@@ -1424,7 +1454,7 @@
     <details lang-ko><summary>PC판이 주 기기인데 폰에서 찾지 못합니다</summary>
       <ul>
         <li>PC판에 로그인되어 있고 Pro인지, 설정 → 모바일 기기 → 보조 모니터가 켜져 있는지 확인합니다.</li>
-        <li><p><b>Windows 방화벽</b>: 처음 실행할 때 뜬 창에서 Deskify의 <b>개인 네트워크</b> 접근을 허용해야 합니다.</p><p>거부했다면 Windows 보안 → 방화벽 → "방화벽에서 앱 허용"에서 Deskify를 켭니다.</p></li>
+        <li><b>Windows 방화벽</b>: 처음 실행할 때 뜬 창에서 Deskify의 <b>개인 네트워크</b> 접근을 허용해야 합니다. 거부했다면 Windows 보안 → 방화벽 → "방화벽에서 앱 허용"에서 Deskify를 켭니다.</li>
         <li>Windows 네트워크 프로필이 <b>공용</b>이면 막힐 수 있습니다. 설정 → 네트워크 및 인터넷에서 <b>개인</b>으로 바꿉니다.</li>
         <li>PC의 VPN을 끕니다.</li>
       </ul>
@@ -1442,7 +1472,7 @@
     <details lang-ja><summary>PC 版がメイン端末なのにスマホから検出できません</summary>
       <ul>
         <li>PC 版にログイン済みで Pro であること、設定 → モバイル端末 → サブモニター がオンになっていることを確認してください。</li>
-        <li><p><b>Windows ファイアウォール</b>：初回起動時の画面で Deskify の<b>プライベート ネットワーク</b>へのアクセスを許可している必要があります。</p><p>拒否した場合は、Windows セキュリティ → ファイアウォール →「ファイアウォールを介したアプリの許可」で Deskify を有効にしてください。</p></li>
+        <li><b>Windows ファイアウォール</b>：初回起動時の画面で Deskify の<b>プライベート ネットワーク</b>へのアクセスを許可している必要があります。拒否した場合は、Windows セキュリティ → ファイアウォール →「ファイアウォールを介したアプリの許可」で Deskify を有効にしてください。</li>
         <li>Windows のネットワーク プロファイルが<b>パブリック</b>になっているとブロックされる場合があります。設定 → ネットワークとインターネット で<b>プライベート</b>に変更してください。</li>
         <li>PC の VPN をオフにしてください。</li>
       </ul>
@@ -1451,7 +1481,7 @@
     <details lang-zh><summary>电脑版为主设备，但手机无法找到它</summary>
       <ul>
         <li>请确认电脑版已登录且具有 Pro 权限，并且设置 → 移动设备 → 副显示器 已开启。</li>
-        <li><p><b>Windows 防火墙</b>：首次启动弹出的提示中，必须允许 Deskify 在<b>专用网络</b>上访问。</p><p>如果当时拒绝了，请在 Windows 安全中心 → 防火墙 →“允许应用通过防火墙”中勾选 Deskify。</p></li>
+        <li><b>Windows 防火墙</b>：首次启动弹出的提示中，必须允许 Deskify 在<b>专用网络</b>上访问。如果当时拒绝了，请在 Windows 安全中心 → 防火墙 →“允许应用通过防火墙”中勾选 Deskify。</li>
         <li>如果 Windows 网络配置文件为<b>公用</b>，可能会被拦截；请在“设置 → 网络和 Internet”中将其更改为<b>专用</b>。</li>
         <li>请关闭电脑上的 VPN。</li>
       </ul>
@@ -1712,7 +1742,7 @@
     </details>
     <details lang-ja><summary>リモートサポート · サポートを受ける方</summary>
       <ol>
-        <li><p>「Deskify サポートを受ける」（正式リリース時に提供）をダウンロードして解凍し、<b>Deskify.exe</b> を実行します。</p><p>（既に Deskify PC 版をお持ちの場合は、トレイメニューまたはホームの <b>サポートを受ける</b> をクリックします。</p><p>）</p></li>
+        <li>「Deskify サポートを受ける」（正式リリース時に提供）をダウンロードして解凍し、<b>Deskify.exe</b> を実行します。（既に Deskify PC 版をお持ちの場合は、トレイメニューまたはホームの <b>サポートを受ける</b> をクリックします。）</li>
         <li>画面に表示された <b>9 桁の番号</b> をサポートする人に伝えるか、サポートする人から教えられた番号を入力します。番号は 1 回限り、10 分間のみ有効です。</li>
         <li>「○○ さんがこの PC を見ようとしています」画面で、<b>表示のみ</b>、<b>操作まで許可</b>、<b>拒否</b> の中から選択します。選択する前には何も表示されません。</li>
         <li>接続中は画面上部に<b>「リモートサポート中」</b>のバーが表示され、<b>終了</b> でいつでも終了できます。終了後は次回に新しい番号が必要になります。</li>
@@ -1807,7 +1837,7 @@
       <ul>
       <li><b>무료</b>: 저장 컴퓨터 3대, 동시 세션 1개(모든 기기 합쳐), 하루 보내기 3번, OTP 2개, 광고.</li>
       <li><b>Pro</b>: 모두 무제한, 기기 간 동기화, 광고 없음, 폰·태블릿·PC가 한 계정으로 함께 풀립니다.</li>
-      <li><p><b>평생 이용권</b>: 앱 기능(폰 앱 전부·PC판 Pro·광고 없음·보조 기기 1대)을 평생 씁니다.</p><p>서버를 쓰는 동기화·웹 Deskify·중계·원격 지원 도와주기는 클라우드 구독(월 ₩1,900 / 연 ₩19,000)을 더해 씁니다.</p></li>
+      <li><b>평생 이용권</b>: 앱 기능(폰 앱 전부·PC판 Pro·광고 없음·보조 기기 1대)을 평생 씁니다. 서버를 쓰는 동기화·웹 Deskify·중계·원격 지원 도와주기는 클라우드 구독(월 ₩1,900 / 연 ₩19,000)을 더해 씁니다.</li>
       </ul>
       <p>가입하면 7일 동안 Pro를 무료로 써 볼 수 있습니다.</p>
       <p class="hc-link"><a href="#free-vs-pro">이 글 링크</a></p>
@@ -1816,7 +1846,7 @@
       <ul>
       <li><b>Free</b>: 3 saved computers, 1 session at a time across all devices, 3 sends a day, 2 OTP codes, ads.</li>
       <li><b>Pro</b>: no limits, sync between devices, no ads; phone, tablet and PC unlock with one account.</li>
-      <li><p><b>Lifetime licence</b>: keeps the app's features for good (every phone feature, PC Pro, no ads, one companion device).</p><p>The server ones — sync, Web Deskify, relays and helping with remote support — come with the Cloud subscription (₩1,900 a month / ₩19,000 a year).</p></li>
+      <li><b>Lifetime licence</b>: keeps the app's features for good (every phone feature, PC Pro, no ads, one companion device). The server ones — sync, Web Deskify, relays and helping with remote support — come with the Cloud subscription (₩1,900 a month / ₩19,000 a year).</li>
       </ul>
       <p>New accounts get Pro free for 7 days.</p>
       <p class="hc-link"><a href="#free-vs-pro">Link to this article</a></p>
@@ -1825,7 +1855,7 @@
       <ul>
       <li><b>無料</b>: 保存できるコンピューター 3 台、同時セッション 1 つ（全端末合わせて）、1 日の送信 3 回、OTP 2 つ、広告あり。</li>
       <li><b>Pro</b>: すべて無制限、端末間の同期、広告なし、スマホ・タブレット・PC が 1 つのアカウントでまとめてアンロックされます。</li>
-      <li><p><b>買い切り</b>: アプリ機能 (すべてのスマホ機能、PC 版 Pro、広告なし、サブ端末 1 台) をずっと利用できます。</p><p>サーバーを使用する同期、Web 版 Deskify、中継、リモートサポートでの手伝いはクラウド購読 (月額 ₩1,900 / 年額 ₩19,000) を追加して利用します。</p></li>
+      <li><b>買い切り</b>: アプリ機能 (すべてのスマホ機能、PC 版 Pro、広告なし、サブ端末 1 台) をずっと利用できます。サーバーを使用する同期、Web 版 Deskify、中継、リモートサポートでの手伝いはクラウド購読 (月額 ₩1,900 / 年額 ₩19,000) を追加して利用します。</li>
       </ul>
       <p>新規登録すると、7 日間 Pro を無料でお試しいただけます。</p>
       <p class="hc-link"><a href="#free-vs-pro">この記事へのリンク</a></p>
@@ -1834,7 +1864,7 @@
       <ul>
       <li><b>免费</b>：保存 3 台电脑，同时运行 1 个会话（所有设备合计），每天发送 3 次，2 个 OTP 验证码，有广告。</li>
       <li><b>Pro</b>：全部无限制，设备间同步，无广告；手机、平板和电脑通用一个账号解锁。</li>
-      <li><p><b>终身版</b>：可永久使用应用功能（全部手机功能、电脑版 Pro、无广告、1 台辅助设备）。</p><p>使用服务器的同步、网页版 Deskify、中继以及提供远程协助，则需另外搭配云订阅（每月 ₩1,900 / 每年 ₩19,000）。</p></li>
+      <li><b>终身版</b>：可永久使用应用功能（全部手机功能、电脑版 Pro、无广告、1 台辅助设备）。使用服务器的同步、网页版 Deskify、中继以及提供远程协助，则需另外搭配云订阅（每月 ₩1,900 / 每年 ₩19,000）。</li>
       </ul>
       <p>注册即可免费试用 Pro 7 天。</p>
       <p class="hc-link"><a href="#free-vs-pro">本文链接</a></p>
