@@ -11,7 +11,7 @@
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="remote.min.css?v=4e4f7336c5">
-<link rel="stylesheet" href="gethelp.min.css?v=6de1e438f4">
+<link rel="stylesheet" href="gethelp.min.css?v=cd5ac0aa77">
 <script>
   (function () {
     // Language: ?lang= from the apps (their UI language) for this visit, else #en, else the visitor's last choice,
@@ -52,6 +52,7 @@
       <svg class="gh-logo" aria-hidden="true"><use href="#i-logo"/></svg>
       <div class="gh-brand">Deskify <span lang-ko>원격 지원</span><span lang-en>Remote support</span><span lang-ja>リモートサポート</span><span lang-zh>远程协助</span></div>
       <h1 id="reqTitle" hidden></h1>
+      <p id="reqMail" class="gh-mail" hidden></p>
       <p id="reqWho" class="gh-who" hidden><span lang-ko>이름은 도우미가 직접 정한 것입니다 · 아는 사람일 때만 계속하십시오. 은행·경찰·관공서는 원격 지원을 요구하지 않습니다.</span><span lang-en>The name is one the helper chose · Continue only if you know them. Banks, police and government offices don't ask for remote access.</span><span lang-ja>名前はサポートする人が自分で設定したものです · 知っている相手の場合のみ続けてください。銀行・警察・官公庁がリモートサポートを求めることはありません。</span><span lang-zh>名字由协助者自行设置 · 仅在确认认识对方时继续。银行、警察和政府机关不会要求远程协助。</span></p>
     </div>
 
@@ -139,6 +140,14 @@
         <div id="myLeft" class="gh-left"></div>
       </div>
       <p id="shareState" class="gh-state"></p>
+      <div id="askBox" class="gh-ask" hidden role="alertdialog" aria-labelledby="askText">
+        <p id="askText" class="gh-ask-t"></p>
+        <p class="gh-ask-s"><span lang-ko>내가 번호를 알려 준 사람일 때만 허락하십시오. 허락하면 화면만 보여 주고, 조작은 할 수 없습니다.</span><span lang-en>Allow only if you gave this code to this person. Allowing shows your screen only; they can't control it.</span><span lang-ja>ご自身が番号を伝えた相手の場合のみ許可してください。許可すると画面だけが表示され、操作はできません。</span><span lang-zh>仅当你把号码告诉了此人时才允许。允许后只显示屏幕，对方无法操作。</span></p>
+        <div class="gh-ask-b">
+          <button id="btnAskNo" class="gh-btn sec" type="button"><span lang-ko>거절</span><span lang-en>Deny</span><span lang-ja>拒否</span><span lang-zh>拒绝</span></button>
+          <button id="btnAskYes" class="gh-btn" type="button"><span lang-ko>허락</span><span lang-en>Allow</span><span lang-ja>許可</span><span lang-zh>允许</span></button>
+        </div>
+      </div>
       <div id="surfaceNote" class="gh-note" hidden>
         <span><span lang-ko>지금은 탭(창)만 공유 중입니다 · 바탕화면 전체를 보여 주려면 다시 공유해 '전체 화면'을 고르십시오</span><span lang-en>Only a tab (window) is shared now · To show the whole desktop, share again and pick "Entire screen"</span><span lang-ja>現在はタブ (ウィンドウ) のみ共有中です · デスクトップ全体を表示するには、再度共有して「画面全体」を選択してください</span><span lang-zh>当前仅共享了标签页 (窗口) · 若要展示整个桌面，请重新共享并选择“整个屏幕”</span></span>
         <button id="btnReshare" class="gh-btn sec" type="button"><span lang-ko>다시 공유</span><span lang-en>Share again</span><span lang-ja>再度共有</span><span lang-zh>重新共享</span></button>
@@ -171,6 +180,6 @@
 
 <div id="toast" class="gh-toast" hidden></div>
 
-<script src="gethelp.min.js?v=15a67f2f79"></script>
+<script src="gethelp.min.js?v=b81b201899"></script>
 </body>
 </html>
