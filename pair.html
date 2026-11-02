@@ -88,7 +88,7 @@
     if (!m || !/Android/i.test(navigator.userAgent)) return;
     var back = encodeURIComponent('https://play.google.com/store/apps/details?id=kr.co.sdh.deskify');
     // The old host on purpose: installs from before the domain move only know that one; newer ones know both.
-    var url = 'intent://deskify-app.github.io/pair?pair=' + m[1] + '#Intent;scheme=https;package=kr.co.sdh.deskify;S.browser_fallback_url=' + back + ';end';
+    var url = 'intent://deskify-app.com/pair?pair=' + m[1] + '#Intent;scheme=https;package=kr.co.sdh.deskify;S.browser_fallback_url=' + back + ';end';
     ['openApp', 'openAppEn', 'openAppJa', 'openAppZh'].forEach(function (id) { var a = document.getElementById(id); a.href = url; a.hidden = false; });
   })();
 </script>
