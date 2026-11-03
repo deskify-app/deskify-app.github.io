@@ -208,14 +208,14 @@ h1, h2, h3, p { margin: 0; }
   font-weight: 450;
 }
 
-/* 7. Document Typography (main.doc ~68ch) */
+/* 7. Document Typography (main.doc as wide as the menu bar) */
 .wrap {
   max-width: 980px;
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
 main.doc {
-  max-width: 760px;
+  max-width: 1120px; /* the menu bar's width (.nav-in), 11-03 user request */
   margin: 0 auto;
   padding: clamp(32px, 5vw, 60px) var(--gutter) clamp(60px, 8vw, 96px);
   width: 100%;
