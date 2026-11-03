@@ -255,6 +255,9 @@ main.doc ul, main.doc ol {
   padding: 0;
   max-width: 68ch;
 }
+/* The policy and info pages (11-03): their text fills the page as wide as the menu bar, not a 68-character column
+   at its left; the help centre keeps its readable column. */
+main.doc:not(.hc) p, main.doc:not(.hc) ul, main.doc:not(.hc) ol { max-width: none; }
 main.doc li {
   margin: 6px 0;
 }
@@ -824,7 +827,7 @@ main.doc .roles p, main.doc .role p { margin: 6px 0 0; }
 }
 
 /* testing: roomier step cards */
-.page-testing main.doc { max-width: 860px; }
+.page-testing main.doc { max-width: 1120px; }
 .page-testing .steps { gap: 18px; }
 .page-testing .steps li { padding: 28px 30px 28px 84px; border-radius: 24px; }
 .page-testing .steps li::before { left: 28px; top: 28px; width: 36px; height: 36px; }
