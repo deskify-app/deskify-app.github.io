@@ -2057,20 +2057,126 @@
   <h2 class="hc-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg><span lang-ko>계정·보안</span><span lang-en>Account · security</span><span lang-ja>アカウント・セキュリティ</span><span lang-zh>账号 · 安全</span></h2>
   <article class="hc-a" id="password-safety" data-cats="account" data-updated="2026-10-10">
     <details lang-ko><summary>비밀번호는 안전한가요</summary>
-      <p>저장한 비밀번호와 키는 기기 안에 암호화해 보관합니다. 동기화를 켜면 보관함은 암호화된 상태로만 서버에 올라갑니다. 앱 잠금(지문·얼굴)과 컴퓨터별 "연결할 때 인증"도 켤 수 있습니다.</p>
+      <p>저장한 비밀번호와 키는 기기 안에 암호화해 보관합니다. 동기화를 켜면 보관함은 암호화된 상태로만 서버에 올라갑니다. 앱 잠금(지문·얼굴)과 컴퓨터별 "연결할 때 인증"도 켤 수 있습니다. 보관함 키까지 서버에 두고 싶지 않으면 <a href="#sync-e2e">종단간 암호화</a>를 켜세요.</p>
       <p class="hc-link"><a href="#password-safety">이 글 링크</a></p>
     </details>
     <details lang-en><summary>Are my passwords safe?</summary>
-      <p>Saved passwords and keys are encrypted on the device. With sync on, the vault goes to the server only encrypted. You can also turn on the app lock (fingerprint/face) and "authenticate to connect" per computer.</p>
+      <p>Saved passwords and keys are encrypted on the device. With sync on, the vault goes to the server only encrypted. You can also turn on the app lock (fingerprint/face) and "authenticate to connect" per computer. To keep even the vault key off the server, turn on <a href="#sync-e2e">end-to-end encryption</a>.</p>
       <p class="hc-link"><a href="#password-safety">Link to this article</a></p>
     </details>
     <details lang-ja><summary>パスワードは安全ですか？</summary>
-      <p>保存されたパスワードとキーは端末内で暗号化して保管されます。同期をオンにすると、保管庫は暗号化された状態でのみサーバーに送信されます。アプリロック (指紋/顔) や、コンピューターごとの「接続時に認証」を有効にすることもできます。</p>
+      <p>保存されたパスワードとキーは端末内で暗号化して保管されます。同期をオンにすると、保管庫は暗号化された状態でのみサーバーに送信されます。アプリロック (指紋/顔) や、コンピューターごとの「接続時に認証」を有効にすることもできます。保管庫キーもサーバーに置きたくない場合は <a href="#sync-e2e">エンドツーエンド暗号化</a> をオンにしてください。</p>
       <p class="hc-link"><a href="#password-safety">この記事へのリンク</a></p>
     </details>
     <details lang-zh><summary>我的密码安全吗？</summary>
-      <p>保存的密码和密钥均在设备本地加密保存。开启同步后，保管库也仅在加密状态下上传至服务器。你还可以开启应用锁（指纹/面部识别）以及针对每台电脑的“连接时验证”。</p>
+      <p>保存的密码和密钥均在设备本地加密保存。开启同步后，保管库也仅在加密状态下上传至服务器。你还可以开启应用锁（指纹/面部识别）以及针对每台电脑的“连接时验证”。如果连保管库密钥也不想放在服务器上，请开启<a href="#sync-e2e">端到端加密</a>。</p>
       <p class="hc-link"><a href="#password-safety">本文链接</a></p>
+    </details>
+  </article>
+  <article class="hc-a" id="sync-e2e" data-cats="account" data-updated="2026-11-09">
+    <details lang-ko><summary>종단간 암호화 (보관함 키를 내 기기에만)</summary>
+      <p>클라우드 동기화를 쓰면 보관함은 늘 암호화되어 서버에 올라갑니다. 기본(꺼짐)에서는 그 보관함 키도 서버에 보관됩니다. <b>종단간 암호화</b>를 켜면 키가 서버에서 지워지고 내 기기에만 남아, 서버에 저장된 보관함은 내 기기에서만 열 수 있습니다.</p>
+      <h3>1. 켜기·끄기</h3>
+      <ul>
+        <li>폰: <b>설정 → 위쪽 계정 아이콘(내 계정) → 종단간 암호화</b>. PC: <b>클라우드 동기화</b> 창의 <b>종단간 암호화</b>.</li>
+        <li>보관함 키를 가진 기기(동기화를 쓰는 기기)에서만 바꿀 수 있습니다. 계정의 모든 기기가 최신 버전이어야 켜지며, 이전 버전 기기가 있으면 그 목록이 뜹니다. 그 기기에서 Deskify를 업데이트하거나 계정에서 빼세요.</li>
+        <li>켜면 지문(PC는 Windows Hello)으로 확인한 뒤 복구 키를 보여 줍니다(3번).</li>
+        <li>끄면 보관함 키가 다시 서버에도 보관되고, 지금 복구 키는 더 이상 쓰이지 않습니다. 보관함 내용은 그대로입니다.</li>
+      </ul>
+      <h3>2. 새 기기 허용과 확인 숫자</h3>
+      <p>새 기기에서 로그인하면 지금처럼 이미 쓰는 폰이나 PC에 허용 창이 뜹니다. 종단간 암호화가 켜진 계정이면 허용 창과 새 기기 화면에 <b>확인 숫자</b> 6자리가 보입니다. 두 숫자가 같은지 확인하고 허용하세요. 다르면 허용하지 마십시오. 허용하면 보관함 키가 새 기기만 열 수 있게 잠겨 전달되므로 따로 할 일은 없습니다. 허용한 기기에 키가 없으면(동기화를 쓰지 않는 기기) Deskify가 켜진 다른 기기가 자동으로 보내며, 그동안 새 기기에는 "다른 기기에서 보관함 키를 받는 중입니다"가 보입니다.</p>
+      <h3>3. 복구 키</h3>
+      <ul>
+        <li>켤 때 32자 복구 키(4자씩 8묶음)를 한 번만 보여 줍니다. 종이에 적거나 안전한 곳에 저장하세요. 다시 볼 수 없고, 서버에도 메일에도 남지 않습니다. 마지막 4자를 입력해야 창이 닫힙니다.</li>
+        <li>복구 키를 잃어버렸다면 키를 가진 기기에서 <b>복구 키 다시 만들기</b>를 누르세요. 이전 복구 키는 쓸 수 없게 됩니다.</li>
+        <li>허용해 줄 기기가 없으면 새 기기의 승인 대기 화면이나 "키를 받는 중" 화면에서 <b>복구 키로 열기</b>를 누르고 입력합니다. 5번 틀리면 1시간 동안 막힙니다. 복구 키를 쓰면 계정 메일로 알림이 갑니다.</li>
+      </ul>
+      <h3>4. 기기와 복구 키를 모두 잃었을 때</h3>
+      <p>클라우드 보관함의 내용은 되살릴 수 없습니다(지원도 키를 갖고 있지 않습니다). 각 기기 안에 저장된 컴퓨터는 남습니다. 보관함을 비우고 새로 시작하는 방법은 아래와 같습니다.</p>
+      <ul>
+        <li>승인은 되었지만 키가 없는 기기: "키를 받는 중" 화면의 <b>복구 키로 열기 → 복구 키가 없습니다</b>로 클라우드 보관함을 초기화합니다. 서버의 보관함 항목과 기록만 지우고 새 키·새 복구 키로 다시 시작하며, 기기 목록과 요금제는 그대로입니다. 다른 기기는 새 키를 받아 자기 항목을 다시 올립니다.</li>
+        <li>승인해 줄 기기가 하나도 없을 때: 새 기기의 승인 대기 화면에서 <b>다른 기기도 복구 키도 없습니다 → 확인 메일 보내기</b>를 누르고, 계정 메일의 링크를 24시간 안에 누르세요. 그때부터 <b>7일</b>이 지나면 이 기기에서 <b>새로 시작</b>을 눌러 보관함을 비우고 새 키·새 복구 키로 시작합니다. 그동안 다른 기기와 메일로 알리며 언제든 취소할 수 있습니다.</li>
+        <li>7일을 기다리기 어려우면: 메일을 확인한 뒤 같은 화면의 <b>지원에 요청</b>을 누르면 코드가 나옵니다. <b>계정 메일 주소에서</b> support@deskify-app.com으로 그 코드와 잃어버린 기기의 이름·모델, 마지막으로 쓴 때를 보내 주세요. 본인 확인이 끝나면 기다리지 않고 바로 새로 시작할 수 있습니다. 보관함 키를 가진 기기가 48시간 안에 접속했거나, 30일 안에 이미 지원으로 초기화한 계정은 7일을 기다려야 합니다.</li>
+      </ul>
+      <p class="hc-link"><a href="#sync-e2e">이 글 링크</a></p>
+    </details>
+    <details lang-en><summary>End-to-end encryption (the vault key only on your devices)</summary>
+      <p>With cloud sync, the vault always goes to the server encrypted. By default (off), the vault key is kept on the server too. Turning on <b>End-to-end encryption</b> deletes the key from the server and keeps it only on your devices, so the vault stored on the server can be opened only on your devices.</p>
+      <h3>1. Turning it on and off</h3>
+      <ul>
+        <li>Phone: <b>Settings → account icon at the top (My account) → End-to-end encryption</b>. PC: <b>End-to-end encryption</b> in the <b>Cloud sync</b> window.</li>
+        <li>Only a device that holds the vault key (one that uses sync) can change it. It turns on only when every device of the account runs the latest version; if any older one remains, you see a list. Update Deskify on that device or remove it from the account.</li>
+        <li>Turning it on asks for your fingerprint (Windows Hello on a PC) and then shows the recovery key (step 3).</li>
+        <li>Turning it off puts the vault key back on the server too, and the current recovery key is no longer used. The vault itself stays as it is.</li>
+      </ul>
+      <h3>2. Allowing a new device and the check number</h3>
+      <p>When you sign in on a new device, an approval prompt appears on a phone or PC you already use, as before. On an account with end-to-end encryption, a six-digit <b>check number</b> appears both in the prompt and on the new device. Make sure the two match before you allow it, and don’t allow it if they differ. Once allowed, the vault key is passed on locked so only the new device can open it; there is nothing else to do. If the device that allowed it doesn’t hold the key (a device that doesn’t use sync), another device with Deskify running sends it automatically; until then the new device shows “Getting the vault key from another device”.</p>
+      <h3>3. Recovery key</h3>
+      <ul>
+        <li>When you turn it on, a 32-character recovery key (eight groups of four) is shown once. Write it on paper or save it somewhere safe. It can’t be shown again and is kept neither on the server nor in any e-mail. The window closes only after you type its last four characters.</li>
+        <li>If you lose the recovery key, tap <b>New recovery key</b> on a device that holds the vault key. The old recovery key stops working.</li>
+        <li>If no device can allow a new one, tap <b>Open with recovery key</b> on the new device’s waiting screen or its “Getting the vault key” screen and enter it. Five wrong tries lock it for an hour. Using the recovery key sends a notice to your account’s e-mail.</li>
+      </ul>
+      <h3>4. If you lose every device and the recovery key</h3>
+      <p>What is in the cloud vault can’t be restored (support doesn’t have the key either). Computers saved on each device stay there. To empty the vault and start over:</p>
+      <ul>
+        <li>A device that is allowed but has no key: on the “Getting the vault key” screen, tap <b>Open with recovery key → I don’t have the recovery key</b> to reset the cloud vault. Only the vault items and their history on the server are deleted, and it starts again with a new key and a new recovery key; the device list and your plan stay. Your other devices get the new key and upload their own items again.</li>
+        <li>No device left to allow it: on the new device’s waiting screen press <b>No other device and no recovery key → Send confirmation email</b> and open the link in the mail within 24 hours. <b>7 days</b> later press <b>Start over</b> on that device: the vault is emptied and starts again with a new key and recovery key. Your other devices and your mail are told meanwhile, and it can be cancelled any time.</li>
+        <li>Can’t wait 7 days: after confirming the mail, press <b>Ask support</b> on the same screen to get a code. <b>From your account’s e-mail address</b>, send it to support@deskify-app.com with the lost device’s name and model and when you last used it. Once we have checked it is you, you can start over right away. If a device holding the vault key connected in the last 48 hours, or the account was already reset by support in the last 30 days, the 7 days apply.</li>
+      </ul>
+      <p class="hc-link"><a href="#sync-e2e">Link to this article</a></p>
+    </details>
+    <details lang-ja><summary>エンドツーエンド暗号化 (保管庫キーを自分の端末だけに)</summary>
+      <p>クラウド同期では、保管庫は常に暗号化されてサーバーに送られます。初期設定 (オフ) では、その保管庫キーもサーバーに保管されます。<b>エンドツーエンド暗号化</b> をオンにするとキーがサーバーから削除されて自分の端末にだけ残り、サーバーに保存された保管庫は自分の端末でしか開けなくなります。</p>
+      <h3>1. オン・オフ</h3>
+      <ul>
+        <li>スマホ: <b>設定 → 上部のアカウントアイコン (マイアカウント) → エンドツーエンド暗号化</b>。PC: <b>クラウド同期</b> ウィンドウの <b>エンドツーエンド暗号化</b>。</li>
+        <li>保管庫キーを持つ端末 (同期を使っている端末) でのみ変更できます。アカウントのすべての端末が最新バージョンでないとオンにできず、古いバージョンの端末があると一覧が表示されます。その端末で Deskify を更新するか、アカウントから外してください。</li>
+        <li>オンにすると指紋 (PC では Windows Hello) で確認した後、回復キーを表示します (3 を参照)。</li>
+        <li>オフにすると保管庫キーが再びサーバーにも保管され、今の回復キーは使われなくなります。保管庫の内容はそのままです。</li>
+      </ul>
+      <h3>2. 新しい端末の許可と確認番号</h3>
+      <p>新しい端末でログインすると、これまでどおり既にお使いのスマホや PC に許可画面が表示されます。エンドツーエンド暗号化がオンのアカウントでは、許可画面と新しい端末の画面に 6 桁の <b>確認番号</b> が表示されます。2 つの番号が同じか確認してから許可してください。違う場合は許可しないでください。許可すると保管庫キーは新しい端末だけが開けるようにロックして渡されるため、ほかに操作は不要です。許可した端末がキーを持っていない場合 (同期を使っていない端末)、Deskify が起動している別の端末が自動で送ります。それまで新しい端末には「ほかの端末から保管庫の鍵を受け取っています」と表示されます。</p>
+      <h3>3. 回復キー</h3>
+      <ul>
+        <li>オンにするときに 32 文字の回復キー (4 文字 × 8 組) を一度だけ表示します。紙に書くか安全な場所に保存してください。再表示はできず、サーバーにもメールにも残りません。最後の 4 文字を入力するとウィンドウが閉じます。</li>
+        <li>回復キーをなくした場合は、キーを持つ端末で <b>回復キーを作り直す</b> を押してください。以前の回復キーは使えなくなります。</li>
+        <li>許可できる端末がない場合は、新しい端末の承認待ち画面または「鍵を受け取っています」画面で <b>回復キーで開く</b> を押して入力します。5 回間違えると 1 時間ロックされます。回復キーを使うとアカウントのメールに通知が届きます。</li>
+      </ul>
+      <h3>4. 端末も回復キーもすべてなくしたとき</h3>
+      <p>クラウド保管庫の内容は復元できません（サポートもキーを持っていません）。各端末に保存されたコンピューターは残ります。保管庫を空にしてやり直す方法は次のとおりです。</p>
+      <ul>
+        <li>承認済みでキーがない端末: 「鍵を受け取っています」画面の <b>回復キーで開く → 回復キーがありません</b> でクラウド保管庫を初期化します。サーバーの保管庫の項目と履歴だけを削除し、新しいキーと新しい回復キーでやり直します。端末一覧と料金プランはそのままです。ほかの端末は新しいキーを受け取り、自分の項目を再度アップロードします。</li>
+        <li>許可できる端末が 1 台もないとき: 新しい端末の承認待ち画面で <b>ほかのデバイスも回復キーもありません → 確認メールを送る</b> を押し、アカウントのメールのリンクを 24 時間以内に開いてください。そこから <b>7 日</b> たつと、その端末で <b>新しく始める</b> を押して保管庫を空にし、新しいキー・回復キーで始めます。その間はほかの端末とメールでお知らせし、いつでも取り消せます。</li>
+        <li>7 日待てないとき: メールを確認したあと、同じ画面の <b>サポートに依頼</b> を押すとコードが表示されます。<b>アカウントのメールアドレスから</b> support@deskify-app.com へ、そのコードとなくした端末の名前・機種、最後に使った時期を送ってください。本人確認が終わると待たずにやり直せます。保管庫キーを持つ端末が 48 時間以内に接続した場合や、30 日以内にサポートで初期化したアカウントは 7 日待つ必要があります。</li>
+      </ul>
+      <p class="hc-link"><a href="#sync-e2e">この記事へのリンク</a></p>
+    </details>
+    <details lang-zh><summary>端到端加密 (保管库密钥只在你的设备上)</summary>
+      <p>使用云同步时，保管库始终以加密状态上传到服务器。默认（关闭）时，保管库密钥也保存在服务器上。开启<b>端到端加密</b>后，密钥会从服务器删除、只保留在你的设备上，服务器上保存的保管库只能在你的设备上打开。</p>
+      <h3>1. 开启与关闭</h3>
+      <ul>
+        <li>手机：<b>设置 → 顶部账号图标（我的账号）→ 端到端加密</b>。电脑：<b>云同步</b>窗口中的<b>端到端加密</b>。</li>
+        <li>只有持有保管库密钥的设备（使用同步的设备）可以更改。账号的所有设备都是最新版本时才能开启；如有旧版本设备，会显示其列表。请在该设备上更新 Deskify，或将其从账号中移除。</li>
+        <li>开启时先用指纹（电脑为 Windows Hello）确认，然后显示恢复密钥（见第 3 步）。</li>
+        <li>关闭后保管库密钥会再次保存在服务器上，当前的恢复密钥不再使用。保管库内容保持不变。</li>
+      </ul>
+      <h3>2. 允许新设备与确认数字</h3>
+      <p>在新设备上登录时，和以前一样，你已在使用的手机或电脑上会弹出允许提示。开启了端到端加密的账号，会在允许提示和新设备屏幕上都显示 6 位<b>确认数字</b>。请确认两边数字相同后再允许；如果不同，请不要允许。允许后，保管库密钥会以只有新设备能打开的方式锁定后传递，无需其他操作。如果允许的设备没有密钥（不使用同步的设备），另一台运行 Deskify 的设备会自动发送；在此之前，新设备上会显示“正在从其他设备获取保管库密钥”。</p>
+      <h3>3. 恢复密钥</h3>
+      <ul>
+        <li>开启时会显示一次 32 位恢复密钥（4 位一组，共 8 组）。请写在纸上或保存在安全的地方。它无法再次显示，也不会留在服务器或邮件中。输入最后 4 位后窗口才会关闭。</li>
+        <li>如果丢失了恢复密钥，请在持有密钥的设备上点按<b>重新生成恢复密钥</b>。旧的恢复密钥将失效。</li>
+        <li>没有可以允许的设备时，在新设备的等待批准屏幕或“正在获取密钥”屏幕上点按<b>用恢复密钥打开</b>并输入。连续输错 5 次会锁定 1 小时。使用恢复密钥后，账号邮箱会收到通知。</li>
+      </ul>
+      <h3>4. 设备和恢复密钥全部丢失时</h3>
+      <p>云端保管库的内容无法恢复（客服也没有密钥）。各设备上保存的电脑会保留。清空保管库并重新开始的方法如下。</p>
+      <ul>
+        <li>已获批准但没有密钥的设备：在“正在获取密钥”屏幕上点按<b>用恢复密钥打开 → 没有恢复密钥</b>来重置云端保管库。只删除服务器上的保管库项目及其记录，并使用新密钥和新恢复密钥重新开始；设备列表和套餐保持不变。其他设备会收到新密钥并重新上传各自的项目。</li>
+        <li>没有任何可以允许的设备时：在新设备的等待批准画面中按 <b>没有其他设备，也没有恢复密钥 → 发送确认邮件</b>，并在 24 小时内打开账号邮件中的链接。<b>7 天</b>后在该设备上按 <b>重新开始</b>，保管库将被清空，并以新的密钥和恢复密钥开始。期间会通过其他设备和邮件通知您，随时可以取消。</li>
+        <li>无法等待 7 天时：确认邮件后，在同一画面按 <b>向客服申请</b> 即可获得代码。请<b>用账号邮箱</b>将该代码以及丢失设备的名称、型号和最后使用时间发送到 support@deskify-app.com。确认是本人后即可立即重新开始。如果持有保管库密钥的设备在 48 小时内连接过，或该账号 30 天内已通过客服重置过，则需等待 7 天。</li>
+      </ul>
+      <p class="hc-link"><a href="#sync-e2e">本文链接</a></p>
     </details>
   </article>
 </section>
