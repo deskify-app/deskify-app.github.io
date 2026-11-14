@@ -57,7 +57,7 @@
 <a class="hc-tile" href="#cat-web" data-cat="web"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM3 9h18M6 7h.01M9 7h.01"/></svg><span class="hc-tile-t"><span lang-ko>웹 Deskify</span><span lang-en>Web Deskify</span><span lang-ja>Web 版 Deskify</span><span lang-zh>网页版 Deskify</span></span><span class="hc-tile-n">6</span></a>
 <a class="hc-tile" href="#cat-companion" data-cat="companion"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10v20H7zM11 18h2"/></svg><span class="hc-tile-t"><span lang-ko>보조 기기</span><span lang-en>Companion devices</span><span lang-ja>サブ端末</span><span lang-zh>辅助设备</span></span><span class="hc-tile-n">15</span></a>
 <a class="hc-tile" href="#cat-support" data-cat="support"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/></svg><span class="hc-tile-t"><span lang-ko>원격 지원</span><span lang-en>Remote support</span><span lang-ja>リモートサポート</span><span lang-zh>远程协助</span></span><span class="hc-tile-n">3</span></a>
-<a class="hc-tile" href="#cat-account" data-cat="account"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg><span class="hc-tile-t"><span lang-ko>계정·보안</span><span lang-en>Account · security</span><span lang-ja>アカウント・セキュリティ</span><span lang-zh>账号 · 安全</span></span><span class="hc-tile-n">2</span></a>
+<a class="hc-tile" href="#cat-account" data-cat="account"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg><span class="hc-tile-t"><span lang-ko>계정·보안</span><span lang-en>Account · security</span><span lang-ja>アカウント・セキュリティ</span><span lang-zh>账号 · 安全</span></span><span class="hc-tile-n">5</span></a>
 <a class="hc-tile" href="#cat-plans" data-cat="plans"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8zM7.5 7.5h.01"/></svg><span class="hc-tile-t"><span lang-ko>요금·결제</span><span lang-en>Plans · payment</span><span lang-ja>料金・お支払い</span><span lang-zh>价格 · 付款</span></span><span class="hc-tile-n">4</span></a>
 <a class="hc-tile" href="#cat-trouble" data-cat="trouble"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></svg><span class="hc-tile-t"><span lang-ko>문제 해결</span><span lang-en>Troubleshooting</span><span lang-ja>トラブルシューティング</span><span lang-zh>故障排除</span></span><span class="hc-tile-n">13</span></a>
     </div>
@@ -652,25 +652,29 @@
 </section>
 <section class="hc-group" id="cat-outside" data-cat="outside">
   <h2 class="hc-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM2 12h20M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg><span lang-ko>밖에서 접속</span><span lang-en>From outside</span><span lang-ja>外出先から接続</span><span lang-zh>在外连接</span></h2>
-  <article class="hc-a" id="connect-outside" data-cats="outside" data-updated="2026-10-10">
+  <article class="hc-a" id="connect-outside" data-cats="outside" data-updated="2026-11-14">
     <details lang-ko><summary>집 밖에서 접속하려면</summary>
-      <p>집 PC에 <b>Deskify PC판</b>을 설치하고 같은 구글 계정으로 로그인해 두세요. 밖에서도 그 PC를 거쳐 연결됩니다(공유기 설정 필요 없음).</p>
-      <p>직접 연결하려면 공유기에서 포트 포워딩과 DDNS를 설정할 수도 있습니다.</p>
+      <p>집 PC에 <b>Deskify PC판</b>을 설치하고 같은 구글 계정으로 로그인해 두세요. 밖(모바일 데이터나 다른 Wi-Fi)에서 집 네트워크 주소(예: 192.168.0.x)로 저장한 컴퓨터에 연결하면 그 PC를 거쳐 연결됩니다. 공유기 설정이 필요 없고, 그 PC 자신의 원격 데스크톱에도 이렇게 들어갑니다. <b>Pro 기능</b>입니다(평생 이용권 포함).</p>
+      <p>보관함의 켜짐·꺼짐도 밖에서는 그 PC에게 물어서 보여 줍니다.</p>
+      <p>공유기 포트 포워딩으로 원격 데스크톱(3389)을 인터넷에 열어 두면 모르는 곳에서 로그인 시도가 끊임없이 들어옵니다. 집 PC를 거쳐 연결할 수 있다면 포트 포워딩은 꺼 두기를 권합니다. 꼭 직접 연결해야 한다면 포트 포워딩과 DDNS를 설정하고 Windows 계정에 강한 암호를 쓰세요.</p>
       <p class="hc-link"><a href="#connect-outside">이 글 링크</a></p>
     </details>
     <details lang-en><summary>Connecting from outside</summary>
-      <p>Install <b>Deskify for Windows</b> on the home PC and sign in with the same Google account. Away from home, the phone connects through it (no router setup).</p>
-      <p>For a direct connection, you can also set up port forwarding and DDNS on your router.</p>
+      <p>Install <b>Deskify for Windows</b> on the home PC and sign in with the same Google account. Away from home (mobile data or another Wi-Fi), connecting to a computer saved with its home address (e.g. 192.168.0.x) goes through that PC. No router setup is needed, and the PC’s own Remote Desktop is reached the same way. This is a <b>Pro feature</b> (the lifetime licence included).</p>
+      <p>Away from home, the vault’s on/off marks are asked of that PC too.</p>
+      <p>Opening Remote Desktop (3389) to the internet with port forwarding draws endless sign-in attempts from strangers. If you can connect through the home PC, we recommend turning port forwarding off. If you must connect directly, set up port forwarding and DDNS and use a strong password for the Windows account.</p>
       <p class="hc-link"><a href="#connect-outside">Link to this article</a></p>
     </details>
     <details lang-ja><summary>外出先から接続するには</summary>
-      <p>自宅の PC に<b>Deskify Windows 版</b>をインストールして、同じ Google アカウントでログインしておいてください。外出先からでもその PC を経由して接続できます（ルーター設定は不要）。</p>
-      <p>直接接続したい場合は、ルーターでポートフォワーディングと DDNS を設定することもできます。</p>
+      <p>自宅の PC に<b>Deskify Windows 版</b>をインストールし、同じ Google アカウントでログインしておいてください。外出先 (モバイルデータや別の Wi-Fi) から自宅ネットワークのアドレス (例: 192.168.0.x) で保存したコンピューターに接続すると、その PC を経由して接続します。ルーター設定は不要で、その PC 自身のリモートデスクトップにもこの方法で入れます。<b>Pro 機能</b>です (買い切りを含む)。</p>
+      <p>外出先では、保管庫のオン・オフ表示もその PC に問い合わせて表示します。</p>
+      <p>ルーターのポートフォワーディングでリモートデスクトップ (3389) をインターネットに公開すると、知らない相手からのログイン試行が絶えず届きます。自宅 PC 経由で接続できるなら、ポートフォワーディングはオフにすることをおすすめします。どうしても直接接続する場合は、ポートフォワーディングと DDNS を設定し、Windows アカウントに強いパスワードを使ってください。</p>
       <p class="hc-link"><a href="#connect-outside">この記事へのリンク</a></p>
     </details>
     <details lang-zh><summary>在外连接</summary>
-      <p>在家里电脑上安装 <b>Deskify Windows 版</b>并登录相同的 Google 账号。在外面时，手机可通过该电脑中转连接（无需设置路由器）。</p>
-      <p>若想直接连接，也可以在路由器上设置端口转发和 DDNS。</p>
+      <p>在家里电脑上安装 <b>Deskify Windows 版</b>并登录相同的 Google 账号。在外面 (移动数据或其他 Wi-Fi) 连接用家庭网络地址 (例如 192.168.0.x) 保存的电脑时，会经由那台电脑连接。无需设置路由器，那台电脑自己的远程桌面也能这样连接。这是 <b>Pro 功能</b> (含终身版)。</p>
+      <p>在外面时，保管库的开机/关机状态也会询问那台电脑后显示。</p>
+      <p>用路由器端口转发把远程桌面 (3389) 暴露在互联网上，会不断收到陌生来源的登录尝试。如果可以经由家里电脑连接，建议关闭端口转发。如必须直接连接，请设置端口转发和 DDNS，并为 Windows 账户使用强密码。</p>
       <p class="hc-link"><a href="#connect-outside">本文链接</a></p>
     </details>
   </article>
@@ -2073,7 +2077,7 @@
       <p class="hc-link"><a href="#password-safety">本文链接</a></p>
     </details>
   </article>
-  <article class="hc-a" id="sync-e2e" data-cats="account" data-updated="2026-11-09">
+  <article class="hc-a" id="sync-e2e" data-cats="account" data-updated="2026-11-14">
     <details lang-ko><summary>종단간 암호화 (보관함 키를 내 기기에만)</summary>
       <p>클라우드 동기화를 쓰면 보관함은 늘 암호화되어 서버에 올라갑니다. 기본(꺼짐)에서는 그 보관함 키도 서버에 보관됩니다. <b>종단간 암호화</b>를 켜면 키가 서버에서 지워지고 내 기기에만 남아, 서버에 저장된 보관함은 내 기기에서만 열 수 있습니다.</p>
       <h3>1. 켜기·끄기</h3>
@@ -2098,6 +2102,7 @@
         <li>승인해 줄 기기가 하나도 없을 때: 새 기기의 승인 대기 화면에서 <b>다른 기기도 복구 키도 없습니다 → 확인 메일 보내기</b>를 누르고, 계정 메일의 링크를 24시간 안에 누르세요. 그때부터 <b>7일</b>이 지나면 이 기기에서 <b>새로 시작</b>을 눌러 보관함을 비우고 새 키·새 복구 키로 시작합니다. 그동안 다른 기기와 메일로 알리며 언제든 취소할 수 있습니다.</li>
         <li>7일을 기다리기 어려우면: 메일을 확인한 뒤 같은 화면의 <b>지원에 요청</b>을 누르면 코드가 나옵니다. <b>계정 메일 주소에서</b> support@deskify-app.com으로 그 코드와 잃어버린 기기의 이름·모델, 마지막으로 쓴 때를 보내 주세요. 본인 확인이 끝나면 기다리지 않고 바로 새로 시작할 수 있습니다. 보관함 키를 가진 기기가 48시간 안에 접속했거나, 30일 안에 이미 지원으로 초기화한 계정은 7일을 기다려야 합니다.</li>
       </ul>
+      <p>이 방법들로 들어온 기기는 7일 동안 PC 연결과 기기 관리가 제한됩니다. 다른 기기에서 <b>허용</b>하면 바로 풀립니다(<a href="#lost-devices">다른 기기를 모두 잃었을 때</a> 3번).</p>
       <p class="hc-link"><a href="#sync-e2e">이 글 링크</a></p>
     </details>
     <details lang-en><summary>End-to-end encryption (the vault key only on your devices)</summary>
@@ -2124,6 +2129,7 @@
         <li>No device left to allow it: on the new device’s waiting screen press <b>No other device and no recovery key → Send confirmation email</b> and open the link in the mail within 24 hours. <b>7 days</b> later press <b>Start over</b> on that device: the vault is emptied and starts again with a new key and recovery key. Your other devices and your mail are told meanwhile, and it can be cancelled any time.</li>
         <li>Can’t wait 7 days: after confirming the mail, press <b>Ask support</b> on the same screen to get a code. <b>From your account’s e-mail address</b>, send it to support@deskify-app.com with the lost device’s name and model and when you last used it. Once we have checked it is you, you can start over right away. If a device holding the vault key connected in the last 48 hours, or the account was already reset by support in the last 30 days, the 7 days apply.</li>
       </ul>
+      <p>A device that got in these ways has PC connections and device management limited for 7 days; <b>Allow</b> on another device lifts it at once (step 3 of <a href="#lost-devices">If you lost all your other devices</a>).</p>
       <p class="hc-link"><a href="#sync-e2e">Link to this article</a></p>
     </details>
     <details lang-ja><summary>エンドツーエンド暗号化 (保管庫キーを自分の端末だけに)</summary>
@@ -2150,6 +2156,7 @@
         <li>許可できる端末が 1 台もないとき: 新しい端末の承認待ち画面で <b>ほかのデバイスも回復キーもありません → 確認メールを送る</b> を押し、アカウントのメールのリンクを 24 時間以内に開いてください。そこから <b>7 日</b> たつと、その端末で <b>新しく始める</b> を押して保管庫を空にし、新しいキー・回復キーで始めます。その間はほかの端末とメールでお知らせし、いつでも取り消せます。</li>
         <li>7 日待てないとき: メールを確認したあと、同じ画面の <b>サポートに依頼</b> を押すとコードが表示されます。<b>アカウントのメールアドレスから</b> support@deskify-app.com へ、そのコードとなくした端末の名前・機種、最後に使った時期を送ってください。本人確認が終わると待たずにやり直せます。保管庫キーを持つ端末が 48 時間以内に接続した場合や、30 日以内にサポートで初期化したアカウントは 7 日待つ必要があります。</li>
       </ul>
+      <p>これらの方法で入った端末は、7 日間 PC 接続と端末管理が制限されます。ほかの端末で<b>許可</b>するとすぐに解除されます (<a href="#lost-devices">ほかの端末をすべて失ったとき</a>の 3)。</p>
       <p class="hc-link"><a href="#sync-e2e">この記事へのリンク</a></p>
     </details>
     <details lang-zh><summary>端到端加密 (保管库密钥只在你的设备上)</summary>
@@ -2176,16 +2183,183 @@
         <li>没有任何可以允许的设备时：在新设备的等待批准画面中按 <b>没有其他设备，也没有恢复密钥 → 发送确认邮件</b>，并在 24 小时内打开账号邮件中的链接。<b>7 天</b>后在该设备上按 <b>重新开始</b>，保管库将被清空，并以新的密钥和恢复密钥开始。期间会通过其他设备和邮件通知您，随时可以取消。</li>
         <li>无法等待 7 天时：确认邮件后，在同一画面按 <b>向客服申请</b> 即可获得代码。请<b>用账号邮箱</b>将该代码以及丢失设备的名称、型号和最后使用时间发送到 support@deskify-app.com。确认是本人后即可立即重新开始。如果持有保管库密钥的设备在 48 小时内连接过，或该账号 30 天内已通过客服重置过，则需等待 7 天。</li>
       </ul>
+      <p>通过这些方法进入的设备，7 天内连接电脑和管理设备会受到限制；在其他设备上点<b>允许</b>即可立即解除 (<a href="#lost-devices">其他设备全部丢失时</a>的第 3 部分)。</p>
       <p class="hc-link"><a href="#sync-e2e">本文链接</a></p>
+    </details>
+  </article>
+  <article class="hc-a" id="device-approval" data-cats="account" data-updated="2026-11-14">
+    <details lang-ko><summary>새 기기 허용과 기기 목록</summary>
+      <p>새 폰·태블릿·PC에서 같은 구글 계정으로 로그인하면, 이미 쓰고 있는 기기에 <b>새 기기가 이 계정에 로그인하려 합니다</b> 창이 뜹니다. 본인 기기가 맞으면 <b>허용</b>, 모르는 기기면 <b>거절</b>을 누르세요. 요청은 10분 동안 유효합니다.</p>
+      <ul>
+        <li>허용할 때는 지문이나 화면 잠금(PIN·패턴)으로 본인 확인을 합니다. 화면 잠금이 없는 폰에서는 허용할 수 없으니 폰 설정에서 화면 잠금을 먼저 켜세요. PC는 Windows Hello나 Windows 로그인 암호로 확인합니다.</li>
+        <li>창을 놓쳤다면 <b>설정 → 내 계정</b>의 기기 목록이나 알림 센터에서 허용할 수 있습니다.</li>
+        <li>한 계정에 폰·태블릿·PC를 합쳐 <b>5대</b>까지 씁니다. 다른 기기를 목록에서 빼는 것(로그아웃)은 30일에 3번까지입니다.</li>
+        <li>종단간 암호화를 켠 계정은 허용 창과 새 기기에 확인 숫자가 함께 보입니다(<a href="#sync-e2e">종단간 암호화</a>).</li>
+        <li>허용해 줄 기기가 하나도 없으면 <a href="#lost-devices">다른 기기를 모두 잃었을 때</a>를 보세요.</li>
+      </ul>
+      <p class="hc-link"><a href="#device-approval">이 글 링크</a></p>
+    </details>
+    <details lang-en><summary>Allowing a new device, and the device list</summary>
+      <p>When you sign in with the same Google account on a new phone, tablet or PC, a device you already use shows <b>A new device wants to sign in to this account</b>. Tap <b>Allow</b> if it is yours, <b>Deny</b> if you don’t recognize it. The request is valid for 10 minutes.</p>
+      <ul>
+        <li>Allowing asks for your fingerprint or screen lock (PIN, pattern). A phone without a screen lock can’t allow devices, so turn one on in the phone’s settings first. On a PC, Windows Hello or your Windows sign-in password confirms it.</li>
+        <li>Missed the prompt? Allow it from the device list in <b>Settings → My account</b> or from the notification center.</li>
+        <li>One account takes up to <b>5</b> phones, tablets and PCs together. Removing another device from the list (signing it out) can be done 3 times in 30 days.</li>
+        <li>On an account with end-to-end encryption, a check number shows in the prompt and on the new device (<a href="#sync-e2e">End-to-end encryption</a>).</li>
+        <li>No device left to allow it? See <a href="#lost-devices">If you lost all your other devices</a>.</li>
+      </ul>
+      <p class="hc-link"><a href="#device-approval">Link to this article</a></p>
+    </details>
+    <details lang-ja><summary>新しい端末の許可と端末一覧</summary>
+      <p>新しいスマホ・タブレット・PC で同じ Google アカウントにログインすると、すでに使っている端末に<b>新しいデバイスがこのアカウントにログインしようとしています</b>と表示されます。自分の端末なら<b>許可</b>、心当たりがなければ<b>拒否</b>を押してください。リクエストの有効期限は 10 分です。</p>
+      <ul>
+        <li>許可するときは指紋か画面ロック (PIN・パターン) で本人確認をします。画面ロックのないスマホでは許可できないため、先にスマホの設定で画面ロックをオンにしてください。PC では Windows Hello または Windows のサインインパスワードで確認します。</li>
+        <li>画面を見逃した場合は、<b>設定 → マイアカウント</b>の端末一覧か通知センターから許可できます。</li>
+        <li>1 つのアカウントでスマホ・タブレット・PC を合わせて <b>5 台</b>まで使えます。ほかの端末を一覧から外す (ログアウトさせる) のは 30 日に 3 回までです。</li>
+        <li>エンドツーエンド暗号化をオンにしたアカウントでは、許可画面と新しい端末に確認番号が表示されます (<a href="#sync-e2e">エンドツーエンド暗号化</a>)。</li>
+        <li>許可できる端末が 1 台もない場合は<a href="#lost-devices">ほかの端末をすべて失ったとき</a>をご覧ください。</li>
+      </ul>
+      <p class="hc-link"><a href="#device-approval">この記事へのリンク</a></p>
+    </details>
+    <details lang-zh><summary>允许新设备与设备列表</summary>
+      <p>在新的手机、平板或电脑上用同一个 Google 账号登录时，你正在使用的设备上会出现<b>有新设备正尝试登录此账号</b>。是你自己的设备就点<b>允许</b>，不认识就点<b>拒绝</b>。请求 10 分钟内有效。</p>
+      <ul>
+        <li>允许时需要用指纹或锁屏 (PIN、图案) 验证本人。没有设置锁屏的手机无法允许新设备，请先在手机设置中开启锁屏。电脑上用 Windows Hello 或 Windows 登录密码验证。</li>
+        <li>错过了提示？可以在<b>设置 → 我的账号</b>的设备列表或通知中心里允许。</li>
+        <li>一个账号最多可使用手机、平板和电脑合计 <b>5 台</b>。把其他设备从列表中移除 (让其退出登录) 每 30 天最多 3 次。</li>
+        <li>开启了端到端加密的账号，允许提示和新设备上会同时显示校验数字 (<a href="#sync-e2e">端到端加密</a>)。</li>
+        <li>没有任何设备可以允许？请看<a href="#lost-devices">其他设备全部丢失时</a>。</li>
+      </ul>
+      <p class="hc-link"><a href="#device-approval">本文链接</a></p>
+    </details>
+  </article>
+  <article class="hc-a" id="sign-out-back" data-cats="account" data-updated="2026-11-14">
+    <details lang-ko><summary>로그아웃과 다시 로그인</summary>
+      <p><b>설정 → 내 계정 → 로그아웃</b>(PC는 클라우드 동기화 창)으로 로그아웃하면 이 기기에서 계정의 컴퓨터·OTP·AI 키가 지워집니다. 계정에는 그대로 남아 있어 다시 로그인하면 돌아옵니다.</p>
+      <ul>
+        <li><b>30일 안에</b> 같은 기기에서 같은 계정으로 다시 로그인하면 허용 없이 바로 들어옵니다. 계정의 다른 기기에는 다시 로그인했다는 알림이 갑니다. 종단간 암호화를 켠 계정은 확인 숫자로 보관함 키를 다시 받습니다.</li>
+        <li>로그아웃한 기기는 다른 기기의 목록에 <b>로그아웃됨 · 날짜까지 허용 없이 다시 로그인 가능</b>으로 보이고, 그동안 5대에 셉니다. 잃어버린 기기라면 그 옆의 <b>지우기</b>를 누르세요. 그 기기는 허용 없이 돌아올 수 없고, 다시 들어오려면 새 기기처럼 허용을 받아야 합니다(30일 3번 제한에는 세지 않습니다).</li>
+        <li>폰을 남에게 주거나 팔 때는 로그아웃 창에서 <b>이 기기 기록도 지우기</b>를 켜세요. 이 기기로 다시 로그인하면 새 기기로 허용을 받아야 합니다.</li>
+        <li>다른 계정으로 로그인하거나 30일이 지나면 새 기기로 처리됩니다.</li>
+      </ul>
+      <p class="hc-link"><a href="#sign-out-back">이 글 링크</a></p>
+    </details>
+    <details lang-en><summary>Signing out and signing in again</summary>
+      <p>Signing out with <b>Settings → My account → Sign out</b> (on a PC, the Cloud sync window) removes the account’s computers, OTP codes and AI key from this device. They stay in your account and come back when you sign in again.</p>
+      <ul>
+        <li>Sign in again on the same device with the same account <b>within 30 days</b> and you get in right away, without approval. Your other devices are told it signed in again. On an account with end-to-end encryption, the vault key comes again through the check number.</li>
+        <li>A signed-out device shows on your other devices as <b>Signed out · can sign in again without approval until …</b> and counts toward the 5 devices meanwhile. If it was lost, tap <b>Delete</b> beside it: that device can no longer come back without approval and has to be allowed like a new one (this doesn’t count toward the 3 removals in 30 days).</li>
+        <li>Giving the phone away or selling it? Turn on <b>Also forget this device</b> in the sign-out window. Signing in on it again then needs approval as a new device.</li>
+        <li>Signing in with another account, or after 30 days, counts as a new device.</li>
+      </ul>
+      <p class="hc-link"><a href="#sign-out-back">Link to this article</a></p>
+    </details>
+    <details lang-ja><summary>ログアウトと再ログイン</summary>
+      <p><b>設定 → マイアカウント → ログアウト</b> (PC はクラウド同期ウィンドウ) でログアウトすると、この端末からアカウントのコンピューター・OTP・AI キーが削除されます。アカウントにはそのまま残り、再ログインすると戻ります。</p>
+      <ul>
+        <li><b>30 日以内</b>に同じ端末で同じアカウントに再ログインすると、許可なしですぐに入れます。アカウントのほかの端末には再ログインの通知が届きます。エンドツーエンド暗号化をオンにしたアカウントでは、確認番号で保管庫キーを受け取り直します。</li>
+        <li>ログアウトした端末はほかの端末の一覧に<b>ログアウト済み · 〜まで許可なしで再ログイン可</b>と表示され、その間は 5 台に数えられます。紛失した端末なら横の<b>削除</b>を押してください。その端末は許可なしでは戻れず、再び入るには新しい端末として許可が必要になります (30 日 3 回の制限には数えません)。</li>
+        <li>スマホを人に譲る・売るときは、ログアウト画面で<b>この端末の記録も削除</b>をオンにしてください。この端末で再ログインすると新しい端末として許可が必要です。</li>
+        <li>別のアカウントでログインした場合や 30 日が過ぎた場合は、新しい端末として扱われます。</li>
+      </ul>
+      <p class="hc-link"><a href="#sign-out-back">この記事へのリンク</a></p>
+    </details>
+    <details lang-zh><summary>退出登录与重新登录</summary>
+      <p>通过<b>设置 → 我的账号 → 退出登录</b> (电脑上为云同步窗口) 退出后，本设备上账号的电脑、OTP 和 AI 密钥会被删除。它们仍保留在账号中，重新登录后就会回来。</p>
+      <ul>
+        <li><b>30 天内</b>在同一台设备上用同一账号重新登录，无需允许即可直接进入。账号的其他设备会收到重新登录的通知。开启端到端加密的账号会通过校验数字重新接收保管库密钥。</li>
+        <li>已退出的设备在其他设备的列表中显示为<b>已退出 · … 前可免允许重新登录</b>，在此期间计入 5 台。如果设备已丢失，请点旁边的<b>删除</b>：该设备将无法免允许返回，再次登录需要像新设备一样获得允许 (不计入 30 天 3 次的限制)。</li>
+        <li>要把手机送人或卖掉时，请在退出登录窗口中开启<b>同时删除本设备记录</b>。之后在这台设备上重新登录需要作为新设备获得允许。</li>
+        <li>用其他账号登录或超过 30 天后，将被视为新设备。</li>
+      </ul>
+      <p class="hc-link"><a href="#sign-out-back">本文链接</a></p>
+    </details>
+  </article>
+  <article class="hc-a" id="lost-devices" data-cats="account" data-updated="2026-11-14">
+    <details lang-ko><summary>다른 기기를 모두 잃었을 때 (계정 복구 키)</summary>
+      <p>새 기기는 계정의 다른 기기가 허용해야 들어옵니다. 허용해 줄 기기가 하나도 없을 때는 아래 방법을 씁니다. 종단간 암호화를 켠 계정은 <a href="#sync-e2e">종단간 암호화</a> 글의 4번을 보세요.</p>
+      <h3>1. 계정 복구 키 (미리 만들어 둔 경우)</h3>
+      <ul>
+        <li>만들기: <b>설정 → 내 계정 → 계정 복구 키 → 만들기</b>(PC는 클라우드 동기화 창). 지문이나 화면 잠금으로 확인한 뒤 32자 키를 한 번만 보여 줍니다. 종이에 적거나 비밀번호 관리자에 보관하세요. 서버에도 메일에도 남지 않습니다.</li>
+        <li>쓰기: 새 기기의 승인 대기 화면에서 <b>계정 복구 키로 들어가기</b>를 누르고 입력하면 기다리지 않고 바로 들어옵니다. 5번 틀리면 1시간 동안 막힙니다. 만들 때와 쓸 때 계정 메일로 알림이 갑니다.</li>
+        <li>키를 잃어버렸으면 <b>다시 만들기</b>를 누르세요(이전 키는 쓸 수 없게 됩니다). 필요 없으면 <b>지우기</b>.</li>
+      </ul>
+      <h3>2. 메일 확인 뒤 7일</h3>
+      <ul>
+        <li>승인 대기 화면에서 <b>다른 기기를 모두 잃었습니다</b>를 누르면 계정 메일로 확인 링크가 갑니다. 24시간 안에 링크를 누르세요.</li>
+        <li>확인한 때부터 <b>7일</b>이 지나면 같은 화면의 <b>이 기기로 들어가기</b>로 들어옵니다. 그동안 계정의 다른 기기와 메일로 알림이 가고, 본인이 아니면 다른 기기나 메일의 링크로 취소할 수 있습니다.</li>
+        <li>저장한 컴퓨터(보관함)는 그대로 받아집니다.</li>
+      </ul>
+      <h3>3. 들어온 뒤 7일 동안의 제한</h3>
+      <p>계정 복구로 들어온 기기는 7일 동안 <b>PC 연결과 기기 관리</b>(다른 기기 허용·거절·로그아웃, QR 브라우저 연결, 화면 공유 등)가 제한됩니다. 계정과 메일을 손에 넣은 다른 사람일 수도 있기 때문입니다. 기기 목록에 '…까지 PC 연결·기기 관리 제한' 줄이 보입니다.</p>
+      <p>본인 기기가 맞으면 계정의 다른 기기(폰·PC)에서 기기 목록의 그 기기 옆 <b>허용</b>을 누르세요. 지문이나 화면 잠금(PC는 Windows Hello)으로 확인하면 제한이 바로 풀립니다.</p>
+      <p class="hc-link"><a href="#lost-devices">이 글 링크</a></p>
+    </details>
+    <details lang-en><summary>If you lost all your other devices (account recovery key)</summary>
+      <p>A new device gets in only when another device of the account allows it. When no such device is left, use one of the ways below. If your account uses end-to-end encryption, see step 4 of <a href="#sync-e2e">End-to-end encryption</a>.</p>
+      <h3>1. Account recovery key (if you made one)</h3>
+      <ul>
+        <li>Make it: <b>Settings → My account → Account recovery key → Make</b> (on a PC, the Cloud sync window). After your fingerprint or screen lock, a 32-character key is shown once. Write it down or keep it in a password manager. It is kept neither on the server nor in any e-mail.</li>
+        <li>Use it: on the new device’s waiting screen, tap <b>Get in with the account recovery key</b> and enter it: you get in at once, with no wait. Five wrong tries lock it for an hour. Making it and using it each send a notice to your account’s e-mail.</li>
+        <li>Lost the key? Tap <b>Make a new one</b> (the old key stops working). Don’t need it? <b>Delete</b>.</li>
+      </ul>
+      <h3>2. E-mail check, then 7 days</h3>
+      <ul>
+        <li>On the waiting screen, tap <b>I lost all my other devices</b>: a confirmation link goes to your account’s e-mail. Open it within 24 hours.</li>
+        <li><b>7 days</b> after you confirmed, tap <b>Get in on this device</b> on the same screen. Meanwhile your other devices and your e-mail are told, and if it wasn’t you it can be cancelled from another device or the link in the mail.</li>
+        <li>Your saved computers (the vault) come with it.</li>
+      </ul>
+      <h3>3. Limits for 7 days after getting in</h3>
+      <p>A device that got in through account recovery has <b>PC connections and device management</b> (allowing, denying or signing out other devices, QR browser sign-in, screen sharing and more) limited for 7 days, since it could be someone who got hold of the account and its mailbox. The device list shows a “… limited until …” line.</p>
+      <p>If it is yours, tap <b>Allow</b> beside it in the device list on another device of the account (phone or PC). After your fingerprint or screen lock (Windows Hello on a PC), the limits are lifted at once.</p>
+      <p class="hc-link"><a href="#lost-devices">Link to this article</a></p>
+    </details>
+    <details lang-ja><summary>ほかの端末をすべて失ったとき (アカウント復旧キー)</summary>
+      <p>新しい端末は、アカウントのほかの端末が許可すると入れます。許可できる端末が 1 台もないときは、次の方法を使います。エンドツーエンド暗号化をオンにしたアカウントは、<a href="#sync-e2e">エンドツーエンド暗号化</a>の 4 をご覧ください。</p>
+      <h3>1. アカウント復旧キー (事前に作成した場合)</h3>
+      <ul>
+        <li>作成: <b>設定 → マイアカウント → アカウント復旧キー → 作成</b> (PC はクラウド同期ウィンドウ)。指紋か画面ロックで確認すると、32 文字のキーが一度だけ表示されます。紙に書くかパスワードマネージャーに保管してください。サーバーにもメールにも残りません。</li>
+        <li>使う: 新しい端末の承認待ち画面で<b>アカウント復旧キーで入る</b>を押して入力すると、待たずにすぐ入れます。5 回間違えると 1 時間ロックされます。作成時と使用時にアカウントのメールへ通知が届きます。</li>
+        <li>キーをなくした場合は<b>作り直す</b> (以前のキーは使えなくなります)。不要なら<b>削除</b>。</li>
+      </ul>
+      <h3>2. メール確認のあと 7 日</h3>
+      <ul>
+        <li>承認待ち画面で<b>ほかの端末をすべて失いました</b>を押すと、アカウントのメールに確認リンクが届きます。24 時間以内にリンクを開いてください。</li>
+        <li>確認してから <b>7 日</b>たつと、同じ画面の<b>この端末で入る</b>で入れます。その間、アカウントのほかの端末とメールに通知が届き、本人でなければほかの端末やメールのリンクから取り消せます。</li>
+        <li>保存したコンピューター (保管庫) はそのまま受け取れます。</li>
+      </ul>
+      <h3>3. 入ってから 7 日間の制限</h3>
+      <p>アカウントの復旧で入った端末は、7 日間<b>PC 接続と端末管理</b> (ほかの端末の許可・拒否・ログアウト、QR ブラウザ接続、画面共有など) が制限されます。アカウントとメールを手に入れた別人の可能性もあるためです。端末一覧に「〜までPC接続・端末管理を制限」と表示されます。</p>
+      <p>自分の端末であれば、アカウントのほかの端末 (スマホ・PC) の端末一覧で、その端末の横の<b>許可</b>を押してください。指紋か画面ロック (PC は Windows Hello) で確認すると、制限はすぐに解除されます。</p>
+      <p class="hc-link"><a href="#lost-devices">この記事へのリンク</a></p>
+    </details>
+    <details lang-zh><summary>其他设备全部丢失时 (账户恢复密钥)</summary>
+      <p>新设备需要账号的其他设备允许才能进入。没有任何设备可以允许时，请使用下面的方法。开启了端到端加密的账号请看<a href="#sync-e2e">端到端加密</a>的第 4 部分。</p>
+      <h3>1. 账户恢复密钥 (已事先创建时)</h3>
+      <ul>
+        <li>创建：<b>设置 → 我的账号 → 账户恢复密钥 → 创建</b> (电脑上为云同步窗口)。用指纹或锁屏验证后，32 位密钥只显示一次。请写在纸上或保存在密码管理器中。服务器和邮件中都不会保留。</li>
+        <li>使用：在新设备的等待批准画面点<b>用账户恢复密钥进入</b>并输入，无需等待即可直接进入。输错 5 次将锁定 1 小时。创建和使用时都会向账号邮箱发送通知。</li>
+        <li>密钥丢了，点<b>重新创建</b> (旧密钥将失效)。不需要了，点<b>删除</b>。</li>
+      </ul>
+      <h3>2. 邮件确认后等待 7 天</h3>
+      <ul>
+        <li>在等待批准画面点<b>我的其他设备都丢了</b>，确认链接会发送到账号邮箱。请在 24 小时内打开链接。</li>
+        <li>确认后过 <b>7 天</b>，在同一画面点<b>用这台设备进入</b>即可进入。在此期间，账号的其他设备和邮箱会收到通知；如果不是你本人，可以在其他设备或邮件链接中取消。</li>
+        <li>保存的电脑 (保管库) 会原样获取。</li>
+      </ul>
+      <h3>3. 进入后 7 天内的限制</h3>
+      <p>通过账户恢复进入的设备，7 天内<b>连接电脑和管理设备</b> (允许、拒绝其他设备或让其退出登录，QR 浏览器连接，屏幕共享等) 会受到限制，因为也可能是拿到了账号和邮箱的其他人。设备列表中会显示“… 之前限制连接电脑和管理设备”。</p>
+      <p>如果是你自己的设备，请在账号的其他设备 (手机或电脑) 的设备列表中点该设备旁边的<b>允许</b>。用指纹或锁屏 (电脑上为 Windows Hello) 验证后，限制会立即解除。</p>
+      <p class="hc-link"><a href="#lost-devices">本文链接</a></p>
     </details>
   </article>
 </section>
 <section class="hc-group" id="cat-plans" data-cat="plans">
   <h2 class="hc-h"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8zM7.5 7.5h.01"/></svg><span lang-ko>요금·결제</span><span lang-en>Plans · payment</span><span lang-ja>料金・お支払い</span><span lang-zh>价格 · 付款</span></h2>
-  <article class="hc-a" id="free-vs-pro" data-cats="plans" data-updated="2026-10-29">
+  <article class="hc-a" id="free-vs-pro" data-cats="plans" data-updated="2026-11-14">
     <details lang-ko><summary>무료와 Pro는 무엇이 다른가요</summary>
       <ul>
-      <li><b>무료</b>: 저장 컴퓨터 3대, 동시 세션 1개(모든 기기 합쳐), 하루 보내기 3번, OTP 2개, 광고.</li>
+      <li><b>무료</b>: 저장 컴퓨터 3대, 동시 세션 1개(모든 기기 합쳐), 하루 보내기 3번(파일·글 합쳐, 받기는 세지 않음. 로그인하고 광고를 보면 그날 3번 더), OTP 2개, 광고.</li>
       <li><b>Pro 구독</b>: 모두 무제한, 기기 간 동기화, 광고 없음, 폰·태블릿·PC가 한 계정으로 함께 풀립니다.</li>
       <li><b>평생 이용권</b>: 앱 기능(폰 앱 전부·PC판 Pro·광고 없음·보조 기기 1대)을 평생 씁니다. 서버를 쓰는 동기화·웹 Deskify·중계·원격 지원 도와주기는 클라우드 구독(월 ₩1,900 / 연 ₩19,000)을 더해 씁니다.</li>
       </ul>
@@ -2194,7 +2368,7 @@
     </details>
     <details lang-en><summary>Free vs Pro</summary>
       <ul>
-      <li><b>Free</b>: 3 saved computers, 1 session at a time across all devices, 3 sends a day, 2 OTP codes, ads.</li>
+      <li><b>Free</b>: 3 saved computers, 1 session at a time across all devices, 3 sends a day (files and text together, receiving not counted; signed in, an ad adds 3 more that day), 2 OTP codes, ads.</li>
       <li><b>Pro subscription</b>: no limits, sync between devices, no ads; phone, tablet and PC unlock with one account.</li>
       <li><b>Lifetime licence</b>: keeps the app's features for good (every phone feature, PC Pro, no ads, one companion device). The server ones — sync, Web Deskify, relays and helping with remote support — come with the Cloud subscription (₩1,900 a month / ₩19,000 a year).</li>
       </ul>
@@ -2203,7 +2377,7 @@
     </details>
     <details lang-ja><summary>無料と Pro の違い</summary>
       <ul>
-      <li><b>無料</b>: 保存できるコンピューター 3 台、同時セッション 1 つ（全端末合わせて）、1 日の送信 3 回、OTP 2 つ、広告あり。</li>
+      <li><b>無料</b>: 保存できるコンピューター 3 台、同時セッション 1 つ（全端末合わせて）、1 日の送信 3 回 (ファイル・テキスト合計、受信は数えません。ログインして広告を見るとその日 3 回追加)、OTP 2 つ、広告あり。</li>
       <li><b>Pro 購読</b>: すべて無制限、端末間の同期、広告なし、スマホ・タブレット・PC が 1 つのアカウントでまとめてアンロックされます。</li>
       <li><b>買い切り</b>: アプリ機能 (すべてのスマホ機能、PC 版 Pro、広告なし、サブ端末 1 台) をずっと利用できます。サーバーを使用する同期、Web 版 Deskify、中継、リモートサポートでの手伝いはクラウド購読 (月額 ₩1,900 / 年額 ₩19,000) を追加して利用します。</li>
       </ul>
@@ -2212,7 +2386,7 @@
     </details>
     <details lang-zh><summary>免费版与 Pro 的区别</summary>
       <ul>
-      <li><b>免费</b>：保存 3 台电脑，同时运行 1 个会话（所有设备合计），每天发送 3 次，2 个 OTP 验证码，有广告。</li>
+      <li><b>免费</b>：保存 3 台电脑，同时运行 1 个会话（所有设备合计），每天发送 3 次 (文件和文字合计，接收不计；登录后看广告当天再加 3 次)，2 个 OTP 验证码，有广告。</li>
       <li><b>Pro 订阅</b>：全部无限制，设备间同步，无广告；手机、平板和电脑通用一个账号解锁。</li>
       <li><b>终身版</b>：可永久使用应用功能（全部手机功能、电脑版 Pro、无广告、1 台辅助设备）。使用服务器的同步、网页版 Deskify、中继以及提供远程协助，则需另外搭配云订阅（每月 ₩1,900 / 每年 ₩19,000）。</li>
       </ul>
