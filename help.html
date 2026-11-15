@@ -2275,7 +2275,7 @@
       <p class="hc-link"><a href="#sign-out-back">本文链接</a></p>
     </details>
   </article>
-  <article class="hc-a" id="lost-devices" data-cats="account" data-updated="2026-11-14">
+  <article class="hc-a" id="lost-devices" data-cats="account" data-updated="2026-11-16">
     <details lang-ko><summary>다른 기기를 모두 잃었을 때 (계정 복구 키)</summary>
       <p>새 기기는 계정의 다른 기기가 허용해야 들어옵니다. 허용해 줄 기기가 하나도 없을 때는 아래 방법을 씁니다. 종단간 암호화를 켠 계정은 <a href="#sync-e2e">종단간 암호화</a> 글의 4번을 보세요.</p>
       <h3>1. 계정 복구 키 (미리 만들어 둔 경우)</h3>
@@ -2284,10 +2284,11 @@
         <li>쓰기: 새 기기의 승인 대기 화면에서 <b>계정 복구 키로 들어가기</b>를 누르고 입력하면 기다리지 않고 바로 들어옵니다. 5번 틀리면 1시간 동안 막힙니다. 만들 때와 쓸 때 계정 메일로 알림이 갑니다.</li>
         <li>키를 잃어버렸으면 <b>다시 만들기</b>를 누르세요(이전 키는 쓸 수 없게 됩니다). 필요 없으면 <b>지우기</b>.</li>
       </ul>
-      <h3>2. 메일 확인 뒤 7일</h3>
+      <h3>2. 메일로 확인</h3>
       <ul>
-        <li>승인 대기 화면에서 <b>다른 기기를 모두 잃었습니다</b>를 누르면 계정 메일로 확인 링크가 갑니다. 24시간 안에 링크를 누르세요.</li>
-        <li>확인한 때부터 <b>7일</b>이 지나면 같은 화면의 <b>이 기기로 들어가기</b>로 들어옵니다. 그동안 계정의 다른 기기와 메일로 알림이 가고, 본인이 아니면 다른 기기나 메일의 링크로 취소할 수 있습니다.</li>
+        <li>승인 대기 화면에서 <b>다른 기기를 모두 잃었습니다</b>를 누르면 계정 메일로 확인 링크가 갑니다. 24시간 안에 링크를 열고 <b>기기 복구 확인</b>을 누르세요.</li>
+        <li>확인하면 기다리지 않고 <b>바로</b> 들어옵니다.</li>
+        <li>이어서 계정 메일로 알림이 한 번 더 갑니다. 본인이 아니면 그 메일의 <b>빼기</b>를 누르세요. 그 기기가 계정에서 빠집니다(7일 동안 쓸 수 있습니다).</li>
         <li>저장한 컴퓨터(보관함)는 그대로 받아집니다.</li>
       </ul>
       <h3>3. 들어온 뒤 7일 동안의 제한</h3>
@@ -2303,10 +2304,11 @@
         <li>Use it: on the new device’s waiting screen, tap <b>Get in with the account recovery key</b> and enter it: you get in at once, with no wait. Five wrong tries lock it for an hour. Making it and using it each send a notice to your account’s e-mail.</li>
         <li>Lost the key? Tap <b>Make a new one</b> (the old key stops working). Don’t need it? <b>Delete</b>.</li>
       </ul>
-      <h3>2. E-mail check, then 7 days</h3>
+      <h3>2. Confirm by e-mail</h3>
       <ul>
-        <li>On the waiting screen, tap <b>I lost all my other devices</b>: a confirmation link goes to your account’s e-mail. Open it within 24 hours.</li>
-        <li><b>7 days</b> after you confirmed, tap <b>Get in on this device</b> on the same screen. Meanwhile your other devices and your e-mail are told, and if it wasn’t you it can be cancelled from another device or the link in the mail.</li>
+        <li>On the waiting screen, tap <b>I lost all my other devices</b>: a confirmation link goes to your account’s e-mail. Open it within 24 hours and press the red button in it (<b>기기 복구 확인</b>, confirm device recovery).</li>
+        <li>Once confirmed, the device gets in <b>at once</b>, with no wait.</li>
+        <li>Another notice follows to your account’s e-mail. If it wasn’t you, press the red <b>빼기</b> (Remove) button in that mail and the device is taken out of the account (it works for 7 days).</li>
         <li>Your saved computers (the vault) come with it.</li>
       </ul>
       <h3>3. Limits for 7 days after getting in</h3>
@@ -2322,10 +2324,11 @@
         <li>使う: 新しい端末の承認待ち画面で<b>アカウント復旧キーで入る</b>を押して入力すると、待たずにすぐ入れます。5 回間違えると 1 時間ロックされます。作成時と使用時にアカウントのメールへ通知が届きます。</li>
         <li>キーをなくした場合は<b>作り直す</b> (以前のキーは使えなくなります)。不要なら<b>削除</b>。</li>
       </ul>
-      <h3>2. メール確認のあと 7 日</h3>
+      <h3>2. メールで確認</h3>
       <ul>
-        <li>承認待ち画面で<b>ほかの端末をすべて失いました</b>を押すと、アカウントのメールに確認リンクが届きます。24 時間以内にリンクを開いてください。</li>
-        <li>確認してから <b>7 日</b>たつと、同じ画面の<b>この端末で入る</b>で入れます。その間、アカウントのほかの端末とメールに通知が届き、本人でなければほかの端末やメールのリンクから取り消せます。</li>
+        <li>承認待ち画面で<b>ほかの端末をすべて失いました</b>を押すと、アカウントのメールに確認リンクが届きます。24 時間以内にリンクを開き、赤いボタン (<b>기기 복구 확인</b>、端末の復旧を確認) を押してください。</li>
+        <li>確認すると、待たずに<b>すぐ</b>入れます。</li>
+        <li>続いてアカウントのメールにもう一度通知が届きます。本人でなければ、そのメールの赤い<b>빼기</b> (外す) ボタンを押してください。その端末がアカウントから外れます (7 日間使えます)。</li>
         <li>保存したコンピューター (保管庫) はそのまま受け取れます。</li>
       </ul>
       <h3>3. 入ってから 7 日間の制限</h3>
@@ -2341,10 +2344,11 @@
         <li>使用：在新设备的等待批准画面点<b>用账户恢复密钥进入</b>并输入，无需等待即可直接进入。输错 5 次将锁定 1 小时。创建和使用时都会向账号邮箱发送通知。</li>
         <li>密钥丢了，点<b>重新创建</b> (旧密钥将失效)。不需要了，点<b>删除</b>。</li>
       </ul>
-      <h3>2. 邮件确认后等待 7 天</h3>
+      <h3>2. 通过邮件确认</h3>
       <ul>
-        <li>在等待批准画面点<b>我的其他设备都丢了</b>，确认链接会发送到账号邮箱。请在 24 小时内打开链接。</li>
-        <li>确认后过 <b>7 天</b>，在同一画面点<b>用这台设备进入</b>即可进入。在此期间，账号的其他设备和邮箱会收到通知；如果不是你本人，可以在其他设备或邮件链接中取消。</li>
+        <li>在等待批准画面点<b>我的其他设备都丢了</b>，确认链接会发送到账号邮箱。请在 24 小时内打开链接并点其中的红色按钮 (<b>기기 복구 확인</b>，确认恢复设备)。</li>
+        <li>确认后无需等待，<b>立即</b>进入。</li>
+        <li>随后账号邮箱会再收到一封通知。如果不是你本人，请点该邮件中的红色<b>빼기</b> (移除) 按钮，该设备将从账号中移除 (7 天内有效)。</li>
         <li>保存的电脑 (保管库) 会原样获取。</li>
       </ul>
       <h3>3. 进入后 7 天内的限制</h3>
