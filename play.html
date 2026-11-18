@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" integrity="sha384-GIdEBaqGN9mNkDkMkzMHW8EKUqtpPIe/sLj1X7DIrnc9uPtLROJgmuDlh+3rBw0j" crossorigin="anonymous">
 <link rel="stylesheet" href="remote.min.css?v=c4f70dac69">
 <link rel="stylesheet" href="support.min.css?v=e0867e6789">
-<link rel="stylesheet" href="play.min.css?v=5723971af8">
+<link rel="stylesheet" href="play.min.css?v=f855f930bd">
 <script>
   (function () {
     // Language: ?lang= for this visit, else #en, else the visitor's last choice, else the browser's first supported
@@ -55,7 +55,7 @@
         <button id="btnJoin" class="btn" type="submit" data-ko="참가" data-en="Join" data-ja="参加" data-zh="加入">참가</button>
       </div>
       <div id="joinMsg" class="msg"></div>
-      <p class="muted" data-ko="게임패드(Xbox·PlayStation 등)를 연결하면 가장 좋습니다. 키보드는 WASD·방향키·스페이스·Shift·E·Q·R·F·Z·X·C·숫자 1–5·넘패드 숫자·넘패드 Enter만 전달됩니다. Chrome·Edge에서 사용해 주십시오." data-en="A gamepad (Xbox, PlayStation…) works best. Only WASD, arrows, Space, Shift, E, Q, R, F, Z, X, C, 1–5 and the numpad digits and Enter reach the game from the keyboard. Use Chrome or Edge." data-ja="ゲームパッド (Xbox・PlayStation など) の接続をおすすめします。キーボードは WASD・方向キー・スペース・Shift・E・Q・R・F・Z・X・C・数字 1–5・テンキーの数字と Enter のみ送信されます。Chrome・Edge でご利用ください。" data-zh="建议连接手柄 (Xbox、PlayStation 等)。键盘仅传送 WASD、方向键、空格、Shift、E、Q、R、F、Z、X、C、数字 1–5 以及小键盘数字和 Enter。请使用 Chrome 或 Edge。">게임패드를 연결하면 가장 좋습니다.</p>
+      <p class="muted" data-ko="게임패드(Xbox·PlayStation 등)를 연결하면 가장 좋습니다. 키보드는 친구가 허용한 키만 전달됩니다(보통 WASD·방향키·스페이스·Shift·숫자·넘패드). 다른 키는 게임 중에 요청할 수 있습니다. Chrome·Edge에서 사용해 주십시오." data-en="A gamepad (Xbox, PlayStation…) works best. Only the keys your friend allows reach the game from the keyboard (usually WASD, arrows, Space, Shift, digits and the numpad); you can ask for others while playing. Use Chrome or Edge." data-ja="ゲームパッド (Xbox・PlayStation など) の接続をおすすめします。キーボードはフレンドが許可したキーのみ送信されます (通常は WASD・方向キー・スペース・Shift・数字・テンキー)。他のキーはゲーム中にリクエストできます。Chrome・Edge でご利用ください。" data-zh="建议连接手柄 (Xbox、PlayStation 等)。键盘仅传送好友允许的按键 (通常为 WASD、方向键、空格、Shift、数字和小键盘)，其他按键可在游戏中申请。请使用 Chrome 或 Edge。">게임패드를 연결하면 가장 좋습니다.</p>
     </form>
   </section>
 
@@ -80,12 +80,18 @@
     <span id="barName"></span>
     <span id="stats" class="muted pl-stats"></span>
     <span id="padState" class="muted"></span>
+    <button id="btnKeys" class="btn sec" type="button" style="padding:6px 10px" hidden data-ko="키" data-en="Keys" data-ja="キー" data-zh="按键">키</button>
     <button id="btnSnd" class="btn sec" type="button" style="padding:6px 10px" aria-pressed="true"></button>
     <button id="btnFull" class="btn sec" type="button" style="padding:6px 10px" aria-label="Full screen"><svg style="width:16px;height:16px"><use href="#i-full"/></svg></button>
     <button id="btnLeave" class="btn red" type="button" style="padding:6px 12px" data-ko="나가기" data-en="Leave" data-ja="退出" data-zh="离开">나가기</button>
   </div>
   <div class="stage" id="stage"><canvas id="screen" tabindex="0"></canvas><div id="wait" class="pl-wait" hidden></div></div>
   <div id="notice" class="notice" hidden></div>
+  <div id="keysPanel" class="pl-keys" hidden>
+    <div class="pl-keys-head"><span id="keyCount"></span><button id="btnKeysClose" class="btn sec" type="button" style="padding:2px 9px" aria-label="Close">×</button></div>
+    <div id="keyBoard" class="pl-board"></div>
+  </div>
+  <div id="keyAsk" class="pl-ask" hidden><span id="keyAskMsg"></span><button id="btnKeyAsk" class="btn" type="button" style="padding:5px 12px"></button></div>
 </section>
 
 <div id="toast" class="toast" hidden></div>
@@ -95,6 +101,6 @@
 <script src="game.min.js?v=abeb914bab"></script>
 <script src="gamepad.min.js?v=b33e193165"></script>
 <script src="gamesound.min.js?v=efdc8aae44"></script>
-<script src="play.min.js?v=49152fc2e2"></script>
+<script src="play.min.js?v=371e00a653"></script>
 </body>
 </html>
