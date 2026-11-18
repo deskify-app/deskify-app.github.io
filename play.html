@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-jCqS8dqq6NXedCAz9+m/l7R1S9oXnWm2MYOCTksKreE=' 'self'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: blob:; connect-src 'self' blob: https://api.deskify-app.com http://127.0.0.1:* http://localhost:*; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<title>Deskify · 친구 게임 참가</title>
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" integrity="sha384-GIdEBaqGN9mNkDkMkzMHW8EKUqtpPIe/sLj1X7DIrnc9uPtLROJgmuDlh+3rBw0j" crossorigin="anonymous">
+<link rel="stylesheet" href="remote.min.css?v=c4f70dac69">
+<link rel="stylesheet" href="support.min.css?v=e0867e6789">
+<link rel="stylesheet" href="play.min.css?v=0fb483fede">
+<script>
+  (function () {
+    // Language: ?lang= for this visit, else #en, else the visitor's last choice, else the browser's first supported
+    // language (ko, en, ja, zh: any Chinese reads 简体中文), else English.
+    var pick = function (s) { s = String(s || "").toLowerCase(); return /^(ko|en|ja|zh)/.test(s) ? s.slice(0, 2) : ""; };
+    var q = /[?&]lang=([A-Za-z-]+)/.exec(location.search);
+    var lang = q ? pick(q[1]) : location.hash === "#en" ? "en" : "";
+    if (!lang) { try { lang = pick(localStorage.getItem("lang")); } catch (e) {} }
+    var nav = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+    for (var i = 0; !lang && i < nav.length; i++) lang = pick(nav[i]);
+    lang = lang || "en";
+    document.documentElement.setAttribute("data-lang", lang);
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
+  })();
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-full" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+</defs></svg>
+
+<header class="rm-top">
+  <a class="rm-brand" href="./"><img class="rm-logo" src="icon.png" alt="" width="26" height="26"><b>Deskify</b><span class="rm-tag" data-ko="친구 게임" data-en="Play together" data-ja="フレンドと遊ぶ" data-zh="和好友一起玩">친구 게임</span></a>
+  <div class="rm-top-r">
+    <select class="rm-pill lang-menu" id="btnLang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
+  </div>
+</header>
+
+<div class="wrap">
+  <section id="join" hidden>
+    <form class="card" id="joinForm">
+      <h1 data-ko="친구 게임에 참가" data-en="Join a friend's game" data-ja="フレンドのゲームに参加" data-zh="加入好友的游戏">친구 게임에 참가</h1>
+      <p id="invite" class="pl-invite" hidden></p>
+      <p data-ko="친구가 보낸 9자리 초대 코드와 내 이름을 입력하십시오. 계정이나 설치는 필요 없습니다." data-en="Enter the 9-digit invite code your friend sent and your name. No account or install needed." data-ja="フレンドから届いた 9 桁の招待コードと自分の名前を入力してください。アカウントやインストールは不要です。" data-zh="请输入好友发来的 9 位邀请码和你的名字。无需账号或安装。">친구가 보낸 9자리 초대 코드와 내 이름을 입력하십시오.</p>
+      <label class="pl-label" for="code" data-ko="초대 코드" data-en="Invite code" data-ja="招待コード" data-zh="邀请码">초대 코드</label>
+      <input id="code" type="tel" inputmode="numeric" maxlength="13" autocomplete="off" data-ph-ko="000 000 000" data-ph-en="000 000 000" data-ph-ja="000 000 000" data-ph-zh="000 000 000">
+      <label class="pl-label" for="name" data-ko="내 이름" data-en="Your name" data-ja="あなたの名前" data-zh="你的名字">내 이름</label>
+      <input id="name" type="text" maxlength="20" autocomplete="nickname" data-ph-ko="친구에게 보일 이름" data-ph-en="The name your friend sees" data-ph-ja="フレンドに表示される名前" data-ph-zh="好友看到的名字">
+      <div class="row" style="margin-top:14px">
+        <button id="btnJoin" class="btn" type="submit" data-ko="참가" data-en="Join" data-ja="参加" data-zh="加入">참가</button>
+      </div>
+      <div id="joinMsg" class="msg"></div>
+      <p class="muted" data-ko="게임패드(Xbox·PlayStation 등)를 연결하면 가장 좋습니다. 키보드는 WASD·방향키·스페이스·Shift·E·Q·R·F·Z·X·C·숫자 1–5·넘패드 숫자·넘패드 Enter만 전달됩니다. Chrome·Edge에서 사용해 주십시오." data-en="A gamepad (Xbox, PlayStation…) works best. Only WASD, arrows, Space, Shift, E, Q, R, F, Z, X, C, 1–5 and the numpad digits and Enter reach the game from the keyboard. Use Chrome or Edge." data-ja="ゲームパッド (Xbox・PlayStation など) の接続をおすすめします。キーボードは WASD・方向キー・スペース・Shift・E・Q・R・F・Z・X・C・数字 1–5・テンキーの数字と Enter のみ送信されます。Chrome・Edge でご利用ください。" data-zh="建议连接手柄 (Xbox、PlayStation 等)。键盘仅传送 WASD、方向键、空格、Shift、E、Q、R、F、Z、X、C、数字 1–5 以及小键盘数字和 Enter。请使用 Chrome 或 Edge。">게임패드를 연결하면 가장 좋습니다.</p>
+    </form>
+  </section>
+
+  <section id="connecting" hidden>
+    <div class="card">
+      <h1 data-ko="연결 중" data-en="Connecting" data-ja="接続中" data-zh="连接中">연결 중</h1>
+      <p id="step"></p>
+    </div>
+  </section>
+
+  <section id="ended" hidden>
+    <div class="card">
+      <h1 data-ko="끝났습니다" data-en="Ended" data-ja="終了しました" data-zh="已结束">끝났습니다</h1>
+      <p id="endMsg"></p>
+      <button id="btnAgain" class="btn" type="button" data-ko="다른 코드로 참가" data-en="Join with another code" data-ja="別のコードで参加" data-zh="使用其他邀请码加入">다른 코드로 참가</button>
+    </div>
+  </section>
+</div>
+
+<section id="session" hidden>
+  <div class="sessbar">
+    <span id="barName"></span>
+    <span id="stats" class="muted pl-stats"></span>
+    <span id="padState" class="muted"></span>
+    <button id="btnSnd" class="btn sec" type="button" style="padding:6px 10px" aria-pressed="true"></button>
+    <button id="btnFull" class="btn sec" type="button" style="padding:6px 10px" aria-label="Full screen"><svg style="width:16px;height:16px"><use href="#i-full"/></svg></button>
+    <button id="btnLeave" class="btn red" type="button" style="padding:6px 12px" data-ko="나가기" data-en="Leave" data-ja="退出" data-zh="离开">나가기</button>
+  </div>
+  <div class="stage" id="stage"><canvas id="screen" tabindex="0"></canvas><div id="wait" class="pl-wait" hidden></div></div>
+  <div id="notice" class="notice" hidden></div>
+</section>
+
+<div id="toast" class="toast" hidden></div>
+
+<script src="stream.min.js?v=5e2dad2e0e"></script>
+<script src="fec.min.js?v=a6b446d752"></script>
+<script src="game.min.js?v=abeb914bab"></script>
+<script src="gamepad.min.js?v=b33e193165"></script>
+<script src="gamesound.min.js?v=efdc8aae44"></script>
+<script src="play.min.js?v=1ff594e432"></script>
+</body>
+</html>

@@ -9,7 +9,7 @@
 <title>Deskify 웹 · 이 PC 화면 보기</title>
 <link rel="icon" href="icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" integrity="sha384-GIdEBaqGN9mNkDkMkzMHW8EKUqtpPIe/sLj1X7DIrnc9uPtLROJgmuDlh+3rBw0j" crossorigin="anonymous">
-<link rel="stylesheet" href="remote.min.css?v=d83ed988ea">
+<link rel="stylesheet" href="remote.min.css?v=c4f70dac69">
 <script>
   (function () {
     // Language: ?lang= from the apps (their UI language) for this visit, else #en, else the visitor's last choice,
@@ -34,6 +34,7 @@
     <symbol id="i-full" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
     <symbol id="i-full-exit" viewBox="0 0 24 24"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></symbol>
     <symbol id="i-game" viewBox="0 0 24 24"><rect x="2.5" y="7" width="19" height="11" rx="5.5"/><path d="M7.5 10.5v4M5.5 12.5h4M15.5 11.5h.01M18 13.5h.01"/></symbol>
+    <symbol id="i-friend" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 19.5c.6-3.2 3-5 6-5s5.4 1.8 6 5"/><path d="M15.5 5.2a3.2 3.2 0 0 1 0 6.1M17.5 14.8c1.8.6 3 2.2 3.4 4.7"/></symbol>
     <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5 13.5h6L10 21l8-10.5h-6L13 3z"/></symbol>
     <symbol id="i-keys" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="3"/><path d="M7.5 9h3l3 6h3M13.5 9h3"/></symbol>
     <symbol id="i-kbd" viewBox="0 0 24 24"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"/><path d="M6.5 9.5h.01M10 9.5h.01M13.5 9.5h.01M17 9.5h.01M6.5 12.5h.01M17 12.5h.01M8.5 15.5h7"/></symbol>
@@ -185,6 +186,7 @@
       <button id="btnSnd" class="rm-tool rm-snd" type="button" data-tip-ko="PC 소리" data-tip-en="PC sound" data-tip-ja="PC のサウンド" data-tip-zh="电脑声音" aria-pressed="false" hidden><svg class="on"><use href="#i-sound"/></svg><svg class="off"><use href="#i-mute"/></svg></button>
       <span class="rm-gap"></span>
       <button id="btnGames" class="rm-tool" type="button" data-tip-ko="게임 목록" data-tip-en="Games" data-tip-ja="ゲーム一覧" data-tip-zh="游戏列表" hidden><svg><use href="#i-game"/></svg></button>
+      <button id="btnFriend" class="rm-tool" type="button" data-tip-ko="친구와 같이 하기" data-tip-en="Play with a friend" data-tip-ja="フレンドと一緒に遊ぶ" data-tip-zh="与好友一起玩" aria-pressed="false" hidden><svg><use href="#i-friend"/></svg></button>
       <button id="btnQual" class="rm-tool" type="button" data-menu="quality" data-tip-ko="화질" data-tip-en="Quality" data-tip-ja="画質" data-tip-zh="画质"><svg><use href="#i-bolt"/></svg><span id="qualLabel" class="rm-tool-t"></span></button>
       <button id="btnFull" class="rm-tool" type="button" data-tip-ko="전체 화면" data-tip-en="Full screen" data-tip-ja="全画面表示" data-tip-zh="全屏"><svg class="on"><use href="#i-full"/></svg><svg class="off"><use href="#i-full-exit"/></svg></button>
       <span class="rm-gap"></span>
@@ -219,6 +221,7 @@
     <img id="cursor" class="rm-cursor" alt="" hidden>
     <div id="notice" class="rm-notice" hidden></div>
     <div id="games" class="rm-games" hidden></div>
+    <div id="friend" class="rm-friend" hidden></div>
     <div id="xfer" class="rm-xfer" hidden><span id="xferText"></span><div class="rm-meter"><i id="xferBar"></i></div></div>
     <div id="drop" class="rm-drop" hidden><svg><use href="#i-upload"/></svg><span lang-ko>여기에 놓으면 PC의 받기 폴더로 보냅니다</span><span lang-en>Drop here to send to the PC's receive folder</span><span lang-ja>ここにドロップすると PC の受信フォルダーに送信します</span><span lang-zh>拖放到此处即可发送至电脑的接收文件夹</span></div>
   </div>
@@ -237,6 +240,7 @@
 <script src="gamepad.min.js?v=b33e193165"></script>
 <script src="gamesound.min.js?v=efdc8aae44"></script>
 <script src="gamelist.min.js?v=89a274a823"></script>
-<script src="remote.min.js?v=4df584e987"></script>
+<script src="friend.min.js?v=4b28ca0626"></script>
+<script src="remote.min.js?v=48dcd4f0e2"></script>
 </body>
 </html>
