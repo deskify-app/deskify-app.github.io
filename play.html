@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" integrity="sha384-GIdEBaqGN9mNkDkMkzMHW8EKUqtpPIe/sLj1X7DIrnc9uPtLROJgmuDlh+3rBw0j" crossorigin="anonymous">
 <link rel="stylesheet" href="remote.min.css?v=c4f70dac69">
 <link rel="stylesheet" href="support.min.css?v=e0867e6789">
-<link rel="stylesheet" href="play.min.css?v=f855f930bd">
+<link rel="stylesheet" href="play.min.css?v=73da30f1f3">
 <script>
   (function () {
     // Language: ?lang= for this visit, else #en, else the visitor's last choice, else the browser's first supported
@@ -81,6 +81,9 @@
     <span id="stats" class="muted pl-stats"></span>
     <span id="padState" class="muted"></span>
     <button id="btnKeys" class="btn sec" type="button" style="padding:6px 10px" hidden data-ko="키" data-en="Keys" data-ja="キー" data-zh="按键">키</button>
+    <span id="voiceState" class="muted"></span>
+    <button id="btnMic" class="btn sec" type="button" style="padding:6px 10px" hidden aria-pressed="false"></button>
+    <button id="btnLock" class="btn sec" type="button" style="padding:6px 10px" hidden aria-pressed="false"></button>
     <button id="btnSnd" class="btn sec" type="button" style="padding:6px 10px" aria-pressed="true"></button>
     <button id="btnFull" class="btn sec" type="button" style="padding:6px 10px" aria-label="Full screen"><svg style="width:16px;height:16px"><use href="#i-full"/></svg></button>
     <button id="btnLeave" class="btn red" type="button" style="padding:6px 12px" data-ko="나가기" data-en="Leave" data-ja="退出" data-zh="离开">나가기</button>
@@ -100,7 +103,8 @@
 <script src="fec.min.js?v=a6b446d752"></script>
 <script src="game.min.js?v=abeb914bab"></script>
 <script src="gamepad.min.js?v=b33e193165"></script>
+<script src="gamemouse.min.js?v=98c046f019"></script>
 <script src="gamesound.min.js?v=efdc8aae44"></script>
-<script src="play.min.js?v=371e00a653"></script>
+<script src="play.min.js?v=d8a6bb6fd3"></script>
 </body>
 </html>
