@@ -183,10 +183,18 @@
       else if (plan.pro && (plan.proUntil || 0) > now) parts.push(L("Pro 구독 · ", "Pro until ", "Pro 購読 · ", "Pro 订阅 · ") + new Date(plan.proUntil).toLocaleDateString() + L("까지", "", " まで", " 到期"));
       else if ((plan.trialEndsAt || 0) > now) parts.push(L("체험 · ", "Trial until ", "無料トライアル · ", "试用 · ") + new Date(plan.trialEndsAt).toLocaleDateString() + L("까지", "", " まで", " 到期"));
       else parts.push(L("무료", "Free", "無料", "免费"));
-      if ((plan.syncUntil || 0) > now && plan.kind === "LIFETIME") parts.push(L("클라우드 구독 켜짐", "Cloud on", "クラウド購読オン", "云订阅已开启"));
+      if (plan.kind === "LIFETIME" && paidSync(plan, now)) parts.push(L("클라우드 구독 켜짐", "Cloud on", "クラウド購読オン", "云订阅已开启"));
       $("plan").textContent = parts.join(" · ");
       render();
     }).catch(function (e) { msg(L("계정 정보를 읽지 못했습니다: ", "Couldn't read the account: ", "アカウント情報を読み込めませんでした: ", "无法读取账号信息：") + e.message, "err"); });
+  }
+
+  // Cloud time actually paid or granted — not the launch free period or a trial, which also run syncUntil ahead (the
+  // server's paidSyncOf; keep the two alike).
+  function paidSync(p, now) {
+    if (p.syncChargedUntil != null) return Number(p.syncChargedUntil) > now;
+    if (p.paidSyncUntil != null) return Number(p.paidSyncUntil) > now;
+    return Number(p.syncUntil || 0) > now && Number(p.syncUntil) !== Number(p.trialEndsAt || 0);
   }
 
   // What this account may buy: a Pro subscriber nothing more; a lifetime owner the Cloud subscription only;
@@ -195,7 +203,7 @@
     var now = Date.now();
     var hasPro = !!(plan && plan.pro && plan.kind === "SUBSCRIPTION" && (plan.proUntil || 0) > now);
     var hasLife = !!(plan && plan.kind === "LIFETIME");
-    var hasSync = !!(plan && hasLife && (plan.syncUntil || 0) > now);
+    var hasSync = !!(plan && hasLife && paidSync(plan, now));
     document.querySelectorAll("[data-buy]").forEach(function (b) {
       var k = b.getAttribute("data-buy");
       var kind = k.indexOf("sync") === 0 ? "sync" : k === "lifetime" ? "lifetime" : "pro";
