@@ -1,8 +1,7 @@
-/* 404 page: one dark screen, message and buttons centred together. */
-body.page-404 { background: #050507; min-height: 100vh; display: flex; flex-direction: column; }
-.page-404 main.doc { flex: 1; display: flex; flex-direction: column; justify-content: center; padding-bottom: 48px; }
-.page-404 main.doc .page-hero { margin: 0; padding-top: 96px; padding-bottom: 0; border: 0; }
-.page-404 main.doc h1 { font-size: clamp(2rem, 4.2vw, 3rem); }
+/* 404 page: one dark screen; the title band fills it (so the bar keeps its dark look) with message and buttons centred. */
+body.page-404 { background: #050507; }
+.page-info.page-404 main.doc .page-hero { min-height: calc(100svh - 64px); box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; margin-bottom: 0; border-bottom: 0; }
+.page-info.page-404 main.doc .page-hero h1 { font-size: clamp(2rem, min(8vw, 7vh), 3.4rem); }
 .page-404 .cta-404 { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
 .page-404 .cta-404 .btn:not(.primary) { background: rgba(255, 255, 255, .07); border-color: rgba(255, 255, 255, .16); color: #f5f5f7; }
 .page-404 .foot { background: transparent; border-top-color: rgba(255, 255, 255, .08); }
