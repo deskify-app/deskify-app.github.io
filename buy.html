@@ -26,6 +26,8 @@
   // Paddle's client-side token and price ids are public by design (the webhook, not the page, grants the plan).
   var PADDLE = {
     env: "live",
+    // false until Paddle approves the account (11-24: under appeal): every buy button reads "준비 중" and stays off.
+    open: false,
     token: "live_555fa3e14783668c3cea1a562da",
     prices: { pro_monthly: "pri_01m5kq75d9h1r6b84rkgzafjt3", pro_yearly: "pri_01m5kq75ye266s332pzsknhryc", sync_monthly: "pri_01m5kkpjf6q8qj35q36j9maz9j", sync_yearly: "pri_01m5kkpjw741d485c0vtkkm9yf", lifetime: "pri_01m5kq76fq6yhwxem5fjhd4yt9" }
   };
@@ -167,7 +169,14 @@
       ready = true;
     }
   } catch (e) { ready = false; }
-  if (!ready) msg(L("결제창을 불러오지 못했습니다. 잠시 뒤 다시 열어 주세요.", "Checkout couldn't load. Please try again later.", "決済画面を読み込めませんでした。しばらくしてからもう一度開いてください。", "无法加载付款窗口，请稍后再试。"));
+  if (!PADDLE.open) {
+    ready = false;
+    document.querySelectorAll("[data-buy]").forEach(function (b) {
+      if (b.previousElementSibling && b.previousElementSibling.hasAttribute("data-buy")) { b.classList.add("hidden"); return; }
+      b.innerHTML ='<span lang-ko>웹 결제 준비 중</span><span lang-en>Web checkout coming soon</span><span lang-ja>Web 決済は準備中</span><span lang-zh>网页付款准备中</span>';
+    });
+    msg(L("웹 결제는 준비 중입니다. 지금은 Android 앱에서 Google Play로 구매할 수 있습니다(앱 → 설정 → Pro).", "Web checkout is coming soon. For now, buy in the Android app through Google Play (app → Settings → Pro).", "Web 決済は準備中です。現在は Android アプリから Google Play で購入できます（アプリ → 設定 → Pro）。", "网页付款准备中。目前可在 Android 应用中通过 Google Play 购买（应用 → 设置 → Pro）。"));
+  } else if (!ready) msg(L("결제창을 불러오지 못했습니다. 잠시 뒤 다시 열어 주세요.", "Checkout couldn't load. Please try again later.", "決済画面を読み込めませんでした。しばらくしてからもう一度開いてください。", "无法加载付款窗口，请稍后再试。"));
 
   try { firebase.initializeApp(FIREBASE); auth = firebase.auth(); } catch (e) { auth = null; }
 
