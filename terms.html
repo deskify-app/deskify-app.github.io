@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ko" class="koen">
 <head>
+<script src="cleanurl.min.js"></script>
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -20,11 +21,11 @@
       <a href="./#windows">Windows</a>
       <a href="./#web"><span lang-ko>웹</span><span lang-en>Web</span><span lang-ja>Web</span><span lang-zh>网页</span></a>
       <a href="./#plans"><span lang-ko>요금</span><span lang-en>Plans</span><span lang-ja>料金プラン</span><span lang-zh>价格</span></a>
-      <a href="help.html"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
+      <a href="help"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
     </nav>
-    <a class="nav-help" href="help.html"><span aria-hidden="true">?</span><span class="sr-only"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></span></a>
+    <a class="nav-help" href="help"><span aria-hidden="true">?</span><span class="sr-only"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></span></a>
     <select class="lang-menu" id="lang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
-    <a class="nav-cta" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span></a>
+    <a class="nav-cta" href="web"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span></a>
   </div>
 </header>
 <main id="main" class="doc">
@@ -36,7 +37,7 @@
 <p>이 약관은 Deskify 앱(Android, Windows 및 이후 나오는 모든 판)과 그에 딸린 클라우드 동기화, 기기 간 파일·글 전송, 무료 체험, 유료 이용권 등(이하 "서비스")을 이용하는 조건을 정합니다. 서비스를 만들고 운영하는 사람(이하 "운영자")과 서비스를 이용하는 사람(이하 "사용자") 사이에 적용됩니다.</p>
 
 <h2>1. 동의</h2>
-<p>앱을 설치하거나, 실행하거나, 구글 계정으로 로그인하면 이 약관과 <a href="privacy.html">개인정보처리방침</a>에 동의한 것으로 봅니다. 동의하지 않으면 서비스를 이용하지 말고 앱을 지워 주세요.</p>
+<p>앱을 설치하거나, 실행하거나, 구글 계정으로 로그인하면 이 약관과 <a href="privacy">개인정보처리방침</a>에 동의한 것으로 봅니다. 동의하지 않으면 서비스를 이용하지 말고 앱을 지워 주세요.</p>
 
 <h2>2. 사용권</h2>
 <p>운영자는 사용자에게 서비스를 이 약관에 따라 이용할 수 있는, 양도할 수 없고 독점적이지 않은 권리를 줍니다. 무료로 쓰는 판(무료판)은 개인적이고 비상업적인 용도로만 쓸 수 있습니다. 회사·기관의 업무나 돈을 받고 하는 일(고객 PC 지원, 서버 관리 대행 등)에 쓰려면 Pro 이용권(구독 또는 평생 이용권)이 필요합니다. 앱의 저작권과 그 밖의 권리는 운영자(오픈소스 구성 요소는 각 저작권자)에게 있습니다. 사용자는 앱을 역설계·디컴파일·변조하거나 자동화된 도구(AI 포함)로 분석하거나, 유료 기능·기기 수 제한 같은 보호 장치를 우회하거나, 앱을 다시 배포·판매해서는 안 됩니다.</p>
@@ -60,8 +61,8 @@
 
 <h2>6. 유료 서비스</h2>
 <p>운영자가 판매하는 것은 소프트웨어(앱과 클라우드 기능) 이용권뿐이며, 기술 지원·수리·진단 같은 서비스는 판매하지 않습니다. 화면 공유·원격 지원 기능은 사용자가 스스로, 또는 직접 허락한 상대와 쓰는 도구입니다.</p>
-<p>구독과 평생 이용권은 두 곳에서 판매합니다. Android 앱 안에서는 Google Play 결제로, 웹사이트의 <a href="buy.html">구매 페이지</a>에서는 Paddle 결제로 삽니다. 어느 쪽으로 사도 같은 구글 계정의 폰·태블릿·PC에 함께 적용됩니다.</p>
-<p>웹 결제는 판매 대행사 Paddle.com Market Limited가 판매자(Merchant of Record)로서 주문, 결제, 세금, 영수증, 해지와 환불을 처리하며, 웹 구매에는 Paddle의 구매자 약관(<a href="https://www.paddle.com/legal/checkout-buyer-terms" rel="noopener">paddle.com/legal</a>)도 함께 적용됩니다. Google Play 구매의 결제·해지·환불은 Google Play의 정책을 따릅니다. 두 경우 모두 환불은 <a href="refund.html">환불 정책</a>과 관련 법령을 따르며, 구독은 해지하기 전까지 자동으로 갱신됩니다.</p>
+<p>구독과 평생 이용권은 두 곳에서 판매합니다. Android 앱 안에서는 Google Play 결제로, 웹사이트의 <a href="buy">구매 페이지</a>에서는 Paddle 결제로 삽니다. 어느 쪽으로 사도 같은 구글 계정의 폰·태블릿·PC에 함께 적용됩니다.</p>
+<p>웹 결제는 판매 대행사 Paddle.com Market Limited가 판매자(Merchant of Record)로서 주문, 결제, 세금, 영수증, 해지와 환불을 처리하며, 웹 구매에는 Paddle의 구매자 약관(<a href="https://www.paddle.com/legal/checkout-buyer-terms" rel="noopener">paddle.com/legal</a>)도 함께 적용됩니다. Google Play 구매의 결제·해지·환불은 Google Play의 정책을 따릅니다. 두 경우 모두 환불은 <a href="refund">환불 정책</a>과 관련 법령을 따르며, 구독은 해지하기 전까지 자동으로 갱신됩니다.</p>
 
 <h2>7. 보증의 부인</h2>
 <p>서비스는 "있는 그대로" 제공됩니다. 운영자는 관련 법령이 허용하는 범위에서, 서비스가 중단이나 오류 없이 동작한다거나, 특정 목적에 맞는다거나, 데이터가 잃어버려지지 않는다는 등의 명시적·묵시적 보증을 하지 않습니다.</p>
@@ -78,7 +79,7 @@
 <p>어떤 경우에도 운영자의 배상 책임은 손해가 생긴 날 직전 12개월 동안 사용자가 서비스에 실제로 낸 금액을 넘지 않습니다. 다만 운영자의 고의 또는 중대한 과실로 생긴 손해에는 이 조항의 제한이 적용되지 않습니다.</p>
 
 <h2>9. 이용 제한과 해지</h2>
-<p>사용자가 이 약관을 어기면 운영자는 미리 알리지 않고 서비스 이용을 제한하거나 계정의 클라우드 데이터를 지울 수 있습니다. 운영자는 법령에 따른 수사기관 등의 적법한 요청에 협조할 수 있습니다. 사용자는 언제든지 앱을 지우고 <a href="delete-account.html">계정 삭제</a>를 요청해 이용을 끝낼 수 있습니다.</p>
+<p>사용자가 이 약관을 어기면 운영자는 미리 알리지 않고 서비스 이용을 제한하거나 계정의 클라우드 데이터를 지울 수 있습니다. 운영자는 법령에 따른 수사기관 등의 적법한 요청에 협조할 수 있습니다. 사용자는 언제든지 앱을 지우고 <a href="delete-account">계정 삭제</a>를 요청해 이용을 끝낼 수 있습니다.</p>
 
 <h2>10. 약관의 변경</h2>
 <p>운영자는 필요하면 이 약관을 바꿀 수 있으며, 바뀐 내용과 시행일을 시행 7일 전(사용자에게 불리한 변경은 30일 전)부터 이 페이지와 앱에 알립니다. 시행일 이후에도 서비스를 계속 이용하면 바뀐 약관에 동의한 것으로 봅니다.</p>
@@ -98,7 +99,7 @@
 <p>These terms govern the use of the Deskify apps (Android, Windows and any later edition) and the cloud sync, transfer between devices, free trial and paid plans that come with them (the "Service"), between the person who makes and runs the Service (the "Operator") and you.</p>
 
 <h2>1. Agreement</h2>
-<p>By installing or running the app, or signing in with a Google account, you agree to these terms and the <a href="privacy.html">Privacy Policy</a>. If you don't agree, don't use the Service and uninstall the app.</p>
+<p>By installing or running the app, or signing in with a Google account, you agree to these terms and the <a href="privacy">Privacy Policy</a>. If you don't agree, don't use the Service and uninstall the app.</p>
 
 <h2>2. License</h2>
 <p>You get a non-exclusive, non-transferable right to use the Service under these terms. The free edition is for personal, non-commercial use only; using the Service for the work of a company or organization, or for paid work (supporting customers' PCs, managing servers for others and the like), requires a Pro plan (a subscription or the lifetime license). The app and its rights belong to the Operator (open-source parts to their authors). You may not reverse engineer, decompile, modify or analyse the app with automated tools (including AI), get around paid features or the device limit, or redistribute or sell it.</p>
@@ -114,8 +115,8 @@
 
 <h2>6. Paid plans</h2>
 <p>The Operator sells software licences only (the apps and their cloud features); no technical support, repair or diagnostic services are sold. Screen sharing and remote support are tools you use yourself or with someone you explicitly allow.</p>
-<p>Subscriptions and the lifetime license are sold in two places: in the Android app through Google Play billing, and on the website's <a href="buy.html">purchase page</a> through Paddle. Either way they apply to the phones, tablets and PCs signed in with the same Google account.</p>
-<p>Web purchases are sold by Paddle.com Market Limited as the merchant of record, which handles the order, payment, taxes, receipts, cancellation and refunds; Paddle's buyer terms (<a href="https://www.paddle.com/legal/checkout-buyer-terms" rel="noopener">paddle.com/legal</a>) also apply to them. Payment, cancellation and refunds for Google Play purchases follow Google Play's policies. In both cases refunds follow the <a href="refund.html#en">refund policy</a> and the law, and subscriptions renew until cancelled.</p>
+<p>Subscriptions and the lifetime license are sold in two places: in the Android app through Google Play billing, and on the website's <a href="buy">purchase page</a> through Paddle. Either way they apply to the phones, tablets and PCs signed in with the same Google account.</p>
+<p>Web purchases are sold by Paddle.com Market Limited as the merchant of record, which handles the order, payment, taxes, receipts, cancellation and refunds; Paddle's buyer terms (<a href="https://www.paddle.com/legal/checkout-buyer-terms" rel="noopener">paddle.com/legal</a>) also apply to them. Payment, cancellation and refunds for Google Play purchases follow Google Play's policies. In both cases refunds follow the <a href="refund#en">refund policy</a> and the law, and subscriptions renew until cancelled.</p>
 
 <h2>7. No warranty</h2>
 <p>The Service is provided "as is". To the extent the law allows, the Operator gives no express or implied warranty that it will run without interruption or error, fit a particular purpose, or never lose data.</p>
@@ -124,7 +125,7 @@
 <p>To the fullest extent the law allows, the Operator is not liable for: any loss or dispute arising from use of the Service against these terms or the law, or to harm others; loss caused by careless handling of your account, passwords, keys or devices; disputes between you and third parties, including owners of computers you reach; loss from network failures, outside service outages, natural disasters or other causes beyond the Operator's control; indirect, special or consequential damages, lost profits or lost data. In any case the Operator's liability is limited to the amount you actually paid for the Service in the 12 months before the loss. These limits don't apply to loss caused by the Operator's intent or gross negligence.</p>
 
 <h2>9. Suspension and termination</h2>
-<p>If you breach these terms the Operator may limit your use of the Service or delete your account's cloud data without notice, and may cooperate with lawful requests from authorities. You may stop at any time by uninstalling the app and requesting <a href="delete-account.html">account deletion</a>.</p>
+<p>If you breach these terms the Operator may limit your use of the Service or delete your account's cloud data without notice, and may cooperate with lawful requests from authorities. You may stop at any time by uninstalling the app and requesting <a href="delete-account">account deletion</a>.</p>
 
 <h2>10. Changes to these terms</h2>
 <p>The Operator may change these terms, announcing the change and its date on this page and in the app 7 days ahead (30 days for changes against you). Using the Service after that date means you accept the changed terms.</p>
@@ -138,11 +139,11 @@
 <footer class="foot">
   <div class="foot-in">
     <span>© 2026 Deskify</span>
-    <a href="privacy.html"><span lang-ko>개인정보처리방침</span><span lang-en>Privacy policy</span><span lang-ja>プライバシーポリシー</span><span lang-zh>隐私政策</span></a>
-    <a href="terms.html"><span lang-ko>이용약관</span><span lang-en>Terms of use</span><span lang-ja>利用規約</span><span lang-zh>使用条款</span></a>
-    <a href="help.html"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
-    <a href="web.html"><span lang-ko>웹에서 쓰기 (베타)</span><span lang-en>Use on the web (beta)</span><span lang-ja>Web で使う (ベータ)</span><span lang-zh>在网页上使用 (测试版)</span></a>
-    <a href="refund.html"><span lang-ko>환불 정책</span><span lang-en>Refund policy</span><span lang-ja>返金ポリシー</span><span lang-zh>退款政策</span></a>
+    <a href="privacy"><span lang-ko>개인정보처리방침</span><span lang-en>Privacy policy</span><span lang-ja>プライバシーポリシー</span><span lang-zh>隐私政策</span></a>
+    <a href="terms"><span lang-ko>이용약관</span><span lang-en>Terms of use</span><span lang-ja>利用規約</span><span lang-zh>使用条款</span></a>
+    <a href="help"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
+    <a href="web"><span lang-ko>웹에서 쓰기 (베타)</span><span lang-en>Use on the web (beta)</span><span lang-ja>Web で使う (ベータ)</span><span lang-zh>在网页上使用 (测试版)</span></a>
+    <a href="refund"><span lang-ko>환불 정책</span><span lang-en>Refund policy</span><span lang-ja>返金ポリシー</span><span lang-zh>退款政策</span></a>
     <a class="mail" href="mailto:support@deskify-app.com">support@deskify-app.com</a>
   </div>
 </footer>

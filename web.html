@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ko">
 <head>
+<script src="cleanurl.min.js"></script>
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-jTFzZMSsi22zad7BpcRx0i6xQPfAaz3Wt52wRU07OAE=' 'sha256-aA8X0lq50CUf5sNhnCGieMKNkvjmtO95UUmFl+iAm7o=' 'self'; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -26,7 +27,7 @@
   })();
 </script>
 <style>
-  /* 웹에서 쓰기: the start page for 웹 Deskify (app.html: its PC picker opens this PC's screen, remote.html, or the vault) and 원격 지원 (support.html, gethelp.html). The PC app's look from
+  /* 웹에서 쓰기: the start page for 웹 Deskify (app.html: its PC picker opens this PC's screen, remote, or the vault) and 원격 지원 (support, gethelp). The PC app's look from
      remote.css (tokens, title bar, buttons); only this page's own layout here. No script beyond the language button. */
   a.rm-pill:hover { text-decoration: none; }
   .wh-main { max-width: 1120px; margin: 0 auto; padding: 44px 16px 56px; }
@@ -122,7 +123,7 @@
   <a class="rm-brand" href="./"><img class="rm-logo" src="icon.png" alt="" width="26" height="26"><b>Deskify</b></a>
   <span class="rm-here" aria-current="page"><span class="rm-tag"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span></span></span>
   <div class="rm-top-r">
-    <a class="rm-pill" href="help.html#web"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
+    <a class="rm-pill" href="help#web"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
     <select class="rm-pill lang-menu" id="lang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
   </div>
 </header>
@@ -138,7 +139,7 @@
     <article class="wh-card">
       <span class="wh-tag sub"><span lang-ko>구독</span><span lang-en>Subscription</span><span lang-ja>サブスク</span><span lang-zh>订阅</span></span>
       <div class="wh-ic wh-blue"><svg aria-hidden="true"><use href="#i-monitor"/></svg></div>
-      <h2><a class="wh-go" href="app.html"><span lang-ko>웹 Deskify</span><span lang-en>Web Deskify</span><span lang-ja>Web 版 Deskify</span><span lang-zh>网页版 Deskify</span></a><span class="beta-pill"><span lang-ko>베타</span><span lang-en>Beta</span><span lang-ja>ベータ</span><span lang-zh>测试版</span></span></h2>
+      <h2><a class="wh-go" href="app"><span lang-ko>웹 Deskify</span><span lang-en>Web Deskify</span><span lang-ja>Web 版 Deskify</span><span lang-zh>网页版 Deskify</span></a><span class="beta-pill"><span lang-ko>베타</span><span lang-en>Beta</span><span lang-ja>ベータ</span><span lang-zh>测试版</span></span></h2>
       <p class="wh-kind"><span lang-ko>내 PC · 보관함의 컴퓨터</span><span lang-en>My PC · the computers in my vault</span><span lang-ja>自分の PC · 保管庫のコンピューター</span><span lang-zh>我的电脑 · 保管库中的电脑</span></p>
       <p class="wh-desc"><span lang-ko>내 PC를 고른 뒤 둘 중 하나를 엽니다.</span><span lang-en>Pick your PC, then open one of two things.</span><span lang-ja>自分の PC を選んでから、次のどちらかを開きます。</span><span lang-zh>选择你的电脑后，打开以下其中一项。</span></p>
       <p class="beta-note"><span lang-ko>구독 혜택 · 베타: 아직 다듬는 중입니다.</span><span lang-en>A subscription perk · Beta: still being polished.</span><span lang-ja>サブスク特典 · ベータ: まだ改良中です。</span><span lang-zh>订阅权益 · 测试版：仍在完善中。</span></p>
@@ -159,7 +160,7 @@
     <article class="wh-card">
       <span class="wh-tag free"><span lang-ko>도움 받기 무료</span><span lang-en>Getting help is free</span><span lang-ja>サポートを受けるのは無料</span><span lang-zh>接受协助免费</span></span>
       <div class="wh-ic wh-green"><svg aria-hidden="true"><use href="#i-help"/></svg></div>
-      <h2><a class="wh-go" href="support.html"><span lang-ko>원격 지원</span><span lang-en>Screen sharing by code</span><span lang-ja>リモートサポート</span><span lang-zh>远程协助</span></a></h2>
+      <h2><a class="wh-go" href="support"><span lang-ko>원격 지원</span><span lang-en>Screen sharing by code</span><span lang-ja>リモートサポート</span><span lang-zh>远程协助</span></a></h2>
       <p class="wh-kind"><span lang-ko>다른 사람의 PC</span><span lang-en>Someone else's PC</span><span lang-ja>他の人の PC</span><span lang-zh>他人的电脑</span></p>
       <p class="wh-desc"><span lang-ko>번호로 다른 사람의 PC를 돕거나, 도움을 받습니다.</span><span lang-en>Help someone else's PC with a code, or get help with yours.</span><span lang-ja>番号で他の人の PC をサポートしたり、サポートを受けたりします。</span><span lang-zh>使用号码协助他人的电脑，或获取协助。</span></p>
       <div class="wh-need">
@@ -170,17 +171,17 @@
         </ul>
       </div>
       <div class="wh-two">
-        <a class="wh-btn" href="support.html"><span lang-ko>돕기</span><span lang-en>Help</span><span lang-ja>サポートする</span><span lang-zh>协助</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        <a class="wh-btn sec" href="gethelp.html"><span lang-ko>도움 받기</span><span lang-en>Get help</span><span lang-ja>サポートを受ける</span><span lang-zh>获取协助</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="wh-btn" href="support"><span lang-ko>돕기</span><span lang-en>Help</span><span lang-ja>サポートする</span><span lang-zh>协助</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <a class="wh-btn sec" href="gethelp"><span lang-ko>도움 받기</span><span lang-en>Get help</span><span lang-ja>サポートを受ける</span><span lang-zh>获取协助</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
     </article>
   </div>
 
   <p class="wh-note">
-    <span lang-ko>구글로 한 번 로그인하면 같은 브라우저에서 웹 Deskify와 원격 지원 모두 로그인된 채로 열립니다. 최신 Chrome·Edge·Safari에서 씁니다. <a href="help.html#web">자세한 도움말</a></span>
-    <span lang-en>Sign in with Google once and both Web Deskify and remote support open signed in, in the same browser. Use a current Chrome, Edge or Safari. <a href="help.html#web">Help</a></span>
-    <span lang-ja>Google で一度ログインすれば、同じブラウザーで Web 版 Deskify とリモートサポートの両方がログインした状態で開きます。最新の Chrome・Edge・Safari でご利用いただけます。<a href="help.html#web">詳しいヘルプ</a></span>
-    <span lang-zh>使用 Google 登录一次，即可在同一浏览器中以登录状态打开网页版 Deskify 和远程协助。请在最新版本的 Chrome·Edge·Safari 中使用。<a href="help.html#web">详细帮助</a></span>
+    <span lang-ko>구글로 한 번 로그인하면 같은 브라우저에서 웹 Deskify와 원격 지원 모두 로그인된 채로 열립니다. 최신 Chrome·Edge·Safari에서 씁니다. <a href="help#web">자세한 도움말</a></span>
+    <span lang-en>Sign in with Google once and both Web Deskify and remote support open signed in, in the same browser. Use a current Chrome, Edge or Safari. <a href="help#web">Help</a></span>
+    <span lang-ja>Google で一度ログインすれば、同じブラウザーで Web 版 Deskify とリモートサポートの両方がログインした状態で開きます。最新の Chrome・Edge・Safari でご利用いただけます。<a href="help#web">詳しいヘルプ</a></span>
+    <span lang-zh>使用 Google 登录一次，即可在同一浏览器中以登录状态打开网页版 Deskify 和远程协助。请在最新版本的 Chrome·Edge·Safari 中使用。<a href="help#web">详细帮助</a></span>
   </p>
 </main>
 

@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ko" data-lang="ko">
 <head>
+<script src="cleanurl.min.js"></script>
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -24,11 +25,11 @@
       <a href="#windows">Windows</a>
       <a href="#web"><span lang-ko>웹</span><span lang-en>Web</span><span lang-ja>Web</span><span lang-zh>网页</span></a>
       <a href="#plans"><span lang-ko>요금</span><span lang-en>Plans</span><span lang-ja>料金プラン</span><span lang-zh>价格</span></a>
-      <a href="help.html"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
+      <a href="help"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
     </nav>
-    <a class="nav-help" href="help.html"><span aria-hidden="true">?</span><span class="sr-only"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></span></a>
+    <a class="nav-help" href="help"><span aria-hidden="true">?</span><span class="sr-only"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></span></a>
     <select class="lang-menu" id="lang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
-    <a class="nav-cta" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span></a>
+    <a class="nav-cta" href="web"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span></a>
   </div>
 </header>
 
@@ -54,7 +55,7 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.3 10.4 4.3v7.1H3V5.3Zm0 13.4 7.4 1v-7.1H3v6.1Zm8.2 1.1L21 21v-8.4h-9.8v7.2Zm0-15.6v7.2H21V3l-9.8 1.2Z" fill="currentColor"/></svg>
           <span><small><span lang-ko>준비 중</span><span lang-en>Coming soon</span><span lang-ja>準備中</span><span lang-zh>即将推出</span></small>Windows</span>
         </span>
-        <a class="btn-primary" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span><span lang-ja>ベータ</span><span lang-zh>测试版</span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+        <a class="btn-primary" href="web"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span><span lang-ja>ベータ</span><span lang-zh>测试版</span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
     </div>
     <div class="scene" aria-hidden="true">
       <div class="scene-in">
@@ -117,13 +118,13 @@
           <h3><span lang-ko>설치 없이, 브라우저에서.</span><span lang-en>Nothing to install. Just a browser.</span><span lang-ja>インストール不要、 ブラウザーで。</span><span lang-zh>无需安装， 浏览器即可。</span></h3>
           <p><span lang-ko>앱을 깔 수 없는 곳에서도 브라우저로 집 PC에 접속합니다(<b>웹 Deskify</b>). 가족 PC는 코드 하나로 대신 봐 줍니다(<b>원격 지원</b>).</span><span lang-en>Reach your home PC from any browser where you can’t install apps (<b>Web Deskify</b>), and help family with one code (<b>remote support</b>).</span><span lang-ja>アプリを入れられない場所でもブラウザーで自宅 PC に接続（<b>Web 版 Deskify</b>）。家族の PC はコードひとつで手助け（<b>リモートサポート</b>）。</span><span lang-zh>在无法安装应用的地方也能用浏览器连接家里电脑（<b>网页版 Deskify</b>），一个代码即可帮家人看电脑（<b>远程协助</b>）。</span></p>
           <p class="aside"><span lang-ko>구독 혜택 · 베타. 도움 받는 사람은 계정 없이 무료입니다. 지금은 화면 보기·가리키기만 되고, 조작은 Windows판 공개 후 됩니다.</span><span lang-en>Subscription perk · beta. Getting help is free, no account. For now: view and point only; control comes with the Windows app.</span><span lang-ja>サブスクリプション特典・ベータ。サポートを受ける側はアカウント不要・無料です。現在は画面表示とポイントのみで、操作は Windows 版の公開後です。</span><span lang-zh>订阅权益 · 测试版。接受协助的一方免费，无需账号。目前仅可查看和指示，操作功能将随 Windows 版推出。</span></p>
-          <a class="more-link" href="web.html"><span lang-ko>자세히 보기</span><span lang-en>Learn more</span><span lang-ja>詳しく見る</span><span lang-zh>了解更多</span></a>
+          <a class="more-link" href="web"><span lang-ko>자세히 보기</span><span lang-en>Learn more</span><span lang-ja>詳しく見る</span><span lang-zh>了解更多</span></a>
         </article>
         <article class="sq-cap" data-scene="5">
           <p class="sq-no" aria-hidden="true">06</p>
           <h3><span lang-ko>보조 기기</span><span lang-en>Companion devices</span><span lang-ja>サブ端末</span><span lang-zh>辅助设备</span></h3>
           <p><span lang-ko>남는 폰이나 태블릿을 트랙패드, 키보드, 그림 태블릿, 두 번째 화면으로. 같은 Wi-Fi는 물론, Wi-Fi가 없어도 근처나 인터넷으로 연결됩니다.</span><span lang-en>Turn a spare phone or tablet into a trackpad, keyboard, drawing tablet or second screen. It connects on the same Wi-Fi, and even without Wi-Fi, nearby or over the internet.</span><span lang-ja>余っているスマホやタブレットを、トラックパッド、キーボード、ペンタブレット、セカンドディスプレイとして活用。同じ Wi-Fi はもちろん、Wi-Fi がなくても近くの端末同士やインターネット経由で接続できます。</span><span lang-zh>把闲置的手机或平板变成触控板、键盘、数位板或副屏。同一 Wi-Fi 下自不必说，没有 Wi-Fi 时也能就近或通过互联网连接。</span></p>
-          <a class="more-link" href="help.html#companion"><span lang-ko>사용 방법</span><span lang-en>How to use</span><span lang-ja>使い方</span><span lang-zh>使用方法</span></a>
+          <a class="more-link" href="help#companion"><span lang-ko>사용 방법</span><span lang-en>How to use</span><span lang-ja>使い方</span><span lang-zh>使用方法</span></a>
         </article>
         </div>
         <div class="sq-ticks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -192,7 +193,7 @@
   <section class="web" id="web">
     <h2 class="title"><span lang-ko>웹에서 쓰기 · 베타</span><span lang-en>Use on the web · Beta</span><span lang-ja>Web で使う · ベータ</span><span lang-zh>在网页上使用 · 测试版</span></h2>
     <div class="web-cards">
-      <a class="wc" href="app.html">
+      <a class="wc" href="app">
         <span class="tag sub"><span lang-ko>구독</span><span lang-en>Subscription</span><span lang-ja>サブスク</span><span lang-zh>订阅</span></span>
         <svg class="wc-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         <h3><span lang-ko>웹 Deskify</span><span lang-en>Web Deskify</span><span lang-ja>Web 版 Deskify</span><span lang-zh>网页版 Deskify</span></h3>
@@ -204,7 +205,7 @@
         </ul>
         <span class="wc-go"><span lang-ko>웹 Deskify 열기</span><span lang-en>Open Web Deskify</span><span lang-ja>Web 版 Deskify を開く</span><span lang-zh>打开网页版 Deskify</span></span>
       </a>
-      <a class="wc" href="support.html">
+      <a class="wc" href="support">
         <span class="tag free"><span lang-ko>도움 받기 무료</span><span lang-en>Free for the one sharing</span><span lang-ja>サポートを受けるのは無料</span><span lang-zh>接受协助免费</span></span>
         <svg class="wc-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M5.6 5.6l3.9 3.9M14.5 14.5l3.9 3.9M18.4 5.6l-3.9 3.9M9.5 14.5l-3.9 3.9"/></svg>
         <h3><span lang-ko>원격 지원</span><span lang-en>Screen sharing by code</span><span lang-ja>リモートサポート</span><span lang-zh>远程协助</span></h3>
@@ -230,7 +231,7 @@
       <div class="sf">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/></svg>
         <h3><span lang-ko>필요한 것만</span><span lang-en>Only what’s needed</span><span lang-ja>必要な情報だけ</span><span lang-zh>仅保留必要信息</span></h3>
-        <p><span lang-ko>무엇을 언제 저장하는지는 <a href="privacy.html">개인정보처리방침</a>에 모두 적어 두었습니다.</span><span lang-en>Everything we store, and when, is in the <a href="privacy.html#en">privacy policy</a>.</span><span lang-ja>何をいつ保存するかについては、すべて<a href="privacy.html#en">プライバシーポリシー</a>に明記しています。</span><span lang-zh>我们在<a href="privacy.html#en">隐私政策</a>中完整说明了存储的内容与时机。</span></p>
+        <p><span lang-ko>무엇을 언제 저장하는지는 <a href="privacy">개인정보처리방침</a>에 모두 적어 두었습니다.</span><span lang-en>Everything we store, and when, is in the <a href="privacy#en">privacy policy</a>.</span><span lang-ja>何をいつ保存するかについては、すべて<a href="privacy#en">プライバシーポリシー</a>に明記しています。</span><span lang-zh>我们在<a href="privacy#en">隐私政策</a>中完整说明了存储的内容与时机。</span></p>
       </div>
     </div>
   </section>
@@ -264,7 +265,7 @@
         </ul>
       </div>
     </div>
-    <p class="lead"><a href="buy.html"><span lang-ko>가격 보기 · 웹에서 구매 →</span><span lang-en>See prices · buy on the web →</span><span lang-ja>料金を見る · Web で購入 →</span><span lang-zh>查看价格 · 在网页上购买 →</span></a></p>
+    <p class="lead"><a href="buy"><span lang-ko>가격 보기 · 웹에서 구매 →</span><span lang-en>See prices · buy on the web →</span><span lang-ja>料金を見る · Web で購入 →</span><span lang-zh>查看价格 · 在网页上购买 →</span></a></p>
   </section>
 
   <section class="closing" aria-labelledby="closing-title">
@@ -274,7 +275,7 @@
     </div>
     <h2 class="closing-line"><span lang-ko>내 컴퓨터를, 어디서나.</span><span lang-en>Your computers, anywhere.</span><span lang-ja>あなたのコンピューターを、どこからでも。</span><span lang-zh>随时随地，使用你的电脑。</span></h2>
     <div class="ctas center">
-      <a class="btn-primary" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span><span lang-ja>ベータ</span><span lang-zh>测试版</span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="btn-primary" href="web"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span> <span class="beta"><span lang-ko>베타</span><span lang-en>Beta</span><span lang-ja>ベータ</span><span lang-zh>测试版</span></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       <a class="btn-ghost" href="mailto:support@deskify-app.com"><span lang-ko>문의하기</span><span lang-en>Contact</span><span lang-ja>お問い合わせ</span><span lang-zh>联系我们</span></a>
     </div>
   </section>
@@ -283,11 +284,11 @@
 <footer class="foot">
   <div class="foot-in">
     <span>© 2026 Deskify</span>
-    <a href="privacy.html"><span lang-ko>개인정보처리방침</span><span lang-en>Privacy policy</span><span lang-ja>プライバシーポリシー</span><span lang-zh>隐私政策</span></a>
-    <a href="terms.html"><span lang-ko>이용약관</span><span lang-en>Terms of use</span><span lang-ja>利用規約</span><span lang-zh>使用条款</span></a>
-    <a href="help.html"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
-    <a href="web.html"><span lang-ko>웹에서 쓰기 (베타)</span><span lang-en>Use on the web (beta)</span><span lang-ja>Web で使う (ベータ)</span><span lang-zh>在网页上使用 (测试版)</span></a>
-    <a href="refund.html"><span lang-ko>환불 정책</span><span lang-en>Refund policy</span><span lang-ja>返金ポリシー</span><span lang-zh>退款政策</span></a>
+    <a href="privacy"><span lang-ko>개인정보처리방침</span><span lang-en>Privacy policy</span><span lang-ja>プライバシーポリシー</span><span lang-zh>隐私政策</span></a>
+    <a href="terms"><span lang-ko>이용약관</span><span lang-en>Terms of use</span><span lang-ja>利用規約</span><span lang-zh>使用条款</span></a>
+    <a href="help"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
+    <a href="web"><span lang-ko>웹에서 쓰기 (베타)</span><span lang-en>Use on the web (beta)</span><span lang-ja>Web で使う (ベータ)</span><span lang-zh>在网页上使用 (测试版)</span></a>
+    <a href="refund"><span lang-ko>환불 정책</span><span lang-en>Refund policy</span><span lang-ja>返金ポリシー</span><span lang-zh>退款政策</span></a>
     <a class="mail" href="mailto:support@deskify-app.com">support@deskify-app.com</a>
   </div>
 </footer>

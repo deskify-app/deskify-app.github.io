@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ko">
 <head>
+<script src="cleanurl.min.js"></script>
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -22,10 +23,10 @@
       <a href="./#windows">Windows</a>
       <a href="./#web"><span lang-ko>웹</span><span lang-en>Web</span><span lang-ja>Web</span><span lang-zh>网页</span></a>
       <a href="./#plans"><span lang-ko>요금</span><span lang-en>Plans</span><span lang-ja>料金プラン</span><span lang-zh>价格</span></a>
-      <a href="help.html"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
+      <a href="help"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
     </nav>
     <select class="lang-menu" id="lang" aria-label="Language"><option value="ko">한국어</option><option value="en">English</option><option value="ja">日本語</option><option value="zh">简体中文</option></select>
-    <a class="nav-cta" href="web.html"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span></a>
+    <a class="nav-cta" href="web"><span lang-ko>웹에서 쓰기</span><span lang-en>Use on the web</span><span lang-ja>Web で使う</span><span lang-zh>在网页上使用</span></a>
   </div>
 </header>
 <main id="main" class="wrap doc hc" data-aliases="{&quot;web&quot;:&quot;web-overview&quot;,&quot;support&quot;:&quot;support-overview&quot;,&quot;companion&quot;:&quot;companion-overview&quot;,&quot;connect-windows-home&quot;:&quot;windows-home&quot;}">
@@ -57,11 +58,11 @@
 <a class="hc-tile" href="#cat-lock" data-cat="lock"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 11h12v10H6zM8 11V7a4 4 0 0 1 8 0v4"/></svg><span class="hc-tile-t"><span lang-ko>잠금 화면·PIN</span><span lang-en>Lock screen · PIN</span><span lang-ja>ロック画面・PIN</span><span lang-zh>锁屏 · PIN</span></span><span class="hc-tile-n">2</span></a>
 <a class="hc-tile" href="#cat-files" data-cat="files"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H6v18h12V7zM14 3v4h4"/></svg><span class="hc-tile-t"><span lang-ko>파일·클립보드</span><span lang-en>Files · clipboard</span><span lang-ja>ファイル・クリップボード</span><span lang-zh>文件 · 剪贴板</span></span><span class="hc-tile-n">5</span></a>
 <a class="hc-tile" href="#cat-web" data-cat="web"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM3 9h18M6 7h.01M9 7h.01"/></svg><span class="hc-tile-t"><span lang-ko>웹 Deskify</span><span lang-en>Web Deskify</span><span lang-ja>Web 版 Deskify</span><span lang-zh>网页版 Deskify</span></span><span class="hc-tile-n">7</span></a>
-<a class="hc-tile" href="#cat-companion" data-cat="companion"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10v20H7zM11 18h2"/></svg><span class="hc-tile-t"><span lang-ko>보조 기기</span><span lang-en>Companion devices</span><span lang-ja>サブ端末</span><span lang-zh>辅助设备</span></span><span class="hc-tile-n">17</span></a>
+<a class="hc-tile" href="#cat-companion" data-cat="companion"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10v20H7zM11 18h2"/></svg><span class="hc-tile-t"><span lang-ko>보조 기기</span><span lang-en>Companion devices</span><span lang-ja>サブ端末</span><span lang-zh>辅助设备</span></span><span class="hc-tile-n">18</span></a>
 <a class="hc-tile" href="#cat-support" data-cat="support"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z"/></svg><span class="hc-tile-t"><span lang-ko>원격 지원</span><span lang-en>Remote support</span><span lang-ja>リモートサポート</span><span lang-zh>远程协助</span></span><span class="hc-tile-n">3</span></a>
 <a class="hc-tile" href="#cat-account" data-cat="account"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg><span class="hc-tile-t"><span lang-ko>계정·보안</span><span lang-en>Account · security</span><span lang-ja>アカウント・セキュリティ</span><span lang-zh>账号 · 安全</span></span><span class="hc-tile-n">6</span></a>
 <a class="hc-tile" href="#cat-plans" data-cat="plans"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8zM7.5 7.5h.01"/></svg><span class="hc-tile-t"><span lang-ko>요금·결제</span><span lang-en>Plans · payment</span><span lang-ja>料金・お支払い</span><span lang-zh>价格 · 付款</span></span><span class="hc-tile-n">4</span></a>
-<a class="hc-tile" href="#cat-trouble" data-cat="trouble"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></svg><span class="hc-tile-t"><span lang-ko>문제 해결</span><span lang-en>Troubleshooting</span><span lang-ja>トラブルシューティング</span><span lang-zh>故障排除</span></span><span class="hc-tile-n">15</span></a>
+<a class="hc-tile" href="#cat-trouble" data-cat="trouble"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l10 18H2zM12 10v5M12 18h.01"/></svg><span class="hc-tile-t"><span lang-ko>문제 해결</span><span lang-en>Troubleshooting</span><span lang-ja>トラブルシューティング</span><span lang-zh>故障排除</span></span><span class="hc-tile-n">16</span></a>
     </div>
   </section>
 
@@ -1113,16 +1114,16 @@
       <p>설치 없이 브라우저에서 내 PC를 씁니다.</p>
       <p>Deskify PC판이 켜져 있고 로그인된 PC에서 되며, <b>구독(Pro 구독 또는 클라우드 구독)</b>에서 씁니다(평생 이용권만으로는 쓰지 않습니다).</p>
       <p>최신 브라우저(Chrome·Edge·Safari 등)에서 엽니다.</p>
-      <p><b><a href="web.html">웹에서 쓰기</a></b>(deskify-app.com/web.html)에서 <b>웹 Deskify</b>와 <a href="#support-overview">원격 지원</a> 가운데 하나를 고릅니다.</p>
-      <p>웹 Deskify(deskify-app.com/app.html)에서는 PC 목록의 PC마다 아래 두 가지를 고릅니다.</p>
+      <p><b><a href="web">웹에서 쓰기</a></b>(deskify-app.com/web)에서 <b>웹 Deskify</b>와 <a href="#support-overview">원격 지원</a> 가운데 하나를 고릅니다.</p>
+      <p>웹 Deskify(deskify-app.com/app)에서는 PC 목록의 PC마다 아래 두 가지를 고릅니다.</p>
       <p>구글로 한 번 로그인하면 같은 브라우저의 다른 페이지에서도 로그인된 채로 열립니다.</p>
       <div class="roles">
-        <div class="role"><b class="t"><a href="app.html">이 PC 화면 보기</a></b><span class="k">웹 Deskify</span>
+        <div class="role"><b class="t"><a href="app">이 PC 화면 보기</a></b><span class="k">웹 Deskify</span>
           <p>브라우저에서 내 PC의 실제 화면을 보고 마우스·키보드로 조작합니다. 원격 데스크톱(RDP)이 없는 Windows Home PC도 됩니다. 소리, 클립보드, 파일 보내기도 됩니다.</p></div>
-        <div class="role"><b class="t"><a href="app.html">보관함에서 접속</a></b><span class="k">웹 Deskify</span>
+        <div class="role"><b class="t"><a href="app">보관함에서 접속</a></b><span class="k">웹 Deskify</span>
           <p>PC판 보관함의 컴퓨터 목록을 브라우저에서 열고, 그 PC를 거쳐 SSH 터미널·파일(SFTP)·원격 데스크톱·VNC에 접속합니다.</p>
           <p>비밀번호와 키는 브라우저로 가지 않고 PC가 대신 접속합니다. PC 화면에는 아무것도 뜨지 않습니다.</p></div>
-        <div class="role"><b class="t"><a href="support.html">원격 지원</a></b><span class="k">deskify-app.com/support.html</span>
+        <div class="role"><b class="t"><a href="support">원격 지원</a></b><span class="k">deskify-app.com/support</span>
           <p>다른 사람의 Windows PC를 9자리 번호로 돕습니다.</p>
           <p>돕는 사람은 구독(Pro 구독 또는 클라우드 구독), 도움 받는 사람은 무료이고 설치·로그인이 필요 없습니다. 아래 <a href="#support-overview">원격 지원</a>을 참고하세요.</p></div>
       </div>
@@ -1133,16 +1134,16 @@
       <p>Use your PC from a browser, nothing to install.</p>
       <p>It works with a PC where the Deskify PC app is running and signed in, and it comes with a <b>subscription (Pro or Cloud)</b> — not with the lifetime licence alone.</p>
       <p>Open it in a current browser (Chrome, Edge, Safari and others).</p>
-      <p><b><a href="web.html">Use on the web</a></b> (deskify-app.com/web.html) is where you pick <b>Web Deskify</b> or <a href="#support-overview">remote support</a>.</p>
-      <p>In Web Deskify (deskify-app.com/app.html) each PC in the list offers the two things below.</p>
+      <p><b><a href="web">Use on the web</a></b> (deskify-app.com/web) is where you pick <b>Web Deskify</b> or <a href="#support-overview">remote support</a>.</p>
+      <p>In Web Deskify (deskify-app.com/app) each PC in the list offers the two things below.</p>
       <p>Sign in with Google once and the other pages open already signed in, in the same browser.</p>
       <div class="roles">
-        <div class="role"><b class="t"><a href="app.html">View this PC’s screen</a></b><span class="k">Web Deskify</span>
+        <div class="role"><b class="t"><a href="app">View this PC’s screen</a></b><span class="k">Web Deskify</span>
           <p>See your PC’s actual screen in the browser and control it with mouse and keyboard. Works on Windows Home PCs without Remote Desktop too. Sound, clipboard and sending files come along.</p></div>
-        <div class="role"><b class="t"><a href="app.html">Connect from vault</a></b><span class="k">Web Deskify</span>
+        <div class="role"><b class="t"><a href="app">Connect from vault</a></b><span class="k">Web Deskify</span>
           <p>Open the PC app’s vault in the browser and connect through that PC to SSH terminals, files (SFTP), Remote Desktop and VNC.</p>
           <p>Passwords and keys never go to the browser; the PC connects for it. Nothing appears on the PC’s screen.</p></div>
-        <div class="role"><b class="t"><a href="support.html">Remote support</a></b><span class="k">deskify-app.com/support.html</span>
+        <div class="role"><b class="t"><a href="support">Remote support</a></b><span class="k">deskify-app.com/support</span>
           <p>Help someone else’s Windows PC with a 9-digit code.</p>
           <p>The helper needs a subscription (Pro or Cloud); the person getting help pays nothing and needs no install or account. See <a href="#support-overview">Remote support</a> below.</p></div>
       </div>
@@ -1153,16 +1154,16 @@
       <p>インストール不要で、ブラウザーから PC を使えます。</p>
       <p>Deskify PC 版が起動してログインしている PC で動作し、<b>サブスク（Pro 購読またはクラウド購読）</b>で利用できます（買い切りのみでは利用できません）。</p>
       <p>最新のブラウザー（Chrome、Edge、Safari など）で開いてください。</p>
-      <p><b><a href="web.html">Web で使う</a></b> (deskify-app.com/web.html) で <b>Web 版 Deskify</b> または <a href="#support-overview">リモートサポート</a> を選択します。</p>
-      <p>Web 版 Deskify (deskify-app.com/app.html) では、PC 一覧の PC ごとに以下の 2 つから選びます。</p>
+      <p><b><a href="web">Web で使う</a></b> (deskify-app.com/web) で <b>Web 版 Deskify</b> または <a href="#support-overview">リモートサポート</a> を選択します。</p>
+      <p>Web 版 Deskify (deskify-app.com/app) では、PC 一覧の PC ごとに以下の 2 つから選びます。</p>
       <p>Google で一度ログインすれば、同じブラウザーの他のページもログインした状態で開きます。</p>
       <div class="roles">
-        <div class="role"><b class="t"><a href="app.html">この PC の画面を見る</a></b><span class="k">Web 版 Deskify</span>
+        <div class="role"><b class="t"><a href="app">この PC の画面を見る</a></b><span class="k">Web 版 Deskify</span>
           <p>ブラウザーで PC の実際の画面を表示し、マウスやキーボードで操作します。リモート デスクトップ (RDP) のない Windows Home PC でも動作します。音声、クリップボード、ファイル送信にも対応しています。</p></div>
-        <div class="role"><b class="t"><a href="app.html">保管庫から接続</a></b><span class="k">Web 版 Deskify</span>
+        <div class="role"><b class="t"><a href="app">保管庫から接続</a></b><span class="k">Web 版 Deskify</span>
           <p>PC 版の保管庫にあるコンピューター一覧をブラウザーで開き、その PC を経由して SSH ターミナル、ファイル (SFTP)、リモート デスクトップ、VNC に接続します。</p>
           <p>パスワードやキーはブラウザーには送信されず、PC が代わりに接続します。PC の画面には何も表示されません。</p></div>
-        <div class="role"><b class="t"><a href="support.html">リモートサポート</a></b><span class="k">deskify-app.com/support.html</span>
+        <div class="role"><b class="t"><a href="support">リモートサポート</a></b><span class="k">deskify-app.com/support</span>
           <p>9 桁の番号で他の人の Windows PC をサポートします。</p>
           <p>サポートする人はサブスク（Pro 購読またはクラウド購読）が必要で、サポートを受ける方は無料でインストールやアカウントも不要です。下の <a href="#support-overview">リモートサポート</a> をご覧ください。</p></div>
       </div>
@@ -1173,16 +1174,16 @@
       <p>无需安装，即可在浏览器中使用你的电脑。</p>
       <p>适用于已运行并登录 Deskify 电脑版的电脑，包含在<b>订阅（Pro 订阅或云订阅）</b>中（仅凭终身版无法使用）。</p>
       <p>请在现代浏览器（Chrome、Edge、Safari 等）中打开。</p>
-      <p>在 <b><a href="web.html">在网页上使用</a></b> (deskify-app.com/web.html) 中，可以选择<b>网页版 Deskify</b>或 <a href="#support-overview">远程协助</a>。</p>
-      <p>在网页版 Deskify (deskify-app.com/app.html) 中，电脑列表里的每台电脑都可以选择下方两项。</p>
+      <p>在 <b><a href="web">在网页上使用</a></b> (deskify-app.com/web) 中，可以选择<b>网页版 Deskify</b>或 <a href="#support-overview">远程协助</a>。</p>
+      <p>在网页版 Deskify (deskify-app.com/app) 中，电脑列表里的每台电脑都可以选择下方两项。</p>
       <p>使用 Google 登录一次后，在同一浏览器的其他页面中也会保持登录状态打开。</p>
       <div class="roles">
-        <div class="role"><b class="t"><a href="app.html">查看此电脑屏幕</a></b><span class="k">网页版 Deskify</span>
+        <div class="role"><b class="t"><a href="app">查看此电脑屏幕</a></b><span class="k">网页版 Deskify</span>
           <p>在浏览器中查看电脑的实际屏幕，并使用鼠标和键盘进行控制。没有远程桌面 (RDP) 的 Windows Home PC 也能使用。声音、剪贴板和文件发送也一并支持。</p></div>
-        <div class="role"><b class="t"><a href="app.html">从保管库连接</a></b><span class="k">网页版 Deskify</span>
+        <div class="role"><b class="t"><a href="app">从保管库连接</a></b><span class="k">网页版 Deskify</span>
           <p>在浏览器中打开 电脑版保管库中的电脑列表，并通过该电脑连接到 SSH 终端、文件 (SFTP)、远程桌面和 VNC。</p>
           <p>密码和密钥绝不会传到浏览器，而是由电脑代为连接。电脑屏幕上不会显示任何内容。</p></div>
-        <div class="role"><b class="t"><a href="support.html">远程协助</a></b><span class="k">deskify-app.com/support.html</span>
+        <div class="role"><b class="t"><a href="support">远程协助</a></b><span class="k">deskify-app.com/support</span>
           <p>通过 9 位号码协助他人的 Windows PC。</p>
           <p>协助者需要订阅（Pro 订阅或云订阅）；接受协助的一方完全免费，且无需安装或账号。请参阅下方的 <a href="#support-overview">远程协助</a>。</p></div>
       </div>
@@ -1589,6 +1590,48 @@
       </ul>
       <p>远程桌面 (RDP) 连接会按手机屏幕调整桌面大小，因此不会出现黑边。</p>
       <p class="hc-link"><a href="#stream-touch-mouse">本文链接</a></p>
+    </details>
+  </article>
+  <article class="hc-a" id="stream-extra-monitor" data-cats="companion trouble" data-updated="2026-11-26">
+    <details lang-ko><summary>화면 스트리밍 중 PC에 모니터가 하나 더 생기거나 빈 바탕 화면만 보일 때</summary>
+      <p>PC Deskify는 화면 스트리밍 동안 이 기기 화면 크기의 <b>가상 모니터</b>를 하나 만들어 그 화면만 켜 둡니다. 끝내면 가상 모니터를 끄고 원래 모니터로 돌아갑니다.</p>
+      <p>PC에 <b>HDMI 더미 플러그</b>나 HDMI 분배기·KVM·캡처 장치가 꽂혀 있으면, 모니터 전원을 꺼도 Windows는 모니터가 연결된 것으로 봅니다. 그래서 가상 모니터가 다시 만들어지는 순간 Windows가 그쪽 화면을 다시 켜고, 가상 모니터가 그 옆에 확장 화면으로 붙을 수 있습니다. 이때는 작업 표시줄과 창이 다른 화면에 남아 이 기기에는 빈 바탕 화면만 보입니다.</p>
+      <ul>
+        <li>스트리밍 중 해상도를 바꿀 때는 이런 일이 생기지 않도록 가상 모니터를 끄지 않고 크기만 바꿉니다.</li>
+        <li>그래도 생기면 스트리밍을 끝냈다가 다시 시작하세요. 시작할 때는 가상 모니터만 켜집니다.</li>
+        <li>Deskify로만 스트리밍한다면 더미 플러그는 뽑아도 됩니다. Deskify 가상 모니터가 그 역할을 대신합니다. 다른 스트리밍 프로그램도 쓴다면 그대로 두세요.</li>
+      </ul>
+      <p class="hc-link"><a href="#stream-extra-monitor">이 글 링크</a></p>
+    </details>
+    <details lang-en><summary>Streaming shows an extra monitor on the PC, or only an empty desktop</summary>
+      <p>While streaming, PC Deskify makes one <b>virtual monitor</b> the size of this device's screen and keeps only that one on. When you end, it turns the virtual monitor off and the PC's own monitors come back.</p>
+      <p>With an <b>HDMI dummy plug</b>, an HDMI splitter, a KVM or a capture device plugged in, Windows sees a monitor there even with the monitor's power off. So the moment a virtual monitor is made again, Windows may light that output and put the virtual monitor beside it as an extended screen. The taskbar and windows then stay on the other screen and this device shows only an empty desktop.</p>
+      <ul>
+        <li>To keep this from happening, picking another resolution while streaming changes the virtual monitor's size in place without turning it off.</li>
+        <li>If it still happens, end the stream and start it again: a stream starts with the virtual monitor alone.</li>
+        <li>If you stream only with Deskify, you can unplug the dummy plug: Deskify's virtual monitor does its job. Keep it if you use other streaming apps too.</li>
+      </ul>
+      <p class="hc-link"><a href="#stream-extra-monitor">Link to this article</a></p>
+    </details>
+    <details lang-ja><summary>画面ストリーミング中に PC のモニターが 1 台増える・空のデスクトップだけが見えるとき</summary>
+      <p>PC 版 Deskify は画面ストリーミング中、この端末の画面サイズの<b>仮想モニター</b>を 1 台作り、それだけをオンにします。終了すると仮想モニターをオフにし、元のモニターに戻ります。</p>
+      <p>PC に <b>HDMI ダミープラグ</b>や HDMI 分配器・KVM・キャプチャー機器がつながっていると、モニターの電源を切っても Windows はモニターが接続されていると見なします。そのため仮想モニターを作り直した瞬間に Windows がその出力を再びオンにし、仮想モニターがその横に拡張画面としてつながることがあります。このときタスクバーやウィンドウは別の画面に残り、この端末には空のデスクトップだけが表示されます。</p>
+      <ul>
+        <li>ストリーミング中に解像度を変えるときは、こうならないよう仮想モニターをオフにせずサイズだけを変えます。</li>
+        <li>それでも起きるときは、ストリーミングを終了してからもう一度始めてください。開始時は仮想モニターだけがオンになります。</li>
+        <li>Deskify だけでストリーミングするなら、ダミープラグは抜いてもかまいません。Deskify の仮想モニターがその役目を果たします。ほかのストリーミングアプリも使う場合はそのままにしてください。</li>
+      </ul>
+      <p class="hc-link"><a href="#stream-extra-monitor">この記事へのリンク</a></p>
+    </details>
+    <details lang-zh><summary>屏幕串流时电脑多出一台显示器，或只看到空白桌面</summary>
+      <p>电脑版 Deskify 在屏幕串流期间会创建一台与本设备屏幕同尺寸的<b>虚拟显示器</b>，并只保留它亮着。结束后会关闭虚拟显示器，回到电脑原来的显示器。</p>
+      <p>如果电脑上插着 <b>HDMI 假负载（欺骗器）</b>或 HDMI 分配器、KVM、采集设备，即使关掉显示器电源，Windows 仍认为接着显示器。因此在重新创建虚拟显示器的瞬间，Windows 可能重新点亮那一路输出，并把虚拟显示器作为扩展屏接在旁边。这时任务栏和窗口留在另一块屏幕上，本设备只会看到空白桌面。</p>
+      <ul>
+        <li>为避免这种情况，串流中更改分辨率时不会关闭虚拟显示器，只调整其尺寸。</li>
+        <li>如果仍然出现，请结束串流后重新开始：开始时只会亮起虚拟显示器。</li>
+        <li>如果只用 Deskify 串流，可以拔掉假负载，Deskify 的虚拟显示器会代替它。如果还使用其他串流软件，请保留。</li>
+      </ul>
+      <p class="hc-link"><a href="#stream-extra-monitor">本文链接</a></p>
     </details>
   </article>
   <article class="hc-a" id="companion-switch" data-cats="companion" data-updated="2026-10-10">
@@ -2085,7 +2128,7 @@
   <article class="hc-a" id="support-helping" data-cats="support plans" data-updated="2026-10-10">
     <details lang-ko><summary>원격 지원 · 도우미 (구독)</summary>
       <ul>
-        <li><b>웹</b>: <a href="support.html">deskify-app.com/support.html</a>에서 구글 계정으로 로그인하고 번호를 입력하거나 내 번호를 만듭니다.</li>
+        <li><b>웹</b>: <a href="support">deskify-app.com/support</a>에서 구글 계정으로 로그인하고 번호를 입력하거나 내 번호를 만듭니다.</li>
         <li><b>폰·태블릿</b>: Deskify 앱 <b>설정 → 기기 → 원격 지원</b>.</li>
         <li><b>PC</b>: Deskify PC판 홈의 <b>다른 PC 돕기</b> (웹 페이지가 열립니다).</li>
       </ul>
@@ -2096,7 +2139,7 @@
     </details>
     <details lang-en><summary>Remote support · Helping (subscription)</summary>
       <ul>
-        <li><b>Web</b>: sign in at <a href="support.html">deskify-app.com/support.html</a> with your Google account, then enter their code or make yours.</li>
+        <li><b>Web</b>: sign in at <a href="support">deskify-app.com/support</a> with your Google account, then enter their code or make yours.</li>
         <li><b>Phone/tablet</b>: in the Deskify app, <b>Settings → Devices → Remote support</b>.</li>
         <li><b>PC</b>: <b>Help another PC</b> on the Deskify PC app's home (opens the web page).</li>
       </ul>
@@ -2107,7 +2150,7 @@
     </details>
     <details lang-ja><summary>リモートサポート · サポートする人（サブスク）</summary>
       <ul>
-        <li><b>Web</b>: <a href="support.html">deskify-app.com/support.html</a> で Google アカウントにログインし、相手の番号を入力するか自分の番号を作成します。</li>
+        <li><b>Web</b>: <a href="support">deskify-app.com/support</a> で Google アカウントにログインし、相手の番号を入力するか自分の番号を作成します。</li>
         <li><b>スマホ・タブレット</b>: Deskify アプリの <b>設定 → 端末 → リモートサポート</b>。</li>
         <li><b>PC</b>: Deskify PC 版ホームの <b>他の PC をサポート</b>（Web ページが開きます）。</li>
       </ul>
@@ -2119,7 +2162,7 @@
     </details>
     <details lang-zh><summary>远程协助 · 协助者（订阅）</summary>
       <ul>
-        <li><b>网页</b>：在 <a href="support.html">deskify-app.com/support.html</a> 中使用 Google 账号登录，然后输入对方的号码或生成你的号码。</li>
+        <li><b>网页</b>：在 <a href="support">deskify-app.com/support</a> 中使用 Google 账号登录，然后输入对方的号码或生成你的号码。</li>
         <li><b>手机/平板</b>：在 Deskify 应用中，前往<b>设置 → 设备 → 远程协助</b>。</li>
         <li><b>电脑</b>：在 Deskify 电脑版主页中点击<b>协助其他电脑</b>（将打开网页）。</li>
       </ul>
@@ -2534,11 +2577,11 @@
 <footer class="foot">
   <div class="foot-in">
     <span>© 2026 Deskify</span>
-    <a href="privacy.html"><span lang-ko>개인정보처리방침</span><span lang-en>Privacy policy</span><span lang-ja>プライバシーポリシー</span><span lang-zh>隐私政策</span></a>
-    <a href="terms.html"><span lang-ko>이용약관</span><span lang-en>Terms of use</span><span lang-ja>利用規約</span><span lang-zh>使用条款</span></a>
-    <a href="help.html"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
-    <a href="web.html"><span lang-ko>웹에서 쓰기 (베타)</span><span lang-en>Use on the web (beta)</span><span lang-ja>Web で使う (ベータ)</span><span lang-zh>在网页上使用 (测试版)</span></a>
-    <a href="refund.html"><span lang-ko>환불 정책</span><span lang-en>Refund policy</span><span lang-ja>返金ポリシー</span><span lang-zh>退款政策</span></a>
+    <a href="privacy"><span lang-ko>개인정보처리방침</span><span lang-en>Privacy policy</span><span lang-ja>プライバシーポリシー</span><span lang-zh>隐私政策</span></a>
+    <a href="terms"><span lang-ko>이용약관</span><span lang-en>Terms of use</span><span lang-ja>利用規約</span><span lang-zh>使用条款</span></a>
+    <a href="help"><span lang-ko>도움말</span><span lang-en>Help</span><span lang-ja>ヘルプ</span><span lang-zh>帮助</span></a>
+    <a href="web"><span lang-ko>웹에서 쓰기 (베타)</span><span lang-en>Use on the web (beta)</span><span lang-ja>Web で使う (ベータ)</span><span lang-zh>在网页上使用 (测试版)</span></a>
+    <a href="refund"><span lang-ko>환불 정책</span><span lang-en>Refund policy</span><span lang-ja>返金ポリシー</span><span lang-zh>退款政策</span></a>
     <a class="mail" href="mailto:support@deskify-app.com">support@deskify-app.com</a>
   </div>
 </footer>

@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ko">
 <head>
+<script src="cleanurl.min.js"></script>
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'sha256-jTFzZMSsi22zad7BpcRx0i6xQPfAaz3Wt52wRU07OAE=' 'self' https://www.gstatic.com/firebasejs/ https://apis.google.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: blob: https://cdn.cloudflare.steamstatic.com; connect-src 'self' blob: https://api.deskify-app.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com http://127.0.0.1:* http://localhost:*; frame-src https://deskify-8bd6f.firebaseapp.com https://accounts.google.com https://apis.google.com; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
@@ -69,7 +70,7 @@
 
 <header class="rm-top rm-path" id="top">
   <a class="rm-brand" href="./"><img class="rm-logo" src="icon.png" alt="" width="26" height="26"><b>Deskify</b></a>
-  <a class="rm-back" href="app.html" data-tip-ko="웹 Deskify" data-tip-en="Web Deskify" data-tip-ja="Web 版 Deskify" data-tip-zh="网页版 Deskify" aria-label="웹 Deskify"><svg aria-hidden="true"><use href="#i-back"/></svg><span class="rm-back-t"><span lang-ko>웹 Deskify</span><span lang-en>Web Deskify</span><span lang-ja>Web 版 Deskify</span><span lang-zh>网页版 Deskify</span></span></a>
+  <a class="rm-back" href="app" data-tip-ko="웹 Deskify" data-tip-en="Web Deskify" data-tip-ja="Web 版 Deskify" data-tip-zh="网页版 Deskify" aria-label="웹 Deskify"><svg aria-hidden="true"><use href="#i-back"/></svg><span class="rm-back-t"><span lang-ko>웹 Deskify</span><span lang-en>Web Deskify</span><span lang-ja>Web 版 Deskify</span><span lang-zh>网页版 Deskify</span></span></a>
   <span class="rm-here"><span class="rm-crumb" aria-hidden="true">›</span><span class="rm-tag"><span lang-ko>이 PC 화면 보기</span><span lang-en>View this PC's screen</span><span lang-ja>この PC の画面を見る</span><span lang-zh>查看此电脑屏幕</span></span><span class="beta-pill"><span lang-ko>베타</span><span lang-en>Beta</span><span lang-ja>ベータ</span><span lang-zh>测试版</span></span></span>
   <div class="rm-top-r">
     <span id="whoBox" class="rm-who" hidden><span id="whoAv" class="rm-av"></span><span id="who" class="rm-who-t"></span></span>
@@ -109,7 +110,7 @@
       <li><svg><use href="#i-bolt"/></svg><span lang-ko>PC와 직접 연결합니다. 화면은 서버를 거치지 않습니다</span><span lang-en>A direct connection to the PC; the screen doesn't pass through a server</span><span lang-ja>PC と直接接続します。画面はサーバーを経由しません</span><span lang-zh>与电脑直接连接。画面不经过服务器</span></li>
       <li><svg><use href="#i-monitor"/></svg><span lang-ko>PC의 설정 → 모바일 기기 → 화면 공유 원격에서 "화면 공유 원격 허용"을 켜야 연결됩니다 (구독)</span><span lang-en>Turn on "Allow screen sharing" in the PC's Settings → Mobile devices → Screen sharing (subscription)</span><span lang-ja>PC の設定 → モバイル端末 → 画面共有リモートで「画面共有リモートを許可」をオンにすると接続できます (購読)</span><span lang-zh>需在电脑的设置 → 移动设备 → 屏幕共享远程中开启“允许屏幕共享远程”才能连接 (订阅)</span></li>
     </ul>
-    <p class="rm-agree"><span lang-ko>로그인하면 <a href="terms.html">이용약관</a>과 <a href="privacy.html">개인정보처리방침</a>에 동의하는 것으로 봅니다.</span><span lang-en>By signing in you agree to the <a href="terms.html">Terms</a> and the <a href="privacy.html">Privacy Policy</a>.</span><span lang-ja>ログインすると、<a href="terms.html">利用規約</a>および<a href="privacy.html">プライバシーポリシー</a>に同意したものとみなされます。</span><span lang-zh>登录即表示你同意<a href="terms.html">服务条款</a>和<a href="privacy.html">隐私政策</a>。</span></p>
+    <p class="rm-agree"><span lang-ko>로그인하면 <a href="terms">이용약관</a>과 <a href="privacy">개인정보처리방침</a>에 동의하는 것으로 봅니다.</span><span lang-en>By signing in you agree to the <a href="terms">Terms</a> and the <a href="privacy">Privacy Policy</a>.</span><span lang-ja>ログインすると、<a href="terms">利用規約</a>および<a href="privacy">プライバシーポリシー</a>に同意したものとみなされます。</span><span lang-zh>登录即表示你同意<a href="terms">服务条款</a>和<a href="privacy">隐私政策</a>。</span></p>
   </section>
 
   <section id="wait" class="rm-card" hidden>
@@ -243,7 +244,7 @@
 <script src="gamepad.min.js?v=08e929f25a"></script>
 <script src="gamesound.min.js?v=efdc8aae44"></script>
 <script src="gamelist.min.js?v=e09116df18"></script>
-<script src="friend.min.js?v=4cf5410c8e"></script>
-<script src="remote.min.js?v=126e0205d6"></script>
+<script src="friend.min.js?v=6a593cc092"></script>
+<script src="remote.min.js?v=b3b6bd2d28"></script>
 </body>
 </html>
