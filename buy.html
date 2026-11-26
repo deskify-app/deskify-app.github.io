@@ -175,7 +175,8 @@
         (r.data.details.lineItems || []).forEach(function (li) {
           var k = keys.filter(function (x) { return PADDLE.prices[x] === li.price.id; })[0];
           var el = k && document.querySelector('[data-price="' + k + '"]');
-          if (el && li.formattedTotals && li.formattedTotals.subtotal) el.textContent = li.formattedTotals.subtotal;
+          // (The total, tax in: 11-26 the subtotal showed ₩4,536 for ₩4,990 — VAT taken out.)
+          if (el && li.formattedTotals && li.formattedTotals.total) el.textContent = li.formattedTotals.total;
         });
       }).catch(function () {});
     }
